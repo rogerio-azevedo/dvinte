@@ -13,10 +13,6 @@ class Race extends Model {
 
     return this
   }
-
-  static associate(models) {
-    this.belongsTo(models.Person, { foreignKey: 'person_id', as: 'person' })
-  }
 }
 
 export default Race

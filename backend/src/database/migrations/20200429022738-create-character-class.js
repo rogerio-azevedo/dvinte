@@ -1,6 +1,6 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('person-class', {
+    return queryInterface.createTable('characters-class', {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -9,7 +9,7 @@ module.exports = {
       },
       person_id: {
         type: Sequelize.INTEGER,
-        references: { model: 'persons', key: 'id' },
+        references: { model: 'characters', key: 'id' },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
         allowNull: false,
@@ -33,6 +33,6 @@ module.exports = {
   },
 
   down: queryInterface => {
-    return queryInterface.dropTable('person-class')
+    return queryInterface.dropTable('characters-class')
   },
 }

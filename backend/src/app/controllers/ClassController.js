@@ -2,9 +2,9 @@ import Class from '../models/Class'
 
 class ClassController {
   async index(req, res) {
-    const list = await Class.findAll()
+    const classes = await Class.findAll()
 
-    return res.json(list)
+    return res.json(classes)
   }
 
   async store(req, res) {

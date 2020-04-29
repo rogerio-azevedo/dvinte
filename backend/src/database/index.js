@@ -5,8 +5,8 @@ import Sequelize from 'sequelize'
 import Alignment from '../app/models/Alignment'
 import Class from '../app/models/Class'
 import Divinity from '../app/models/Divinity'
-import Person from '../app/models/Person'
-import PersonClass from '../app/models/PersonClass'
+import Character from '../app/models/Character'
+import CharacterClass from '../app/models/CharacterClass'
 import Portrait from '../app/models/Portrait'
 import Race from '../app/models/Race'
 import User from '../app/models/User'
@@ -17,8 +17,8 @@ const models = [
   Alignment,
   Class,
   Divinity,
-  Person,
-  PersonClass,
+  Character,
+  CharacterClass,
   Portrait,
   Race,
   User,

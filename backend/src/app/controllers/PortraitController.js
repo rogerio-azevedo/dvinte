@@ -1,4 +1,7 @@
 import Portrait from '../models/Portrait'
+import sharp from 'sharp'
+import fs from 'fs'
+const path = require('path')
 
 class PortraitController {
   async index(req, res) {
@@ -6,11 +9,27 @@ class PortraitController {
 
     return res.json(list)
   }
-
   async store(req, res) {
-    const portrait = await Portrait.create(req.body)
+    const {
+      originalname: fileName,
+      filename: newName,
+      destination: folder,
+      path: fullPath,
+    } = req.file
 
-    return res.json(portrait)
+    await sharp(fullPath)
+      .resize(500)
+      .jpeg({ quality: 70 })
+      .toFile(path.resolve(folder, 'resized', newName))
+
+    fs.unlinkSync(fullPath)
+
+    const file = await Portrait.create({
+      name: fileName,
+      path: newName,
+    })
+
+    return res.json(file)
   }
 }
 

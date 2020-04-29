@@ -1,6 +1,6 @@
 import { Sequelize, Model } from 'sequelize'
 
-class Person extends Model {
+class Character extends Model {
   static init(sequelize) {
     super.init(
       {
@@ -13,6 +13,8 @@ class Person extends Model {
         height: Sequelize.STRING,
         weight: Sequelize.STRING,
         is_ativo: Sequelize.BOOLEAN,
+        level: Sequelize.INTEGER,
+        size: Sequelize.INTEGER,
       },
       {
         sequelize,
@@ -50,4 +52,4 @@ class Person extends Model {
   }
 }
 
-export default Person
+export default Character
