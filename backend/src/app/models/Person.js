@@ -5,11 +5,13 @@ class Person extends Model {
     super.init(
       {
         name: Sequelize.STRING,
-        email: Sequelize.STRING,
-        password: Sequelize.VIRTUAL,
-        password_hash: Sequelize.STRING,
-        city: Sequelize.STRING,
-        state: Sequelize.STRING,
+        age: Sequelize.INTEGER,
+        gender: Sequelize.INTEGER,
+        skin: Sequelize.STRING,
+        eye: Sequelize.STRING,
+        hair: Sequelize.STRING,
+        height: Sequelize.STRING,
+        weight: Sequelize.STRING,
         is_ativo: Sequelize.BOOLEAN,
       },
       {
@@ -24,6 +26,26 @@ class Person extends Model {
     this.belongsTo(models.User, {
       foreignKey: 'user_id',
       as: 'user',
+    })
+
+    this.belongsTo(models.Portrait, {
+      foreignKey: 'portrait_id',
+      as: 'portrait',
+    })
+
+    this.belongsTo(models.Alignment, {
+      foreignKey: 'alignment_id',
+      as: 'alignment',
+    })
+
+    this.belongsTo(models.Race, {
+      foreignKey: 'race_id',
+      as: 'race',
+    })
+
+    this.belongsTo(models.Divinity, {
+      foreignKey: 'divinity_id',
+      as: 'divinity',
     })
   }
 }

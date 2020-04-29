@@ -1,9 +1,28 @@
 import Sequelize from 'sequelize'
+
 // import mongoose from 'mongoose';
+
+import Alignment from '../app/models/Alignment'
+import Class from '../app/models/Class'
+import Divinity from '../app/models/Divinity'
+import Person from '../app/models/Person'
+import PersonClass from '../app/models/PersonClass'
+import Portrait from '../app/models/Portrait'
+import Race from '../app/models/Race'
 import User from '../app/models/User'
+
 import databaseConfig from '../config/database'
 
-const models = [User]
+const models = [
+  Alignment,
+  Class,
+  Divinity,
+  Person,
+  PersonClass,
+  Portrait,
+  Race,
+  User,
+]
 
 class Database {
   constructor() {
