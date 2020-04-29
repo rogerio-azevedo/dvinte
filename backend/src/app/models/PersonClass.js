@@ -2,9 +2,15 @@ import { Sequelize, Model } from 'sequelize'
 
 class PersonClass extends Model {
   static init(sequelize) {
-    super.init({
-      sequelize,
-    })
+    super.init(
+      {
+        person_id: Sequelize.INTEGER,
+        class_id: Sequelize.INTEGER,
+      },
+      {
+        sequelize,
+      }
+    )
 
     return this
   }
