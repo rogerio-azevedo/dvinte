@@ -1,11 +1,10 @@
 import React from 'react'
-// import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Form, Input } from '@rocketseat/unform'
 import * as Yup from 'yup'
-// import logo from '~/assets/logo.svg'
 
-// import { signUpRequest } from '~/store/modules/auth/actions'
+import { signUpRequest } from '~/store/modules/auth/actions'
 
 const schema = Yup.object().shape({
   name: Yup.string().required('O nome é obrigatório'),
@@ -26,16 +25,10 @@ const schema = Yup.object().shape({
 })
 
 export default function SignUp() {
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
   function handleSubimit({ name, email, password, phone, city, state }) {
-    // dispatch(signUpRequest(name, email, password))
-    console.tron.log(name)
-    console.tron.log(email)
-    console.tron.log(password)
-    console.tron.log(phone)
-    console.tron.log(city)
-    console.tron.log(state)
+    dispatch(signUpRequest(name, email, password, phone, city, state))
   }
 
   return (

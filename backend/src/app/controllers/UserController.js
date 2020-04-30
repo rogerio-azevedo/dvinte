@@ -19,13 +19,15 @@ class UserController {
 
     const user = await User.create(req.body)
 
-    const { id, customer_id, name, email } = user
+    const { id, name, email, phone, city, state } = user
 
     return res.json({
       id,
-      customer_id,
       name,
       email,
+      phone,
+      city,
+      state,
     })
   }
 
@@ -56,6 +58,9 @@ class UserController {
       id,
       name,
       email,
+      phone,
+      city,
+      state,
     })
   }
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import TopNav from '~/components/TopNav'
 // import Notifications from '~/components/Notifications';
@@ -7,11 +7,10 @@ import TopNav from '~/components/TopNav'
 import { Container, Content, Profile } from './styles'
 
 export default function Header() {
-  // const profile = useSelector(state => state.user.profile);
-  const perfil = true // profile.partner.is_porter;
+  const profile = useSelector(state => state.user.profile)
 
   return (
-    <Container perfil={perfil ? 1 : 0}>
+    <Container>
       <Content>
         <TopNav />
 
@@ -20,7 +19,7 @@ export default function Header() {
 
           <Profile>
             <div>
-              <strong>NOME</strong>
+              <strong>{profile.name}</strong>
               <Link to="/profile">Meu Perfil</Link>
               {/* <strong>{empresa}</strong> */}
             </div>

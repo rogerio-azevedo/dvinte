@@ -42,6 +42,7 @@ export function* signUp({ payload }) {
       phone,
       city,
       state,
+      is_ativo: true,
     })
 
     history.push('/')
