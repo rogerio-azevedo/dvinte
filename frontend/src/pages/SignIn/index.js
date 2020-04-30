@@ -1,9 +1,9 @@
 import React from 'react'
-// import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Form, Input } from '@rocketseat/unform'
 import * as Yup from 'yup'
-// import { signInRequest } from '~/store/modules/auth/actions'
+import { signInRequest } from '~/store/modules/auth/actions'
 
 const schema = Yup.object().shape({
   email: Yup.string()
@@ -14,17 +14,18 @@ const schema = Yup.object().shape({
 })
 
 export default function SignIn() {
-  // const dispatch = useDispatch()
-  // const loading = useSelector(state => state.auth.loading)
-  const loading = false
+  const dispatch = useDispatch()
+  const loading = useSelector(state => state.auth.loading)
 
-  // function handleSubimit({ email, password }) {
-  //   // dispatch(signInRequest(email, password))
-  // }
-  // onSubmit={handleSubimit}
+  function handleSubimit({ email, password }) {
+    dispatch(signInRequest(email, password))
+    console.tron.log(email)
+    console.tron.log(password)
+  }
+
   return (
     <>
-      <Form schema={schema}>
+      <Form schema={schema} onSubmit={handleSubimit}>
         <Input name="email" type="email" placeholder="E-mail" />
         <Input name="password" type="password" placeholder="Senha" />
 

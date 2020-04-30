@@ -17,25 +17,36 @@ const schema = Yup.object().shape({
   password: Yup.string()
     .min(6, 'No mĩnimo 6 caracteres')
     .required('A senha é obrigatória'),
+
+  phone: Yup.string().required('O telefone é obrigatório'),
+
+  city: Yup.string().required('A cidade é obrigatória'),
+
+  state: Yup.string().required('O estado é obrigatório'),
 })
 
 export default function SignUp() {
   // const dispatch = useDispatch()
 
-  // function handleSubimit({ name, email, password }) {
-  //   dispatch(signUpRequest(name, email, password))
-  // }
+  function handleSubimit({ name, email, password, phone, city, state }) {
+    // dispatch(signUpRequest(name, email, password))
+    console.tron.log(name)
+    console.tron.log(email)
+    console.tron.log(password)
+    console.tron.log(phone)
+    console.tron.log(city)
+    console.tron.log(state)
+  }
 
   return (
     <>
-      {/* onSubmit={handleSubimit} */}
-      <Form schema={schema}>
+      <Form schema={schema} onSubmit={handleSubimit}>
         <Input name="name" placeholder="Nome" />
         <Input name="email" type="email" placeholder="E-mail" />
         <Input name="password" type="password" placeholder="Senha" />
-        <Input name="password" type="password" placeholder="Telefone" />
-        <Input name="password" type="password" placeholder="Cidade" />
-        <Input name="password" type="password" placeholder="Estado" />
+        <Input name="phone" placeholder="Telefone" />
+        <Input name="city" placeholder="Cidade" />
+        <Input name="state" placeholder="Estado" />
 
         <button type="submit">Criar conta</button>
         <Link to="/">Já tenho uma conta.</Link>

@@ -1,14 +1,9 @@
 import styled from 'styled-components'
-import { lighten } from 'polished'
 
 export const Container = styled.div`
-  background: linear-gradient(-90deg, #1f1c18, #8e0e00);
+  background: linear-gradient(-90deg, #200122, #8e0e00);
   padding: 0 30px;
-  border-bottom: 1px solid
-    ${props =>
-      props.perfil
-        ? `${lighten(0.4, '#232947')}`
-        : `${lighten(0.4, '#307958')}`};
+  border-bottom: 1px solid;
 `
 
 export const Content = styled.div`
