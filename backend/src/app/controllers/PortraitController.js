@@ -20,7 +20,7 @@ class PortraitController {
     await sharp(fullPath)
       .resize(500)
       .jpeg({ quality: 70 })
-      .toFile(path.resolve(folder, 'resized', newName))
+      .toFile(path.resolve(folder, 'portraits', newName))
 
     fs.unlinkSync(fullPath)
 
