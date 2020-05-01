@@ -1,7 +1,8 @@
+// import sharp from 'sharp'
+// import fs from 'fs'
 import Portrait from '../models/Portrait'
-import sharp from 'sharp'
-import fs from 'fs'
-const path = require('path')
+
+// const path = require('path')
 
 class PortraitController {
   async index(req, res) {
@@ -9,20 +10,21 @@ class PortraitController {
 
     return res.json(list)
   }
+
   async store(req, res) {
     const {
       originalname: fileName,
       filename: newName,
-      destination: folder,
-      path: fullPath,
+      // destination: folder,
+      // path: fullPath,
     } = req.file
 
-    await sharp(fullPath)
-      .resize(500)
-      .jpeg({ quality: 70 })
-      .toFile(path.resolve(folder, 'portraits', newName))
+    // await sharp(fullPath)
+    //   .resize(500)
+    //   .jpeg({ quality: 70 })
+    //   .toFile(path.resolve(folder, newName))
 
-    fs.unlinkSync(fullPath)
+    // fs.unlinkSync(fullPath)
 
     const file = await Portrait.create({
       name: fileName,

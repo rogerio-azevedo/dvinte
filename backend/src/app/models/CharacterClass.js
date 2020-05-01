@@ -6,6 +6,7 @@ class CharacterClass extends Model {
       {
         character_id: Sequelize.INTEGER,
         class_id: Sequelize.INTEGER,
+        level: Sequelize.INTEGER,
       },
       {
         sequelize,
@@ -14,11 +15,6 @@ class CharacterClass extends Model {
 
     return this
   }
-
-  // static associate(models) {
-  //   this.hasMany(models.Person, { foreignKey: 'person_id', as: 'person' })
-  //   this.hasMany(models.Class, { foreignKey: 'class_id', as: 'class' })
-  // }
 }
 
 export default CharacterClass

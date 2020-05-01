@@ -58,9 +58,9 @@ class UserController {
       id,
       name,
       email,
-      phone,
-      city,
-      state,
+      // phone,
+      // city,
+      // state,
     })
   }
 }
