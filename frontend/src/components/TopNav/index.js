@@ -102,13 +102,17 @@ export default function TopNav() {
                   </Link>
                 </li>
                 <li>
-                  <Link onClick={handleRemoveClick} to="/characters">
-                    Personagem
+                  <Link onClick={handleRemoveClick} to="/portraits">
+                    Retratos
                   </Link>
                 </li>
               </ul>
             </Dropmenu>
           </li>
+
+          <Link onClick={handleRemoveClick} to="/characters">
+            PERSONAGENS
+          </Link>
 
           {/* <li>
             <strong onClick={handleDiagClick}>CADASTROS</strong>

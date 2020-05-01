@@ -12,6 +12,7 @@ import Alignment from '~/pages/Alignment'
 import Classe from '~/pages/Classe'
 import Divinity from '~/pages/Divinity'
 import Race from '~/pages/Race'
+import Portrait from '~/pages/Portrait'
 
 import Character from '~/pages/Character'
 
@@ -28,6 +29,7 @@ export default function Routes() {
       <Route path="/classes" component={Classe} isPrivate />
       <Route path="/divinities" component={Divinity} isPrivate />
       <Route path="/races" component={Race} isPrivate />
+      <Route path="/portraits" component={Portrait} isPrivate />
       <Route path="/characters" component={Character} isPrivate />
     </Switch>
   )
