@@ -2,7 +2,9 @@ import Race from '../models/Race'
 
 class RaceController {
   async index(req, res) {
-    const list = await Race.findAll()
+    const list = await Race.findAll({
+      order: [['name', 'ASC']],
+    })
 
     return res.json(list)
   }

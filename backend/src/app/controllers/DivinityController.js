@@ -2,7 +2,9 @@ import Divinity from '../models/Divinity'
 
 class DivinityController {
   async index(req, res) {
-    const list = await Divinity.findAll()
+    const list = await Divinity.findAll({
+      order: [['name', 'ASC']],
+    })
 
     return res.json(list)
   }

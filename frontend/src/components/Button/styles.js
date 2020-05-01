@@ -3,9 +3,9 @@ import { darken } from 'polished'
 
 export const Container = styled.div`
   button {
-    height: 38px;
+    height: 40px;
     width: 120px;
-    background: #6f0000;
+    background: #8e0e00;
     font-weight: bold;
     color: #fff;
     border: 0;
@@ -15,7 +15,7 @@ export const Container = styled.div`
     display: ${props => (props.loading ? 'none' : 'block')};
 
     &:hover {
-      background: ${darken(0.06, '#6f0000')};
+      background: ${darken(0.09, '#8e0e00')};
     }
   }
 `

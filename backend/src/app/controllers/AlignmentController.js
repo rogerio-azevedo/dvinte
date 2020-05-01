@@ -2,7 +2,9 @@ import Alignment from '../models/Alignment'
 
 class AlignmentController {
   async index(req, res) {
-    const list = await Alignment.findAll()
+    const list = await Alignment.findAll({
+      order: [['name', 'ASC']],
+    })
 
     return res.json(list)
   }

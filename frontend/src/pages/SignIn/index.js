@@ -19,8 +19,6 @@ export default function SignIn() {
 
   function handleSubimit({ email, password }) {
     dispatch(signInRequest(email, password))
-    console.tron.log(email)
-    console.tron.log(password)
   }
 
   return (

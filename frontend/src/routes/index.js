@@ -13,6 +13,8 @@ import Classe from '~/pages/Classe'
 import Divinity from '~/pages/Divinity'
 import Race from '~/pages/Race'
 
+import Character from '~/pages/Character'
+
 export default function Routes() {
   return (
     <Switch>
@@ -26,6 +28,7 @@ export default function Routes() {
       <Route path="/classes" component={Classe} isPrivate />
       <Route path="/divinities" component={Divinity} isPrivate />
       <Route path="/races" component={Race} isPrivate />
+      <Route path="/characters" component={Character} isPrivate />
     </Switch>
   )
 }

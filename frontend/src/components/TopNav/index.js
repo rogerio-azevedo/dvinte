@@ -101,6 +101,11 @@ export default function TopNav() {
                     Raças
                   </Link>
                 </li>
+                <li>
+                  <Link onClick={handleRemoveClick} to="/characters">
+                    Personagem
+                  </Link>
+                </li>
               </ul>
             </Dropmenu>
           </li>

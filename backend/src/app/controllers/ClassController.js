@@ -2,7 +2,9 @@ import Class from '../models/Class'
 
 class ClassController {
   async index(req, res) {
-    const classes = await Class.findAll()
+    const classes = await Class.findAll({
+      order: [['name', 'ASC']],
+    })
 
     return res.json(classes)
   }
