@@ -8,16 +8,6 @@ export const Container = styled.div`
 
   flex-direction: column;
   margin: 20px;
-
-  form {
-    h1 {
-      font-weight: 100;
-      color: white;
-      text-align: center;
-      padding-bottom: 10px;
-      border-bottom: 1px solid rgb(79, 98, 148);
-    }
-  }
 `
 
 export const FormContainer = styled.div`
@@ -39,9 +29,8 @@ export const FormContainer = styled.div`
   }
 
   input {
-    background: rgba(0, 0, 0, 0.4);
     width: 280px;
-    border: 0;
+    border: 1px solid;
     border-radius: 4px;
     height: 40px;
     padding: 0 15px;
@@ -50,7 +39,7 @@ export const FormContainer = styled.div`
     font-size: 15px;
 
     &::placeholder {
-      color: rgba(255, 255, 255, 0.9);
+      color: rgba(111, 0, 0, 0.6);
     }
   }
 `
