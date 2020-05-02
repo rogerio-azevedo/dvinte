@@ -63,7 +63,7 @@ module.exports = {
         references: { model: 'portraits', key: 'id' },
         onUpdate: 'CASCADE',
         onDelete: 'SET NULL',
-        allowNull: false,
+        allowNull: true,
       },
       alignment_id: {
         type: Sequelize.INTEGER,
