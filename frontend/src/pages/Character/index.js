@@ -45,7 +45,6 @@ export default function Character() {
 
   const onSubmit = (data, e) => {
     setLoading(false)
-    console.tron.log(data)
     e.target.reset()
 
     async function saveData() {
