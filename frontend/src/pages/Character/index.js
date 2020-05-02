@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import { useSelector } from 'react-redux'
 import api from '~/services/api'
 
 import Button from '~/components/Button'
 import SelectAlignment from '~/components/SelectAlignment'
-import SelectClasse from '~/components/SelectClasse'
+// import SelectClasse from '~/components/SelectClasse'
 import SelectDivinity from '~/components/SelectDivinity'
 import SelectRace from '~/components/SelectRace'
 import SelectLevel from '~/components/SelectLevel'
@@ -20,6 +21,9 @@ import {
 } from './styles'
 
 export default function Character() {
+  const profile = useSelector(state => state.user.profile)
+  const userId = profile.id
+
   const { register, handleSubmit, errors, setValue } = useForm()
   const [list, setList] = useState([])
   const [loading, setLoading] = useState(false)
@@ -34,24 +38,17 @@ export default function Character() {
     register({ name: 'level' })
     register({ name: 'size' })
     register({ name: 'gender' })
-    register({ name: 'classe' })
     register({ name: 'alignment_id' })
     register({ name: 'race_id' })
     register({ name: 'divinity_id' })
     register({ name: 'is_ativo' })
     register({ name: 'user_id' })
-    register({ name: 'portrait_id' })
   }, [register])
 
   const onSubmit = (data, e) => {
-    setLoading(false)
-    e.target.reset()
+    setLoading(true)
 
     async function saveData() {
-      setValue('is_avtivo', 'value', true)
-      setValue('user_id', 'value', 1)
-      setValue('portrait_id', 'value', 1)
-
       await api.post('characters', data)
 
       setLoading(false)
@@ -60,16 +57,18 @@ export default function Character() {
     saveData()
   }
 
-  function handleClasses(c) {
+  // function handleClasses(c) {
+  //   if (c != null) {
+  //     const classes = c.map(e => e.value)
+
+  //     setValue(classes)
+  //   }
+  // }
+
+  function handleLevel(c) {
+    setValue('level', c)
     setValue('is_ativo', true)
-    setValue('user_id', 1)
-    setValue('portrait_id', 1)
-
-    if (c != null) {
-      const classes = c.map(e => ({ classe: e.value }))
-
-      setValue(classes)
-    }
+    setValue('user_id', userId)
   }
 
   return (
@@ -144,7 +143,8 @@ export default function Character() {
 
           <SelectLevel
             name="level"
-            changeLevel={e => setValue('level', e && e.value)}
+            changeLevel={e => handleLevel(e && e.value)}
+            // changeLevel={e => setValue('level', e && e.value)}
           />
           {errors.level && errors.level.type === 'required' && (
             <span>Essa informação é obrigatória</span>
@@ -166,10 +166,10 @@ export default function Character() {
             <span>Essa informação é obrigatória</span>
           )}
 
-          <SelectClasse name="classe" changeClasse={e => handleClasses(e)} />
+          {/* <SelectClasse name="classe" changeClasse={e => handleClasses(e)} />
           {errors.classe && errors.classe.type === 'required' && (
             <span>Essa informação é obrigatória</span>
-          )}
+          )} */}
 
           <SelectAlignment
             name="alignment"
@@ -180,7 +180,6 @@ export default function Character() {
           )}
 
           <SelectRace
-            ref={register}
             name="race"
             changeRace={e => setValue('race_id', e && e.value)}
           />
