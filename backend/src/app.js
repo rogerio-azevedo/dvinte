@@ -18,7 +18,9 @@ class App {
     this.server.use(express.json())
     this.server.use(
       '/portraits',
-      express.static(path.resolve(__dirname, '..', 'tmp', 'uploads'))
+      express.static(
+        path.resolve(__dirname, '..', 'tmp', 'uploads', 'portraits')
+      )
     )
   }
 
