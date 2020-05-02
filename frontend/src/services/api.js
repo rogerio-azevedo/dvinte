@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const api = axios.create({
   // baseURL: 'http://localhost:4800',
-  baseURL: 'api.dvinte.com.br',
+  baseURL: '167.71.255.4',
   // baseURL: 'https://cors-anywhere.herokuapp.com/http://167.71.255.4',
 })
 
