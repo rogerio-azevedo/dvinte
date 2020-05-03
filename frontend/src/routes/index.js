@@ -13,8 +13,9 @@ import Classe from '~/pages/Classe'
 import Divinity from '~/pages/Divinity'
 import Race from '~/pages/Race'
 import Portrait from '~/pages/Portrait'
-
 import Character from '~/pages/Character'
+
+import RollDices from '~/pages/RollDices'
 
 export default function Routes() {
   return (
@@ -31,6 +32,8 @@ export default function Routes() {
       <Route path="/races" component={Race} isPrivate />
       <Route path="/portraits" component={Portrait} isPrivate />
       <Route path="/characters" component={Character} isPrivate />
+
+      <Route path="/rolldices" component={RollDices} isPrivate />
     </Switch>
   )
 }
