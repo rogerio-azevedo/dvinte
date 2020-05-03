@@ -20,6 +20,8 @@ const upload = multer(multerConfig)
 routes.post('/sessions', SessionController.store)
 routes.post('/users', UserController.store)
 
+routes.get('/check', (req, res) => res.send('API ONLINE'))
+
 routes.use(authMiddleware)
 
 routes.get('/users', UserController.index)
