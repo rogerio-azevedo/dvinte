@@ -13,43 +13,43 @@ module.exports = {
       },
       age: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
       },
       gender: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
       },
       skin: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       eye: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       hair: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       height: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       weight: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       is_ativo: {
         type: Sequelize.BOOLEAN,
-        allowNull: false,
+        allowNull: true,
       },
       level: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
       },
       size: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
       },
       user_id: {
         type: Sequelize.INTEGER,
