@@ -1,6 +1,10 @@
 import socketio from 'socket.io-client'
 
-const socket = socketio('http://localhost:4800', {
+// const socket = socketio('http://localhost:4800', {
+//   autoConnect: false,
+// })
+
+const socket = socketio('https://api.dvinte.com.br', {
   autoConnect: false,
 })
 
