@@ -114,8 +114,8 @@ export default function TopNav() {
             PERSONAGENS
           </Link>
 
-          <Link onClick={handleRemoveClick} to="/rolldices">
-            DADOS
+          <Link onClick={handleRemoveClick} to="/chat">
+            CHAT
           </Link>
           {/* <li>
             <strong onClick={handleDiagClick}>CADASTROS</strong>

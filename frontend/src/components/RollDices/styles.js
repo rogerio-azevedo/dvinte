@@ -6,6 +6,7 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  width: 600px;
 
   h1 {
   }
@@ -30,9 +31,10 @@ export const InputMulti = styled.input`
 `
 export const InputResult = styled.input`
   margin-top: 30px;
-  width: 450px;
+  width: 420px;
+  height: 40px;
   text-align: center;
-  font-size: 14px;
+  font-size: 16px;
   padding: 0.5em 0;
   border-radius: 10px;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.12);
@@ -56,7 +58,7 @@ export const Dice = styled.div`
   background: #200122;
   height: 60px;
   width: 60px;
-  margin: 10px;
+  margin: 6px;
   border-radius: 6px;
   cursor: pointer;
 
@@ -74,6 +76,7 @@ export const Dice = styled.div`
 
   strong {
     color: #fff;
-    font-size: 16px;
+    font-size: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
 `

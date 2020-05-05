@@ -24,14 +24,14 @@ export default function RollDices() {
       calc += random()
     }
 
-    const rolled = `${profile.name}: rolou ${multiplier}x d${sides} com seguinte resultado: ${calc}`
+    const rolled = `${profile.name}: rolou ${multiplier}x d${sides} com resultado: ${calc}`
 
     setResult(rolled)
   }
 
   return (
     <Container>
-      <h1>Dices</h1>
+      <h1>Rolagem de Dados</h1>
 
       <InputMulti
         className="multiplier"
