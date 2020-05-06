@@ -16,7 +16,7 @@ import {
   InputMulti,
   DiceContainer,
   Dice,
-  InputResult,
+  // InputResult,
 } from './styles'
 
 const from = uuid()
@@ -26,7 +26,19 @@ export default function Chat() {
   const [message, updateMessage] = useState('')
   const [messages, updateMessages] = useState([])
   const [multiplier, setMultiplier] = useState(1)
-  const [result, setResult] = useState()
+  // const [result, setResult] = useState()
+
+  const messagesEndRef = React.createRef(null)
+
+  function scrollToBottom() {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+
+  useEffect(() => {
+    scrollToBottom()
+  })
 
   useEffect(() => {
     connect()
@@ -71,8 +83,7 @@ export default function Chat() {
       message: rolled,
     })
 
-    setResult(rolled)
-    updateMessage(rolled)
+    // setResult(rolled)
   }
 
   return (
@@ -80,8 +91,11 @@ export default function Chat() {
       <ChatContainer>
         <List>
           {messages.map((m, index) => (
-            // eslint-disable-next-line
-            <ListMessage from={from === m.id ? 1 : 0} key={index}>
+            <ListMessage
+              ref={messagesEndRef}
+              from={from === m.id ? 1 : 0}
+              key={index} // eslint-disable-line
+            >
               <Message from={from === m.id ? 1 : 0}>{m.message}</Message>
             </ListMessage>
           ))}
@@ -150,7 +164,7 @@ export default function Chat() {
             <strong>d20</strong>
           </Dice>
         </DiceContainer>
-        <InputResult value={result} />
+        {/* <InputResult value={result} /> */}
       </DicesRollContainer>
     </Container>
   )
