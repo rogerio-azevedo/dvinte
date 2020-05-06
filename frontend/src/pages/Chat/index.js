@@ -72,6 +72,7 @@ export default function Chat() {
     })
 
     setResult(rolled)
+    updateMessage(rolled)
   }
 
   return (
