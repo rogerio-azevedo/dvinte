@@ -70,6 +70,7 @@ export default function Chat() {
       id: from,
       message: rolled,
     })
+
     setResult(rolled)
   }
 

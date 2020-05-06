@@ -11,6 +11,7 @@ export const Container = styled.div`
 export const List = styled.ul`
   margin: 0;
   padding: 1rem;
+  overflow: auto;
 `
 
 export const ChatContainer = styled.div`
@@ -21,6 +22,7 @@ export const ChatContainer = styled.div`
   justify-content: space-between;
   width: 600px;
   border: 1px solid;
+  margin-top: 50px;
 `
 
 export const ListMessage = styled.li`
@@ -67,6 +69,7 @@ export const DicesRollContainer = styled.div`
   justify-content: center;
   flex-direction: column;
   width: 600px;
+  margin-top: 50px;
 `
 
 export const InputMulti = styled.input`
