@@ -1,6 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import path from 'path'
+import socketio from 'socket.io'
 import routes from './routes'
 
 import './database'
@@ -8,6 +9,14 @@ import './database'
 class App {
   constructor() {
     this.server = express()
+
+    const io = socketio(this.server.http)
+
+    this.server.use((req, res, next) => {
+      req.io = io
+
+      return next()
+    })
 
     this.middlewares()
     this.routes()

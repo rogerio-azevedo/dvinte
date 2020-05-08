@@ -14,6 +14,8 @@ import RaceController from './app/controllers/RaceController'
 import SessionController from './app/controllers/SessionController'
 import UserController from './app/controllers/UserController'
 
+import ChatController from './app/controllers/ChatController'
+
 const routes = new Router()
 const upload = multer(multerConfig)
 
@@ -21,6 +23,9 @@ routes.post('/sessions', SessionController.store)
 routes.post('/users', UserController.store)
 
 routes.get('/check', (req, res) => res.send('API ONLINE'))
+
+routes.post('/chats', ChatController.store)
+routes.get('/chats', ChatController.index)
 
 routes.use(authMiddleware)
 
