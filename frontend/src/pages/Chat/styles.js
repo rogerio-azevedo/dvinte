@@ -8,10 +8,60 @@ export const Container = styled.div`
   justify-content: center;
 `
 
+export const ChatHistory = styled.div`
+  padding: 30px 30px 20px;
+  border-bottom: 2px solid white;
+  overflow-y: scroll;
+  height: 600px;
+`
+
 export const List = styled.ul`
-  margin: 0;
-  padding: 1rem;
-  overflow: auto;
+  padding: 20px;
+  height: 770px;
+`
+export const MessageData = styled.div`
+  margin-bottom: 15px;
+  text-align: ${props => (props.from ? 'right' : 'left')};
+`
+export const MessageDateTime = styled.span`
+  color: #999;
+  padding-left: 6px;
+  font-size: 12px;
+`
+
+export const MessageDataName = styled.span`
+  color: #000;
+  padding-left: 6px;
+  font-size: 16px;
+  float: ${props => (props.from ? 'right' : 'left')};
+`
+
+export const Message = styled.div`
+  color: #111;
+  padding: 10px 15px;
+  line-height: 26px;
+  font-size: 16px;
+  border-radius: 7px;
+  margin-bottom: 30px;
+  width: 80%;
+  position: relative;
+
+  background: ${props => (props.from ? '#c3e88d' : '#94c2ed')};
+  float: ${props => (props.from ? 'right' : 'left')};
+
+  &:after {
+    bottom: 100%;
+    left: ${props => (props.from ? '93%' : '7%')};
+    border: solid transparent;
+    content: ' ';
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-bottom-color: ${props => (props.from ? '#c3e88d' : '#94c2ed')};
+    border-width: 10px;
+    margin-left: -10px;
+  }
 `
 
 export const ChatContainer = styled.div`
@@ -24,40 +74,26 @@ export const ChatContainer = styled.div`
   border: 1px solid;
   margin-top: 30px;
 `
-export const messageBlock = styled.div`
-  display: flex;
-  flex-direction: row;
-  text-align: ${props => (props.from ? 'right' : 'left')};
-`
 
 export const MessageContainer = styled.div`
   display: flex;
   flex-direction: column;
+  display: inline-block;
   text-align: ${props => (props.from ? 'right' : 'left')};
 `
 
 export const ListMessage = styled.li`
   list-style: none;
   text-align: ${props => (props.from ? 'right' : 'left')};
-`
 
-export const Message = styled.span`
-  border: 1px solid transparent;
-
-  border-radius: 12px 12px 0px 12px;
-  display: inline-block;
-  list-style: none;
-  margin-bottom: 1rem;
-  padding: 0.4rem 1rem;
-  max-width: 280px;
-
-  background: ${props => (props.from ? '#c3e88d' : '#89ddff')};
-  border-color: ${props => (props.from ? '#82be27' : '#1abeff')};
-  text-align: ${props => (props.from ? 'right' : 'left')};
-`
-export const MessageDate = styled.span`
-  font-size: 10px;
-  color: #aaa;
+  &:after {
+    visibility: hidden;
+    display: block;
+    font-size: 0;
+    content: ' ';
+    clear: both;
+    height: 0;
+  }
 `
 
 export const FormMessage = styled.form`

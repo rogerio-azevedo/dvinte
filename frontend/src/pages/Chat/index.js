@@ -1,24 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
+import { format, parseISO } from 'date-fns'
+import { utcToZonedTime } from 'date-fns-tz'
 import api from '~/services/api'
 
 import { connect, socket } from '~/services/socket'
 
 import {
   Container,
-  ChatContainer,
+  ChatHistory,
   List,
-  ListMessage,
+  ChatContainer,
   Message,
-  MessageDate,
+  MessageDateTime,
+  MessageData,
+  MessageDataName,
+  ListMessage,
   FormMessage,
   InputMessage,
   DicesRollContainer,
   InputMulti,
   DiceContainer,
   Dice,
-  // InputResult,
 } from './styles'
 
 export default function Chat() {
@@ -36,6 +40,13 @@ export default function Chat() {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' })
     }
+  }
+
+  function formatDate(date) {
+    const convertedDate = parseISO(date)
+    const localDate = utcToZonedTime(convertedDate)
+
+    return format(localDate, 'dd-MM-yy HH:mm:ss')
   }
 
   async function loadAllMessages() {
@@ -92,31 +103,40 @@ export default function Chat() {
       calc += random()
     }
 
-    const rolled = `${profile.name}: rolou ${multiplier}x d${sides} com resultado: ${calc}`
+    const rolled = `Rolou ${multiplier} x d${sides} com resultado: ${calc}`
 
-    socket.emit('chat.message', {
+    api.post('chats', {
       id: from,
+      user_id: profile.id,
+      user: profile.name,
       message: rolled,
     })
-
-    // setResult(rolled)
   }
 
   return (
     <Container>
       <ChatContainer>
-        <List>
-          {messages.map((m, index) => (
-            <ListMessage
-              ref={messagesEndRef}
-              from={from === m.id ? 1 : 0}
-              key={index} // eslint-disable-line
-            >
-              <Message from={from === m.id ? 1 : 0}>{m.message}</Message>
-              <MessageDate>2020-05-09 12:22</MessageDate>
-            </ListMessage>
-          ))}
-        </List>
+        <ChatHistory>
+          <List>
+            {messages.map((m, index) => (
+              <ListMessage
+                ref={messagesEndRef}
+                from={from === m.id ? 1 : 0}
+                key={index} // eslint-disable-line
+              >
+                <MessageData from={from === m.id ? 1 : 0}>
+                  <MessageDateTime from={from === m.id ? 1 : 0}>
+                    {formatDate(m.date)}
+                  </MessageDateTime>
+                  <MessageDataName from={from === m.id ? 1 : 0}>
+                    {m.user}
+                  </MessageDataName>
+                </MessageData>
+                <Message from={from === m.id ? 1 : 0}>{m.message}</Message>
+              </ListMessage>
+            ))}
+          </List>
+        </ChatHistory>
 
         <FormMessage onSubmit={handleFormSubmit}>
           <InputMessage
@@ -181,7 +201,6 @@ export default function Chat() {
             <strong>d20</strong>
           </Dice>
         </DiceContainer>
-        {/* <InputResult value={result} /> */}
       </DicesRollContainer>
     </Container>
   )
