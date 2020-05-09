@@ -15,10 +15,8 @@ export const ChatHistory = styled.div`
   height: 600px;
 `
 
-export const List = styled.ul`
-  padding: 20px;
-  height: 770px;
-`
+export const List = styled.ul``
+
 export const MessageData = styled.div`
   margin-bottom: 15px;
   text-align: ${props => (props.from ? 'right' : 'left')};
@@ -37,11 +35,11 @@ export const MessageDataName = styled.span`
 `
 
 export const Message = styled.div`
-  color: #111;
-  padding: 10px 15px;
+  color: #000;
+  padding: 8px 12px;
   line-height: 26px;
   font-size: 16px;
-  border-radius: 7px;
+  border-radius: 6px;
   margin-bottom: 30px;
   width: 80%;
   position: relative;
