@@ -44,7 +44,7 @@ export default function Chat() {
 
   function formatDate(date) {
     const convertedDate = parseISO(date)
-    const localDate = utcToZonedTime(convertedDate)
+    const localDate = utcToZonedTime(convertedDate, 'America/Sao_Paulo')
 
     return format(localDate, 'dd-MM-yy HH:mm:ss')
   }
