@@ -1,8 +1,6 @@
 import Logs from '../schemas/Logs'
 import { saveMessage } from '../../websocket'
 
-const { utcToZonedTime } = require('date-fns-tz')
-
 class ChatController {
   async index(req, res) {
     const log = await Logs.find()
@@ -10,7 +8,7 @@ class ChatController {
     const mensages = log.map(c => ({
       id: c.id,
       user: c.user,
-      date: utcToZonedTime(c.createdAt),
+      date: c.createdAt,
       message: c.message,
     }))
 
@@ -23,7 +21,7 @@ class ChatController {
     const message = {
       id: chat.id,
       user: chat.user,
-      date: utcToZonedTime(chat.createdAt),
+      date: chat.createdAt,
       message: chat.message,
     }
     saveMessage(message)
