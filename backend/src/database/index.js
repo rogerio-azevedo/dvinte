@@ -1,6 +1,5 @@
 import Sequelize from 'sequelize'
-
-// import mongoose from 'mongoose';
+import mongoose from 'mongoose'
 
 import Alignment from '../app/models/Alignment'
 import Class from '../app/models/Class'
@@ -27,7 +26,7 @@ const models = [
 class Database {
   constructor() {
     this.init()
-    // this.mongo();
+    this.mongo()
   }
 
   init() {
@@ -38,12 +37,13 @@ class Database {
       .map(model => model.associate && model.associate(this.connection.models))
   }
 
-  // mongo() {
-  //   this.mongoConnection = mongoose.connect(process.env.MONGO_URL, {
-  //     useNewUrlParser: true,
-  //     useFindAndModify: true,
-  //   });
-  // }
+  mongo() {
+    this.mongoConnection = mongoose.connect(process.env.MONGO_URL, {
+      useNewUrlParser: true,
+      useFindAndModify: true,
+      useUnifiedTopology: true,
+    })
+  }
 }
 
 export default new Database()

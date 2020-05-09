@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import uuid from 'uuid/dist/v4'
+import { toast } from 'react-toastify'
+import api from '~/services/api'
 
 import { connect, socket } from '~/services/socket'
 
@@ -10,6 +11,7 @@ import {
   List,
   ListMessage,
   Message,
+  MessageDate,
   FormMessage,
   InputMessage,
   DicesRollContainer,
@@ -19,14 +21,14 @@ import {
   // InputResult,
 } from './styles'
 
-const from = uuid()
-
 export default function Chat() {
   const profile = useSelector(state => state.user.profile)
-  const [message, updateMessage] = useState('')
+  const [message, setMessage] = useState('')
   const [messages, updateMessages] = useState([])
   const [multiplier, setMultiplier] = useState(1)
   // const [result, setResult] = useState()
+
+  const from = profile.id
 
   const messagesEndRef = React.createRef(null)
 
@@ -36,12 +38,24 @@ export default function Chat() {
     }
   }
 
+  async function loadAllMessages() {
+    try {
+      const response = await api.get('/chats')
+
+      updateMessages(response.data)
+    } catch (e) {
+      toast.error('Conexao com a API mal sucedida.')
+    }
+  }
+
   useEffect(() => {
     scrollToBottom()
   })
 
   useEffect(() => {
     connect()
+
+    loadAllMessages()
   }, [])
 
   useEffect(() => {
@@ -54,16 +68,18 @@ export default function Chat() {
 
   const handleFormSubmit = event => {
     event.preventDefault()
+
     if (message.trim()) {
-      socket.emit('chat.message', {
+      api.post('chats', {
         id: from,
-        message: `${profile.name} diz: ${message}`,
+        user_id: profile.id,
+        user: profile.name,
+        message,
       })
-      updateMessage('')
+
+      setMessage('')
     }
   }
-
-  const handleInputChange = event => updateMessage(event.target.value)
 
   function handleCalculateTotal(sides) {
     let calc = 0
@@ -97,13 +113,14 @@ export default function Chat() {
               key={index} // eslint-disable-line
             >
               <Message from={from === m.id ? 1 : 0}>{m.message}</Message>
+              <MessageDate>2020-05-09 12:22</MessageDate>
             </ListMessage>
           ))}
         </List>
 
         <FormMessage onSubmit={handleFormSubmit}>
           <InputMessage
-            onChange={handleInputChange}
+            onChange={e => setMessage(e.target.value)}
             placeholder="Mensagem..."
             type="text"
             value={message}
@@ -111,16 +128,16 @@ export default function Chat() {
         </FormMessage>
       </ChatContainer>
       <DicesRollContainer>
-        <InputMulti
-          className="multiplier"
-          type="number"
-          pattern="[0-9]*"
-          min="1"
-          max="10"
-          placeholder="1"
-          onChange={e => setMultiplier(e.target.value)}
-        />
         <DiceContainer>
+          <InputMulti
+            className="multiplier"
+            type="number"
+            pattern="[0-9]*"
+            min="1"
+            max="10"
+            placeholder="1"
+            onChange={e => setMultiplier(e.target.value)}
+          />
           <Dice
             onClick={() => {
               handleCalculateTotal(4)

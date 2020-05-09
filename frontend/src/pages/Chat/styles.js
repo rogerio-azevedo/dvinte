@@ -3,7 +3,7 @@ import { darken } from 'polished'
 
 export const Container = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 `
@@ -20,9 +20,20 @@ export const ChatContainer = styled.div`
   font-family: Arial, sans-serif;
   height: 600px;
   justify-content: space-between;
-  width: 600px;
+  width: 800px;
   border: 1px solid;
-  margin-top: 50px;
+  margin-top: 30px;
+`
+export const messageBlock = styled.div`
+  display: flex;
+  flex-direction: row;
+  text-align: ${props => (props.from ? 'right' : 'left')};
+`
+
+export const MessageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  text-align: ${props => (props.from ? 'right' : 'left')};
 `
 
 export const ListMessage = styled.li`
@@ -32,15 +43,21 @@ export const ListMessage = styled.li`
 
 export const Message = styled.span`
   border: 1px solid transparent;
-  border-radius: 5px;
+
+  border-radius: 12px 12px 0px 12px;
   display: inline-block;
   list-style: none;
   margin-bottom: 1rem;
-  padding: 0.5rem 1rem;
+  padding: 0.4rem 1rem;
+  max-width: 280px;
 
   background: ${props => (props.from ? '#c3e88d' : '#89ddff')};
   border-color: ${props => (props.from ? '#82be27' : '#1abeff')};
   text-align: ${props => (props.from ? 'right' : 'left')};
+`
+export const MessageDate = styled.span`
+  font-size: 10px;
+  color: #aaa;
 `
 
 export const FormMessage = styled.form`
@@ -83,7 +100,7 @@ export const InputMulti = styled.input`
   border: none;
   background: #fff;
   transition: background 0.3s;
-  color: $black;
+  color: #000;
 
   &:hover {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
