@@ -1,16 +1,32 @@
-import Chat from '../schemas/Chat'
+import Logs from '../schemas/Logs'
+import { saveMessage } from '../../websocket'
+
+const { utcToZonedTime } = require('date-fns-tz')
 
 class ChatController {
   async index(req, res) {
-    // const { io } = req
+    const log = await Logs.find()
 
-    const chat = await Chat.find()
+    const mensages = log.map(c => ({
+      id: c.id,
+      user: c.user,
+      date: utcToZonedTime(c.createdAt),
+      message: c.message,
+    }))
 
-    return res.json(chat)
+    return res.json(mensages)
   }
 
   async store(req, res) {
-    const chat = await Chat.create(req.body)
+    const chat = await Logs.create(req.body)
+
+    const message = {
+      id: chat.id,
+      user: chat.user,
+      date: utcToZonedTime(chat.createdAt),
+      message: chat.message,
+    }
+    saveMessage(message)
 
     return res.json(chat)
   }

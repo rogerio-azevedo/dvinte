@@ -1,10 +1,11 @@
 const socketio = require('socket.io')
 
+let io
 let onlineUsers = []
 const messages = []
 
 exports.setupWebsocket = server => {
-  const io = socketio(server)
+  io = socketio(server)
 
   io.on('connection', socket => {
     console.log(`Server has a new connection Id:${socket.id}`)
@@ -20,7 +21,7 @@ exports.setupWebsocket = server => {
     socket.on('chat.message', messageData => {
       messages.push(messageData)
       io.emit('chat.message', messageData)
-      console.log(messageData)
+      console.log(messages)
     })
 
     socket.on('USER_DISCONNECTED', user => {
@@ -28,4 +29,8 @@ exports.setupWebsocket = server => {
       io.emit('USER_DISCONNECTED', user)
     })
   })
+}
+
+exports.saveMessage = message => {
+  io.emit('chat.message', message)
 }
