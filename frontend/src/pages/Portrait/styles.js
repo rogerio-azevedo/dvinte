@@ -2,35 +2,36 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
   display: flex;
-  max-width: 900px;
-  justify-content: center;
   align-items: center;
-  justify-items: center;
+  flex-direction: column;
+  justify-content: space-around;
 `
 
-export const ListItens = styled.div`
-  margin-top: 20px;
-  width: 100%;
-  flex: 1;
+export const ImageContainer = styled.div`
   display: grid;
+  max-width: 900px;
+  max-height: 650px;
+  padding: 20px;
+  margin-bottom: 20px;
   grid-template-columns: repeat(4, 1fr);
-  grid-gap: 10px;
-  justify-content: center;
-  align-items: center;
+  grid-gap: 12px;
+  overflow-y: scroll;
+  border: #aaa 1px solid;
+  border-radius: 20px;
+`
 
-  /* max-height: 400px;
-  overflow: auto; */
+export const List = styled.ul``
 
-  li {
-    font-weight: 600;
-    font-size: 15px;
-    margin: 3px;
-    padding: 10px;
+export const ListItem = styled.li``
 
-    img {
-      width: 150px;
-      height: 180px;
-      border-radius: 50px;
-    }
+export const Item = styled.div`
+  width: 150px;
+  height: 170px;
+
+  img {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+    border-radius: 15%;
   }
 `

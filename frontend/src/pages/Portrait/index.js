@@ -7,7 +7,7 @@ import api from '~/services/api'
 // import { updateProfileRequest } from '~/store/modules/user/actions'
 import AvatarInput from '~/components/PortraitInput'
 
-import { Container, ListItens } from './styles'
+import { Container, ImageContainer, List, ListItem, Item } from './styles'
 
 export default function Portrait() {
   // const dispatch = useDispatch()
@@ -27,20 +27,19 @@ export default function Portrait() {
 
   return (
     <Container>
-      <AvatarInput name="portrait_id" />
-
-      <ListItens>
+      <AvatarInput style={{ marginTop: '15px' }} />
+      <ImageContainer>
         {list &&
           list.map(item => (
-            <ul key={item.id}>
-              <li>
-                <div>
+            <List key={item.id}>
+              <ListItem>
+                <Item>
                   <img src={item.url} alt="" />
-                </div>
-              </li>
-            </ul>
+                </Item>
+              </ListItem>
+            </List>
           ))}
-      </ListItens>
+      </ImageContainer>
     </Container>
   )
 }
