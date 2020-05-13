@@ -15,6 +15,7 @@ import SessionController from './app/controllers/SessionController'
 import UserController from './app/controllers/UserController'
 
 import ChatController from './app/controllers/ChatController'
+import CampaignController from './app/controllers/CampaignController'
 
 const routes = new Router()
 const upload = multer(multerConfig)
@@ -49,5 +50,8 @@ routes.get('/portraits', PortraitController.index)
 
 routes.post('/races', RaceController.store)
 routes.get('/races', RaceController.index)
+
+routes.post('/campaigns', CampaignController.store)
+routes.get('/campaigns', CampaignController.index)
 
 export default routes

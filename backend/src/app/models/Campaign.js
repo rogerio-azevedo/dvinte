@@ -5,6 +5,7 @@ class Campaign extends Model {
     super.init(
       {
         name: Sequelize.STRING,
+        description: Sequelize.STRING,
       },
       {
         sequelize,
@@ -12,6 +13,13 @@ class Campaign extends Model {
     )
 
     return this
+  }
+
+  static associate(models) {
+    this.belongsTo(models.User, {
+      foreignKey: 'user_id',
+      as: 'users',
+    })
   }
 }
 
