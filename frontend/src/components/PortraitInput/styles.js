@@ -2,7 +2,8 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
   align-self: center;
-  margin-bottom: 30px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 
   label {
     cursor: pointer;
@@ -12,8 +13,8 @@ export const Container = styled.div`
     }
 
     img {
-      height: 120px;
-      width: 120px;
+      height: 60px;
+      width: 60px;
       border-radius: 50%;
       border: 3px solid rgba(255, 255, 255, 0.3);
       background: #eee;

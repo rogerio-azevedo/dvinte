@@ -9,6 +9,7 @@ import CharacterClass from '../app/models/CharacterClass'
 import Portrait from '../app/models/Portrait'
 import Race from '../app/models/Race'
 import User from '../app/models/User'
+import Campaign from '../app/models/Campaign'
 
 import databaseConfig from '../config/database'
 
@@ -19,6 +20,7 @@ const models = [
   Character,
   CharacterClass,
   Portrait,
+  Campaign,
   Race,
   User,
 ]

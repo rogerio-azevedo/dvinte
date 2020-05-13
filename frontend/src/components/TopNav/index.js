@@ -106,6 +106,11 @@ export default function TopNav() {
                     Retratos
                   </Link>
                 </li>
+                <li>
+                  <Link onClick={handleRemoveClick} to="/campaigns">
+                    Campanhas
+                  </Link>
+                </li>
               </ul>
             </Dropmenu>
           </li>

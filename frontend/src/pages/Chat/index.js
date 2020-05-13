@@ -30,7 +30,6 @@ export default function Chat() {
   const [message, setMessage] = useState('')
   const [messages, updateMessages] = useState([])
   const [multiplier, setMultiplier] = useState(1)
-  // const [result, setResult] = useState()
 
   const from = profile.id
 

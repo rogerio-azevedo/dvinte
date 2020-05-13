@@ -16,6 +16,7 @@ import Portrait from '~/pages/Portrait'
 import Character from '~/pages/Character'
 
 import Chat from '~/pages/Chat'
+import Campaign from '~/pages/Campaign'
 
 export default function Routes() {
   return (
@@ -34,6 +35,7 @@ export default function Routes() {
       <Route path="/characters" component={Character} isPrivate />
 
       <Route path="/chat" component={Chat} isPrivate />
+      <Route path="/campaigns" component={Campaign} isPrivate />
     </Switch>
   )
 }

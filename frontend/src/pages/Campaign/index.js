@@ -1,30 +1,30 @@
 import React, { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import api from '~/services/api'
 
 import Button from '~/components/Button'
 import { Container, FormContainer, ListItens } from './styles'
 
-export default function Alignment() {
+export default function Campaign() {
+  const profile = useSelector(state => state.user.profile)
   const { register, handleSubmit, errors } = useForm()
   const [list, setList] = useState([])
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    api.get('alignments').then(response => {
-      setList(response.data)
-    })
-  }, [])
-
-  useEffect(() => {
-    api.get('alignments').then(response => {
+    api.get('campaigns').then(response => {
       setList(response.data)
     })
   }, [])
 
   const onSubmit = (data, e) => {
     async function saveData() {
-      await api.post('alignments', data)
+      await api.post('campaigns', {
+        name: data.name,
+        description: data.description,
+        user_id: profile.id,
+      })
       setLoading(false)
       e.target.reset()
     }
@@ -33,14 +33,22 @@ export default function Alignment() {
 
   return (
     <Container>
-      <h2>Cadastro de Alinhamentos</h2>
+      <h2>Cadastro de Campanhas</h2>
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormContainer>
           <input
             name="name"
             ref={register({ required: true })}
-            placeholder="Informe a Alinhamento"
+            placeholder="Informe a nome da Campanha"
+          />
+          {errors.name && errors.name.type === 'required' && (
+            <span>Essa informação é obrigatória</span>
+          )}
+          <input
+            name="description"
+            ref={register({ required: true })}
+            placeholder="Informe uma breve descrição"
           />
           {errors.name && errors.name.type === 'required' && (
             <span>Essa informação é obrigatória</span>
