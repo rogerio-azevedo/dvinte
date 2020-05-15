@@ -44,6 +44,7 @@ routes.get('/divinities', DivinityController.index)
 
 routes.post('/characters', CharacterController.store)
 routes.get('/characters', CharacterController.index)
+routes.get('/characters/:id', CharacterController.show)
 
 routes.post('/portraits', upload.single('file'), PortraitController.store)
 routes.get('/portraits', PortraitController.index)

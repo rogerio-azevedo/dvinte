@@ -11,18 +11,21 @@ export const ImageContainer = styled.div`
   display: grid;
   max-width: 900px;
   max-height: 650px;
-  padding: 20px;
-  margin-bottom: 20px;
+
   grid-template-columns: repeat(4, 1fr);
-  grid-gap: 12px;
+  grid-gap: 15px;
+  padding: 20px 20px 0 20px;
   overflow-y: scroll;
-  border: #aaa 1px solid;
-  border-radius: 20px;
+  border-radius: 6px;
+
+  -webkit-box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.5);
 `
 
-export const List = styled.ul``
-
-export const ListItem = styled.li``
+export const List = styled.ul`
+  /* padding-bottom: 10px; */
+`
 
 export const Item = styled.div`
   width: 150px;
@@ -33,5 +36,10 @@ export const Item = styled.div`
     height: 170px;
     object-fit: cover;
     border-radius: 15%;
+
+    background: #333;
+    -webkit-box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.5);
   }
 `
