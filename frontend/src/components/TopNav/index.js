@@ -15,7 +15,7 @@ export default function TopNav() {
   // const [dig, setDig] = useState(false)
   // const [rel, setRel] = useState(false)
   const [cad, setCad] = useState(false)
-  // const [ate, setAte] = useState(false)
+  const [cha, setCha] = useState(false)
 
   // function handleDiagClick() {
   //   setDig(!dig)
@@ -24,16 +24,16 @@ export default function TopNav() {
   //   setAte(false)
   // }
 
-  // function handleRelClick() {
-  //   setRel(!rel)
-  //   setDig(false)
-  //   setCad(false)
-  //   setAte(false)
-  // }
+  function handleChaClick() {
+    setCha(!cha)
+    // setDig(false)
+    setCad(false)
+    // setAte(false)
+  }
 
   function handleCadClick() {
     setCad(!cad)
-    // setDig(false)
+    setCha(false)
     // setRel(false)
     // setAte(false)
   }
@@ -49,7 +49,7 @@ export default function TopNav() {
     // setDig(false)
     // setRel(false)
     setCad(false)
-    // setAte(false)
+    setCha(false)
   }
 
   // eslint-disable-next-line
@@ -58,7 +58,7 @@ export default function TopNav() {
       // setDig(false)
       // setRel(false)
       setCad(false)
-      // setAte(false)
+      setCha(false)
     }
   }
 
@@ -115,87 +115,33 @@ export default function TopNav() {
             </Dropmenu>
           </li>
 
-          <Link onClick={handleRemoveClick} to="/characters">
-            PERSONAGENS
-          </Link>
+          <li>
+            {/* eslint-disable-next-line */}
+            <strong onClick={handleChaClick}>PERSONAGENS</strong>
+            <Dropmenu rel={cha ? 1 : 0} perfil={perfil}>
+              <ul>
+                <li>
+                  <Link onClick={handleRemoveClick} to="/characters">
+                    Criar Novo
+                  </Link>
+                </li>
+                <li>
+                  <Link onClick={handleRemoveClick} to="/characterslist">
+                    Listar
+                  </Link>
+                </li>
+                <li>
+                  <Link onClick={handleRemoveClick} to="/characterview">
+                    Ver Ficha
+                  </Link>
+                </li>
+              </ul>
+            </Dropmenu>
+          </li>
 
           <Link onClick={handleRemoveClick} to="/chat">
             CHAT
           </Link>
-          {/* <li>
-            <strong onClick={handleDiagClick}>CADASTROS</strong>
-
-            <Dropmenu dig={dig ? 1 : 0} perfil={perfil}>
-              <ul>
-                <li>
-                  <Link onClick={handleRemoveClick} to="/eventodia">
-                    Alinhamentos
-                  </Link>
-                </li>
-                <li>
-                  <Link onClick={handleRemoveClick} to="/relacessos">
-                    Classes
-                  </Link>
-                </li>
-                <li>
-                  <Link onClick={handleRemoveClick} to="/relacessos">
-                    Divindades
-                  </Link>
-                </li>
-                <li>
-                  <Link onClick={handleRemoveClick} to="/atendconvite">
-                    Raças
-                  </Link>
-                </li>
-              </ul>
-            </Dropmenu>
-          </li> */}
-
-          {/* <li>
-            <strong onClick={handleAteClick}>ATENDIMENTO</strong>
-            <Dropmenu rel={ate ? 1 : 0} perfil={perfil}>
-              <ul>
-                <li>
-                  <Link onClick={handleRemoveClick} to="/maiorespera">
-                    Maior Tempo Espera
-                  </Link>
-                </li>
-                <li>
-                  <Link onClick={handleRemoveClick} to="/relacessos">
-                    REL ACESSOS
-                  </Link>
-                </li>
-                <li>
-                  <Link onClick={handleRemoveClick} to="/relacessos">
-                    REL ACESSOS
-                  </Link>
-                </li>
-              </ul>
-            </Dropmenu>
-          </li> */}
-
-          {/* <li>
-            <strong onClick={handleRelClick}>RELATÓRIOS</strong>
-            <Dropmenu rel={rel ? 1 : 0} perfil={perfil}>
-              <ul>
-                <li>
-                  <Link onClick={handleRemoveClick} to="/relacessos">
-                    Relatório de Acessos
-                  </Link>
-                </li>
-                <li>
-                  <Link onClick={handleRemoveClick} to="/relacessos">
-                    REL ACESSOS
-                  </Link>
-                </li>
-                <li>
-                  <Link onClick={handleRemoveClick} to="/relacessos">
-                    REL ACESSOS
-                  </Link>
-                </li>
-              </ul>
-            </Dropmenu>
-          </li> */}
         </ul>
       </Container>
     </Navigation>
