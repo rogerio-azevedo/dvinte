@@ -10,6 +10,7 @@ import Portrait from '../app/models/Portrait'
 import Race from '../app/models/Race'
 import User from '../app/models/User'
 import Campaign from '../app/models/Campaign'
+import Attribute from '../app/models/Attribute'
 
 import databaseConfig from '../config/database'
 
@@ -23,6 +24,7 @@ const models = [
   Campaign,
   Race,
   User,
+  Attribute,
 ]
 
 class Database {

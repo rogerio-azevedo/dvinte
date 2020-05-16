@@ -3,6 +3,7 @@ import Portrait from '../models/Portrait'
 import Divinity from '../models/Divinity'
 import Alignment from '../models/Alignment'
 import Race from '../models/Race'
+import Attribute from '../models/Attribute'
 
 class CharacterController {
   async index(req, res) {
@@ -37,6 +38,10 @@ class CharacterController {
           model: Race,
           as: 'race',
           attributes: ['name'],
+        },
+        {
+          model: Attribute,
+          as: 'attribute',
         },
       ],
     })

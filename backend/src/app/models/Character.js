@@ -49,6 +49,11 @@ class Character extends Model {
       foreignKey: 'divinity_id',
       as: 'divinity',
     })
+
+    this.hasOne(models.Attribute, {
+      as: 'attribute',
+      foreignKey: 'character_id',
+    })
   }
 }
 

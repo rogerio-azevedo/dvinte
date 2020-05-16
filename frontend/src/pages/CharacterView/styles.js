@@ -118,3 +118,40 @@ export const InputShort = styled.input`
   border-left: 0;
   border-right: 0;
 `
+
+export const AttrLabel = styled.input`
+  background: #6f0000;
+  color: #fff !important;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 2px;
+  margin: 2px;
+
+  -webkit-box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.5);
+`
+
+export const AttributesContainer = styled.div`
+  margin-top: 3px;
+  align-items: center;
+  padding: 20px;
+
+  -webkit-box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.5);
+
+  input {
+    color: #6f0000;
+    width: 80px;
+    height: 40px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 16px;
+    margin: 2px;
+
+    -webkit-box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.2);
+  }
+`
