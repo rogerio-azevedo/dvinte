@@ -15,6 +15,8 @@ class Character extends Model {
         is_ativo: Sequelize.BOOLEAN,
         level: Sequelize.INTEGER,
         size: Sequelize.INTEGER,
+        exp: Sequelize.INTEGER,
+        health: Sequelize.INTEGER,
       },
       {
         sequelize,
@@ -48,6 +50,11 @@ class Character extends Model {
     this.belongsTo(models.Divinity, {
       foreignKey: 'divinity_id',
       as: 'divinity',
+    })
+
+    this.hasOne(models.Attribute, {
+      as: 'attribute',
+      foreignKey: 'character_id',
     })
   }
 }
