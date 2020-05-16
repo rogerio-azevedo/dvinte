@@ -15,6 +15,8 @@ class Character extends Model {
         is_ativo: Sequelize.BOOLEAN,
         level: Sequelize.INTEGER,
         size: Sequelize.INTEGER,
+        exp: Sequelize.INTEGER,
+        health: Sequelize.INTEGER,
       },
       {
         sequelize,
