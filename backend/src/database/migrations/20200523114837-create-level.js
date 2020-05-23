@@ -1,24 +1,18 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('character-class', {
+    return queryInterface.createTable('levels', {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
       },
-      character_id: {
+      level: {
         type: Sequelize.INTEGER,
-        references: { model: 'characters', key: 'id' },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
         allowNull: false,
       },
-      class_id: {
-        type: Sequelize.INTEGER,
-        references: { model: 'classes', key: 'id' },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
+      name: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
       created_at: {
@@ -33,6 +27,6 @@ module.exports = {
   },
 
   down: queryInterface => {
-    return queryInterface.dropTable('character-class')
+    return queryInterface.dropTable('levels')
   },
 }

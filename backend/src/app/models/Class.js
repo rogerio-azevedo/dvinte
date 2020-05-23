@@ -17,8 +17,14 @@ class Class extends Model {
   static associate(models) {
     this.belongsToMany(models.Character, {
       foreignKey: 'class_id',
-      through: 'characters-class',
+      through: 'character-class',
       as: 'characters',
+    })
+
+    this.belongsToMany(models.Level, {
+      foreignKey: 'class_id',
+      through: 'class-level',
+      as: 'classlevel',
     })
   }
 }

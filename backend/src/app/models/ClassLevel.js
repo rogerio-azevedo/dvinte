@@ -1,11 +1,11 @@
 import { Sequelize, Model } from 'sequelize'
 
-class CharacterClass extends Model {
+class ClassLevel extends Model {
   static init(sequelize) {
     super.init(
       {
-        character_id: Sequelize.INTEGER,
         class_id: Sequelize.INTEGER,
+        level_id: Sequelize.INTEGER,
       },
       {
         sequelize,
@@ -15,4 +15,5 @@ class CharacterClass extends Model {
     return this
   }
 }
-export default CharacterClass
+
+export default ClassLevel

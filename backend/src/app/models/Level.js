@@ -5,6 +5,7 @@ class Level extends Model {
     super.init(
       {
         level: Sequelize.INTEGER,
+        name: Sequelize.STRING,
       },
       {
         sequelize,
@@ -15,14 +16,10 @@ class Level extends Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.Class, {
-      foreignKey: 'class_id',
-      as: 'class',
-    })
-
-    this.belongsTo(models.Character, {
-      foreignKey: 'character_id',
-      as: 'characters',
+    this.belongsToMany(models.Class, {
+      foreignKey: 'level_id',
+      through: 'class-level',
+      as: 'levelclass',
     })
   }
 }
