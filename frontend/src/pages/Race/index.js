@@ -16,11 +16,11 @@ export default function Race() {
     })
   }, [])
 
-  // useEffect(() => {
-  //   api.get('races').then(response => {
-  //     setList(response.data)
-  //   })
-  // }, [list])
+  useEffect(() => {
+    api.get('races').then(response => {
+      setList(response.data)
+    })
+  }, [list])
 
   const onSubmit = (data, e) => {
     ;(async () => {

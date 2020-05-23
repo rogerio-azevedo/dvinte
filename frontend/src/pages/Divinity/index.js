@@ -11,16 +11,18 @@ export default function Divinity() {
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    api.get('divinities').then(response => {
-      setList(response.data)
-    })
+    ;(async () => {
+      await api.get('divinities').then(response => {
+        setList(response.data)
+      })
+    })()
   }, [])
 
   useEffect(() => {
     api.get('divinities').then(response => {
       setList(response.data)
     })
-  }, [])
+  }, [list])
 
   const onSubmit = (data, e) => {
     async function saveData() {

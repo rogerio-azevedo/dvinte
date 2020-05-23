@@ -20,7 +20,7 @@ export default function Classe() {
     api.get('classes').then(response => {
       setList(response.data)
     })
-  }, [])
+  }, [list])
 
   const onSubmit = (data, e) => {
     async function saveData() {

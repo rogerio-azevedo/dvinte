@@ -8,6 +8,7 @@ import AlignmentController from './app/controllers/AlignmentController'
 import ClassController from './app/controllers/ClassController'
 import DivinityController from './app/controllers/DivinityController'
 import CharacterController from './app/controllers/CharacterController'
+
 import PortraitController from './app/controllers/PortraitController'
 import RaceController from './app/controllers/RaceController'
 
@@ -16,6 +17,7 @@ import UserController from './app/controllers/UserController'
 
 import ChatController from './app/controllers/ChatController'
 import CampaignController from './app/controllers/CampaignController'
+import LevelController from './app/controllers/LevelController'
 
 const routes = new Router()
 const upload = multer(multerConfig)
@@ -25,10 +27,10 @@ routes.post('/users', UserController.store)
 
 routes.get('/check', (req, res) => res.send('API ONLINE'))
 
+routes.use(authMiddleware)
+
 routes.post('/chats', ChatController.store)
 routes.get('/chats', ChatController.index)
-
-routes.use(authMiddleware)
 
 routes.get('/users', UserController.index)
 routes.put('/users', UserController.update)
@@ -45,6 +47,7 @@ routes.get('/divinities', DivinityController.index)
 routes.post('/characters', CharacterController.store)
 routes.get('/characters', CharacterController.index)
 routes.get('/characters/:id', CharacterController.show)
+routes.get('/characters/:character_id/classes', ClassController.index)
 
 routes.post('/portraits', upload.single('file'), PortraitController.store)
 routes.get('/portraits', PortraitController.index)
@@ -54,5 +57,8 @@ routes.get('/races', RaceController.index)
 
 routes.post('/campaigns', CampaignController.store)
 routes.get('/campaigns', CampaignController.index)
+
+routes.post('/levels', LevelController.store)
+routes.get('/levels', LevelController.index)
 
 export default routes

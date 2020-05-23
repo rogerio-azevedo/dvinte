@@ -121,20 +121,20 @@ export default function TopNav() {
             <Dropmenu rel={cha ? 1 : 0} perfil={perfil}>
               <ul>
                 <li>
+                  <Link onClick={handleRemoveClick} to="/charactercreate">
+                    Novo Personagem
+                  </Link>
+                </li>
+                <li>
                   <Link onClick={handleRemoveClick} to="/characters">
-                    Criar Novo
+                    Listar Personagens
                   </Link>
                 </li>
-                <li>
-                  <Link onClick={handleRemoveClick} to="/characterslist">
-                    Listar
-                  </Link>
-                </li>
-                <li>
+                {/* <li>
                   <Link onClick={handleRemoveClick} to="/characterview">
                     Ver Ficha
                   </Link>
-                </li>
+                </li> */}
               </ul>
             </Dropmenu>
           </li>

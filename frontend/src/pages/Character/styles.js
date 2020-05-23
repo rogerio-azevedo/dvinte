@@ -2,60 +2,30 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
   display: flex;
-  flex: 1;
+  padding: 30px;
   align-items: center;
-  align-self: center;
-  flex-direction: column;
-  margin: 20px;
+  justify-content: center;
 `
 
-export const FormContainer = styled.div`
-  margin-top: 20px;
-`
-
-export const InputContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  justify-items: center;
-
-  span {
-    color: #bf1650;
-
-    &::before {
-      display: inline;
-      content: '⚠ ';
-    }
-  }
-`
-
-export const InputText = styled.input`
-  width: 250px;
-  border: 1px solid;
-  border-radius: 4px;
-  height: 40px;
-  padding: 0 15px;
-  color: rgba(111, 0, 0, 1);
-  font-weight: 500;
-  font-size: 15px;
-
-  &::placeholder {
-    color: rgba(111, 0, 0, 0.5);
-  }
-`
-
-export const ListItens = styled.div`
-  margin-top: 20px;
-  max-height: 400px;
+export const TableContainer = styled.div`
+  width: 1300px;
+  padding: 30px;
+  max-height: 700px;
   overflow: auto;
 
-  li {
-    background: rgba(111, 0, 0, 0.3);
-    font-weight: 600;
-    font-size: 15px;
-    margin: 3px;
-    padding: 10px;
-    width: 400px;
+  -webkit-box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.5);
+`
+
+export const Portrait = styled.div`
+  height: 90px;
+  width: 90px;
+
+  img {
+    width: 100%;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 50%;
   }
 `

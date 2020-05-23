@@ -41,6 +41,6 @@ module.exports = {
   },
 
   down: queryInterface => {
-    return queryInterface.dropTable('attributes')
+    return queryInterface.dropTable('monies')
   },
 }

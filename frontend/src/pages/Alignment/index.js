@@ -20,7 +20,7 @@ export default function Alignment() {
     api.get('alignments').then(response => {
       setList(response.data)
     })
-  }, [])
+  }, [list])
 
   const onSubmit = (data, e) => {
     async function saveData() {
