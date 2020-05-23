@@ -47,6 +47,14 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: true,
       },
+      health: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+      },
+      exp: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+      },
       size: {
         type: Sequelize.INTEGER,
         allowNull: true,

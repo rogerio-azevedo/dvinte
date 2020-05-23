@@ -1,10 +1,10 @@
 import { Sequelize, Model } from 'sequelize'
 
-class Class extends Model {
+class Level extends Model {
   static init(sequelize) {
     super.init(
       {
-        name: Sequelize.STRING,
+        level: Sequelize.INTEGER,
       },
       {
         sequelize,
@@ -15,12 +15,16 @@ class Class extends Model {
   }
 
   static associate(models) {
-    this.belongsToMany(models.Character, {
+    this.belongsTo(models.Class, {
       foreignKey: 'class_id',
-      through: 'characters-class',
+      as: 'class',
+    })
+
+    this.belongsTo(models.Character, {
+      foreignKey: 'character_id',
       as: 'characters',
     })
   }
 }
 
-export default Class
+export default Level

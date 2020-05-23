@@ -18,6 +18,12 @@ export default function Campaign() {
     })
   }, [])
 
+  useEffect(() => {
+    api.get('campaigns').then(response => {
+      setList(response.data)
+    })
+  }, [list])
+
   const onSubmit = (data, e) => {
     async function saveData() {
       await api.post('campaigns', {

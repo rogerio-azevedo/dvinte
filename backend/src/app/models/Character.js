@@ -56,6 +56,12 @@ class Character extends Model {
       as: 'attribute',
       foreignKey: 'character_id',
     })
+
+    this.belongsToMany(models.Class, {
+      foreignKey: 'character_id',
+      through: 'characters-class',
+      as: 'classes',
+    })
   }
 }
 

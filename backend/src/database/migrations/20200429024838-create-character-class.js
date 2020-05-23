@@ -7,7 +7,7 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
-      person_id: {
+      character_id: {
         type: Sequelize.INTEGER,
         references: { model: 'characters', key: 'id' },
         onUpdate: 'CASCADE',
@@ -19,10 +19,6 @@ module.exports = {
         references: { model: 'classes', key: 'id' },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
-        allowNull: false,
-      },
-      level: {
-        type: Sequelize.INTEGER,
         allowNull: false,
       },
       created_at: {

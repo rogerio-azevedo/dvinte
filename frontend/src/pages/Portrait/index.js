@@ -21,6 +21,12 @@ export default function Portrait() {
     })
   }, [])
 
+  useEffect(() => {
+    api.get('portraits').then(response => {
+      setList(response.data)
+    })
+  }, [list])
+
   // function handleSubmit(data) {
   //   dispatch(updateProfileRequest(data))
   // }
