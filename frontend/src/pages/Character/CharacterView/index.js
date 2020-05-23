@@ -38,7 +38,6 @@ export default function CharacterView() {
 
   const { id } = useParams()
 
-  const [char, setChar] = useState([])
   const [loading, setLoading] = useState(false)
   const [fullChar, setFullChar] = useState()
 
@@ -129,31 +128,40 @@ export default function CharacterView() {
     const result = response.data
 
     const charData = {
-      charPortrait: (result.portrait && result.portrait.url) || '',
-      playerName: profile.name.toUpperCase() || '',
-      charName: result.name.toUpperCase() || '',
-      charLevel: result.level || 0,
-      charRace: (result.race && result.race.name.toUpperCase()) || '',
-      charHealth: result.health || 0,
-      charExp: result.exp || 0,
-      charAlig: (result.alignment && result.alignment.name.toUpperCase()) || '',
-      charDivin: (result.divinity && result.divinity.name.toUpperCase()) || '',
+      charPortrait: result.Portrait,
+      playerName: profile.name.toUpperCase(),
+      charName: result.Name,
+      charLevel: result.Level,
+      charRace: result.Race,
+      charHealth: result.Health,
+      charHealthNow: result.HealthNow,
+      charExp: result.Exp,
+      charAge: result.Age,
+      charGender: result.Gender,
+      charSize: result.Size,
+      charAlig: result.Alig,
+      charDivin: result.Divin,
 
-      charStr: (result.attribute && result.attribute.strength) || 0,
-      charStrMod: getModifier(result.attribute && result.attribute.strength),
-      charDes: (result.attribute && result.attribute.dexterity) || 0,
-      charDesMod: getModifier(result.attribute && result.attribute.dexterity),
-      charCon: (result.attribute && result.attribute.contitution) || 0,
-      charConMod: getModifier(result.attribute && result.attribute.contitution),
-      charInt: (result.attribute && result.attribute.inteligence) || 0,
-      charIntMod: getModifier(result.attribute && result.attribute.inteligence),
-      charSab: (result.attribute && result.attribute.wisdom) || 0,
-      charSabMod: getModifier(result.attribute && result.attribute.wisdom),
-      charCar: (result.attribute && result.attribute.charisma) || 0,
-      charCarMod: getModifier(result.attribute && result.attribute.charisma),
+      charHeight: result.Height,
+      charWeight: result.Weight,
+      charEye: result.Eye,
+      charHair: result.Hair,
+      charSkin: result.Skin,
+
+      charStr: result.Str,
+      charStrMod: getModifier(result.Str),
+      charDes: result.Des,
+      charDesMod: getModifier(result.Des),
+      charCon: result.Con,
+      charConMod: getModifier(result.Con),
+      charInt: result.Int,
+      charIntMod: getModifier(result.Int),
+      charSab: result.Sab,
+      charSabMod: getModifier(result.Sab),
+      charCar: result.Car,
+      charCarMod: getModifier(result.Car),
     }
 
-    setChar(result)
     setLoading(false)
     setFullChar(charData)
   }
@@ -195,16 +203,20 @@ export default function CharacterView() {
 
             <LineContaniner>
               <div>
-                <InputShort defaultValue={char.age || ''} />
+                <InputShort defaultValue={fullChar && fullChar.charAge} />
                 <label htmlFor="CharAge">Idade</label>
               </div>
 
               <div>
-                <InputMed defaultValue={getGender(char.gender) || ''} />
+                <InputMed
+                  defaultValue={getGender(fullChar && fullChar.charGender)}
+                />
                 <label htmlFor="CharGender">Sexo</label>
               </div>
               <div>
-                <InputMed defaultValue={getSize(char.size) || ''} />
+                <InputMed
+                  defaultValue={getSize(fullChar && fullChar.charSize)}
+                />
                 <label htmlFor="CharSize">Tamanho</label>
               </div>
               <div>
@@ -215,23 +227,29 @@ export default function CharacterView() {
 
             <LineContaniner>
               <div>
-                <InputShort defaultValue={char.height || ''} />
+                <InputShort defaultValue={fullChar && fullChar.charHeight} />
                 <label htmlFor="CharHeight">Altura</label>
               </div>
               <div>
-                <InputShort defaultValue={char.weight || ''} />
+                <InputShort defaultValue={fullChar && fullChar.charWeight} />
                 <label htmlFor="CharWeight">Peso</label>
               </div>
               <div>
-                <InputMed defaultValue={(char.eye || '').toUpperCase()} />
+                <InputMed
+                  defaultValue={fullChar && fullChar.charEye.toUpperCase()}
+                />
                 <label htmlFor="CharEye">Olhos</label>
               </div>
               <div>
-                <InputMed defaultValue={(char.hair || '').toUpperCase()} />
+                <InputMed
+                  defaultValue={fullChar && fullChar.charHair.toUpperCase()}
+                />
                 <label htmlFor="CharHair">Cabelos</label>
               </div>
               <div>
-                <InputMed defaultValue={(char.skin || '').toUpperCase()} />
+                <InputMed
+                  defaultValue={fullChar && fullChar.charSkin.toUpperCase()}
+                />
                 <label htmlFor="CharSkin">Pele</label>
               </div>
             </LineContaniner>
