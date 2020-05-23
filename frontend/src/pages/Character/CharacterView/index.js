@@ -235,21 +235,15 @@ export default function CharacterView() {
                 <label htmlFor="CharWeight">Peso</label>
               </div>
               <div>
-                <InputMed
-                  defaultValue={fullChar && fullChar.charEye.toUpperCase()}
-                />
+                <InputMed defaultValue={fullChar && fullChar.charEye} />
                 <label htmlFor="CharEye">Olhos</label>
               </div>
               <div>
-                <InputMed
-                  defaultValue={fullChar && fullChar.charHair.toUpperCase()}
-                />
+                <InputMed defaultValue={fullChar && fullChar.charHair} />
                 <label htmlFor="CharHair">Cabelos</label>
               </div>
               <div>
-                <InputMed
-                  defaultValue={fullChar && fullChar.charSkin.toUpperCase()}
-                />
+                <InputMed defaultValue={fullChar && fullChar.charSkin} />
                 <label htmlFor="CharSkin">Pele</label>
               </div>
             </LineContaniner>
