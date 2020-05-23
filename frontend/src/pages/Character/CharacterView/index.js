@@ -129,7 +129,7 @@ export default function CharacterView() {
     const result = response.data
 
     const charData = {
-      charPortrait: result.portrait.url || '',
+      charPortrait: (result.portrait && result.portrait.url) || '',
       playerName: profile.name.toUpperCase() || '',
       charName: result.name.toUpperCase() || '',
       charLevel: result.level || 0,
