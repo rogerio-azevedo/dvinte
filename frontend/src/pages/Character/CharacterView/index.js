@@ -393,10 +393,6 @@ export default function CharacterView() {
               <ClassInput defaultValue="Vendaval" />
               <ClassValueInput defaultValue="1" />
             </div>
-            <div>
-              <ClassInput defaultValue="Barbaro" />
-              <ClassValueInput defaultValue="1" />
-            </div>
           </ClassContainer>
         </HealthClassContainer>
 
