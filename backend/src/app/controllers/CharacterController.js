@@ -68,7 +68,7 @@ class CharacterController {
         {
           model: Portrait,
           as: 'portrait',
-          attributes: ['id', 'path', 'url'],
+          attributes: ['url'],
         },
         {
           model: Divinity,
@@ -91,19 +91,18 @@ class CharacterController {
         },
         {
           association: 'classes',
+          attributes: ['id', 'name'],
+          through: { attributes: [] },
+          include: [
+            {
+              association: 'classlevel',
+              attributes: ['level'],
+              through: { attributes: [] },
+            },
+          ],
         },
       ],
     })
-
-    // await char.getClass()
-
-    // const classes = await CharacterClass.findAll({
-    //   where: {
-    //     character_id: req.params.id,
-    //   },
-    // })
-
-    // console.log(classes)
 
     return res.json(char)
   }

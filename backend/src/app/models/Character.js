@@ -17,6 +17,7 @@ class Character extends Model {
         size: Sequelize.INTEGER,
         exp: Sequelize.INTEGER,
         health: Sequelize.INTEGER,
+        health_now: Sequelize.INTEGER,
       },
       {
         sequelize,
@@ -59,7 +60,7 @@ class Character extends Model {
 
     this.belongsToMany(models.Class, {
       foreignKey: 'character_id',
-      through: 'characters-class',
+      through: 'character-class',
       as: 'classes',
     })
   }

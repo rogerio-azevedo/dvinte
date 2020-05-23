@@ -9,7 +9,7 @@ class Armor extends Model {
         penalty: Sequelize.INTEGER,
         magic: Sequelize.INTEGER,
         displacement: Sequelize.INTEGER,
-        weight: Sequelize.DOUBLE,
+        weight: Sequelize.FLOAT,
         special: Sequelize.STRING,
       },
       {
