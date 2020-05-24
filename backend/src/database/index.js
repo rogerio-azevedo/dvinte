@@ -3,7 +3,6 @@ import mongoose from 'mongoose'
 
 import Alignment from '../app/models/Alignment'
 import Class from '../app/models/Class'
-import Level from '../app/models/Level'
 import Divinity from '../app/models/Divinity'
 import Character from '../app/models/Character'
 import CharacterClass from '../app/models/CharacterClass'
@@ -18,7 +17,6 @@ import databaseConfig from '../config/database'
 const models = [
   Alignment,
   Class,
-  Level,
   Divinity,
   Character,
   CharacterClass,

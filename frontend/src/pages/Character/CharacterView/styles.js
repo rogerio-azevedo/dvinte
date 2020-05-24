@@ -311,23 +311,25 @@ export const ClassContainer = styled.div`
   align-items: center;
   justify-items: center;
 
-  > div {
+  > ul {
     justify-content: center;
     align-items: center;
     justify-items: center;
 
-    input {
-      color: #6f0000;
-      width: 80px;
-      height: 40px;
-      text-align: center;
-      font-weight: 600;
-      font-size: 16px;
-      margin: 2px;
+    li {
+      input {
+        color: #6f0000;
+        width: 80px;
+        height: 40px;
+        text-align: center;
+        font-weight: 600;
+        font-size: 16px;
+        margin: 5px;
 
-      -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-      -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-      box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+        -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+        -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+        box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+      }
     }
   }
 `

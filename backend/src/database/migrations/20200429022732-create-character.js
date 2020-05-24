@@ -39,15 +39,15 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      is_ativo: {
-        type: Sequelize.BOOLEAN,
-        allowNull: true,
-      },
       level: {
         type: Sequelize.INTEGER,
         allowNull: true,
       },
       health: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+      },
+      health_now: {
         type: Sequelize.INTEGER,
         allowNull: true,
       },
@@ -93,6 +93,10 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'SET NULL',
         allowNull: false,
+      },
+      is_ativo: {
+        type: Sequelize.BOOLEAN,
+        allowNull: true,
       },
       created_at: {
         type: Sequelize.DATE,

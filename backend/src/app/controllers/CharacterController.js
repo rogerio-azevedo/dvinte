@@ -44,6 +44,7 @@ class CharacterController {
           as: 'attribute',
         },
       ],
+      order: [['name', 'ASC']],
     })
 
     const chars = list.map(c => ({
@@ -58,8 +59,6 @@ class CharacterController {
       race: (c.race && c.race.name) || '',
       user: (c.user && c.user.name) || '',
     }))
-
-    console.log(chars)
 
     return res.json(chars)
   }
@@ -92,22 +91,21 @@ class CharacterController {
           as: 'attribute',
         },
         {
+          model: User,
+          as: 'user',
+          attributes: ['name'],
+        },
+        {
           association: 'classes',
-          attributes: ['id', 'name'],
-          through: { attributes: [] },
-          include: [
-            {
-              association: 'classlevel',
-              attributes: ['level'],
-              through: { attributes: [] },
-            },
-          ],
+          attributes: ['name'],
+          through: { attributes: ['level'] },
         },
       ],
     })
 
     const charData = {
       Name: char.name.toUpperCase() || '',
+      User: (char.user && char.user.name.toUpperCase()) || '',
       Level: char.level || 0,
       Race: (char.race && char.race.name.toUpperCase()) || '',
       Health: char.health || 0,
@@ -134,9 +132,11 @@ class CharacterController {
       Car: (char.attribute && char.attribute.charisma) || 0,
 
       Portrait: (char.portrait && char.portrait.url) || '',
+      Classes: char.classes.map(c => ({
+        name: c.name.toUpperCase() || '',
+        level: (c.CharacterClass && c.CharacterClass.level) || 0,
+      })),
     }
-
-    console.log(charData)
 
     return res.json(charData)
   }
