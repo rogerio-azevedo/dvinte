@@ -6,6 +6,7 @@ class CharacterClass extends Model {
       {
         character_id: Sequelize.INTEGER,
         class_id: Sequelize.INTEGER,
+        level: Sequelize.INTEGER,
       },
       {
         sequelize,

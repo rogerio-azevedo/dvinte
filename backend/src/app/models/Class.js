@@ -1,4 +1,5 @@
 import { Sequelize, Model } from 'sequelize'
+import CharacterClass from './CharacterClass'
 
 class Class extends Model {
   static init(sequelize) {
@@ -17,14 +18,8 @@ class Class extends Model {
   static associate(models) {
     this.belongsToMany(models.Character, {
       foreignKey: 'class_id',
-      through: 'character-class',
-      as: 'characters',
-    })
-
-    this.belongsToMany(models.Level, {
-      foreignKey: 'class_id',
-      through: 'class-level',
-      as: 'classlevel',
+      through: CharacterClass,
+      as: 'char_class',
     })
   }
 }

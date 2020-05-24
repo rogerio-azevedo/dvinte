@@ -17,7 +17,7 @@ import UserController from './app/controllers/UserController'
 
 import ChatController from './app/controllers/ChatController'
 import CampaignController from './app/controllers/CampaignController'
-import LevelController from './app/controllers/LevelController'
+import AttributeController from './app/controllers/AttributeController'
 
 const routes = new Router()
 const upload = multer(multerConfig)
@@ -52,13 +52,13 @@ routes.get('/characters/:character_id/classes', ClassController.index)
 routes.post('/portraits', upload.single('file'), PortraitController.store)
 routes.get('/portraits', PortraitController.index)
 
+routes.post('/attributes', AttributeController.store)
+routes.get('/attributes', AttributeController.index)
+
 routes.post('/races', RaceController.store)
 routes.get('/races', RaceController.index)
 
 routes.post('/campaigns', CampaignController.store)
 routes.get('/campaigns', CampaignController.index)
-
-routes.post('/levels', LevelController.store)
-routes.get('/levels', LevelController.index)
 
 export default routes

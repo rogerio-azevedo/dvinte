@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+// import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import api from '~/services/api'
 
@@ -34,7 +34,7 @@ import {
 } from './styles'
 
 export default function CharacterView() {
-  const profile = useSelector(state => state.user.profile)
+  // const profile = useSelector(state => state.user.profile)
 
   const { id } = useParams()
 
@@ -129,7 +129,7 @@ export default function CharacterView() {
 
     const charData = {
       charPortrait: result.Portrait,
-      playerName: profile.name.toUpperCase(),
+      playerName: result.User,
       charName: result.Name,
       charLevel: result.Level,
       charRace: result.Race,
@@ -160,6 +160,8 @@ export default function CharacterView() {
       charSabMod: getModifier(result.Sab),
       charCar: result.Car,
       charCarMod: getModifier(result.Car),
+
+      charClass: result.Classes,
     }
 
     setLoading(false)
@@ -374,25 +376,23 @@ export default function CharacterView() {
                 <label htmlFor="charHealth">Pontos de Vida</label>
               </div>
               <div>
-                <InputShort defaultValue={fullChar && fullChar.charHealth} />
+                <InputShort defaultValue={fullChar && fullChar.charHealthNow} />
                 <label htmlFor="charHealth">Vida Atual</label>
               </div>
             </div>
           </HealthContainer>
 
           <ClassContainer>
-            <div>
-              <ClassInput defaultValue="Guerreiro" />
-              <ClassValueInput defaultValue="1" />
-            </div>
-            <div>
-              <ClassInput defaultValue="Mestre de Armas" />
-              <ClassValueInput defaultValue="1" />
-            </div>
-            <div>
-              <ClassInput defaultValue="Vendaval" />
-              <ClassValueInput defaultValue="1" />
-            </div>
+            <ul>
+              {fullChar &&
+                fullChar.charClass.map((m, index) => (
+                  // eslint-disable-next-line
+                  <li key={index}>
+                    <ClassInput defaultValue={m.name} />
+                    <ClassValueInput defaultValue={m.level} />
+                  </li>
+                ))}
+            </ul>
           </ClassContainer>
         </HealthClassContainer>
 
@@ -497,11 +497,11 @@ export default function CharacterView() {
                 <InputDefense defaultValue="" />
               </div>
               <div>
-                <label htmlFor="inputResist">arm</label>
+                <label htmlFor="inputResist">armad</label>
                 <InputDefense defaultValue="" />
               </div>
               <div>
-                <label htmlFor="inputResist">esc</label>
+                <label htmlFor="inputResist">escudo</label>
                 <InputDefense defaultValue="" />
               </div>
               <div>
