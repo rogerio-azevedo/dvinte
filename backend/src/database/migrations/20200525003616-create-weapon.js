@@ -1,6 +1,6 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('armors', {
+    return queryInterface.createTable('weapons', {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -11,7 +11,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      type: {
+      dice: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
@@ -19,21 +19,25 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      dexterity: {
+      critical: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      range: {
+        type: Sequelize.FLOAT,
+        allowNull: false,
+      },
+      type: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      penalty: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
-      magic: {
+      material: {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      displacement: {
+      magic: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
       },
       weight: {
         type: Sequelize.FLOAT,
@@ -61,6 +65,6 @@ module.exports = {
   },
 
   down: queryInterface => {
-    return queryInterface.dropTable('armors')
+    return queryInterface.dropTable('weapons')
   },
 }
