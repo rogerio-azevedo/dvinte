@@ -39,17 +39,17 @@ import {
 
 export default function CharacterView() {
   const { id } = useParams()
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [char, setChar] = useState()
 
   useEffect(() => {
-    setLoading(true)
     ;(async () => {
       const response = await api.get(`characters/${id}`)
 
       setChar(response.data)
-      setLoading(false)
     })()
+
+    setLoading(false)
   }, [id])
 
   return (
