@@ -47,9 +47,8 @@ export default function CharacterView() {
       const response = await api.get(`characters/${id}`)
 
       setChar(response.data)
+      setLoading(false)
     })()
-
-    setLoading(false)
   }, [id])
 
   return (
