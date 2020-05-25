@@ -138,6 +138,85 @@ class CharacterController {
       ],
     })
 
+    function getSize(size) {
+      let text = ''
+
+      switch (size) {
+        case 1:
+          text = 'PEQUENO'
+          break
+        case 2:
+          text = 'MÉDIO'
+          break
+        case 3:
+          text = 'GRANDE'
+          break
+        default:
+      }
+      return text
+    }
+
+    function getGender(gender) {
+      let textGender = ''
+
+      switch (gender) {
+        case 1:
+          textGender = 'MASCULINO'
+          break
+        case 2:
+          textGender = 'FEMININO'
+          break
+
+        default:
+      }
+
+      return textGender
+    }
+
+    function getModifier(mod) {
+      let textMod = 0
+
+      if (Number(mod) > 10) {
+        textMod = Math.floor((Number(mod) - 10) / 2)
+        return textMod
+      }
+
+      switch (Number(mod)) {
+        case 10:
+          textMod = 0
+          break
+        case 9:
+          textMod = -1
+          break
+        case 8:
+          textMod = -1
+          break
+        case 7:
+          textMod = -2
+          break
+        case 6:
+          textMod = -2
+          break
+        case 5:
+          textMod = -3
+          break
+        case 4:
+          textMod = -3
+          break
+        case 3:
+          textMod = -4
+          break
+        case 2:
+          textMod = -4
+          break
+        case 1:
+          textMod = -5
+          break
+        default:
+      }
+      return textMod
+    }
+
     const charData = {
       Name: char.name.toUpperCase() || '',
       User: (char.user && char.user.name.toUpperCase()) || '',
@@ -146,8 +225,8 @@ class CharacterController {
       Health: char.health || 0,
       HealthNow: char.health_now || 0,
       Age: char.age || 0,
-      Gender: char.gender || 0,
-      Size: char.size || 0,
+      Gender: getGender(char.gender || 0),
+      Size: getSize(char.size || 0),
 
       Height: char.height || '',
       Weight: char.weight || '',
@@ -165,6 +244,13 @@ class CharacterController {
       Int: (char.attribute && char.attribute.inteligence) || 0,
       Sab: (char.attribute && char.attribute.wisdom) || 0,
       Car: (char.attribute && char.attribute.charisma) || 0,
+
+      StrMod: getModifier((char.attribute && char.attribute.strength) || 0),
+      DesMod: getModifier((char.attribute && char.attribute.dexterity) || 0),
+      ConMod: getModifier((char.attribute && char.attribute.contitution) || 0),
+      IntMod: getModifier((char.attribute && char.attribute.inteligence) || 0),
+      SabMod: getModifier((char.attribute && char.attribute.wisdom) || 0),
+      CarMod: getModifier((char.attribute && char.attribute.charisma) || 0),
 
       Portrait: (char.portrait && char.portrait.url) || '',
       Classes: char.classes.map(c => ({
