@@ -141,7 +141,7 @@ export const StatsContainer = styled.div`
 `
 
 export const AttributesContainer = styled.fieldset`
-  margin-top: 20px;
+  margin-top: 25px;
   border: 1px solid #6f0000;
   border-radius: 4px;
 
@@ -315,6 +315,8 @@ export const ClassContainer = styled.div`
     justify-content: center;
     align-items: center;
     justify-items: center;
+    max-height: 225px;
+    overflow: auto;
 
     li {
       input {
@@ -414,7 +416,7 @@ export const DefenseContainer = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin-top: 15px;
+  margin-top: 20px;
   margin-bottom: 10px;
 `
 
@@ -456,7 +458,7 @@ export const ResistMainLabel = styled.input`
   align-items: center;
   justify-items: center;
   justify-content: center;
-  margin-top: 20px !important;
+  margin-top: 30px !important;
   margin-right: 10px !important;
 
   -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
