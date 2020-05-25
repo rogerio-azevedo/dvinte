@@ -44,12 +44,12 @@ export default function CharacterView() {
 
   useEffect(() => {
     setLoading(true)
+    ;(async () => {
+      const response = await api.get(`characters/${id}`)
 
-    api.get(`characters/${id}`).then(response => {
       setChar(response.data)
-    })
-
-    setLoading(false)
+      setLoading(false)
+    })()
   }, [id])
 
   return (
@@ -261,11 +261,11 @@ export default function CharacterView() {
           <ClassContainer>
             <ul>
               {char &&
-                char.Classes.map((m, index) => (
+                char.Classes.map((item, index) => (
                   // eslint-disable-next-line
                   <li key={index}>
-                    <ClassInput defaultValue={m.name || ''} />
-                    <ClassValueInput defaultValue={m.level || 0} />
+                    <ClassInput defaultValue={item.name || ''} />
+                    <ClassValueInput defaultValue={item.level || 0} />
                   </li>
                 ))}
             </ul>
@@ -410,44 +410,44 @@ export default function CharacterView() {
           <div>
             <ul>
               {char &&
-                char.Armor.map((m, index) => (
+                char.Armor.map((item, index) => (
                   // eslint-disable-next-line
                   <li key={index}>
                     <div>
                       <label htmlFor="inputResist">Nome</label>
-                      <InputLargeArmory defaultValue={m.name} />
+                      <InputLargeArmory defaultValue={item.name} />
                     </div>
                     <div>
                       <label htmlFor="inputResist">Tipo</label>
-                      <input defaultValue={m.type} />
+                      <input defaultValue={item.type} />
                     </div>
                     <div>
                       <label htmlFor="inputResist">Bonus</label>
-                      <input defaultValue={m.bonus} />
+                      <input defaultValue={item.bonus} />
                     </div>
                     <div>
                       <label htmlFor="inputResist">Dest Max</label>
-                      <input defaultValue={m.dexterity} />
+                      <input defaultValue={item.dexterity} />
                     </div>
                     <div>
                       <label htmlFor="inputResist">Penalidade</label>
-                      <input defaultValue={m.penalty} />
+                      <input defaultValue={item.penalty} />
                     </div>
                     <div>
                       <label htmlFor="inputResist">Deslocamento</label>
-                      <input defaultValue={m.displacement} />
+                      <input defaultValue={item.displacement} />
                     </div>
                     <div>
                       <label htmlFor="inputResist">Peso</label>
-                      <input defaultValue={m.weight} />
+                      <input defaultValue={item.weight} />
                     </div>
                     <div>
                       <label htmlFor="inputResist">Especial</label>
-                      <InputMedArmory defaultValue={m.special} />
+                      <InputMedArmory defaultValue={item.special} />
                     </div>
                     <div>
                       <label htmlFor="inputResist">Preço</label>
-                      <InputMedArmory defaultValue={m.price} />
+                      <InputMedArmory defaultValue={item.price} />
                     </div>
                   </li>
                 ))}
@@ -461,52 +461,52 @@ export default function CharacterView() {
           <div>
             <ul>
               {char &&
-                char.Weapon.map((m, index) => (
+                char.Weapon.map((item, index) => (
                   // eslint-disable-next-line
                   <li key={index}>
                     <div>
                       <label htmlFor="inputResist">Nome</label>
-                      <InputLargeArmory defaultValue={m.name} />
+                      <InputLargeArmory defaultValue={item.name} />
                     </div>
                     <div>
                       <label htmlFor="inputResist">Qtde</label>
-                      <input defaultValue={m.multiplier} />
+                      <input defaultValue={item.multiplier} />
                     </div>
                     <div>
                       <label htmlFor="inputResist">Dados</label>
-                      <input defaultValue={m.dice} />
+                      <input defaultValue={item.dice} />
                     </div>
                     <div>
                       <label htmlFor="inputResist">Crítico</label>
-                      <InputMedArmory defaultValue={m.critical} />
+                      <InputMedArmory defaultValue={item.critical} />
                     </div>
                     <div>
                       <label htmlFor="inputResist">Alcance</label>
-                      <input defaultValue={m.range} />
+                      <input defaultValue={item.range} />
                     </div>
                     <div>
                       <label htmlFor="inputResist">Tipo</label>
-                      <InputMedArmory defaultValue={m.type} />
+                      <InputMedArmory defaultValue={item.type} />
                     </div>
                     <div>
                       <label htmlFor="inputResist">Material</label>
-                      <InputMedArmory defaultValue={m.material} />
+                      <InputMedArmory defaultValue={item.material} />
                     </div>
                     <div>
                       <label htmlFor="inputResist">Mágico</label>
-                      <InputMedArmory defaultValue={m.magic} />
+                      <InputMedArmory defaultValue={item.magic} />
                     </div>
                     <div>
                       <label htmlFor="inputResist">Peso</label>
-                      <input defaultValue={m.weight} />
+                      <input defaultValue={item.weight} />
                     </div>
                     <div>
                       <label htmlFor="inputResist">Especial</label>
-                      <InputMedArmory defaultValue={m.special} />
+                      <InputMedArmory defaultValue={item.special} />
                     </div>
                     <div>
                       <label htmlFor="inputResist">Preço</label>
-                      <input defaultValue={m.price} />
+                      <input defaultValue={item.price} />
                     </div>
                   </li>
                 ))}
