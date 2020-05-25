@@ -257,8 +257,8 @@ export default function CharacterView() {
             </div>
           </HealthContainer>
 
-          <ClassContainer>
-            <ul>
+          <ClassContainer loading={loading ? 1 : 0}>
+            <ul loading={loading ? 1 : 0}>
               {!loading &&
                 char &&
                 char.Classes.map((item, index) => (
