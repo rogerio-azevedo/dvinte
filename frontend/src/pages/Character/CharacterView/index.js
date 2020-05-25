@@ -50,10 +50,8 @@ export default function CharacterView() {
     })
 
     setLoading(false)
-    // loadChar()
   }, [id])
 
-  console.tron.log(char)
   return (
     <Container loading={loading ? 1 : 0}>
       <HeaderContainer>
