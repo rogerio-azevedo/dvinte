@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-// import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import api from '~/services/api'
 
@@ -39,221 +38,92 @@ import {
 } from './styles'
 
 export default function CharacterView() {
-  // const profile = useSelector(state => state.user.profile)
-
   const { id } = useParams()
-
   const [loading, setLoading] = useState(false)
-  const [fullChar, setFullChar] = useState()
-
-  function getSize(size) {
-    let text = ''
-
-    switch (size) {
-      case 1:
-        text = 'PEQUENO'
-        break
-      case 2:
-        text = 'MÉDIO'
-        break
-      case 3:
-        text = 'GRANDE'
-        break
-      default:
-    }
-    return text
-  }
-
-  function getGender(gender) {
-    let textGender = ''
-
-    switch (gender) {
-      case 1:
-        textGender = 'MASCULINO'
-        break
-      case 2:
-        textGender = 'FEMININO'
-        break
-
-      default:
-    }
-
-    return textGender
-  }
-
-  function getModifier(mod) {
-    let textMod = 0
-
-    if (Number(mod) > 10) {
-      textMod = Math.floor((Number(mod) - 10) / 2)
-      return textMod
-    }
-
-    switch (Number(mod)) {
-      case 10:
-        textMod = 0
-        break
-      case 9:
-        textMod = -1
-        break
-      case 8:
-        textMod = -1
-        break
-      case 7:
-        textMod = -2
-        break
-      case 6:
-        textMod = -2
-        break
-      case 5:
-        textMod = -3
-        break
-      case 4:
-        textMod = -3
-        break
-      case 3:
-        textMod = -4
-        break
-      case 2:
-        textMod = -4
-        break
-      case 1:
-        textMod = -5
-        break
-      default:
-    }
-    return textMod
-  }
-
-  async function loadChar() {
-    setLoading(true)
-
-    const response = await api.get(`characters/${id}`)
-
-    const result = response.data
-
-    const charData = {
-      charPortrait: result.Portrait,
-      playerName: result.User,
-      charName: result.Name,
-      charLevel: result.Level,
-      charRace: result.Race,
-      charHealth: result.Health,
-      charHealthNow: result.HealthNow,
-      charExp: result.Exp,
-      charAge: result.Age,
-      charGender: result.Gender,
-      charSize: result.Size,
-      charAlig: result.Alig,
-      charDivin: result.Divin,
-
-      charHeight: result.Height,
-      charWeight: result.Weight,
-      charEye: result.Eye,
-      charHair: result.Hair,
-      charSkin: result.Skin,
-
-      charStr: result.Str,
-      charStrMod: getModifier(result.Str),
-      charDes: result.Des,
-      charDesMod: getModifier(result.Des),
-      charCon: result.Con,
-      charConMod: getModifier(result.Con),
-      charInt: result.Int,
-      charIntMod: getModifier(result.Int),
-      charSab: result.Sab,
-      charSabMod: getModifier(result.Sab),
-      charCar: result.Car,
-      charCarMod: getModifier(result.Car),
-
-      charClass: result.Classes,
-
-      charArmor: result.Armor,
-      charWeapon: result.Weapon,
-    }
-
-    setLoading(false)
-    setFullChar(charData)
-  }
+  const [char, setChar] = useState()
 
   useEffect(() => {
-    loadChar()
-  }, []) // eslint-disable-line
+    setLoading(true)
 
+    api.get(`characters/${id}`).then(response => {
+      setChar(response.data)
+    })
+
+    setLoading(false)
+    // loadChar()
+  }, [id])
+
+  console.tron.log(char)
   return (
     <Container loading={loading ? 1 : 0}>
       <HeaderContainer>
         <legend>Dados Básicos</legend>
         <div>
           <Portrait>
-            <img src={fullChar && fullChar.charPortrait} alt="" />
+            <img src={char && char.Portrait} alt="" />
           </Portrait>
 
           <BaseContainer>
             <LineContaniner>
               <div>
-                <InputLarge defaultValue={fullChar && fullChar.charName} />
+                <InputLarge defaultValue={char && char.Name} />
                 <label htmlFor="CharName">Nome do Personagem</label>
               </div>
 
               <div>
-                <InputLarge defaultValue={fullChar && fullChar.playerName} />
+                <InputLarge defaultValue={char && char.User} />
                 <label htmlFor="CharName">Nome do Jogador</label>
               </div>
 
               <div>
-                <InputLarge defaultValue={fullChar && fullChar.charRace} />
+                <InputLarge defaultValue={char && char.Race} />
                 <label htmlFor="CharRace">Raça</label>
               </div>
               <div>
-                <InputLarge defaultValue={fullChar && fullChar.charAlig} />
+                <InputLarge defaultValue={char && char.Alig} />
                 <label htmlFor="CharAlignment">Tendência</label>
               </div>
             </LineContaniner>
 
             <LineContaniner>
               <div>
-                <InputShort defaultValue={fullChar && fullChar.charAge} />
+                <InputShort defaultValue={char && char.Age} />
                 <label htmlFor="CharAge">Idade</label>
               </div>
 
               <div>
-                <InputMed
-                  defaultValue={getGender(fullChar && fullChar.charGender)}
-                />
+                <InputMed defaultValue={char && char.Gender} />
                 <label htmlFor="CharGender">Sexo</label>
               </div>
               <div>
-                <InputMed
-                  defaultValue={getSize(fullChar && fullChar.charSize)}
-                />
+                <InputMed defaultValue={char && char.Size} />
                 <label htmlFor="CharSize">Tamanho</label>
               </div>
               <div>
-                <InputLarge defaultValue={fullChar && fullChar.charDivin} />
+                <InputLarge defaultValue={char && char.Divin} />
                 <label htmlFor="CharDivinity">Divindade</label>
               </div>
             </LineContaniner>
 
             <LineContaniner>
               <div>
-                <InputShort defaultValue={fullChar && fullChar.charHeight} />
+                <InputShort defaultValue={char && char.Height} />
                 <label htmlFor="CharHeight">Altura</label>
               </div>
               <div>
-                <InputShort defaultValue={fullChar && fullChar.charWeight} />
+                <InputShort defaultValue={char && char.Weight} />
                 <label htmlFor="CharWeight">Peso</label>
               </div>
               <div>
-                <InputMed defaultValue={fullChar && fullChar.charEye} />
+                <InputMed defaultValue={char && char.Eye} />
                 <label htmlFor="CharEye">Olhos</label>
               </div>
               <div>
-                <InputMed defaultValue={fullChar && fullChar.charHair} />
+                <InputMed defaultValue={char && char.Hair} />
                 <label htmlFor="CharHair">Cabelos</label>
               </div>
               <div>
-                <InputMed defaultValue={fullChar && fullChar.charSkin} />
+                <InputMed defaultValue={char && char.Skin} />
                 <label htmlFor="CharSkin">Pele</label>
               </div>
             </LineContaniner>
@@ -268,11 +138,11 @@ export default function CharacterView() {
             <AttrLabel1 defaultValue="FOR" />
             <div>
               <label htmlFor="inputResist">valor</label>
-              <input defaultValue={fullChar && fullChar.charStr} />
+              <input defaultValue={char && char.Str} />
             </div>
             <div>
               <label htmlFor="inputResist">mod</label>
-              <input defaultValue={fullChar && fullChar.charStrMod} />
+              <input defaultValue={char && char.StrMod} />
             </div>
             <div>
               <label htmlFor="inputResist">v.temp</label>
@@ -287,10 +157,10 @@ export default function CharacterView() {
           <div>
             <AttrLabel defaultValue="DES" />
             <div>
-              <input defaultValue={fullChar && fullChar.charDes} />
+              <input defaultValue={char && char.Des} />
             </div>
             <div>
-              <input defaultValue={fullChar && fullChar.charDesMod} />
+              <input defaultValue={char && char.DesMod} />
             </div>
             <div>
               <input defaultValue="" />
@@ -303,10 +173,10 @@ export default function CharacterView() {
           <div>
             <AttrLabel defaultValue="CON" />
             <div>
-              <input defaultValue={fullChar && fullChar.charCon} />
+              <input defaultValue={char && char.Con} />
             </div>
             <div>
-              <input defaultValue={fullChar && fullChar.charConMod} />
+              <input defaultValue={char && char.ConMod} />
             </div>
             <div>
               <input defaultValue="" />
@@ -319,10 +189,10 @@ export default function CharacterView() {
           <div>
             <AttrLabel defaultValue="INT" />
             <div>
-              <input defaultValue={fullChar && fullChar.charInt} />
+              <input defaultValue={char && char.Int} />
             </div>
             <div>
-              <input defaultValue={fullChar && fullChar.charIntMod} />
+              <input defaultValue={char && char.IntMod} />
             </div>
             <div>
               <input defaultValue="" />
@@ -335,10 +205,10 @@ export default function CharacterView() {
           <div>
             <AttrLabel defaultValue="SAB" />
             <div>
-              <input defaultValue={fullChar && fullChar.charSab} />
+              <input defaultValue={char && char.Sab} />
             </div>
             <div>
-              <input defaultValue={fullChar && fullChar.charSabMod} />
+              <input defaultValue={char && char.SabMod} />
             </div>
             <div>
               <input defaultValue="" />
@@ -351,10 +221,10 @@ export default function CharacterView() {
           <div>
             <AttrLabel defaultValue="CAR" />
             <div>
-              <input defaultValue={fullChar && fullChar.charCar} />
+              <input defaultValue={char && char.Car} />
             </div>
             <div>
-              <input defaultValue={fullChar && fullChar.charCarMod} />
+              <input defaultValue={char && char.CarMod} />
             </div>
             <div>
               <input defaultValue="" />
@@ -370,21 +240,21 @@ export default function CharacterView() {
           <HealthContainer>
             <div>
               <div>
-                <InputShort defaultValue={fullChar && fullChar.charLevel} />
+                <InputShort defaultValue={char && char.Level} />
                 <label htmlFor="CharLevel">Level</label>
               </div>
               <div>
-                <InputShort defaultValue={fullChar && fullChar.charExp} />
+                <InputShort defaultValue={char && char.Exp} />
                 <label htmlFor="charExp">Experiência</label>
               </div>
             </div>
             <div>
               <div>
-                <InputShort defaultValue={fullChar && fullChar.charHealth} />
+                <InputShort defaultValue={char && char.Health} />
                 <label htmlFor="charHealth">Pontos de Vida</label>
               </div>
               <div>
-                <InputShort defaultValue={fullChar && fullChar.charHealthNow} />
+                <InputShort defaultValue={char && char.HealthNow} />
                 <label htmlFor="charHealth">Vida Atual</label>
               </div>
             </div>
@@ -392,12 +262,12 @@ export default function CharacterView() {
 
           <ClassContainer>
             <ul>
-              {fullChar &&
-                fullChar.charClass.map((m, index) => (
+              {char &&
+                char.Classes.map((m, index) => (
                   // eslint-disable-next-line
                   <li key={index}>
-                    <ClassInput defaultValue={m.name} />
-                    <ClassValueInput defaultValue={m.level} />
+                    <ClassInput defaultValue={m.name || ''} />
+                    <ClassValueInput defaultValue={m.level || 0} />
                   </li>
                 ))}
             </ul>
@@ -541,8 +411,8 @@ export default function CharacterView() {
           <legend>Armaduras e Escudos</legend>
           <div>
             <ul>
-              {fullChar &&
-                fullChar.charArmor.map((m, index) => (
+              {char &&
+                char.Armor.map((m, index) => (
                   // eslint-disable-next-line
                   <li key={index}>
                     <div>
@@ -592,8 +462,8 @@ export default function CharacterView() {
           <legend>Armas</legend>
           <div>
             <ul>
-              {fullChar &&
-                fullChar.charWeapon.map((m, index) => (
+              {char &&
+                char.Weapon.map((m, index) => (
                   // eslint-disable-next-line
                   <li key={index}>
                     <div>
