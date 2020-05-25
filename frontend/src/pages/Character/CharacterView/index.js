@@ -46,10 +46,9 @@ export default function CharacterView() {
     setLoading(true)
     ;(async () => {
       const response = await api.get(`characters/${id}`)
-      if (response) {
-        setChar(response.data)
-        setLoading(false)
-      }
+
+      setChar(response.data)
+      setLoading(false)
     })()
   }, [id])
 
@@ -261,7 +260,8 @@ export default function CharacterView() {
 
           <ClassContainer>
             <ul>
-              {char &&
+              {!loading &&
+                char &&
                 char.Classes.map((item, index) => (
                   // eslint-disable-next-line
                   <li key={index}>
@@ -410,7 +410,8 @@ export default function CharacterView() {
           <legend>Armaduras e Escudos</legend>
           <div>
             <ul>
-              {char &&
+              {!loading &&
+                char &&
                 char.Armor.map((item, index) => (
                   // eslint-disable-next-line
                   <li key={index}>
@@ -461,7 +462,8 @@ export default function CharacterView() {
           <legend>Armas</legend>
           <div>
             <ul>
-              {char &&
+              {!loading &&
+                char &&
                 char.Weapon.map((item, index) => (
                   // eslint-disable-next-line
                   <li key={index}>
