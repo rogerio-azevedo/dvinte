@@ -515,3 +515,164 @@ export const InputDefense = styled.input`
   -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
 `
+
+export const ArmoryContainer = styled.div`
+  display: flex;
+  width: 1200px;
+  margin-top: 3px;
+  border-radius: 6px;
+`
+export const ArmorContainer = styled.fieldset`
+  margin-top: 20px;
+  border: 1px solid #6f0000;
+  border-radius: 4px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+
+  legend {
+    font-size: 18px;
+    font-weight: 600;
+    margin-left: 20px;
+    width: 210px;
+    color: #6f0000;
+    background: #fff;
+    -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+    padding: 5px;
+    border-radius: 4px;
+  }
+
+  -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+
+  div {
+    ul {
+      li {
+        display: flex;
+        flex-direction: row;
+
+        div {
+          display: flex;
+          flex-direction: column;
+
+          > label {
+            margin-left: 10px !important;
+          }
+
+          input {
+            color: #6f0000;
+            width: 80px;
+            height: 40px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 16px;
+            margin: 5px;
+            margin-right: 10px;
+
+            -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+            -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+            box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+          }
+        }
+      }
+    }
+  }
+`
+export const WeaponContainer = styled.fieldset`
+  margin-top: 20px;
+  border: 1px solid #6f0000;
+  border-radius: 4px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+
+  legend {
+    font-size: 18px;
+    font-weight: 600;
+    margin-left: 20px;
+    width: 210px;
+    color: #6f0000;
+    background: #fff;
+    -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+    padding: 5px;
+    border-radius: 4px;
+  }
+
+  -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+
+  div {
+    ul {
+      overflow-y: auto;
+
+      li {
+        display: flex;
+        flex-direction: row;
+
+        div {
+          display: flex;
+          flex-direction: column;
+
+          > label {
+            margin-left: 10px !important;
+          }
+
+          input {
+            color: #6f0000;
+            width: 65px;
+            height: 35px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 16px;
+            margin: 5px;
+            margin-right: 10px;
+
+            -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+            -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+            box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+          }
+        }
+      }
+    }
+  }
+`
+
+export const InputLargeArmory = styled.input`
+  color: #6f0000;
+  width: 240px !important;
+  height: 35px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 16px;
+  margin: 5px;
+
+  -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+`
+
+export const InputMedArmory = styled.input`
+  color: #6f0000;
+  width: 120px !important;
+  height: 35px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 16px;
+  margin: 5px;
+
+  -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+`

@@ -1,16 +1,17 @@
 import { Sequelize, Model } from 'sequelize'
 
-class Armor extends Model {
+class Weapon extends Model {
   static init(sequelize) {
     super.init(
       {
         name: Sequelize.STRING,
-        type: Sequelize.INTEGER,
-        bonus: Sequelize.INTEGER,
-        dexterity: Sequelize.INTEGER,
-        penalty: Sequelize.INTEGER,
+        dice: Sequelize.STRING,
+        multiplier: Sequelize.INTEGER,
+        critical: Sequelize.STRING,
+        range: Sequelize.STRING,
+        type: Sequelize.STRING,
+        material: Sequelize.STRING,
         magic: Sequelize.STRING,
-        displacement: Sequelize.INTEGER,
         weight: Sequelize.FLOAT,
         special: Sequelize.STRING,
         price: Sequelize.STRING,
@@ -24,4 +25,4 @@ class Armor extends Model {
   }
 }
 
-export default Armor
+export default Weapon
