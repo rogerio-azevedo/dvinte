@@ -11,6 +11,8 @@ import Race from '../app/models/Race'
 import User from '../app/models/User'
 import Campaign from '../app/models/Campaign'
 import Attribute from '../app/models/Attribute'
+import Armor from '../app/models/Armor'
+import Weapon from '../app/models/Weapon'
 
 import databaseConfig from '../config/database'
 
@@ -25,6 +27,8 @@ const models = [
   Race,
   User,
   Attribute,
+  Armor,
+  Weapon,
 ]
 
 class Database {

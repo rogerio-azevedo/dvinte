@@ -59,6 +59,16 @@ class Character extends Model {
       foreignKey: 'character_id',
     })
 
+    this.hasMany(models.Armor, {
+      as: 'armor',
+      foreignKey: 'character_id',
+    })
+
+    this.hasMany(models.Weapon, {
+      as: 'weapon',
+      foreignKey: 'character_id',
+    })
+
     this.belongsToMany(models.Class, {
       through: CharacterClass,
       foreignKey: 'character_id',

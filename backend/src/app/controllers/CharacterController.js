@@ -5,6 +5,8 @@ import Alignment from '../models/Alignment'
 import Race from '../models/Race'
 import Attribute from '../models/Attribute'
 import User from '../models/User'
+import Armor from '../models/Armor'
+import Weapon from '../models/Weapon'
 
 class CharacterController {
   async index(req, res) {
@@ -100,6 +102,39 @@ class CharacterController {
           attributes: ['name'],
           through: { attributes: ['level'] },
         },
+        {
+          model: Armor,
+          attributes: [
+            'name',
+            'type',
+            'bonus',
+            'dexterity',
+            'penalty',
+            'magic',
+            'displacement',
+            'weight',
+            'special',
+            'price',
+          ],
+          as: 'armor',
+        },
+        {
+          model: Weapon,
+          attributes: [
+            'name',
+            'dice',
+            'multiplier',
+            'critical',
+            'range',
+            'type',
+            'material',
+            'magic',
+            'weight',
+            'special',
+            'price',
+          ],
+          as: 'weapon',
+        },
       ],
     })
 
@@ -136,6 +171,9 @@ class CharacterController {
         name: c.name.toUpperCase() || '',
         level: (c.CharacterClass && c.CharacterClass.level) || 0,
       })),
+
+      Armor: char.armor || [],
+      Weapon: char.weapon || [],
     }
 
     return res.json(charData)
