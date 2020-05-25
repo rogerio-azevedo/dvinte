@@ -12,6 +12,10 @@ module.exports = {
         allowNull: false,
       },
       dice: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      multiplier: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
