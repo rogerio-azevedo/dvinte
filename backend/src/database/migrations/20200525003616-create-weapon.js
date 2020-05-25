@@ -47,6 +47,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true,
       },
+      price: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
       character_id: {
         type: Sequelize.INTEGER,
         references: { model: 'characters', key: 'id' },
