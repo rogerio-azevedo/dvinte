@@ -19,20 +19,16 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      bonus: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
       critical: {
         type: Sequelize.STRING,
         allowNull: false,
       },
       range: {
-        type: Sequelize.FLOAT,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       type: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: false,
       },
       material: {
