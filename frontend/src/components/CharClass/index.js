@@ -43,7 +43,3 @@ export default function CharClass({ classes }) {
     </Container>
   )
 }
-
-CharClass.propTypes = {
-  classes: PropTypes.func.isRequired,
-}
