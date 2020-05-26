@@ -266,8 +266,8 @@ export default function CharacterView() {
                 char.Classes.map((item, index) => (
                   // eslint-disable-next-line
                   <li key={index}>
-                    <ClassInput defaultValue={item.name || ''} />
-                    <ClassValueInput defaultValue={item.level || 0} />
+                    <ClassInput value={item.name || ''} />
+                    <ClassValueInput value={item.level || 0} />
                   </li>
                 ))}
             </ul>
