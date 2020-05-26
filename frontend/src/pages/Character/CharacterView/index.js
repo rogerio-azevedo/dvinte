@@ -51,7 +51,6 @@ export default function CharacterView() {
     const classesArray = response.data && response.data.Classes
     setClasses(classesArray)
 
-    console.log(classes)
     setLoading(false)
   }
 
@@ -268,6 +267,7 @@ export default function CharacterView() {
           <ClassContainer>
             <ul>
               {!loading &&
+                classes.length > 0 &&
                 classes.map((item, index) => (
                   // eslint-disable-next-line
                   <li key={index}>
