@@ -41,13 +41,15 @@ export default function CharacterView() {
   const { id } = useParams()
   const [loading, setLoading] = useState(true)
   const [char, setChar] = useState()
+  const [classes, setClasses] = useState()
 
   async function loadChar() {
     const response = await api.get(`characters/${id}`)
 
     setChar(response.data)
 
-    const classes = response.data && response.data.Classes
+    const classesArray = response.data && response.data.Classes
+    setClasses(classesArray)
 
     console.log(classes)
     setLoading(false)
@@ -266,8 +268,7 @@ export default function CharacterView() {
           <ClassContainer>
             <ul>
               {!loading &&
-                char.Classes &&
-                char.Classes.map((item, index) => (
+                classes.map((item, index) => (
                   // eslint-disable-next-line
                   <li key={index}>
                     <ClassInput>{item.name || ''}</ClassInput>
