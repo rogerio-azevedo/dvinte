@@ -41,7 +41,7 @@ export default function CharacterView() {
   const { id } = useParams()
   const [loading, setLoading] = useState(true)
   const [char, setChar] = useState()
-  const [classes, setClasses] = useState()
+  const [classes, setClasses] = useState([])
   const [newClass, setNewClass] = useState()
 
   async function loadChar() {
@@ -53,7 +53,6 @@ export default function CharacterView() {
     setClasses(classesArray)
     setNewClass(classesArray[0])
     setLoading(false)
-    console.log(classesArray)
   }
 
   useEffect(() => {
@@ -268,11 +267,11 @@ export default function CharacterView() {
 
           <ClassContainer>
             <ul>
-              <li>
+              {/* <li>
                 <ClassInput defaultValue={newClass && newClass.name} />
                 <ClassValueInput defaultValue={newClass && newClass.level} />
-              </li>
-              {/* {!loading &&
+              </li> */}
+              {!loading &&
                 classes.length > 0 &&
                 classes.map((item, index) => (
                   // eslint-disable-next-line
@@ -280,7 +279,7 @@ export default function CharacterView() {
                     <ClassInput>{item.name || ''}</ClassInput>
                     <ClassValueInput>{item.level || 0}</ClassValueInput>
                   </li>
-                ))} */}
+                ))}
             </ul>
           </ClassContainer>
         </HealthClassContainer>
