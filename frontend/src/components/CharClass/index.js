@@ -4,7 +4,14 @@ import PropTypes from 'prop-types'
 import { Container, ClassInput, ClassValueInput } from './styles'
 
 export default function CharClass({ classes, loading }) {
-  const [classArray, setClassArray] = useState(!loading && classes)
+  const [classArray, setClassArray] = useState(classes)
+
+  // async function loadClass() {
+  //   setClassArray(classes)
+  // }
+  // useEffect(() => {
+  //   loadClass()
+  // }, []) // eslint-disable-line
 
   return (
     <Container>
