@@ -46,6 +46,10 @@ export default function CharacterView() {
     const response = await api.get(`characters/${id}`)
 
     setChar(response.data)
+
+    const classes = response.data && response.data.Classes
+
+    console.log(classes)
     setLoading(false)
   }
 
@@ -266,9 +270,8 @@ export default function CharacterView() {
                 char.Classes.map((item, index) => (
                   // eslint-disable-next-line
                   <li key={index}>
-                    {item.name}
-                    {/* <ClassInput value={item.name || ''} />
-                    <ClassValueInput value={item.level || 0} /> */}
+                    <ClassInput>{item.name || ''}</ClassInput>
+                    <ClassValueInput>{item.level || 0}</ClassValueInput>
                   </li>
                 ))}
             </ul>
