@@ -336,7 +336,7 @@ export const ClassContainer = styled.div`
   }
 `
 
-export const ClassInput = styled.h3`
+export const ClassInput = styled.input`
   width: 260px !important;
   height: 35px !important;
   border-radius: 4px;
@@ -354,7 +354,7 @@ export const ClassInput = styled.h3`
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
 `
 
-export const ClassValueInput = styled.h3`
+export const ClassValueInput = styled.input`
   width: 70px !important;
   height: 35px !important;
   border-radius: 4px;
