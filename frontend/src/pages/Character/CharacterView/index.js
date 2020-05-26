@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import api from '~/services/api'
+import CharClass from '~/components/CharClass'
 
 import {
   Container,
@@ -18,8 +19,6 @@ import {
   HealthClassContainer,
   HealthContainer,
   ClassContainer,
-  ClassInput,
-  ClassValueInput,
   ResistContainer,
   MainResistContainer,
   DefenseContainer,
@@ -42,7 +41,7 @@ export default function CharacterView() {
   const [loading, setLoading] = useState(true)
   const [char, setChar] = useState()
   const [classes, setClasses] = useState([])
-  const [newClass, setNewClass] = useState()
+  // const [newClass, setNewClass] = useState()
 
   async function loadChar() {
     const response = await api.get(`characters/${id}`)
@@ -51,7 +50,7 @@ export default function CharacterView() {
 
     const classesArray = response.data && response.data.Classes
     setClasses(classesArray)
-    setNewClass(classesArray[0])
+    // setNewClass(classesArray[0])
     setLoading(false)
   }
 
@@ -266,21 +265,7 @@ export default function CharacterView() {
           </HealthContainer>
 
           <ClassContainer>
-            <ul>
-              {/* <li>
-                <ClassInput defaultValue={newClass && newClass.name} />
-                <ClassValueInput defaultValue={newClass && newClass.level} />
-              </li> */}
-              {!loading &&
-                classes.length > 0 &&
-                classes.map((item, index) => (
-                  // eslint-disable-next-line
-                  <li key={index}>
-                    <ClassInput>{item.name || ''}</ClassInput>
-                    <ClassValueInput>{item.level || 0}</ClassValueInput>
-                  </li>
-                ))}
-            </ul>
+            {!loading && <CharClass classes={classes} loading={loading} />}
           </ClassContainer>
         </HealthClassContainer>
 
