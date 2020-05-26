@@ -42,14 +42,16 @@ export default function CharacterView() {
   const [loading, setLoading] = useState(true)
   const [char, setChar] = useState()
 
-  useEffect(() => {
-    ;(async () => {
-      const response = await api.get(`characters/${id}`)
+  async function loadChar() {
+    const response = await api.get(`characters/${id}`)
 
-      setChar(response.data)
-      setLoading(false)
-    })()
-  }, [id])
+    setChar(response.data)
+    setLoading(false)
+  }
+
+  useEffect(() => {
+    loadChar()
+  }, []) // eslint-disable-line
 
   return (
     <Container loading={loading ? 1 : 0}>
@@ -257,10 +259,10 @@ export default function CharacterView() {
             </div>
           </HealthContainer>
 
-          <ClassContainer loading={loading ? 1 : 0}>
-            <ul loading={loading ? 1 : 0}>
+          <ClassContainer>
+            <ul>
               {!loading &&
-                char &&
+                char.Classes &&
                 char.Classes.map((item, index) => (
                   // eslint-disable-next-line
                   <li key={index}>
@@ -410,7 +412,7 @@ export default function CharacterView() {
           <div>
             <ul>
               {!loading &&
-                char &&
+                char.Armor &&
                 char.Armor.map((item, index) => (
                   // eslint-disable-next-line
                   <li key={index}>
@@ -462,7 +464,7 @@ export default function CharacterView() {
           <div>
             <ul>
               {!loading &&
-                char &&
+                char.Weapon &&
                 char.Weapon.map((item, index) => (
                   // eslint-disable-next-line
                   <li key={index}>
