@@ -230,9 +230,9 @@ class CharacterController {
 
       Height: char.height || '',
       Weight: char.weight || '',
-      Eye: char.eye || '',
-      Hair: char.hair || '',
-      Skin: char.skin || '',
+      Eye: char.eye.toUpperCase() || '',
+      Hair: char.hair.toUpperCase() || '',
+      Skin: char.skin.toUpperCase() || '',
 
       Exp: char.exp || 0,
       Alig: (char.alignment && char.alignment.name.toUpperCase()) || '',

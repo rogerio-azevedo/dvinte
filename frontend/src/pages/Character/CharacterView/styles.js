@@ -141,7 +141,7 @@ export const StatsContainer = styled.div`
 `
 
 export const AttributesContainer = styled.fieldset`
-  margin-top: 25px;
+  margin-top: 20px;
   border: 1px solid #6f0000;
   border-radius: 4px;
 
