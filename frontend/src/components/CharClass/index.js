@@ -2,12 +2,11 @@ import React from 'react'
 
 import { Container, ClassInput, ClassValueInput } from './styles'
 
-export default function CharClass({ classes }) {
-  const classLength = classes.length
-  const len1 = classes[0]
-  const len2 = classes[1]
-  const len3 = classes[2]
-  const len4 = classes[3]
+export default function CharClass({ classes, loading }) {
+  const len1 = !loading && classes && classes[0]
+  const len2 = !loading && classes && classes[1]
+  const len3 = !loading && classes && classes[2]
+  const len4 = !loading && classes && classes[3]
 
   return (
     <Container>
