@@ -53,7 +53,7 @@ export default function CharacterView() {
 
   useEffect(() => {
     loadData()
-  }, [])
+  }, [loadData])
 
   // useEffect(() => {
   //   async function loadChar() {
