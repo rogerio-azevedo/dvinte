@@ -44,28 +44,32 @@ export default function CharacterView() {
   const [char, setChar] = useState()
   const [classes, setClasses] = useState()
 
-  const loadData = useCallback(async () => {
+  // const loadData = useCallback(async () => {
+  //   const response = await api.get(`characters/${id}`)
+
+  //   setChar(response.data)
+  //   setLoading(false)
+  // }, [id])
+
+  // useEffect(() => {
+  //   loadData()
+  // }, [loadData])
+
+  async function loadChar() {
     const response = await api.get(`characters/${id}`)
 
     setChar(response.data)
+
     setLoading(false)
+  }
+
+  useEffect(() => {
+    loadChar()
   }, [id])
 
   useEffect(() => {
-    loadData()
-  }, [loadData])
-
-  // useEffect(() => {
-  //   async function loadChar() {
-  //     const response = await api.get(`characters/${id}`)
-
-  //     setChar(response.data)
-  //     setClasses(response.data && response.data.Classes)
-
-  //     setLoading(false)
-  //   }
-  //   loadChar()
-  // }, [id])
+    loadChar()
+  }, [char])
 
   return (
     <Container loading={loading ? 1 : 0}>
