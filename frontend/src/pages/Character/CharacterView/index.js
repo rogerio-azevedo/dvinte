@@ -278,7 +278,6 @@ export default function CharacterView() {
               {!loading &&
                 char &&
                 char.Classes.map((item, index) => (
-                  // eslint-disable-next-line
                   <li key={index}>
                     <ClassInput defaultValue={item.name} />
                     <ClassValueInput defaultValue={item.level} />
@@ -428,7 +427,6 @@ export default function CharacterView() {
               <ul>
                 {char &&
                   char.Armor.map((item, index) => (
-                    // eslint-disable-next-line
                     <li key={index}>
                       <div>
                         <label htmlFor="inputResist">Nome</label>
@@ -481,7 +479,6 @@ export default function CharacterView() {
               <ul>
                 {char &&
                   char.Weapon.map((item, index) => (
-                    // eslint-disable-next-line
                     <li key={index}>
                       <div>
                         <label htmlFor="inputResist">Nome</label>
