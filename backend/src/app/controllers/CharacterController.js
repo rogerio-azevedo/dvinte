@@ -251,10 +251,7 @@ class CharacterController {
       CarMod: getModifier((char.attribute && char.attribute.charisma) || 0),
 
       Portrait: (char.portrait && char.portrait.url) || '',
-    }
 
-    const result = {
-      charData,
       Classes:
         (char &&
           char.classes.map(c => ({
@@ -262,11 +259,12 @@ class CharacterController {
             level: (c.CharacterClass && c.CharacterClass.level) || 0,
           }))) ||
         [],
+
       Armor: (char && char.armor) || [],
       Weapon: (char && char.weapon) || [],
     }
 
-    return res.json(result)
+    return res.json(charData)
   }
 
   async store(req, res) {
