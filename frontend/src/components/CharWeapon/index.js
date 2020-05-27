@@ -39,7 +39,7 @@ export default function CharWeapon({ weapons }) {
             </div>
             <div>
               <label htmlFor="inputResist">Mágico</label>
-              <input defaultValue={item.magic} />
+              <InputMed defaultValue={item.magic} />
             </div>
             <div>
               <label htmlFor="inputResist">Peso</label>

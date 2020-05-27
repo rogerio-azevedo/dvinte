@@ -427,26 +427,6 @@ export const LabelContainer = styled.div`
   margin-bottom: 10px !important;
 `
 
-export const DefenseMainLabel = styled.input`
-  background: #6f0000;
-  color: #fff !important;
-  font-weight: 600;
-  font-size: 18px;
-  padding: 5px;
-  width: 65px;
-  height: 50px;
-  text-align: center;
-  align-items: center;
-  justify-items: center;
-  justify-content: center;
-  margin-top: 20px !important;
-  margin-right: 10px !important;
-
-  -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-  -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-`
-
 export const ResistMainLabel = styled.input`
   background: #6f0000;
   color: #fff !important;
@@ -493,20 +473,6 @@ export const InputResitContainer = styled.div`
 export const InputResit = styled.input`
   color: #6f0000;
   width: 48px;
-  height: 50px;
-  text-align: center;
-  font-weight: 600;
-  font-size: 18px;
-  margin: 2px;
-
-  -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-  -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-`
-
-export const InputDefense = styled.input`
-  color: #6f0000;
-  width: 45px;
   height: 50px;
   text-align: center;
   font-weight: 600;

@@ -4,6 +4,7 @@ import api from '~/services/api'
 import CharClass from '~/components/CharClass'
 import CharArmor from '~/components/CharArmor'
 import CharWeapon from '~/components/CharWeapon'
+import CharCa from '~/components/CharCa'
 
 import {
   Container,
@@ -26,11 +27,9 @@ import {
   DefenseContainer,
   LabelContainer,
   ResistMainLabel,
-  DefenseMainLabel,
   ResistLabel,
   InputResitContainer,
   InputResit,
-  InputDefense,
   ArmoryContainer,
   ArmorContainer,
   WeaponContainer,
@@ -43,15 +42,17 @@ export default function CharacterView() {
   const [classes, setClasses] = useState()
   const [armors, setArmors] = useState()
   const [weapons, setWeapons] = useState()
+  const [dextMod, setDextMod] = useState()
 
   useEffect(() => {
     async function loadChar() {
       const response = await api.get(`characters/${id}`)
 
       setChar(response.data)
-      setClasses(response.data && response.data.Classes)
-      setArmors(response.data && response.data.Armor)
-      setWeapons(response.data && response.data.Weapon)
+      setClasses(response.data.Classes)
+      setArmors(response.data.Armor)
+      setWeapons(response.data.Weapon)
+      setDextMod(response.data.DesMod)
 
       setLoading(false)
     }
@@ -361,44 +362,7 @@ export default function CharacterView() {
           </MainResistContainer>
 
           <DefenseContainer>
-            <InputResitContainer>
-              <div>
-                <DefenseMainLabel defaultValue="CA" />
-              </div>
-
-              <div>
-                <label htmlFor="inputResist">total</label>
-                <InputDefense defaultValue="" />
-              </div>
-              <div>
-                <label htmlFor="inputResist">armad</label>
-                <InputDefense defaultValue="" />
-              </div>
-              <div>
-                <label htmlFor="inputResist">escudo</label>
-                <InputDefense defaultValue="" />
-              </div>
-              <div>
-                <label htmlFor="inputResist">dest</label>
-                <InputDefense defaultValue="" />
-              </div>
-              <div>
-                <label htmlFor="inputResist">tam</label>
-                <InputDefense defaultValue="" />
-              </div>
-              <div>
-                <label htmlFor="inputResist">arm tot</label>
-                <InputDefense defaultValue="" />
-              </div>
-              <div>
-                <label htmlFor="inputResist">deflex</label>
-                <InputDefense defaultValue="" />
-              </div>
-              <div>
-                <label htmlFor="inputResist">outros</label>
-                <InputDefense defaultValue="" />
-              </div>
-            </InputResitContainer>
+            {!loading && <CharCa armors={armors} dextMod={dextMod} />}
           </DefenseContainer>
         </ResistContainer>
       </StatsContainer>
