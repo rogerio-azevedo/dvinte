@@ -7,23 +7,12 @@ export default function CharClass({ classes }) {
   return (
     <Container>
       <ul>
-        <li>
-          <ClassInput defaultValue={classes && classes[0].name} />
-          <ClassValueInput defaultValue={classes && classes[0].level} />
-        </li>
-        <li>
-          <ClassInput defaultValue={classes && classes[1].name} />
-          <ClassValueInput defaultValue={classes && classes[1].level} />
-        </li>
-        <li>
-          <ClassInput defaultValue={classes && classes[2].name} />
-          <ClassValueInput defaultValue={classes && classes[2].level} />
-        </li>
-        <li>
-          <ClassInput defaultValue={classes && classes[3].name} />
-
-          <ClassValueInput defaultValue={classes && classes[3].level} />
-        </li>
+        {classes.map(item => (
+          <li key={Math.random()}>
+            <ClassInput defaultValue={item.name} />
+            <ClassValueInput defaultValue={item.level} />
+          </li>
+        ))}
       </ul>
     </Container>
   )

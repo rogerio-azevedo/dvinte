@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import api from '~/services/api'
-// import CharClass from '~/components/CharClass'
+import CharClass from '~/components/CharClass'
 
 import {
   Container,
@@ -19,8 +19,8 @@ import {
   HealthClassContainer,
   HealthContainer,
   ClassContainer,
-  ClassInput,
-  ClassValueInput,
+  // ClassInput,
+  // ClassValueInput,
   ResistContainer,
   MainResistContainer,
   DefenseContainer,
@@ -42,24 +42,14 @@ export default function CharacterView() {
   const { id } = useParams()
   const [loading, setLoading] = useState(true)
   const [char, setChar] = useState()
-  // const [classes, setClasses] = useState()
-
-  // const loadData = useCallback(async () => {
-  //   const response = await api.get(`characters/${id}`)
-
-  //   setChar(response.data)
-  //   setLoading(false)
-  // }, [id])
-
-  // useEffect(() => {
-  //   loadData()
-  // }, [loadData])
+  const [classes, setClasses] = useState()
 
   useEffect(() => {
     async function loadChar() {
       const response = await api.get(`characters/${id}`)
 
       setChar(response.data)
+      setClasses(response.data.Classes)
 
       setLoading(false)
     }
@@ -274,16 +264,17 @@ export default function CharacterView() {
           </HealthContainer>
 
           <ClassContainer>
-            <ul>
+            {!loading && <CharClass classes={classes} />}
+            {/* <ul>
               {!loading &&
                 char &&
-                char.Classes.map((item, index) => (
-                  <li key={index}>
+                char.Classes.map(item => (
+                  <li key={Math.random()}>
                     <ClassInput defaultValue={item.name} />
                     <ClassValueInput defaultValue={item.level} />
                   </li>
                 ))}
-            </ul>
+            </ul> */}
           </ClassContainer>
         </HealthClassContainer>
 
@@ -426,8 +417,8 @@ export default function CharacterView() {
             {!loading && (
               <ul>
                 {char &&
-                  char.Armor.map((item, index) => (
-                    <li key={index}>
+                  char.Armor.map(item => (
+                    <li key={Math.random()}>
                       <div>
                         <label htmlFor="inputResist">Nome</label>
                         <InputLargeArmory defaultValue={item.name} />
@@ -478,8 +469,8 @@ export default function CharacterView() {
             {!loading && (
               <ul>
                 {char &&
-                  char.Weapon.map((item, index) => (
-                    <li key={index}>
+                  char.Weapon.map(item => (
+                    <li key={Math.random()}>
                       <div>
                         <label htmlFor="inputResist">Nome</label>
                         <InputLargeArmory
