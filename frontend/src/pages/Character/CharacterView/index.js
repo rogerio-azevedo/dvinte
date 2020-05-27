@@ -273,15 +273,17 @@ export default function CharacterView() {
           </HealthContainer>
 
           <ClassContainer>
-            <ul>
-              {classes.map((item, index) => (
-                // eslint-disable-next-line
-                <li key={index}>
-                  <ClassInput defaultValue={item.name} />
-                  <ClassValueInput defaultValue={item.level} />
-                </li>
-              ))}
-            </ul>
+            {!loading && (
+              <ul>
+                {classes.map((item, index) => (
+                  // eslint-disable-next-line
+                  <li key={index}>
+                    <ClassInput defaultValue={!loading && item.name} />
+                    <ClassValueInput defaultValue={!loading && item.level} />
+                  </li>
+                ))}
+              </ul>
+            )}
           </ClassContainer>
         </HealthClassContainer>
 
@@ -421,49 +423,51 @@ export default function CharacterView() {
         <ArmorContainer>
           <legend>Armaduras e Escudos</legend>
           <div>
-            <ul>
-              {armors.map((item, index) => (
-                // eslint-disable-next-line
-                <li key={index}>
-                  <div>
-                    <label htmlFor="inputResist">Nome</label>
-                    <InputLargeArmory defaultValue={item.name} />
-                  </div>
-                  <div>
-                    <label htmlFor="inputResist">Tipo</label>
-                    <input defaultValue={item.type} />
-                  </div>
-                  <div>
-                    <label htmlFor="inputResist">Bonus</label>
-                    <input defaultValue={item.bonus} />
-                  </div>
-                  <div>
-                    <label htmlFor="inputResist">Dest Max</label>
-                    <input defaultValue={item.dexterity} />
-                  </div>
-                  <div>
-                    <label htmlFor="inputResist">Penalidade</label>
-                    <input defaultValue={item.penalty} />
-                  </div>
-                  <div>
-                    <label htmlFor="inputResist">Deslocamento</label>
-                    <input defaultValue={item.displacement} />
-                  </div>
-                  <div>
-                    <label htmlFor="inputResist">Peso</label>
-                    <input defaultValue={item.weight} />
-                  </div>
-                  <div>
-                    <label htmlFor="inputResist">Especial</label>
-                    <InputMedArmory defaultValue={item.special} />
-                  </div>
-                  <div>
-                    <label htmlFor="inputResist">Preço</label>
-                    <InputMedArmory defaultValue={item.price} />
-                  </div>
-                </li>
-              ))}
-            </ul>
+            {!loading && (
+              <ul>
+                {armors.map((item, index) => (
+                  // eslint-disable-next-line
+                  <li key={index}>
+                    <div>
+                      <label htmlFor="inputResist">Nome</label>
+                      <InputLargeArmory defaultValue={item.name} />
+                    </div>
+                    <div>
+                      <label htmlFor="inputResist">Tipo</label>
+                      <input defaultValue={item.type} />
+                    </div>
+                    <div>
+                      <label htmlFor="inputResist">Bonus</label>
+                      <input defaultValue={item.bonus} />
+                    </div>
+                    <div>
+                      <label htmlFor="inputResist">Dest Max</label>
+                      <input defaultValue={item.dexterity} />
+                    </div>
+                    <div>
+                      <label htmlFor="inputResist">Penalidade</label>
+                      <input defaultValue={item.penalty} />
+                    </div>
+                    <div>
+                      <label htmlFor="inputResist">Deslocamento</label>
+                      <input defaultValue={item.displacement} />
+                    </div>
+                    <div>
+                      <label htmlFor="inputResist">Peso</label>
+                      <input defaultValue={item.weight} />
+                    </div>
+                    <div>
+                      <label htmlFor="inputResist">Especial</label>
+                      <InputMedArmory defaultValue={item.special} />
+                    </div>
+                    <div>
+                      <label htmlFor="inputResist">Preço</label>
+                      <InputMedArmory defaultValue={item.price} />
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </ArmorContainer>
       </ArmoryContainer>
@@ -477,47 +481,47 @@ export default function CharacterView() {
                 <li key={index}>
                   <div>
                     <label htmlFor="inputResist">Nome</label>
-                    <InputLargeArmory defaultValue={item.name} />
+                    <InputLargeArmory defaultValue={!loading && item.name} />
                   </div>
                   <div>
                     <label htmlFor="inputResist">Qtde</label>
-                    <input defaultValue={item.multiplier} />
+                    <input defaultValue={!loading && item.multiplier} />
                   </div>
                   <div>
                     <label htmlFor="inputResist">Dados</label>
-                    <input defaultValue={item.dice} />
+                    <input defaultValue={!loading && item.dice} />
                   </div>
                   <div>
                     <label htmlFor="inputResist">Crítico</label>
-                    <InputMedArmory defaultValue={item.critical} />
+                    <InputMedArmory defaultValue={!loading && item.critical} />
                   </div>
                   <div>
                     <label htmlFor="inputResist">Alcance</label>
-                    <input defaultValue={item.range} />
+                    <input defaultValue={!loading && item.range} />
                   </div>
                   <div>
                     <label htmlFor="inputResist">Tipo</label>
-                    <InputMedArmory defaultValue={item.type} />
+                    <InputMedArmory defaultValue={!loading && item.type} />
                   </div>
                   <div>
                     <label htmlFor="inputResist">Material</label>
-                    <InputMedArmory defaultValue={item.material} />
+                    <InputMedArmory defaultValue={!loading && item.material} />
                   </div>
                   <div>
                     <label htmlFor="inputResist">Mágico</label>
-                    <InputMedArmory defaultValue={item.magic} />
+                    <InputMedArmory defaultValue={!loading && item.magic} />
                   </div>
                   <div>
                     <label htmlFor="inputResist">Peso</label>
-                    <input defaultValue={item.weight} />
+                    <input defaultValue={!loading && item.weight} />
                   </div>
                   <div>
                     <label htmlFor="inputResist">Especial</label>
-                    <InputMedArmory defaultValue={item.special} />
+                    <InputMedArmory defaultValue={!loading && item.special} />
                   </div>
                   <div>
                     <label htmlFor="inputResist">Preço</label>
-                    <input defaultValue={item.price} />
+                    <input defaultValue={!loading && item.price} />
                   </div>
                 </li>
               ))}
