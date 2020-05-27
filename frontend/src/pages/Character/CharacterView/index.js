@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import api from '~/services/api'
-import CharClass from '~/components/CharClass'
+// import CharClass from '~/components/CharClass'
 
 import {
   Container,
@@ -42,7 +42,7 @@ export default function CharacterView() {
   const { id } = useParams()
   const [loading, setLoading] = useState(true)
   const [char, setChar] = useState()
-  const [classes, setClasses] = useState()
+  // const [classes, setClasses] = useState()
 
   // const loadData = useCallback(async () => {
   //   const response = await api.get(`characters/${id}`)
@@ -55,15 +55,15 @@ export default function CharacterView() {
   //   loadData()
   // }, [loadData])
 
-  async function loadChar() {
-    const response = await api.get(`characters/${id}`)
-
-    setChar(response.data)
-
-    setLoading(false)
-  }
-
   useEffect(() => {
+    async function loadChar() {
+      const response = await api.get(`characters/${id}`)
+
+      setChar(response.data)
+
+      setLoading(false)
+    }
+
     loadChar()
   }, [id])
 
