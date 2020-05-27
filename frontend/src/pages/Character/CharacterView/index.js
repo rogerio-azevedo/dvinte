@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import api from '~/services/api'
-import CharClass from '~/components/CharClass'
+// import CharClass from '~/components/CharClass'
 
 import {
   Container,
@@ -19,6 +19,8 @@ import {
   HealthClassContainer,
   HealthContainer,
   ClassContainer,
+  ClassInput,
+  ClassValueInput,
   ResistContainer,
   MainResistContainer,
   DefenseContainer,
@@ -41,15 +43,21 @@ export default function CharacterView() {
   const [loading, setLoading] = useState(true)
   const [char, setChar] = useState()
   const [classes, setClasses] = useState([])
-  // const [newClass, setNewClass] = useState()
+  const [armors, setArmors] = useState([])
+  const [weapons, setWepons] = useState([])
+  // const [newClass, setNewClass] = useState({})
 
   async function loadChar() {
     const response = await api.get(`characters/${id}`)
 
-    setChar(response.data)
+    setChar(response.data && response.data.charData)
+    setClasses(response.data && response.data.Classes)
+    setArmors(response.data && response.data.Armor)
+    setWepons(response.data && response.data.Weapon)
+    // console.log(response.data)
 
-    const classesArray = response.data && response.data.Classes
-    setClasses(classesArray)
+    // const classesArray = response.data && response.data.Classes
+    // setClasses(classesArray)
     // setNewClass(classesArray[0])
     setLoading(false)
   }
@@ -265,7 +273,15 @@ export default function CharacterView() {
           </HealthContainer>
 
           <ClassContainer>
-            {!loading && <CharClass classes={classes} loading={loading} />}
+            <ul>
+              {classes.map((item, index) => (
+                // eslint-disable-next-line
+                <li key={index}>
+                  <ClassInput defaultValue={item.name} />
+                  <ClassValueInput defaultValue={item.level} />
+                </li>
+              ))}
+            </ul>
           </ClassContainer>
         </HealthClassContainer>
 
@@ -406,49 +422,47 @@ export default function CharacterView() {
           <legend>Armaduras e Escudos</legend>
           <div>
             <ul>
-              {!loading &&
-                char.Armor &&
-                char.Armor.map((item, index) => (
-                  // eslint-disable-next-line
-                  <li key={index}>
-                    <div>
-                      <label htmlFor="inputResist">Nome</label>
-                      <InputLargeArmory defaultValue={item.name} />
-                    </div>
-                    <div>
-                      <label htmlFor="inputResist">Tipo</label>
-                      <input defaultValue={item.type} />
-                    </div>
-                    <div>
-                      <label htmlFor="inputResist">Bonus</label>
-                      <input defaultValue={item.bonus} />
-                    </div>
-                    <div>
-                      <label htmlFor="inputResist">Dest Max</label>
-                      <input defaultValue={item.dexterity} />
-                    </div>
-                    <div>
-                      <label htmlFor="inputResist">Penalidade</label>
-                      <input defaultValue={item.penalty} />
-                    </div>
-                    <div>
-                      <label htmlFor="inputResist">Deslocamento</label>
-                      <input defaultValue={item.displacement} />
-                    </div>
-                    <div>
-                      <label htmlFor="inputResist">Peso</label>
-                      <input defaultValue={item.weight} />
-                    </div>
-                    <div>
-                      <label htmlFor="inputResist">Especial</label>
-                      <InputMedArmory defaultValue={item.special} />
-                    </div>
-                    <div>
-                      <label htmlFor="inputResist">Preço</label>
-                      <InputMedArmory defaultValue={item.price} />
-                    </div>
-                  </li>
-                ))}
+              {armors.map((item, index) => (
+                // eslint-disable-next-line
+                <li key={index}>
+                  <div>
+                    <label htmlFor="inputResist">Nome</label>
+                    <InputLargeArmory defaultValue={item.name} />
+                  </div>
+                  <div>
+                    <label htmlFor="inputResist">Tipo</label>
+                    <input defaultValue={item.type} />
+                  </div>
+                  <div>
+                    <label htmlFor="inputResist">Bonus</label>
+                    <input defaultValue={item.bonus} />
+                  </div>
+                  <div>
+                    <label htmlFor="inputResist">Dest Max</label>
+                    <input defaultValue={item.dexterity} />
+                  </div>
+                  <div>
+                    <label htmlFor="inputResist">Penalidade</label>
+                    <input defaultValue={item.penalty} />
+                  </div>
+                  <div>
+                    <label htmlFor="inputResist">Deslocamento</label>
+                    <input defaultValue={item.displacement} />
+                  </div>
+                  <div>
+                    <label htmlFor="inputResist">Peso</label>
+                    <input defaultValue={item.weight} />
+                  </div>
+                  <div>
+                    <label htmlFor="inputResist">Especial</label>
+                    <InputMedArmory defaultValue={item.special} />
+                  </div>
+                  <div>
+                    <label htmlFor="inputResist">Preço</label>
+                    <InputMedArmory defaultValue={item.price} />
+                  </div>
+                </li>
+              ))}
             </ul>
           </div>
         </ArmorContainer>
@@ -458,57 +472,55 @@ export default function CharacterView() {
           <legend>Armas</legend>
           <div>
             <ul>
-              {!loading &&
-                char.Weapon &&
-                char.Weapon.map((item, index) => (
-                  // eslint-disable-next-line
-                  <li key={index}>
-                    <div>
-                      <label htmlFor="inputResist">Nome</label>
-                      <InputLargeArmory defaultValue={item.name} />
-                    </div>
-                    <div>
-                      <label htmlFor="inputResist">Qtde</label>
-                      <input defaultValue={item.multiplier} />
-                    </div>
-                    <div>
-                      <label htmlFor="inputResist">Dados</label>
-                      <input defaultValue={item.dice} />
-                    </div>
-                    <div>
-                      <label htmlFor="inputResist">Crítico</label>
-                      <InputMedArmory defaultValue={item.critical} />
-                    </div>
-                    <div>
-                      <label htmlFor="inputResist">Alcance</label>
-                      <input defaultValue={item.range} />
-                    </div>
-                    <div>
-                      <label htmlFor="inputResist">Tipo</label>
-                      <InputMedArmory defaultValue={item.type} />
-                    </div>
-                    <div>
-                      <label htmlFor="inputResist">Material</label>
-                      <InputMedArmory defaultValue={item.material} />
-                    </div>
-                    <div>
-                      <label htmlFor="inputResist">Mágico</label>
-                      <InputMedArmory defaultValue={item.magic} />
-                    </div>
-                    <div>
-                      <label htmlFor="inputResist">Peso</label>
-                      <input defaultValue={item.weight} />
-                    </div>
-                    <div>
-                      <label htmlFor="inputResist">Especial</label>
-                      <InputMedArmory defaultValue={item.special} />
-                    </div>
-                    <div>
-                      <label htmlFor="inputResist">Preço</label>
-                      <input defaultValue={item.price} />
-                    </div>
-                  </li>
-                ))}
+              {weapons.map((item, index) => (
+                // eslint-disable-next-line
+                <li key={index}>
+                  <div>
+                    <label htmlFor="inputResist">Nome</label>
+                    <InputLargeArmory defaultValue={item.name} />
+                  </div>
+                  <div>
+                    <label htmlFor="inputResist">Qtde</label>
+                    <input defaultValue={item.multiplier} />
+                  </div>
+                  <div>
+                    <label htmlFor="inputResist">Dados</label>
+                    <input defaultValue={item.dice} />
+                  </div>
+                  <div>
+                    <label htmlFor="inputResist">Crítico</label>
+                    <InputMedArmory defaultValue={item.critical} />
+                  </div>
+                  <div>
+                    <label htmlFor="inputResist">Alcance</label>
+                    <input defaultValue={item.range} />
+                  </div>
+                  <div>
+                    <label htmlFor="inputResist">Tipo</label>
+                    <InputMedArmory defaultValue={item.type} />
+                  </div>
+                  <div>
+                    <label htmlFor="inputResist">Material</label>
+                    <InputMedArmory defaultValue={item.material} />
+                  </div>
+                  <div>
+                    <label htmlFor="inputResist">Mágico</label>
+                    <InputMedArmory defaultValue={item.magic} />
+                  </div>
+                  <div>
+                    <label htmlFor="inputResist">Peso</label>
+                    <input defaultValue={item.weight} />
+                  </div>
+                  <div>
+                    <label htmlFor="inputResist">Especial</label>
+                    <InputMedArmory defaultValue={item.special} />
+                  </div>
+                  <div>
+                    <label htmlFor="inputResist">Preço</label>
+                    <input defaultValue={item.price} />
+                  </div>
+                </li>
+              ))}
             </ul>
           </div>
         </WeaponContainer>

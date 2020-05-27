@@ -5,8 +5,6 @@ import Alignment from '../models/Alignment'
 import Race from '../models/Race'
 import Attribute from '../models/Attribute'
 import User from '../models/User'
-import Armor from '../models/Armor'
-import Weapon from '../models/Weapon'
 
 class CharacterController {
   async index(req, res) {
@@ -103,7 +101,7 @@ class CharacterController {
           through: { attributes: ['level'] },
         },
         {
-          model: Armor,
+          association: 'armor',
           attributes: [
             'name',
             'type',
@@ -119,7 +117,7 @@ class CharacterController {
           as: 'armor',
         },
         {
-          model: Weapon,
+          association: 'weapon',
           attributes: [
             'name',
             'dice',
@@ -253,16 +251,22 @@ class CharacterController {
       CarMod: getModifier((char.attribute && char.attribute.charisma) || 0),
 
       Portrait: (char.portrait && char.portrait.url) || '',
-      Classes: char.classes.map(c => ({
-        name: c.name.toUpperCase() || '',
-        level: (c.CharacterClass && c.CharacterClass.level) || 0,
-      })),
-
-      Armor: char.armor || [],
-      Weapon: char.weapon || [],
     }
 
-    return res.json(charData)
+    const result = {
+      charData,
+      Classes:
+        (char &&
+          char.classes.map(c => ({
+            name: c.name.toUpperCase() || '',
+            level: (c.CharacterClass && c.CharacterClass.level) || 0,
+          }))) ||
+        [],
+      Armor: (char && char.armor) || [],
+      Weapon: (char && char.weapon) || [],
+    }
+
+    return res.json(result)
   }
 
   async store(req, res) {
