@@ -274,9 +274,9 @@ export default function CharacterView() {
           </HealthContainer>
 
           <ClassContainer>
-            {/* <CharClass classes={classes} /> */}
             <ul>
-              {char &&
+              {!loading &&
+                char &&
                 char.Classes.map((item, index) => (
                   // eslint-disable-next-line
                   <li key={index}>
