@@ -17,56 +17,27 @@ export default function CharClass({ classes }) {
 
   return (
     <Container>
-      <ul>
-        <li>
-          {!load && (
-            <ClassInput
-              defaultValue={!load && classArray && classArray[0].name}
-            />
-          )}
-          {!load && (
-            <ClassValueInput
-              defaultValue={!load && classArray && classArray[0].level}
-            />
-          )}
-        </li>
-        <li>
-          {!load && (
-            <ClassInput
-              defaultValue={!load && classArray && classArray[1].name}
-            />
-          )}
-          {!load && (
-            <ClassValueInput
-              defaultValue={!load && classArray && classArray[1].level}
-            />
-          )}
-        </li>
-        <li>
-          {!load && (
-            <ClassInput
-              defaultValue={!load && classArray && classArray[2].name}
-            />
-          )}
-          {!load && (
-            <ClassValueInput
-              defaultValue={!load && classArray && classArray[2].level}
-            />
-          )}
-        </li>
-        <li>
-          {!load && (
-            <ClassInput
-              defaultValue={!load && classArray && classArray[3].name}
-            />
-          )}
-          {!load && (
-            <ClassValueInput
-              defaultValue={!load && classArray && classArray[3].level}
-            />
-          )}
-        </li>
-      </ul>
+      {!load && (
+        <ul>
+          <li>
+            <ClassInput defaultValue={classArray && classArray[0].name} />
+            <ClassValueInput defaultValue={classArray && classArray[0].level} />
+          </li>
+          <li>
+            <ClassInput defaultValue={classArray && classArray[1].name} />
+            <ClassValueInput defaultValue={classArray && classArray[1].level} />
+          </li>
+          <li>
+            <ClassInput defaultValue={classArray && classArray[2].name} />
+            <ClassValueInput defaultValue={classArray && classArray[2].level} />
+          </li>
+          <li>
+            <ClassInput defaultValue={classArray && classArray[3].name} />
+
+            <ClassValueInput defaultValue={classArray && classArray[3].level} />
+          </li>
+        </ul>
+      )}
     </Container>
   )
 }
