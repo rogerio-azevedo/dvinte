@@ -67,10 +67,6 @@ export default function CharacterView() {
     loadChar()
   }, [id])
 
-  useEffect(() => {
-    loadChar()
-  }, [char])
-
   return (
     <Container loading={loading ? 1 : 0}>
       <HeaderContainer>
