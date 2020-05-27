@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import api from '~/services/api'
 import CharClass from '~/components/CharClass'
+import CharArmor from '~/components/CharArmor'
+import CharWeapon from '~/components/CharWeapon'
 
 import {
   Container,
@@ -19,8 +21,6 @@ import {
   HealthClassContainer,
   HealthContainer,
   ClassContainer,
-  // ClassInput,
-  // ClassValueInput,
   ResistContainer,
   MainResistContainer,
   DefenseContainer,
@@ -34,8 +34,6 @@ import {
   ArmoryContainer,
   ArmorContainer,
   WeaponContainer,
-  InputLargeArmory,
-  InputMedArmory,
 } from './styles'
 
 export default function CharacterView() {
@@ -43,13 +41,17 @@ export default function CharacterView() {
   const [loading, setLoading] = useState(true)
   const [char, setChar] = useState()
   const [classes, setClasses] = useState()
+  const [armors, setArmors] = useState()
+  const [weapons, setWeapons] = useState()
 
   useEffect(() => {
     async function loadChar() {
       const response = await api.get(`characters/${id}`)
 
       setChar(response.data)
-      setClasses(response.data.Classes)
+      setClasses(response.data && response.data.Classes)
+      setArmors(response.data && response.data.Armor)
+      setWeapons(response.data && response.data.Weapon)
 
       setLoading(false)
     }
@@ -265,16 +267,6 @@ export default function CharacterView() {
 
           <ClassContainer>
             {!loading && <CharClass classes={classes} />}
-            {/* <ul>
-              {!loading &&
-                char &&
-                char.Classes.map(item => (
-                  <li key={Math.random()}>
-                    <ClassInput defaultValue={item.name} />
-                    <ClassValueInput defaultValue={item.level} />
-                  </li>
-                ))}
-            </ul> */}
           </ClassContainer>
         </HealthClassContainer>
 
@@ -413,121 +405,13 @@ export default function CharacterView() {
       <ArmoryContainer>
         <ArmorContainer>
           <legend>Armaduras e Escudos</legend>
-          <div>
-            {!loading && (
-              <ul>
-                {char &&
-                  char.Armor.map(item => (
-                    <li key={Math.random()}>
-                      <div>
-                        <label htmlFor="inputResist">Nome</label>
-                        <InputLargeArmory defaultValue={item.name} />
-                      </div>
-                      <div>
-                        <label htmlFor="inputResist">Tipo</label>
-                        <input defaultValue={item.type} />
-                      </div>
-                      <div>
-                        <label htmlFor="inputResist">Bonus</label>
-                        <input defaultValue={item.bonus} />
-                      </div>
-                      <div>
-                        <label htmlFor="inputResist">Dest Max</label>
-                        <input defaultValue={item.dexterity} />
-                      </div>
-                      <div>
-                        <label htmlFor="inputResist">Penalidade</label>
-                        <input defaultValue={item.penalty} />
-                      </div>
-                      <div>
-                        <label htmlFor="inputResist">Deslocamento</label>
-                        <input defaultValue={item.displacement} />
-                      </div>
-                      <div>
-                        <label htmlFor="inputResist">Peso</label>
-                        <input defaultValue={item.weight} />
-                      </div>
-                      <div>
-                        <label htmlFor="inputResist">Especial</label>
-                        <InputMedArmory defaultValue={item.special} />
-                      </div>
-                      <div>
-                        <label htmlFor="inputResist">Preço</label>
-                        <InputMedArmory defaultValue={item.price} />
-                      </div>
-                    </li>
-                  ))}
-              </ul>
-            )}
-          </div>
+          {!loading && <CharArmor armors={armors} />}
         </ArmorContainer>
       </ArmoryContainer>
       <ArmoryContainer>
         <WeaponContainer>
           <legend>Armas</legend>
-          <div>
-            {!loading && (
-              <ul>
-                {char &&
-                  char.Weapon.map(item => (
-                    <li key={Math.random()}>
-                      <div>
-                        <label htmlFor="inputResist">Nome</label>
-                        <InputLargeArmory
-                          defaultValue={!loading && item.name}
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="inputResist">Qtde</label>
-                        <input defaultValue={!loading && item.multiplier} />
-                      </div>
-                      <div>
-                        <label htmlFor="inputResist">Dados</label>
-                        <input defaultValue={!loading && item.dice} />
-                      </div>
-                      <div>
-                        <label htmlFor="inputResist">Crítico</label>
-                        <InputMedArmory
-                          defaultValue={!loading && item.critical}
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="inputResist">Alcance</label>
-                        <input defaultValue={!loading && item.range} />
-                      </div>
-                      <div>
-                        <label htmlFor="inputResist">Tipo</label>
-                        <InputMedArmory defaultValue={!loading && item.type} />
-                      </div>
-                      <div>
-                        <label htmlFor="inputResist">Material</label>
-                        <InputMedArmory
-                          defaultValue={!loading && item.material}
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="inputResist">Mágico</label>
-                        <InputMedArmory defaultValue={!loading && item.magic} />
-                      </div>
-                      <div>
-                        <label htmlFor="inputResist">Peso</label>
-                        <input defaultValue={!loading && item.weight} />
-                      </div>
-                      <div>
-                        <label htmlFor="inputResist">Especial</label>
-                        <InputMedArmory
-                          defaultValue={!loading && item.special}
-                        />
-                      </div>
-                      <div>
-                        <label htmlFor="inputResist">Preço</label>
-                        <input defaultValue={!loading && item.price} />
-                      </div>
-                    </li>
-                  ))}
-              </ul>
-            )}
-          </div>
+          {!loading && <CharWeapon weapons={weapons} />}
         </WeaponContainer>
       </ArmoryContainer>
     </Container>

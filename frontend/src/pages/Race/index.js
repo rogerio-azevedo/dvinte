@@ -11,24 +11,29 @@ export default function Race() {
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    api.get('races').then(response => {
+    async function loadList() {
+      const response = await api.get('races')
+
       setList(response.data)
-    })
+      setLoading(false)
+    }
+
+    loadList()
   }, [])
 
-  useEffect(() => {
-    api.get('races').then(response => {
-      setList(response.data)
-    })
-  }, [list])
-
   const onSubmit = (data, e) => {
-    ;(async () => {
+    async function saveData() {
       setLoading(true)
-      await api.post('races', data)
+      const classe = await api.post('races', data)
+
+      const newList = [classe.data, ...list]
+
+      setList(newList)
       setLoading(false)
+
       e.target.reset()
-    })()
+    }
+    saveData()
   }
 
   return (
@@ -51,12 +56,11 @@ export default function Race() {
 
       <ListItens>
         <div>
-          {list &&
-            list.map(item => (
-              <ul key={item.id}>
-                <li>{item.name.toUpperCase()}</li>
-              </ul>
-            ))}
+          {list.map(item => (
+            <ul key={item.id}>
+              <li>{item.name && item.name.toUpperCase()}</li>
+            </ul>
+          ))}
         </div>
       </ListItens>
     </Container>

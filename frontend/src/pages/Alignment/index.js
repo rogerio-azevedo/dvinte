@@ -11,21 +11,26 @@ export default function Alignment() {
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    api.get('alignments').then(response => {
-      setList(response.data)
-    })
-  }, [])
+    async function loadList() {
+      const response = await api.get('alignments')
 
-  useEffect(() => {
-    api.get('alignments').then(response => {
       setList(response.data)
-    })
-  }, [list])
+      setLoading(false)
+    }
+
+    loadList()
+  }, [])
 
   const onSubmit = (data, e) => {
     async function saveData() {
-      await api.post('alignments', data)
+      setLoading(true)
+      const classe = await api.post('alignments', data)
+
+      const newList = [classe.data, ...list]
+
+      setList(newList)
       setLoading(false)
+
       e.target.reset()
     }
     saveData()

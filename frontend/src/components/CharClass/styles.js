@@ -11,6 +11,7 @@ export const ClassInput = styled.input`
   font-weight: 600;
   font-size: 16px !important;
   text-align: center;
+  margin: 5px;
 
   border-top: 0;
   border-left: 0;

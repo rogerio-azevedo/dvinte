@@ -13,25 +13,30 @@ export default function Campaign() {
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    api.get('campaigns').then(response => {
-      setList(response.data)
-    })
-  }, [])
+    async function loadList() {
+      const response = await api.get('campaigns')
 
-  useEffect(() => {
-    api.get('campaigns').then(response => {
       setList(response.data)
-    })
-  }, [list])
+      setLoading(false)
+    }
+
+    loadList()
+  }, [])
 
   const onSubmit = (data, e) => {
     async function saveData() {
-      await api.post('campaigns', {
+      setLoading(true)
+      const classe = await api.post('campaigns', {
         name: data.name,
         description: data.description,
         user_id: profile.id,
       })
+
+      const newList = [classe.data, ...list]
+
+      setList(newList)
       setLoading(false)
+
       e.target.reset()
     }
     saveData()
@@ -65,12 +70,11 @@ export default function Campaign() {
 
       <ListItens>
         <div>
-          {list &&
-            list.map(item => (
-              <ul key={item.id}>
-                <li>{item.name.toUpperCase()}</li>
-              </ul>
-            ))}
+          {list.map(item => (
+            <ul key={item.id}>
+              <li>{item.name && item.name.toUpperCase()}</li>
+            </ul>
+          ))}
         </div>
       </ListItens>
     </Container>

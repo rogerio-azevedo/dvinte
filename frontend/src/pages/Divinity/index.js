@@ -11,23 +11,26 @@ export default function Divinity() {
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    ;(async () => {
-      await api.get('divinities').then(response => {
-        setList(response.data)
-      })
-    })()
-  }, [])
+    async function loadList() {
+      const response = await api.get('divinities')
 
-  useEffect(() => {
-    api.get('divinities').then(response => {
       setList(response.data)
-    })
-  }, [list])
+      setLoading(false)
+    }
+
+    loadList()
+  }, [])
 
   const onSubmit = (data, e) => {
     async function saveData() {
-      await api.post('divinities', data)
+      setLoading(true)
+      const classe = await api.post('divinities', data)
+
+      const newList = [classe.data, ...list]
+
+      setList(newList)
       setLoading(false)
+
       e.target.reset()
     }
     saveData()
@@ -53,12 +56,11 @@ export default function Divinity() {
 
       <ListItens>
         <div>
-          {list &&
-            list.map(item => (
-              <ul key={item.id}>
-                <li>{item.name.toUpperCase()}</li>
-              </ul>
-            ))}
+          {list.map(item => (
+            <ul key={item.id}>
+              <li>{item.name && item.name.toUpperCase()}</li>
+            </ul>
+          ))}
         </div>
       </ListItens>
     </Container>
