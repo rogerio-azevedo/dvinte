@@ -5,6 +5,7 @@ import CharClass from '~/components/CharClass'
 import CharArmor from '~/components/CharArmor'
 import CharWeapon from '~/components/CharWeapon'
 import CharCa from '~/components/CharCa'
+import ChaResist from '~/components/CharResist'
 
 import {
   Container,
@@ -23,13 +24,7 @@ import {
   HealthContainer,
   ClassContainer,
   ResistContainer,
-  MainResistContainer,
   DefenseContainer,
-  LabelContainer,
-  ResistMainLabel,
-  ResistLabel,
-  InputResitContainer,
-  InputResit,
   ArmoryContainer,
   ArmorContainer,
   WeaponContainer,
@@ -42,6 +37,7 @@ export default function CharacterView() {
   const [classes, setClasses] = useState()
   const [armors, setArmors] = useState()
   const [weapons, setWeapons] = useState()
+  const [resistences, setResistences] = useState()
   const [dextMod, setDextMod] = useState()
 
   useEffect(() => {
@@ -52,6 +48,7 @@ export default function CharacterView() {
       setClasses(response.data.Classes)
       setArmors(response.data.Armor)
       setWeapons(response.data.Weapon)
+      setResistences(response.data.Resist)
       setDextMod(response.data.DesMod)
 
       setLoading(false)
@@ -273,94 +270,7 @@ export default function CharacterView() {
 
         <ResistContainer>
           <legend>Testes de Resistência</legend>
-
-          <MainResistContainer>
-            <LabelContainer>
-              <ResistMainLabel defaultValue="FORTITUDE" />
-              <ResistLabel defaultValue="(Constituição)" />
-            </LabelContainer>
-            <InputResitContainer>
-              <div>
-                <label htmlFor="inputResist">total</label>
-                <InputResit defaultValue="" />
-              </div>
-              <div>
-                <label htmlFor="inputResist">base</label>
-                <InputResit defaultValue="" />
-              </div>
-              <div>
-                <label htmlFor="inputResist">mod</label>
-                <InputResit defaultValue="" />
-              </div>
-              <div>
-                <label htmlFor="inputResist">magic</label>
-                <InputResit defaultValue="" />
-              </div>
-              <div>
-                <label htmlFor="inputResist">outros</label>
-                <InputResit defaultValue="" />
-              </div>
-              <div>
-                <label htmlFor="inputResist">temp</label>
-                <InputResit defaultValue="" />
-              </div>
-            </InputResitContainer>
-          </MainResistContainer>
-
-          <MainResistContainer>
-            <LabelContainer>
-              <ResistMainLabel defaultValue="REFLEXOS" />
-              <ResistLabel defaultValue="(Destreza)" />
-            </LabelContainer>
-            <InputResitContainer>
-              <div>
-                <InputResit defaultValue="" />
-              </div>
-              <div>
-                <InputResit defaultValue="" />
-              </div>
-              <div>
-                <InputResit defaultValue="" />
-              </div>
-              <div>
-                <InputResit defaultValue="" />
-              </div>
-              <div>
-                <InputResit defaultValue="" />
-              </div>
-              <div>
-                <InputResit defaultValue="" />
-              </div>
-            </InputResitContainer>
-          </MainResistContainer>
-
-          <MainResistContainer>
-            <LabelContainer>
-              <ResistMainLabel defaultValue="VONTADE" />
-              <ResistLabel defaultValue="(Sabedoria)" />
-            </LabelContainer>
-            <InputResitContainer>
-              <div>
-                <InputResit defaultValue="" />
-              </div>
-              <div>
-                <InputResit defaultValue="" />
-              </div>
-              <div>
-                <InputResit defaultValue="" />
-              </div>
-              <div>
-                <InputResit defaultValue="" />
-              </div>
-              <div>
-                <InputResit defaultValue="" />
-              </div>
-              <div>
-                <InputResit defaultValue="" />
-              </div>
-            </InputResitContainer>
-          </MainResistContainer>
-
+          {!loading && <ChaResist resistences={resistences} />}
           <DefenseContainer>
             {!loading && <CharCa armors={armors} dextMod={dextMod} />}
           </DefenseContainer>

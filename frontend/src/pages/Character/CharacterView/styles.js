@@ -4,14 +4,10 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  h1 {
-    margin-top: 20px;
-  }
 `
 
 export const HeaderContainer = styled.fieldset`
-  margin-top: 20px;
+  margin-top: 15px;
   border: 1px solid #6f0000;
   border-radius: 4px;
 
@@ -22,10 +18,10 @@ export const HeaderContainer = styled.fieldset`
     width: 160px;
     color: #6f0000;
     background: #fff;
-    -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
-    -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
-    padding: 5px;
+    -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+    padding: 4px;
     border-radius: 4px;
   }
 
@@ -36,24 +32,28 @@ export const HeaderContainer = styled.fieldset`
     justify-content: space-around;
     width: 1200px;
     border-radius: 6px;
-    padding: 10px;
+    padding: 2px;
   }
+
+  -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
 `
 
 export const Portrait = styled.div`
-  height: 180px;
+  height: 160px;
   width: 130px;
 
   img {
     width: 100%;
-    height: 180px;
+    height: 160px;
     object-fit: cover;
     border-radius: 6%;
 
     background: #eee;
-    -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
-    -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
   }
 `
 export const BaseContainer = styled.div`
@@ -70,7 +70,7 @@ export const LineContaniner = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 6px;
+    margin: 4px;
 
     label {
       margin-top: 2px;
@@ -81,7 +81,7 @@ export const LineContaniner = styled.div`
 
 export const InputShort = styled.input`
   width: 110px !important;
-  height: 35px !important;
+  height: 30px !important;
   border-radius: 4px;
   border: 1px solid #333;
   color: #6f0000;
@@ -99,7 +99,7 @@ export const InputShort = styled.input`
 
 export const InputMed = styled.input`
   width: 190px !important;
-  height: 35px !important;
+  height: 30px !important;
   border-radius: 4px;
   border: 1px solid #333;
   color: #6f0000;
@@ -117,7 +117,7 @@ export const InputMed = styled.input`
 
 export const InputLarge = styled.input`
   width: 240px !important;
-  height: 35px !important;
+  height: 30px !important;
   border-radius: 4px;
   border: 1px solid #333;
   color: #6f0000;
@@ -136,7 +136,6 @@ export const InputLarge = styled.input`
 export const StatsContainer = styled.div`
   display: flex;
   width: 1200px;
-  margin-top: 3px;
   border-radius: 6px;
 `
 
@@ -190,7 +189,7 @@ export const AttributesContainer = styled.fieldset`
   input {
     color: #6f0000;
     width: 50px;
-    height: 45px;
+    height: 40px;
     text-align: center;
     font-weight: 600;
     font-size: 20px;
@@ -336,42 +335,6 @@ export const ClassContainer = styled.div`
   }
 `
 
-export const ClassInput = styled.input`
-  width: 260px !important;
-  height: 35px !important;
-  border-radius: 4px;
-  border: 1px solid #333;
-  color: #6f0000;
-  font-weight: 600;
-  font-size: 16px !important;
-  text-align: center;
-
-  border-top: 0;
-  border-left: 0;
-  border-right: 0;
-  -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-  -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-`
-
-export const ClassValueInput = styled.input`
-  width: 70px !important;
-  height: 35px !important;
-  border-radius: 4px;
-  border: 1px solid #333;
-  color: #6f0000;
-  font-weight: 600;
-  font-size: 16px !important;
-  text-align: center;
-
-  border-top: 0;
-  border-left: 0;
-  border-right: 0;
-  -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-  -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-`
-
 export const ResistContainer = styled.fieldset`
   margin-top: 20px;
   border: 1px solid #6f0000;
@@ -402,86 +365,13 @@ export const ResistContainer = styled.fieldset`
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
 `
 
-export const MainResistContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  margin-top: -25px;
-  margin-bottom: 10px;
-`
-
 export const DefenseContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin-top: 20px;
-  margin-bottom: 10px;
-`
-
-export const LabelContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin-top: 10px !important;
-  margin-bottom: 10px !important;
-`
-
-export const ResistMainLabel = styled.input`
-  background: #6f0000;
-  color: #fff !important;
-  font-weight: 600;
-  font-size: 18px;
-  padding: 5px;
-  width: 125px;
-  text-align: center;
-  align-items: center;
-  justify-items: center;
-  justify-content: center;
-  margin-top: 30px !important;
-  margin-right: 10px !important;
-
-  -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-  -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-`
-
-export const ResistLabel = styled.input`
-  border: 0;
-  width: 125px;
-  text-align: center;
-  align-items: center;
-  justify-items: center;
-  justify-content: center;
-  font-size: 16px;
-`
-
-export const InputResitContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  text-align: center;
-  align-items: center;
-  justify-items: center;
-  justify-content: center;
-
-  > div {
-    display: flex;
-    flex-direction: column;
-  }
-`
-
-export const InputResit = styled.input`
-  color: #6f0000;
-  width: 48px;
-  height: 50px;
-  text-align: center;
-  font-weight: 600;
-  font-size: 18px;
-  margin: 2px;
-
-  -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-  -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+  margin-top: 15px;
+  margin-bottom: 5px;
 `
 
 export const ArmoryContainer = styled.div`
@@ -503,7 +393,7 @@ export const ArmorContainer = styled.fieldset`
   justify-content: center;
   align-items: center;
   justify-items: center;
-  padding: 20px;
+  padding: 2px;
 
   legend {
     font-size: 18px;
@@ -571,7 +461,7 @@ export const WeaponContainer = styled.fieldset`
           input {
             color: #6f0000;
             width: 65px;
-            height: 35px;
+            height: 30px;
             text-align: center;
             font-weight: 600;
             font-size: 16px;

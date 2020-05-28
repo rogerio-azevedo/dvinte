@@ -32,6 +32,8 @@ export default function CharCa({ armors, dextMod }) {
 
     if (value <= maxDext) {
       dextBonus = dextMod
+    } else if (!maxDext || maxDext === 0) {
+      dextBonus = dextMod
     } else {
       dextBonus = maxDext
     }

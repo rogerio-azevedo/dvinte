@@ -22,7 +22,7 @@ export const Container = styled.div`
         input {
           color: #6f0000;
           width: 70px;
-          height: 40px;
+          height: 30px;
           text-align: center;
           font-weight: 600;
           font-size: 16px;
@@ -40,7 +40,7 @@ export const Container = styled.div`
 export const InputLarge = styled.input`
   color: #6f0000;
   width: 260px !important;
-  height: 35px;
+  height: 30px;
   text-align: center;
   font-weight: 600;
   font-size: 16px;
@@ -54,7 +54,7 @@ export const InputLarge = styled.input`
 export const InputMed = styled.input`
   color: #6f0000;
   width: 120px !important;
-  height: 35px;
+  height: 30px;
   text-align: center;
   font-weight: 600;
   font-size: 16px;
