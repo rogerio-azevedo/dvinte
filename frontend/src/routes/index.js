@@ -14,8 +14,8 @@ import Divinity from '~/pages/Divinity'
 import Race from '~/pages/Race'
 import Portrait from '~/pages/Portrait'
 import Character from '~/pages/Character'
-import CharacterView from '~/pages/Character/CharacterView'
-import CharacterCreate from '~/pages/Character/CharacterCreate'
+import CharacterDetail from '~/pages/CharacterDetail'
+import CharacterCreate from '~/pages/CharacterCreate'
 
 import Chat from '~/pages/Chat'
 import Campaign from '~/pages/Campaign'
@@ -36,7 +36,7 @@ export default function Routes() {
       <Route path="/portraits" component={Portrait} isPrivate />
 
       <Route path="/characters" component={Character} isPrivate />
-      <Route path="/characterview/:id" component={CharacterView} isPrivate />
+      <Route path="/characterview/:id" component={CharacterDetail} isPrivate />
       <Route path="/charactercreate" component={CharacterCreate} isPrivate />
 
       <Route path="/chat" component={Chat} isPrivate />

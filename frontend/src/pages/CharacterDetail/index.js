@@ -1,34 +1,16 @@
 import React, { useState, useEffect } from 'react'
-import loadable from '@loadable/component'
 import { useParams } from 'react-router-dom'
 import api from '~/services/api'
 
-// import CharClass from '~/components/CharClass'
-//import CharArmor from '~/components/CharArmor'
-//import CharWeapon from '~/components/CharWeapon'
-//import CharCa from '~/components/CharCa'
-//import ChaResist from '~/components/CharResist'
+import CharClass from '~/components/CharClass'
+import CharArmor from '~/components/CharArmor'
+import CharWeapon from '~/components/CharWeapon'
+import CharCa from '~/components/CharCa'
+import ChaResist from '~/components/CharResist'
 
 import * as Styles from './styles'
 
-//const CharClass = loadable(() => import('./components/CharClass'))
-
-// eslint-disable-next-line
-const CharClass = loadable(() => import('~/components/CharClass'))
-
-// eslint-disable-next-line
-const CharArmor = loadable(() => import('~/components/CharArmor'))
-
-// eslint-disable-next-line
-const CharWeapon = loadable(() => import('~/components/CharWeapon'))
-
-// eslint-disable-next-line
-const CharCa = loadable(() => import('~/components/CharCa'))
-
-// eslint-disable-next-line
-const ChaResist = loadable(() => import('~/components/CharResist'))
-
-export default function CharacterView() {
+export default function CharacterDetail() {
   const { id } = useParams()
   const [loading, setLoading] = useState(true)
   const [char, setChar] = useState()
