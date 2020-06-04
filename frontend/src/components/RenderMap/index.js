@@ -1,8 +1,8 @@
 import React from 'react'
 import { Stage, Layer, Rect, Text } from 'react-konva'
 
-const width = 100
-const height = 100
+const width = 60
+const height = 60
 
 const grid = [['white']]
 
@@ -48,8 +48,8 @@ export default function RenderMap() {
     <Stage
       x={stagePos.x}
       y={stagePos.y}
-      width={window.innerWidth}
-      height={window.innerHeight}
+      width={1200}
+      height={600}
       draggable
       onDragEnd={e => {
         setStagePos(e.currentTarget.position())
@@ -69,8 +69,8 @@ export default function RenderMap() {
           }}
           onDragEnd={e => {
             setIsDraggging(true)
-            // setXDrag(e.target.xDrag())
-            // setYDrag(e.target.yDrag())
+            setXDrag(e.target.x())
+            setYDrag(e.target.y())
 
             // this.setState({
 

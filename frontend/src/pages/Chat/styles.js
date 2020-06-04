@@ -10,13 +10,15 @@ export const Container = styled.div`
   > div {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
     width: 100%;
     padding: 10px;
   }
 `
 
 export const MapContainer = styled.div`
-  width: 80%;
+  width: 1200px;
+  height: 600px;
   border: 1px solid;
 `
 
