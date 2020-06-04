@@ -1,34 +1,32 @@
 import React, { useState, useEffect } from 'react'
+import loadable from '@loadable/component'
 import { useParams } from 'react-router-dom'
 import api from '~/services/api'
-import CharClass from '~/components/CharClass'
-import CharArmor from '~/components/CharArmor'
-import CharWeapon from '~/components/CharWeapon'
-import CharCa from '~/components/CharCa'
-import ChaResist from '~/components/CharResist'
 
-import {
-  Container,
-  HeaderContainer,
-  Portrait,
-  BaseContainer,
-  LineContaniner,
-  InputShort,
-  InputMed,
-  InputLarge,
-  StatsContainer,
-  AttributesContainer,
-  AttrLabel,
-  AttrLabel1,
-  HealthClassContainer,
-  HealthContainer,
-  ClassContainer,
-  ResistContainer,
-  DefenseContainer,
-  ArmoryContainer,
-  ArmorContainer,
-  WeaponContainer,
-} from './styles'
+// import CharClass from '~/components/CharClass'
+//import CharArmor from '~/components/CharArmor'
+//import CharWeapon from '~/components/CharWeapon'
+//import CharCa from '~/components/CharCa'
+//import ChaResist from '~/components/CharResist'
+
+import * as Styles from './styles'
+
+//const CharClass = loadable(() => import('./components/CharClass'))
+
+// eslint-disable-next-line
+const CharClass = loadable(() => import('~/components/CharClass'))
+
+// eslint-disable-next-line
+const CharArmor = loadable(() => import('~/components/CharArmor'))
+
+// eslint-disable-next-line
+const CharWeapon = loadable(() => import('~/components/CharWeapon'))
+
+// eslint-disable-next-line
+const CharCa = loadable(() => import('~/components/CharCa'))
+
+// eslint-disable-next-line
+const ChaResist = loadable(() => import('~/components/CharResist'))
 
 export default function CharacterView() {
   const { id } = useParams()
@@ -58,87 +56,87 @@ export default function CharacterView() {
   }, [id])
 
   return (
-    <Container loading={loading ? 1 : 0}>
-      <HeaderContainer>
+    <Styles.Container loading={loading ? 1 : 0}>
+      <Styles.HeaderContainer>
         <legend>Dados Básicos</legend>
         <div>
-          <Portrait>
+          <Styles.Portrait>
             <img src={char && char.Portrait} alt="" />
-          </Portrait>
+          </Styles.Portrait>
 
-          <BaseContainer>
-            <LineContaniner>
+          <Styles.BaseContainer>
+            <Styles.LineContaniner>
               <div>
-                <InputLarge defaultValue={char && char.Name} />
+                <Styles.InputLarge defaultValue={char && char.Name} />
                 <label htmlFor="CharName">Nome do Personagem</label>
               </div>
 
               <div>
-                <InputLarge defaultValue={char && char.User} />
+                <Styles.InputLarge defaultValue={char && char.User} />
                 <label htmlFor="CharName">Nome do Jogador</label>
               </div>
 
               <div>
-                <InputLarge defaultValue={char && char.Race} />
+                <Styles.InputLarge defaultValue={char && char.Race} />
                 <label htmlFor="CharRace">Raça</label>
               </div>
               <div>
-                <InputLarge defaultValue={char && char.Alig} />
+                <Styles.InputLarge defaultValue={char && char.Alig} />
                 <label htmlFor="CharAlignment">Tendência</label>
               </div>
-            </LineContaniner>
+            </Styles.LineContaniner>
 
-            <LineContaniner>
+            <Styles.LineContaniner>
               <div>
-                <InputShort defaultValue={char && char.Age} />
+                <Styles.InputShort defaultValue={char && char.Age} />
                 <label htmlFor="CharAge">Idade</label>
               </div>
 
               <div>
-                <InputMed defaultValue={char && char.Gender} />
+                <Styles.InputMed defaultValue={char && char.Gender} />
                 <label htmlFor="CharGender">Sexo</label>
               </div>
               <div>
-                <InputMed defaultValue={char && char.Size} />
+                <Styles.InputMed defaultValue={char && char.Size} />
                 <label htmlFor="CharSize">Tamanho</label>
               </div>
               <div>
-                <InputLarge defaultValue={char && char.Divin} />
+                <Styles.InputLarge defaultValue={char && char.Divin} />
                 <label htmlFor="CharDivinity">Divindade</label>
               </div>
-            </LineContaniner>
+            </Styles.LineContaniner>
 
-            <LineContaniner>
+            <Styles.LineContaniner>
               <div>
-                <InputShort defaultValue={char && char.Height} />
+                <Styles.InputShort defaultValue={char && char.Height} />
                 <label htmlFor="CharHeight">Altura</label>
               </div>
               <div>
-                <InputShort defaultValue={char && char.Weight} />
+                <Styles.InputShort defaultValue={char && char.Weight} />
                 <label htmlFor="CharWeight">Peso</label>
               </div>
               <div>
-                <InputMed defaultValue={char && char.Eye} />
+                <Styles.InputMed defaultValue={char && char.Eye} />
                 <label htmlFor="CharEye">Olhos</label>
               </div>
               <div>
-                <InputMed defaultValue={char && char.Hair} />
+                <Styles.InputMed defaultValue={char && char.Hair} />
                 <label htmlFor="CharHair">Cabelos</label>
               </div>
               <div>
-                <InputMed defaultValue={char && char.Skin} />
+                <Styles.InputMed defaultValue={char && char.Skin} />
                 <label htmlFor="CharSkin">Pele</label>
               </div>
-            </LineContaniner>
-          </BaseContainer>
+            </Styles.LineContaniner>
+          </Styles.BaseContainer>
         </div>
-      </HeaderContainer>
+      </Styles.HeaderContainer>
 
-      <StatsContainer>
-        <AttributesContainer>
+      <Styles.StatsContainer>
+        <Styles.AttributesContainer>
           <legend>Atributos</legend>
           <div>
-            <AttrLabel1 defaultValue="FOR" />
+            <Styles.AttrLabel1 defaultValue="FOR" />
             <div>
               <label htmlFor="inputResist">valor</label>
               <input defaultValue={char && char.Str} />
@@ -149,16 +147,16 @@ export default function CharacterView() {
             </div>
             <div>
               <label htmlFor="inputResist">v.temp</label>
-              <input defaultValue="" />
+              <input defaultValue={char && char.StrTemp} />
             </div>
             <div>
               <label htmlFor="inputResist">m.temp</label>
-              <input defaultValue="" />
+              <input defaultValue={char && char.StrModTemp} />
             </div>
           </div>
 
           <div>
-            <AttrLabel defaultValue="DES" />
+            <Styles.AttrLabel defaultValue="DES" />
             <div>
               <input defaultValue={char && char.Des} />
             </div>
@@ -166,15 +164,15 @@ export default function CharacterView() {
               <input defaultValue={char && char.DesMod} />
             </div>
             <div>
-              <input defaultValue="" />
+              <input defaultValue={char && char.DesTemp} />
             </div>
             <div>
-              <input defaultValue="" />
+              <input defaultValue={char && char.DesModTemp} />
             </div>
           </div>
 
           <div>
-            <AttrLabel defaultValue="CON" />
+            <Styles.AttrLabel defaultValue="CON" />
             <div>
               <input defaultValue={char && char.Con} />
             </div>
@@ -182,15 +180,15 @@ export default function CharacterView() {
               <input defaultValue={char && char.ConMod} />
             </div>
             <div>
-              <input defaultValue="" />
+              <input defaultValue={char && char.ConTemp} />
             </div>
             <div>
-              <input defaultValue="" />
+              <input defaultValue={char && char.ConModTemp} />
             </div>
           </div>
 
           <div>
-            <AttrLabel defaultValue="INT" />
+            <Styles.AttrLabel defaultValue="INT" />
             <div>
               <input defaultValue={char && char.Int} />
             </div>
@@ -198,15 +196,15 @@ export default function CharacterView() {
               <input defaultValue={char && char.IntMod} />
             </div>
             <div>
-              <input defaultValue="" />
+              <input defaultValue={char && char.IntTemp} />
             </div>
             <div>
-              <input defaultValue="" />
+              <input defaultValue={char && char.IntModTemp} />
             </div>
           </div>
 
           <div>
-            <AttrLabel defaultValue="SAB" />
+            <Styles.AttrLabel defaultValue="SAB" />
             <div>
               <input defaultValue={char && char.Sab} />
             </div>
@@ -214,15 +212,15 @@ export default function CharacterView() {
               <input defaultValue={char && char.SabMod} />
             </div>
             <div>
-              <input defaultValue="" />
+              <input defaultValue={char && char.SabTemp} />
             </div>
             <div>
-              <input defaultValue="" />
+              <input defaultValue={char && char.SabModTemp} />
             </div>
           </div>
 
           <div>
-            <AttrLabel defaultValue="CAR" />
+            <Styles.AttrLabel defaultValue="CAR" />
             <div>
               <input defaultValue={char && char.Car} />
             </div>
@@ -230,64 +228,64 @@ export default function CharacterView() {
               <input defaultValue={char && char.CarMod} />
             </div>
             <div>
-              <input defaultValue="" />
+              <input defaultValue={char && char.CarTemp} />
             </div>
             <div>
-              <input defaultValue="" />
+              <input defaultValue={char && char.CarModTemp} />
             </div>
           </div>
-        </AttributesContainer>
+        </Styles.AttributesContainer>
 
-        <HealthClassContainer>
+        <Styles.HealthClassContainer>
           <legend>Classes e Level</legend>
-          <HealthContainer>
+          <Styles.HealthContainer>
             <div>
               <div>
-                <InputShort defaultValue={char && char.Level} />
+                <Styles.InputShort defaultValue={char && char.Level} />
                 <label htmlFor="CharLevel">Level</label>
               </div>
               <div>
-                <InputShort defaultValue={char && char.Exp} />
+                <Styles.InputShort defaultValue={char && char.Exp} />
                 <label htmlFor="charExp">Experiência</label>
               </div>
             </div>
             <div>
               <div>
-                <InputShort defaultValue={char && char.Health} />
+                <Styles.InputShort defaultValue={char && char.Health} />
                 <label htmlFor="charHealth">Pontos de Vida</label>
               </div>
               <div>
-                <InputShort defaultValue={char && char.HealthNow} />
+                <Styles.InputShort defaultValue={char && char.HealthNow} />
                 <label htmlFor="charHealth">Vida Atual</label>
               </div>
             </div>
-          </HealthContainer>
+          </Styles.HealthContainer>
 
-          <ClassContainer>
+          <Styles.ClassContainer>
             {!loading && <CharClass classes={classes} />}
-          </ClassContainer>
-        </HealthClassContainer>
+          </Styles.ClassContainer>
+        </Styles.HealthClassContainer>
 
-        <ResistContainer>
+        <Styles.ResistContainer>
           <legend>Testes de Resistência</legend>
           {!loading && <ChaResist resistences={resistences} />}
-          <DefenseContainer>
+          <Styles.DefenseContainer>
             {!loading && <CharCa armors={armors} dextMod={dextMod} />}
-          </DefenseContainer>
-        </ResistContainer>
-      </StatsContainer>
-      <ArmoryContainer>
-        <ArmorContainer>
+          </Styles.DefenseContainer>
+        </Styles.ResistContainer>
+      </Styles.StatsContainer>
+      <Styles.ArmoryContainer>
+        <Styles.ArmorContainer>
           <legend>Armaduras e Escudos</legend>
           {!loading && <CharArmor armors={armors} />}
-        </ArmorContainer>
-      </ArmoryContainer>
-      <ArmoryContainer>
-        <WeaponContainer>
+        </Styles.ArmorContainer>
+      </Styles.ArmoryContainer>
+      <Styles.ArmoryContainer>
+        <Styles.WeaponContainer>
           <legend>Armas</legend>
           {!loading && <CharWeapon weapons={weapons} />}
-        </WeaponContainer>
-      </ArmoryContainer>
-    </Container>
+        </Styles.WeaponContainer>
+      </Styles.ArmoryContainer>
+    </Styles.Container>
   )
 }

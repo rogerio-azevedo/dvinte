@@ -6,6 +6,67 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  > div {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 10px;
+  }
+`
+
+export const MapContainer = styled.div`
+  width: 80%;
+  border: 1px solid;
+`
+
+export const ChatContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  font-family: Arial, sans-serif;
+  height: 600px;
+  justify-content: space-between;
+  width: 20%;
+  border: 1px solid;
+  margin-top: 30px;
+  align-self: left;
+`
+
+export const InitContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+
+  input {
+    color: #6f0000;
+    width: 50px;
+    height: 40px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 20px;
+    margin: 2px;
+    border-radius: 4px;
+
+    border: 0;
+    -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+    box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+  }
+
+  button {
+    color: #6f0000;
+    width: 80px;
+    height: 40px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 14px;
+    margin: 2px;
+    border-radius: 4px;
+
+    border: 0;
+    -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+    box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+  }
 `
 
 export const ChatHistory = styled.div`
@@ -30,7 +91,7 @@ export const MessageDateTime = styled.span`
 export const MessageDataName = styled.span`
   color: #000;
   padding-left: 6px;
-  font-size: 16px;
+  font-size: 14px;
   float: ${props => (props.from ? 'right' : 'left')};
 `
 
@@ -38,10 +99,10 @@ export const Message = styled.div`
   color: #000;
   padding: 8px 12px;
   line-height: 26px;
-  font-size: 16px;
+  font-size: 14px;
   border-radius: 6px;
   margin-bottom: 30px;
-  width: 80%;
+  width: 90%;
   position: relative;
 
   background: ${props => (props.from ? '#c3e88d' : '#94c2ed')};
@@ -60,17 +121,6 @@ export const Message = styled.div`
     border-width: 10px;
     margin-left: -10px;
   }
-`
-
-export const ChatContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  font-family: Arial, sans-serif;
-  height: 600px;
-  justify-content: space-between;
-  width: 800px;
-  border: 1px solid;
-  margin-top: 30px;
 `
 
 export const MessageContainer = styled.div`
@@ -191,3 +241,5 @@ export const Dice = styled.div`
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
 `
+
+export const InitBoardContainer = styled.div``

@@ -11,6 +11,7 @@ import Race from '../app/models/Race'
 import User from '../app/models/User'
 import Campaign from '../app/models/Campaign'
 import Attribute from '../app/models/Attribute'
+import AttributeTemp from '../app/models/AttributeTemp'
 import Armor from '../app/models/Armor'
 import Weapon from '../app/models/Weapon'
 
@@ -27,6 +28,7 @@ const models = [
   Race,
   User,
   Attribute,
+  AttributeTemp,
   Armor,
   Weapon,
 ]

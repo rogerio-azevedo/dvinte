@@ -1,87 +1,26 @@
 import Character from '../models/Character'
 import Portrait from '../models/Portrait'
-import Divinity from '../models/Divinity'
-import Alignment from '../models/Alignment'
 import Race from '../models/Race'
 import Attribute from '../models/Attribute'
 import AttributeTemp from '../models/AttributeTemp'
 import User from '../models/User'
 
-class CharacterController {
+class CombatController {
   async index(req, res) {
-    const list = await Character.findAll({
-      where: {
-        is_ativo: true,
-      },
-      attributes: ['id', 'name', 'gender', 'health', 'exp', 'skin', 'level'],
+    const char = await Character.findOne({
       include: [
-        {
-          model: Portrait,
-          as: 'portrait',
-          attributes: ['id', 'path', 'url'],
-        },
-        {
-          model: Divinity,
-          as: 'divinity',
-          attributes: ['name'],
-        },
-        {
-          model: Alignment,
-          as: 'alignment',
-          attributes: ['name'],
-        },
-        {
-          model: Race,
-          as: 'race',
-          attributes: ['name'],
-        },
         {
           model: User,
           as: 'user',
           attributes: ['name'],
+          where: { id: 3 },
         },
-        {
-          model: Attribute,
-          as: 'attribute',
-        },
-      ],
-      order: [['name', 'ASC']],
-    })
-
-    const chars = list.map(c => ({
-      id: c.id,
-      name: c.name,
-      health: c.health,
-      exp: c.exp,
-      skin: c.skin,
-      level: c.level,
-      portrait: (c.portrait && c.portrait.url) || '',
-      alignment: (c.alignment && c.alignment.name) || '',
-      race: (c.race && c.race.name) || '',
-      user: (c.user && c.user.name) || '',
-    }))
-
-    return res.json(chars)
-  }
-
-  async show(req, res) {
-    const char = await Character.findByPk(req.params.id, {
-      include: [
         {
           model: Portrait,
           as: 'portrait',
           attributes: ['id', 'path', 'url'],
         },
-        {
-          model: Divinity,
-          as: 'divinity',
-          attributes: ['name'],
-        },
-        {
-          model: Alignment,
-          as: 'alignment',
-          attributes: ['name'],
-        },
+
         {
           model: Race,
           as: 'race',
@@ -94,11 +33,6 @@ class CharacterController {
         {
           model: AttributeTemp,
           as: 'attribute_temp',
-        },
-        {
-          model: User,
-          as: 'user',
-          attributes: ['name'],
         },
         {
           association: 'classes',
@@ -140,41 +74,6 @@ class CharacterController {
         },
       ],
     })
-
-    function getSize(size) {
-      let text = ''
-
-      switch (size) {
-        case 1:
-          text = 'PEQUENO'
-          break
-        case 2:
-          text = 'MÉDIO'
-          break
-        case 3:
-          text = 'GRANDE'
-          break
-        default:
-      }
-      return text
-    }
-
-    function getGender(gender) {
-      let textGender = ''
-
-      switch (gender) {
-        case 1:
-          textGender = 'MASCULINO'
-          break
-        case 2:
-          textGender = 'FEMININO'
-          break
-
-        default:
-      }
-
-      return textGender
-    }
 
     function getModifier(mod) {
       let textMod = 0
@@ -228,8 +127,6 @@ class CharacterController {
       Health: char.health || 0,
       HealthNow: char.health_now || 0,
       Age: char.age || 0,
-      Gender: getGender(char.gender || 0),
-      Size: getSize(char.size || 0),
 
       Height: char.height || '',
       Weight: char.weight || '',
@@ -293,12 +190,6 @@ class CharacterController {
 
     return res.json(charData)
   }
-
-  async store(req, res) {
-    const person = await Character.create(req.body)
-
-    return res.json(person)
-  }
 }
 
-export default new CharacterController()
+export default new CombatController()

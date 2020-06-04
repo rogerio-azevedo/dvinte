@@ -28,12 +28,14 @@ export const ResistMainLabel = styled.input`
   align-items: center;
   justify-items: center;
   justify-content: center;
-  margin-top: 20px !important;
+  margin-top: 15px !important;
   margin-right: 10px !important;
+  border-radius: 4px;
 
-  -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-  -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+  border: 0;
+  -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
 `
 
 export const ResistLabel = styled.input`
@@ -68,7 +70,8 @@ export const InputResit = styled.input`
   font-size: 18px;
   margin: 2px;
 
-  -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-  -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+  border: 0;
+  -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
 `

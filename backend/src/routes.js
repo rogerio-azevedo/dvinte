@@ -19,6 +19,8 @@ import ChatController from './app/controllers/ChatController'
 import CampaignController from './app/controllers/CampaignController'
 import AttributeController from './app/controllers/AttributeController'
 
+import CombatController from './app/controllers/CombatController'
+
 const routes = new Router()
 const upload = multer(multerConfig)
 
@@ -60,5 +62,7 @@ routes.get('/races', RaceController.index)
 
 routes.post('/campaigns', CampaignController.store)
 routes.get('/campaigns', CampaignController.index)
+
+routes.get('/combats', CombatController.index)
 
 export default routes

@@ -13,12 +13,10 @@ export const ClassInput = styled.input`
   text-align: center;
   margin: 5px;
 
-  border-top: 0;
-  border-left: 0;
-  border-right: 0;
-  -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-  -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+  border: 0;
+  -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
 `
 
 export const ClassValueInput = styled.input`
@@ -31,10 +29,8 @@ export const ClassValueInput = styled.input`
   font-size: 16px !important;
   text-align: center;
 
-  border-top: 0;
-  border-left: 0;
-  border-right: 0;
-  -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-  -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+  border: 0;
+  -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
 `
