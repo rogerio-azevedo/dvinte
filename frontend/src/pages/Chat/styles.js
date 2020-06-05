@@ -30,7 +30,6 @@ export const ChatContainer = styled.div`
   justify-content: space-between;
   width: 20%;
   border: 1px solid;
-  margin-top: 30px;
   align-self: left;
 `
 
