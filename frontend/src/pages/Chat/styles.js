@@ -6,30 +6,61 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+`
 
-  > div {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-    padding: 10px;
-  }
+export const CombatContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 20px;
 `
 
 export const MapContainer = styled.div`
-  width: 1200px;
-  height: 600px;
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+  height: 700px;
   border: 1px solid;
+
+  -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+`
+export const CharContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+
+  > div {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    > div {
+      input {
+        height: 40px;
+        width: 45px;
+      }
+    }
+  }
+`
+
+export const TalkContainer = styled.div`
+  display: flex;
+  width: 25%;
+  flex-direction: column;
+  height: 700px;
+  border: 1px solid;
+
+  -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
 `
 
 export const ChatContainer = styled.div`
-  display: flex;
-  flex-direction: column;
+  width: 100%;
+  flex-direction: row;
   font-family: Arial, sans-serif;
-  height: 600px;
-  justify-content: space-between;
-  width: 20%;
-  border: 1px solid;
   align-self: left;
 `
 
@@ -52,29 +83,13 @@ export const InitContainer = styled.div`
     -moz-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
     box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
   }
-
-  button {
-    color: #6f0000;
-    width: 80px;
-    height: 40px;
-    text-align: center;
-    font-weight: 600;
-    font-size: 14px;
-    margin: 2px;
-    border-radius: 4px;
-
-    border: 0;
-    -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
-    -moz-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
-    box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
-  }
 `
 
 export const ChatHistory = styled.div`
   padding: 30px 30px 20px;
   border-bottom: 2px solid white;
   overflow-y: scroll;
-  height: 600px;
+  height: 550px;
 `
 
 export const List = styled.ul``
@@ -146,8 +161,9 @@ export const ListMessage = styled.li`
 `
 
 export const FormMessage = styled.form`
-  background: #434758;
-  padding: 1rem;
+  background: #8e0e00;
+  padding: 8px;
+  border-radius: 4px;
 `
 
 export const InputMessage = styled.input`
@@ -165,63 +181,42 @@ export const InputMessage = styled.input`
   }
 `
 
-export const DicesRollContainer = styled.div`
+export const DiceContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  width: 600px;
-  margin-top: 50px;
+  justify-content: space-between;
+  padding: 10px;
+  margin-top: 10px;
 `
 
 export const InputMulti = styled.input`
-  margin-top: 30px;
-  width: 80px;
   text-align: center;
   font-size: 1.5em;
-  padding: 0.5em 0;
-  border-radius: 10px;
+  padding: 11px;
+  border-radius: 4px;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.12);
   border: none;
   background: #fff;
   transition: background 0.3s;
   color: #000;
+  margin-right: 10px;
+  cursor: pointer;
+
+  -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
 
   &:hover {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
   }
-`
-export const InputResult = styled.input`
-  margin-top: 30px;
-  width: 420px;
-  height: 40px;
-  text-align: center;
-  font-size: 16px;
-  padding: 0.5em 0;
-  border-radius: 10px;
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.12);
-  border: none;
-  background: #fff;
-  transition: background 0.3s;
-  color: $black;
-
-  &:hover {
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
-  }
-`
-
-export const DiceContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
 `
 
 export const Dice = styled.div`
-  background: #200122;
-  height: 60px;
-  width: 60px;
-  margin: 6px;
-  border-radius: 6px;
+  background: #8e0e00;
+  height: 50px;
+  width: 50px;
+  margin: 3px;
+  border-radius: 4px;
   cursor: pointer;
 
   display: flex;
@@ -229,18 +224,51 @@ export const Dice = styled.div`
   justify-content: center;
 
   &:hover {
-    background: ${darken(0.1, '#8e0e00')};
+    background: ${darken(0.1, '#200122')};
 
-    -webkit-box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.5);
-    -moz-box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.5);
-    box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
   }
 
   strong {
     color: #fff;
-    font-size: 20px;
+    font-size: 16px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
 `
 
 export const InitBoardContainer = styled.div``
+
+export const StatusContainer = styled.div``
+
+export const ActionContainer = styled.div`
+  > div {
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    border: 1px solid;
+    margin: 5px;
+
+    > div {
+      display: flex;
+      flex-direction: column;
+
+      button {
+        color: #6f0000;
+        width: 70px;
+        height: 40px;
+        text-align: center;
+        font-weight: 600;
+        font-size: 14px;
+        margin: 2px;
+        border-radius: 4px;
+
+        border: 0;
+        -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+        -moz-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+        box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+      }
+    }
+  }
+`

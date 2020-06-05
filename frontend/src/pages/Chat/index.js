@@ -143,102 +143,183 @@ export default function Chat() {
 
   return (
     <Styles.Container>
-      <div>
+      <Styles.CombatContainer>
         <Styles.MapContainer>
           <RenderMap />
+          <Styles.CharContainer>
+            <Styles.StatusContainer>
+              <div>
+                <div>
+                  <label htmlFor="inputResist">outros</label>
+                  <input defaultValue="" />
+                </div>
+                <div>
+                  <label htmlFor="inputResist">Iniciativa</label>
+                  <input defaultValue={charInit} />
+                </div>
+              </div>
+              <div>
+                <div>
+                  <label htmlFor="inputResist">outros</label>
+                  <input defaultValue="" />
+                </div>
+                <div>
+                  <label htmlFor="inputResist">outros</label>
+                  <input defaultValue="" />
+                </div>
+              </div>
+              <div>
+                <div>
+                  <label htmlFor="inputResist">outros</label>
+                  <input defaultValue="" />
+                </div>
+                <div>
+                  <label htmlFor="inputResist">outros</label>
+                  <input defaultValue="" />
+                </div>
+              </div>
+              <div>
+                <div>
+                  <label htmlFor="inputResist">outros</label>
+                  <input defaultValue="" />
+                </div>
+                <div>
+                  <label htmlFor="inputResist">outros</label>
+                  <input defaultValue="" />
+                </div>
+              </div>
+            </Styles.StatusContainer>
+            <Styles.ActionContainer>
+              <div>
+                <div>
+                  <button type="button" onClick={handleInitiative}>
+                    Iniciativa
+                  </button>
+                </div>
+                <div>
+                  <button type="button" onClick={handleInitiative}>
+                    Atacar
+                  </button>
+                </div>
+                <div>
+                  <button type="button" onClick={handleInitiative}>
+                    Dano
+                  </button>
+                </div>
+              </div>
+              <div>
+                <div>
+                  <button type="button" onClick={handleInitiative}>
+                    Reflexos
+                  </button>
+                </div>
+                <div>
+                  <button type="button" onClick={handleInitiative}>
+                    Reflexos
+                  </button>
+                </div>
+                <div>
+                  <button type="button" onClick={handleInitiative}>
+                    Fortitude
+                  </button>
+                </div>
+              </div>
+            </Styles.ActionContainer>
+          </Styles.CharContainer>
         </Styles.MapContainer>
-        <Styles.ChatContainer>
-          <Styles.ChatHistory>
-            <Styles.List>
-              {messages.map((m, index) => (
-                <Styles.ListMessage
-                  ref={messagesEndRef}
-                  from={from === m.id ? 1 : 0}
-                  key={index} // eslint-disable-line
-                >
-                  <Styles.MessageData from={from === m.id ? 1 : 0}>
-                    <Styles.MessageDateTime from={from === m.id ? 1 : 0}>
-                      {formatDate(m.date)}
-                    </Styles.MessageDateTime>
-                    <Styles.MessageDataName from={from === m.id ? 1 : 0}>
-                      {m.user}
-                    </Styles.MessageDataName>
-                  </Styles.MessageData>
-                  <Styles.Message from={from === m.id ? 1 : 0}>
-                    {m.message}
-                  </Styles.Message>
-                </Styles.ListMessage>
-              ))}
-            </Styles.List>
-          </Styles.ChatHistory>
+        <Styles.TalkContainer>
+          <Styles.ChatContainer>
+            <Styles.ChatHistory>
+              <Styles.List>
+                {messages.map((m, index) => (
+                  <Styles.ListMessage
+                    ref={messagesEndRef}
+                    from={from === m.id ? 1 : 0}
+                    key={index} // eslint-disable-line
+                  >
+                    <Styles.MessageData from={from === m.id ? 1 : 0}>
+                      <Styles.MessageDateTime from={from === m.id ? 1 : 0}>
+                        {formatDate(m.date)}
+                      </Styles.MessageDateTime>
+                      <Styles.MessageDataName from={from === m.id ? 1 : 0}>
+                        {m.user}
+                      </Styles.MessageDataName>
+                    </Styles.MessageData>
+                    <Styles.Message from={from === m.id ? 1 : 0}>
+                      {m.message}
+                    </Styles.Message>
+                  </Styles.ListMessage>
+                ))}
+              </Styles.List>
+            </Styles.ChatHistory>
 
-          <Styles.FormMessage onSubmit={handleFormSubmit}>
-            <Styles.InputMessage
-              onChange={e => setMessage(e.target.value)}
-              placeholder="Mensagem..."
-              type="text"
-              value={message}
+            <Styles.FormMessage onSubmit={handleFormSubmit}>
+              <Styles.InputMessage
+                onChange={e => setMessage(e.target.value)}
+                placeholder="Mensagem..."
+                type="text"
+                value={message}
+              />
+            </Styles.FormMessage>
+          </Styles.ChatContainer>
+          <Styles.DiceContainer>
+            <Styles.InputMulti
+              className="multiplier"
+              type="number"
+              pattern="[0-9]*"
+              min="1"
+              max="10"
+              placeholder="1"
+              onChange={e => setMultiplier(e.target.value)}
             />
-          </Styles.FormMessage>
-        </Styles.ChatContainer>
-      </div>
+            <Styles.Dice
+              onClick={() => {
+                handleCalculateTotal(4)
+              }}
+            >
+              <strong>d4</strong>
+            </Styles.Dice>
+            <Styles.Dice
+              onClick={() => {
+                handleCalculateTotal(6)
+              }}
+            >
+              <strong>d6</strong>
+            </Styles.Dice>
+            <Styles.Dice
+              onClick={() => {
+                handleCalculateTotal(8)
+              }}
+            >
+              <strong>d8</strong>
+            </Styles.Dice>
+            <Styles.Dice
+              onClick={() => {
+                handleCalculateTotal(10)
+              }}
+            >
+              <strong>d10</strong>
+            </Styles.Dice>
+            <Styles.Dice
+              onClick={() => {
+                handleCalculateTotal(12)
+              }}
+            >
+              <strong>d12</strong>
+            </Styles.Dice>
+            <Styles.Dice
+              onClick={() => {
+                handleCalculateTotal(20)
+              }}
+            >
+              <strong>d20</strong>
+            </Styles.Dice>
+          </Styles.DiceContainer>
+        </Styles.TalkContainer>
+      </Styles.CombatContainer>
 
-      <Styles.DicesRollContainer>
-        <Styles.DiceContainer>
-          <Styles.InputMulti
-            className="multiplier"
-            type="number"
-            pattern="[0-9]*"
-            min="1"
-            max="10"
-            placeholder="1"
-            onChange={e => setMultiplier(e.target.value)}
-          />
-          <Styles.Dice
-            onClick={() => {
-              handleCalculateTotal(4)
-            }}
-          >
-            <strong>d4</strong>
-          </Styles.Dice>
-          <Styles.Dice
-            onClick={() => {
-              handleCalculateTotal(6)
-            }}
-          >
-            <strong>d6</strong>
-          </Styles.Dice>
-          <Styles.Dice
-            onClick={() => {
-              handleCalculateTotal(8)
-            }}
-          >
-            <strong>d8</strong>
-          </Styles.Dice>
-          <Styles.Dice
-            onClick={() => {
-              handleCalculateTotal(10)
-            }}
-          >
-            <strong>d10</strong>
-          </Styles.Dice>
-          <Styles.Dice
-            onClick={() => {
-              handleCalculateTotal(12)
-            }}
-          >
-            <strong>d12</strong>
-          </Styles.Dice>
-          <Styles.Dice
-            onClick={() => {
-              handleCalculateTotal(20)
-            }}
-          >
-            <strong>d20</strong>
-          </Styles.Dice>
-        </Styles.DiceContainer>
-      </Styles.DicesRollContainer>
-      <Styles.InitContainer>
+      {/* <Styles.DicesRollContainer /> */}
+      {/* <Styles.InitContainer>
         <div>
           <input defaultValue={charInit} />
 
@@ -258,7 +339,7 @@ export default function Chat() {
               ))}
           </ul>
         </Styles.InitBoardContainer>
-      </Styles.InitContainer>
+      </Styles.InitContainer> */}
     </Styles.Container>
   )
 }
