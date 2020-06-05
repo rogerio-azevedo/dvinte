@@ -12,7 +12,7 @@ import * as Styles from './styles'
 
 export default function Chat() {
   const profile = useSelector(state => state.user.profile)
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState()
   const [message, setMessage] = useState('')
   const [messages, updateMessages] = useState([])
   const [multiplier, setMultiplier] = useState(1)
@@ -47,6 +47,7 @@ export default function Chat() {
   }
 
   async function getCharacter() {
+    setLoading(true)
     try {
       const response = await api.get('combats', {
         params: {

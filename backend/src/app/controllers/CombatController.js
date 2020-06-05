@@ -13,7 +13,7 @@ class CombatController {
           model: User,
           as: 'user',
           attributes: ['name'],
-          where: { id: 3 },
+          where: { id: req.query.user },
         },
         {
           model: Portrait,
