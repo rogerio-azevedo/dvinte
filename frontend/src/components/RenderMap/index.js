@@ -48,6 +48,34 @@ export default function RenderMap() {
   const [clericY, setClericY] = useState(320)
   const [clericAngle, setClericAngle] = useState(-90)
 
+  const [tree1X, setTree1X] = useState(100)
+  const [tree1Y, setTree1Y] = useState(500)
+  const [tree1Angle, setTree1Angle] = useState(180)
+
+  const [tree2X, setTree2X] = useState(250)
+  const [tree2Y, setTree2Y] = useState(500)
+  const [tree2Angle, setTree2Angle] = useState(-90)
+
+  const [tree3X, setTree3X] = useState(400)
+  const [tree3Y, setTree3Y] = useState(500)
+  const [tree3Angle, setTree3Angle] = useState(180)
+
+  const [tree4X, setTree4X] = useState(550)
+  const [tree4Y, setTree4Y] = useState(500)
+  const [tree4Angle, setTree4Angle] = useState(-90)
+
+  const [tree5X, setTree5X] = useState(700)
+  const [tree5Y, setTree5Y] = useState(500)
+  const [tree5Angle, setTree5Angle] = useState(180)
+
+  const [tree6X, setTree6X] = useState(850)
+  const [tree6Y, setTree6Y] = useState(500)
+  const [tree6Angle, setTree6Angle] = useState(-90)
+
+  const [tree7X, setTree7X] = useState(1000)
+  const [tree7Y, setTree7Y] = useState(500)
+  const [tree7Angle, setTree7Angle] = useState(-90)
+
   const [worg] = useImage(
     'https://i.pinimg.com/originals/52/27/1c/52271cc8557b05de8ca8f530e97e60d4.png'
   )
@@ -77,8 +105,37 @@ export default function RenderMap() {
   const [warrior] = useImage(
     'https://ya-webdesign.com/transparent250_/warrior-token-png-14.png'
   )
+
   const [mage] = useImage(
     'http://www.syncrpg.com/sam/data/tokenImages/Devin_Night/commissioned/Shadow_Sorcerer_02_hi.png'
+  )
+
+  const [tree1] = useImage(
+    'http://ressources.arc-arma.fr/JDR/Tokens/25178-Elf_Male_Archer3_02_hi.png'
+  )
+
+  const [tree2] = useImage(
+    'https://lh4.ggpht.com/-zC6LKYDwWYs/VEMQDq0AUHI/AAAAAAABij8/TTYsLN-LNlw/s1600/cay%2Bto%2B1.png'
+  )
+
+  const [tree3] = useImage(
+    'http://www.syncrpg.com/sam/data/tokenImages/Devin_Night/commissioned/AA_Orc_Jungle_Female2_02_hi.png'
+  )
+
+  const [tree4] = useImage(
+    'https://lh4.ggpht.com/-hcKbGXMmxzI/VEMOQGhukWI/AAAAAAABiiU/SYOr_nMj7vM/s1600/12.png'
+  )
+
+  const [tree5] = useImage(
+    'http://www.syncrpg.com/sam/data/tokenImages/Devin_Night/commissioned/Red_Tusk_Orc_Male.png'
+  )
+
+  const [tree6] = useImage(
+    'https://lh4.ggpht.com/-9Z2X3C_ukUM/VEMPwsfmF1I/AAAAAAABijk/6vPxOLZEJAM/s1600/8.png'
+  )
+
+  const [tree7] = useImage(
+    'https://lh4.ggpht.com/-aX2TcfOIqMk/VEMPBLS13KI/AAAAAAABijE/o5ObD_7jKKY/s1600/3.png'
   )
 
   const startY =
@@ -157,6 +214,41 @@ export default function RenderMap() {
     setTigerY(e.target.y())
   }
 
+  function handleTree1DragEnd(e) {
+    setTree1X(e.target.x())
+    setTree1Y(e.target.y())
+  }
+
+  function handleTree2DragEnd(e) {
+    setTree2X(e.target.x())
+    setTree2Y(e.target.y())
+  }
+
+  function handleTree3DragEnd(e) {
+    setTree3X(e.target.x())
+    setTree3Y(e.target.y())
+  }
+
+  function handleTree4DragEnd(e) {
+    setTree4X(e.target.x())
+    setTree4Y(e.target.y())
+  }
+
+  function handleTree5DragEnd(e) {
+    setTree5X(e.target.x())
+    setTree5Y(e.target.y())
+  }
+
+  function handleTree6DragEnd(e) {
+    setTree6X(e.target.x())
+    setTree6Y(e.target.y())
+  }
+
+  function handleTree7DragEnd(e) {
+    setTree7X(e.target.x())
+    setTree7Y(e.target.y())
+  }
+
   function rotate(character) {
     switch (character) {
       case 'worg':
@@ -185,6 +277,27 @@ export default function RenderMap() {
         break
       case 'cleric':
         setClericAngle(clericAngle + 30)
+        break
+      case 'tree1':
+        setTree1Angle(tree1Angle + 30)
+        break
+      case 'tree2':
+        setTree2Angle(tree2Angle + 30)
+        break
+      case 'tree3':
+        setTree3Angle(tree3Angle + 30)
+        break
+      case 'tree4':
+        setTree4Angle(tree4Angle + 30)
+        break
+      case 'tree5':
+        setTree5Angle(tree5Angle + 30)
+        break
+      case 'tree6':
+        setTree6Angle(tree6Angle + 30)
+        break
+      case 'tree7':
+        setTree7Angle(tree7Angle + 30)
         break
       default:
     }
@@ -355,6 +468,118 @@ export default function RenderMap() {
           onDragEnd={handleMageDragEnd}
           onClick={() => {
             rotate('mage')
+          }}
+        />
+
+        <Image
+          draggable
+          x={tree1X}
+          y={tree1Y}
+          image={tree1}
+          width={100}
+          height={100}
+          offsetX={100 / 2}
+          offsetY={100 / 2}
+          rotation={tree1Angle}
+          onDragEnd={handleTree1DragEnd}
+          onClick={() => {
+            rotate('tree1')
+          }}
+        />
+
+        <Image
+          draggable
+          x={tree2X}
+          y={tree2Y}
+          image={tree2}
+          width={140}
+          height={140}
+          offsetX={140 / 2}
+          offsetY={140 / 2}
+          rotation={tree2Angle}
+          onDragEnd={handleTree2DragEnd}
+          onClick={() => {
+            rotate('tree2')
+          }}
+        />
+
+        <Image
+          draggable
+          x={tree3X}
+          y={tree3Y}
+          image={tree3}
+          width={90}
+          height={90}
+          offsetX={90 / 2}
+          offsetY={90 / 2}
+          rotation={tree3Angle}
+          onDragEnd={handleTree3DragEnd}
+          onClick={() => {
+            rotate('tree3')
+          }}
+        />
+
+        <Image
+          draggable
+          x={tree4X}
+          y={tree4Y}
+          image={tree4}
+          width={140}
+          height={140}
+          offsetX={140 / 2}
+          offsetY={140 / 2}
+          rotation={tree4Angle}
+          onDragEnd={handleTree4DragEnd}
+          onClick={() => {
+            rotate('tree4')
+          }}
+        />
+
+        <Image
+          draggable
+          x={tree5X}
+          y={tree5Y}
+          image={tree5}
+          width={90}
+          height={90}
+          offsetX={90 / 2}
+          offsetY={90 / 2}
+          rotation={tree5Angle}
+          onDragEnd={handleTree5DragEnd}
+          onClick={() => {
+            rotate('tree5')
+          }}
+        />
+
+        <Image
+          draggable
+          x={tree6X}
+          y={tree6Y}
+          image={tree6}
+          width={140}
+          height={140}
+          offsetX={140 / 2}
+          offsetY={140 / 2}
+          rotation={tree6Angle}
+          onDragEnd={handleTree6DragEnd}
+          onClick={() => {
+            rotate('tree6')
+          }}
+        />
+
+        <Image
+          draggable
+          x={tree7X}
+          y={tree7Y}
+          image={tree7}
+          width={140}
+          height={140}
+          offsetX={140 / 2}
+          offsetY={140 / 2}
+          rotation={tree7Angle}
+          onDragEnd={handleTree7DragEnd}
+          onClick={() => {
+            rotate('tree7')
           }}
         />
       </Layer>

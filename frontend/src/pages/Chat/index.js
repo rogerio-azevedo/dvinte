@@ -123,7 +123,7 @@ export default function Chat() {
 
     const init = dext + dice
 
-    const rolled = `Rolou iniciativa ${dice} + ${dext} de destreza, com resultado: ${init}`
+    const rolled = `Rolou iniciativa d20: ${dice} + ${dext} de destreza, com resultado: ${init}`
 
     setInitBoard([
       ...initBoard,
@@ -150,7 +150,7 @@ export default function Chat() {
             <Styles.StatusContainer>
               <div>
                 <div>
-                  <label htmlFor="inputResist">outros</label>
+                  <label htmlFor="inputResist">Acerto</label>
                   <input defaultValue="" />
                 </div>
                 <div>
@@ -160,21 +160,21 @@ export default function Chat() {
               </div>
               <div>
                 <div>
-                  <label htmlFor="inputResist">outros</label>
+                  <label htmlFor="inputResist">Fortitude</label>
                   <input defaultValue="" />
                 </div>
                 <div>
-                  <label htmlFor="inputResist">outros</label>
+                  <label htmlFor="inputResist">Reflexos</label>
                   <input defaultValue="" />
                 </div>
               </div>
               <div>
                 <div>
-                  <label htmlFor="inputResist">outros</label>
+                  <label htmlFor="inputResist">Vontade</label>
                   <input defaultValue="" />
                 </div>
                 <div>
-                  <label htmlFor="inputResist">outros</label>
+                  <label htmlFor="inputResist">CA</label>
                   <input defaultValue="" />
                 </div>
               </div>
