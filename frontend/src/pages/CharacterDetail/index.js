@@ -18,7 +18,7 @@ export default function CharacterDetail() {
   const [armors, setArmors] = useState()
   const [weapons, setWeapons] = useState()
   const [resist, setResist] = useState()
-  const [resistMod, setResistMod] = useState()
+
   const [dextMod, setDextMod] = useState()
 
   useEffect(() => {
@@ -29,10 +29,16 @@ export default function CharacterDetail() {
       setClasses(response.data.Classes)
       setArmors(response.data.Armor)
       setWeapons(response.data.Weapon)
-      setResist(response.data.Classes)
       setDextMod(response.data.DexMod)
 
-      setResistMod({
+      const { fortitude } = response.data.Classes[0].table
+      const { reflex } = response.data.Classes[0].table
+      const { will } = response.data.Classes[0].table
+
+      setResist({
+        fortitude,
+        reflex,
+        will,
         fortMod: response.data && response.data.StrMod,
         fortModTemp: response.data && response.data.StrModTemp,
 
@@ -271,13 +277,7 @@ export default function CharacterDetail() {
 
         <Styles.ResistContainer>
           <legend>Testes de Resistência</legend>
-          {!loading && (
-            <CharResist
-              resist={resist}
-              resistMod={resistMod}
-              loading={loading}
-            />
-          )}
+          {!loading && <CharResist resist={resist} />}
           <Styles.DefenseContainer>
             {!loading && <CharCa armors={armors} dextMod={dextMod} />}
           </Styles.DefenseContainer>

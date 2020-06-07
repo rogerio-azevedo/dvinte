@@ -1,5 +1,5 @@
 import React from 'react'
-import PropTypes, { object, number } from 'prop-types'
+import PropTypes from 'prop-types'
 
 import {
   Container,
@@ -11,22 +11,14 @@ import {
   InputResit,
 } from './styles'
 
-export default function CharResist({ resist, resistMod, loading }) {
-  const { fortitude } = !loading && resist[0].table
-  const { reflex } = !loading && resist[0].table
-  const { will } = !loading && resist[0].table
+export default function CharResist({ resist }) {
+  const { fortitude } = resist
+  const { reflex } = resist
+  const { will } = resist
 
-  const forMod = resistMod.fortModTemp
-    ? resistMod.fortModTemp
-    : resistMod.fortMod
-
-  const refMod = resistMod.reflexModTemp
-    ? resistMod.reflexModTemp
-    : resistMod.reflexMod
-
-  const wisMod = resistMod.wisdModTemp
-    ? resistMod.wisdModTemp
-    : resistMod.wisdMod
+  const forMod = resist.fortModTemp ? resist.fortModTemp : resist.fortMod
+  const refMod = resist.reflexModTemp ? resist.reflexModTemp : resist.reflexMod
+  const wisMod = resist.wisdModTemp ? resist.wisdModTemp : resist.wisdMod
 
   const forTotal = Number(fortitude) + Number(forMod)
   const refTotal = Number(reflex) + Number(refMod)
@@ -125,7 +117,5 @@ export default function CharResist({ resist, resistMod, loading }) {
 }
 
 CharResist.propTypes = {
-  resist: PropTypes.arrayOf(object).isRequired,
-  resistMod: PropTypes.objectOf(number).isRequired,
-  loading: PropTypes.bool.isRequired,
+  // resist: PropTypes.oneOf(Object, Array).isRequired,
 }
