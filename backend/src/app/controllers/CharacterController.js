@@ -6,6 +6,8 @@ import Race from '../models/Race'
 import Attribute from '../models/Attribute'
 import AttributeTemp from '../models/AttributeTemp'
 import User from '../models/User'
+import Class from '../models/Class'
+import ClassTable from '../models/ClassTable'
 
 class CharacterController {
   async index(req, res) {
@@ -101,9 +103,25 @@ class CharacterController {
           attributes: ['name'],
         },
         {
-          association: 'classes',
-          attributes: ['name'],
-          through: { attributes: ['level'] },
+          model: Class,
+          as: 'classes',
+
+          // include: [
+          //   {
+          //     model: ClassTable,
+          //     as: 'classtables',
+          //     attributes: [
+          //       'level',
+          //       'base_attack',
+          //       'base_attack2',
+          //       'base_attack3',
+          //       'base_attack4',
+          //       'fortitude',
+          //       'reflex',
+          //       'will',
+          //     ],
+          //   },
+          // ],
         },
         {
           association: 'armor',
@@ -220,6 +238,23 @@ class CharacterController {
       return textMod
     }
 
+    const charClasses = char && char.toJSON().classes.map(c => c.id)
+
+    const table = await ClassTable.findAll({
+      where: { class_id: charClasses },
+      attributes: [
+        'level',
+        'base_attack',
+        'base_attack2',
+        'base_attack3',
+        'base_attack4',
+        'fortitude',
+        'reflex',
+        'will',
+        'class_id',
+      ],
+    })
+
     const charData = {
       Name: char.name.toUpperCase() || '',
       User: (char.user && char.user.name.toUpperCase()) || '',
@@ -242,29 +277,29 @@ class CharacterController {
       Divin: (char.divinity && char.divinity.name.toUpperCase()) || '',
 
       Str: (char.attribute && char.attribute.strength) || 0,
-      Des: (char.attribute && char.attribute.dexterity) || 0,
+      Dex: (char.attribute && char.attribute.dexterity) || 0,
       Con: (char.attribute && char.attribute.contitution) || 0,
       Int: (char.attribute && char.attribute.inteligence) || 0,
-      Sab: (char.attribute && char.attribute.wisdom) || 0,
-      Car: (char.attribute && char.attribute.charisma) || 0,
+      Wis: (char.attribute && char.attribute.wisdom) || 0,
+      Cha: (char.attribute && char.attribute.charisma) || 0,
 
       StrMod: getModifier(char.attribute && char.attribute.strength) || 0,
-      DesMod: getModifier(char.attribute && char.attribute.dexterity) || 0,
+      DexMod: getModifier(char.attribute && char.attribute.dexterity) || 0,
       ConMod: getModifier(char.attribute && char.attribute.contitution) || 0,
       IntMod: getModifier(char.attribute && char.attribute.inteligence) || 0,
-      SabMod: getModifier(char.attribute && char.attribute.wisdom) || 0,
-      CarMod: getModifier(char.attribute && char.attribute.charisma) || 0,
+      WisMod: getModifier(char.attribute && char.attribute.wisdom) || 0,
+      ChaMod: getModifier(char.attribute && char.attribute.charisma) || 0,
 
       StrTemp: (char.attribute_temp && char.attribute_temp.strength) || 0,
-      DesTemp: (char.attribute_temp && char.attribute_temp.dexterity) || 0,
+      DexTemp: (char.attribute_temp && char.attribute_temp.dexterity) || 0,
       ConTemp: (char.attribute_temp && char.attribute_temp.contitution) || 0,
       IntTemp: (char.attribute_temp && char.attribute_temp.inteligence) || 0,
-      SabTemp: (char.attribute_temp && char.attribute_temp.wisdom) || 0,
-      CarTemp: (char.attribute_temp && char.attribute_temp.charisma) || 0,
+      WisTemp: (char.attribute_temp && char.attribute_temp.wisdom) || 0,
+      ChaTemp: (char.attribute_temp && char.attribute_temp.charisma) || 0,
 
       StrModTemp:
         getModifier(char.attribute_temp && char.attribute_temp.strength) || 0,
-      DesModTemp:
+      DexModTemp:
         getModifier(char.attribute_temp && char.attribute_temp.dexterity) || 0,
       ConModTemp:
         getModifier(char.attribute_temp && char.attribute_temp.contitution) ||
@@ -272,9 +307,9 @@ class CharacterController {
       IntModTemp:
         getModifier(char.attribute_temp && char.attribute_temp.inteligence) ||
         0,
-      SabModTemp:
+      WisModTemp:
         getModifier(char.attribute_temp && char.attribute_temp.wisdom) || 0,
-      CarModTemp:
+      ChaModTemp:
         getModifier(char.attribute_temp && char.attribute_temp.charisma) || 0,
 
       Portrait: (char.portrait && char.portrait.url) || '',
@@ -282,8 +317,16 @@ class CharacterController {
       Classes:
         (char &&
           char.classes.map(c => ({
+            class_id: (c.CharacterClass && c.CharacterClass.class_id) || 0,
             name: c.name.toUpperCase() || '',
             level: (c.CharacterClass && c.CharacterClass.level) || 0,
+
+            table: table.find(
+              t =>
+                t.class_id ===
+                  (c.CharacterClass && c.CharacterClass.class_id) &&
+                t.level === (c.CharacterClass && c.CharacterClass.level)
+            ),
           }))) ||
         [],
 

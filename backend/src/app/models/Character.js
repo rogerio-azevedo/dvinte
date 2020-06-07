@@ -77,7 +77,6 @@ class Character extends Model {
     this.belongsToMany(models.Class, {
       through: CharacterClass,
       foreignKey: 'character_id',
-
       as: 'classes',
     })
   }

@@ -11,47 +11,47 @@ export default function CharWeapon({ weapons }) {
           <li key={Math.random()}>
             <div>
               <label htmlFor="inputResist">Nome</label>
-              <InputLarge defaultValue={item.name} />
+              <InputLarge readOnly defaultValue={item.name} />
             </div>
             <div>
               <label htmlFor="inputResist">Qtde</label>
-              <input defaultValue={item.multiplier} />
+              <input readOnly defaultValue={item.multiplier} />
             </div>
             <div>
               <label htmlFor="inputResist">Dados</label>
-              <input defaultValue={item.dice} />
+              <input readOnly defaultValue={item.dice} />
             </div>
             <div>
               <label htmlFor="inputResist">Crítico</label>
-              <InputMed defaultValue={item.critical} />
+              <InputMed readOnly defaultValue={item.critical} />
             </div>
             <div>
               <label htmlFor="inputResist">Alcance</label>
-              <input defaultValue={item.range} />
+              <input readOnly defaultValue={item.range} />
             </div>
             <div>
               <label htmlFor="inputResist">Tipo</label>
-              <InputMed defaultValue={item.type} />
+              <InputMed readOnly defaultValue={item.type} />
             </div>
             <div>
               <label htmlFor="inputResist">Material</label>
-              <InputMed defaultValue={item.material} />
+              <InputMed readOnly defaultValue={item.material} />
             </div>
             <div>
               <label htmlFor="inputResist">Mágico</label>
-              <InputMed defaultValue={item.magic} />
+              <InputMed readOnly defaultValue={item.magic} />
             </div>
             <div>
               <label htmlFor="inputResist">Peso</label>
-              <input defaultValue={item.weight} />
+              <input readOnly defaultValue={item.weight} />
             </div>
             <div>
               <label htmlFor="inputResist">Especial</label>
-              <InputMed defaultValue={item.special} />
+              <InputMed readOnly defaultValue={item.special} />
             </div>
             <div>
               <label htmlFor="inputResist">Preço</label>
-              <InputMed defaultValue={item.price} />
+              <InputMed readOnly defaultValue={item.price} />
             </div>
           </li>
         ))}

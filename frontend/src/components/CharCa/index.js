@@ -49,40 +49,40 @@ export default function CharCa({ armors, dextMod }) {
     <Container>
       <InputResitContainer>
         <div>
-          <DefenseMainLabel defaultValue="CA" />
+          <DefenseMainLabel readOnly defaultValue="CA" />
         </div>
 
         <div>
           <label htmlFor="inputResist">total</label>
-          <InputDefense defaultValue={totalCa} />
+          <InputDefense readOnly defaultValue={totalCa} />
         </div>
         <div>
           <label htmlFor="inputResist">armad</label>
-          <InputDefense defaultValue={armor} />
+          <InputDefense readOnly defaultValue={armor} />
         </div>
         <div>
           <label htmlFor="inputResist">escudo</label>
-          <InputDefense defaultValue={shield} />
+          <InputDefense readOnly defaultValue={shield} />
         </div>
         <div>
           <label htmlFor="inputResist">dest</label>
-          <InputDefense defaultValue={bonusDext} />
+          <InputDefense readOnly defaultValue={bonusDext} />
         </div>
         <div>
           <label htmlFor="inputResist">tam</label>
-          <InputDefense defaultValue="" />
+          <InputDefense readOnly defaultValue="" />
         </div>
         <div>
           <label htmlFor="inputResist">arm nat</label>
-          <InputDefense defaultValue="" />
+          <InputDefense readOnly defaultValue="" />
         </div>
         <div>
           <label htmlFor="inputResist">deflex</label>
-          <InputDefense defaultValue="" />
+          <InputDefense readOnly defaultValue="" />
         </div>
         <div>
           <label htmlFor="inputResist">outros</label>
-          <InputDefense defaultValue="" />
+          <InputDefense readOnly defaultValue="" />
         </div>
       </InputResitContainer>
     </Container>

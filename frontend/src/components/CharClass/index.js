@@ -9,8 +9,8 @@ export default function CharClass({ classes }) {
       <ul>
         {classes.map(item => (
           <li key={Math.random()}>
-            <ClassInput defaultValue={item.name} />
-            <ClassValueInput defaultValue={item.level} />
+            <ClassInput readOnly defaultValue={item.name} />
+            <ClassValueInput readOnly defaultValue={item.level} />
           </li>
         ))}
       </ul>

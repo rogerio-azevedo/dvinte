@@ -21,6 +21,11 @@ class Class extends Model {
       through: CharacterClass,
       as: 'char_class',
     })
+
+    this.hasOne(models.ClassTable, {
+      as: 'classtables',
+      foreignKey: 'class_id',
+    })
   }
 }
 

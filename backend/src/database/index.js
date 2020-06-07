@@ -14,6 +14,7 @@ import Attribute from '../app/models/Attribute'
 import AttributeTemp from '../app/models/AttributeTemp'
 import Armor from '../app/models/Armor'
 import Weapon from '../app/models/Weapon'
+import ClassTable from '../app/models/ClassTable'
 
 import databaseConfig from '../config/database'
 
@@ -31,6 +32,7 @@ const models = [
   AttributeTemp,
   Armor,
   Weapon,
+  ClassTable,
 ]
 
 class Database {

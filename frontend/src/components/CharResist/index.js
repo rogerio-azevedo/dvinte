@@ -1,5 +1,5 @@
 import React from 'react'
-import PropTypes, { object } from 'prop-types'
+import PropTypes, { object, number } from 'prop-types'
 
 import {
   Container,
@@ -11,92 +11,114 @@ import {
   InputResit,
 } from './styles'
 
-export default function CharResist({ resistences }) {
+export default function CharResist({ resist, resistMod }) {
+  // console.log(resist[0].table.fortitude)
+
+  const fortitude = resist.map(r => r.table.fortitude)
+  const reflex = resist.map(r => r.table.reflex)
+  const will = resist.map(r => r.table.will)
+
+  const forMod = resistMod.fortModTemp
+    ? resistMod.fortModTemp
+    : resistMod.fortMod
+
+  const refMod = resistMod.reflexModTemp
+    ? resistMod.reflexModTemp
+    : resistMod.reflexMod
+
+  const wisMod = resistMod.wisdModTemp
+    ? resistMod.wisdModTemp
+    : resistMod.wisdMod
+
+  const forTotal = Number(fortitude) + Number(forMod)
+  const refTotal = Number(reflex) + Number(refMod)
+  const wisTotal = Number(will) + Number(wisMod)
+
   return (
     <Container>
       <MainResistContainer>
         <LabelContainer>
-          <ResistMainLabel defaultValue="FORTITUDE" />
-          <ResistLabel defaultValue="(Constituição)" />
+          <ResistMainLabel readOnly defaultValue="FORTITUDE" />
+          <ResistLabel readOnly defaultValue="(Constituição)" />
         </LabelContainer>
         <InputResitContainer>
           <div>
             <label htmlFor="inputResist">total</label>
-            <InputResit defaultValue="" />
+            <InputResit readOnly defaultValue={forTotal} />
           </div>
           <div>
             <label htmlFor="inputResist">base</label>
-            <InputResit defaultValue="" />
+            <InputResit readOnly defaultValue={fortitude} />
           </div>
           <div>
             <label htmlFor="inputResist">mod</label>
-            <InputResit defaultValue="" />
+            <InputResit readOnly defaultValue={forMod} />
           </div>
           <div>
             <label htmlFor="inputResist">magic</label>
-            <InputResit defaultValue="" />
+            <InputResit readOnly defaultValue="" />
           </div>
           <div>
             <label htmlFor="inputResist">outros</label>
-            <InputResit defaultValue="" />
+            <InputResit readOnly defaultValue="" />
           </div>
           <div>
             <label htmlFor="inputResist">temp</label>
-            <InputResit defaultValue="" />
+            <InputResit readOnly defaultValue="" />
           </div>
         </InputResitContainer>
       </MainResistContainer>
 
       <MainResistContainer>
         <LabelContainer>
-          <ResistMainLabel defaultValue="REFLEXOS" />
-          <ResistLabel defaultValue="(Destreza)" />
+          <ResistMainLabel readOnly defaultValue="REFLEXOS" />
+          <ResistLabel readOnly defaultValue="(Destreza)" />
         </LabelContainer>
         <InputResitContainer>
           <div>
-            <InputResit defaultValue="" />
+            <InputResit readOnly defaultValue={refTotal} />
           </div>
           <div>
-            <InputResit defaultValue="" />
+            <InputResit readOnly defaultValue={reflex} />
           </div>
           <div>
-            <InputResit defaultValue="" />
+            <InputResit readOnly defaultValue={refMod} />
           </div>
           <div>
-            <InputResit defaultValue="" />
+            <InputResit readOnly defaultValue="" />
           </div>
           <div>
-            <InputResit defaultValue="" />
+            <InputResit readOnly defaultValue="" />
           </div>
           <div>
-            <InputResit defaultValue="" />
+            <InputResit readOnly defaultValue="" />
           </div>
         </InputResitContainer>
       </MainResistContainer>
 
       <MainResistContainer>
         <LabelContainer>
-          <ResistMainLabel defaultValue="VONTADE" />
-          <ResistLabel defaultValue="(Sabedoria)" />
+          <ResistMainLabel readOnly defaultValue="VONTADE" />
+          <ResistLabel readOnly defaultValue="(Sabedoria)" />
         </LabelContainer>
         <InputResitContainer>
           <div>
-            <InputResit defaultValue="" />
+            <InputResit readOnly defaultValue={wisTotal} />
           </div>
           <div>
-            <InputResit defaultValue="" />
+            <InputResit readOnly defaultValue={will} />
           </div>
           <div>
-            <InputResit defaultValue="" />
+            <InputResit readOnly defaultValue={wisMod} />
           </div>
           <div>
-            <InputResit defaultValue="" />
+            <InputResit readOnly defaultValue="" />
           </div>
           <div>
-            <InputResit defaultValue="" />
+            <InputResit readOnly defaultValue="" />
           </div>
           <div>
-            <InputResit defaultValue="" />
+            <InputResit readOnly defaultValue="" />
           </div>
         </InputResitContainer>
       </MainResistContainer>
@@ -105,5 +127,6 @@ export default function CharResist({ resistences }) {
 }
 
 CharResist.propTypes = {
-  resistences: PropTypes.arrayOf(object).isRequired,
+  resist: PropTypes.arrayOf(object).isRequired,
+  resistMod: PropTypes.objectOf(number).isRequired,
 }

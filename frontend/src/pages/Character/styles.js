@@ -10,6 +10,7 @@ export const Container = styled.div`
 export const TableContainer = styled.div`
   width: 1300px;
   padding: 30px;
+  border-radius: 4px;
   max-height: 700px;
   overflow: auto;
 

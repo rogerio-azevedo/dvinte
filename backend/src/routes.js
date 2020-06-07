@@ -18,6 +18,7 @@ import UserController from './app/controllers/UserController'
 import ChatController from './app/controllers/ChatController'
 import CampaignController from './app/controllers/CampaignController'
 import AttributeController from './app/controllers/AttributeController'
+import ClassTableController from './app/controllers/ClassTableController'
 
 import CombatController from './app/controllers/CombatController'
 
@@ -62,6 +63,9 @@ routes.get('/races', RaceController.index)
 
 routes.post('/campaigns', CampaignController.store)
 routes.get('/campaigns', CampaignController.index)
+
+routes.post('/classtables', ClassTableController.store)
+routes.get('/classtables', ClassTableController.index)
 
 routes.get('/combats', CombatController.index)
 

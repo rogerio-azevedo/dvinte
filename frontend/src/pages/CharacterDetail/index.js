@@ -6,7 +6,7 @@ import CharClass from '~/components/CharClass'
 import CharArmor from '~/components/CharArmor'
 import CharWeapon from '~/components/CharWeapon'
 import CharCa from '~/components/CharCa'
-import ChaResist from '~/components/CharResist'
+import CharResist from '~/components/CharResist'
 
 import * as Styles from './styles'
 
@@ -17,7 +17,8 @@ export default function CharacterDetail() {
   const [classes, setClasses] = useState()
   const [armors, setArmors] = useState()
   const [weapons, setWeapons] = useState()
-  const [resistences, setResistences] = useState()
+  const [resist, setResist] = useState()
+  const [resistMod, setResistMod] = useState()
   const [dextMod, setDextMod] = useState()
 
   useEffect(() => {
@@ -28,8 +29,19 @@ export default function CharacterDetail() {
       setClasses(response.data.Classes)
       setArmors(response.data.Armor)
       setWeapons(response.data.Weapon)
-      setResistences(response.data.Resist)
-      setDextMod(response.data.DesMod)
+      setResist(response.data.Classes)
+      setDextMod(response.data.DexMod)
+
+      setResistMod({
+        fortMod: response.data && response.data.StrMod,
+        fortModTemp: response.data && response.data.StrModTemp,
+
+        reflexMod: response.data && response.data.DexMod,
+        reflexModTemp: response.data && response.data.DexModTemp,
+
+        wisdMod: response.data && response.data.WisMod,
+        wisdModTemp: response.data && response.data.WisModTemp,
+      })
 
       setLoading(false)
     }
@@ -49,41 +61,41 @@ export default function CharacterDetail() {
           <Styles.BaseContainer>
             <Styles.LineContaniner>
               <div>
-                <Styles.InputLarge defaultValue={char && char.Name} />
+                <Styles.InputLarge readOnly defaultValue={char && char.Name} />
                 <label htmlFor="CharName">Nome do Personagem</label>
               </div>
 
               <div>
-                <Styles.InputLarge defaultValue={char && char.User} />
+                <Styles.InputLarge readOnly defaultValue={char && char.User} />
                 <label htmlFor="CharName">Nome do Jogador</label>
               </div>
 
               <div>
-                <Styles.InputLarge defaultValue={char && char.Race} />
+                <Styles.InputLarge readOnly defaultValue={char && char.Race} />
                 <label htmlFor="CharRace">Raça</label>
               </div>
               <div>
-                <Styles.InputLarge defaultValue={char && char.Alig} />
+                <Styles.InputLarge readOnly defaultValue={char && char.Alig} />
                 <label htmlFor="CharAlignment">Tendência</label>
               </div>
             </Styles.LineContaniner>
 
             <Styles.LineContaniner>
               <div>
-                <Styles.InputShort defaultValue={char && char.Age} />
+                <Styles.InputShort readOnly defaultValue={char && char.Age} />
                 <label htmlFor="CharAge">Idade</label>
               </div>
 
               <div>
-                <Styles.InputMed defaultValue={char && char.Gender} />
+                <Styles.InputMed readOnly defaultValue={char && char.Gender} />
                 <label htmlFor="CharGender">Sexo</label>
               </div>
               <div>
-                <Styles.InputMed defaultValue={char && char.Size} />
+                <Styles.InputMed readOnly defaultValue={char && char.Size} />
                 <label htmlFor="CharSize">Tamanho</label>
               </div>
               <div>
-                <Styles.InputLarge defaultValue={char && char.Divin} />
+                <Styles.InputLarge readOnly defaultValue={char && char.Divin} />
                 <label htmlFor="CharDivinity">Divindade</label>
               </div>
             </Styles.LineContaniner>
@@ -94,19 +106,22 @@ export default function CharacterDetail() {
                 <label htmlFor="CharHeight">Altura</label>
               </div>
               <div>
-                <Styles.InputShort defaultValue={char && char.Weight} />
+                <Styles.InputShort
+                  readOnly
+                  defaultValue={char && char.Weight}
+                />
                 <label htmlFor="CharWeight">Peso</label>
               </div>
               <div>
-                <Styles.InputMed defaultValue={char && char.Eye} />
+                <Styles.InputMed readOnly defaultValue={char && char.Eye} />
                 <label htmlFor="CharEye">Olhos</label>
               </div>
               <div>
-                <Styles.InputMed defaultValue={char && char.Hair} />
+                <Styles.InputMed readOnly defaultValue={char && char.Hair} />
                 <label htmlFor="CharHair">Cabelos</label>
               </div>
               <div>
-                <Styles.InputMed defaultValue={char && char.Skin} />
+                <Styles.InputMed readOnly defaultValue={char && char.Skin} />
                 <label htmlFor="CharSkin">Pele</label>
               </div>
             </Styles.LineContaniner>
@@ -118,102 +133,102 @@ export default function CharacterDetail() {
         <Styles.AttributesContainer>
           <legend>Atributos</legend>
           <div>
-            <Styles.AttrLabel1 defaultValue="FOR" />
+            <Styles.AttrLabel1 readOnly defaultValue="FOR" />
             <div>
               <label htmlFor="inputResist">valor</label>
-              <input defaultValue={char && char.Str} />
+              <input readOnly defaultValue={char && char.Str} />
             </div>
             <div>
               <label htmlFor="inputResist">mod</label>
-              <input defaultValue={char && char.StrMod} />
+              <input readOnly defaultValue={char && char.StrMod} />
             </div>
             <div>
               <label htmlFor="inputResist">v.temp</label>
-              <input defaultValue={char && char.StrTemp} />
+              <input readOnly defaultValue={char && char.StrTemp} />
             </div>
             <div>
               <label htmlFor="inputResist">m.temp</label>
-              <input defaultValue={char && char.StrModTemp} />
+              <input readOnly defaultValue={char && char.StrModTemp} />
             </div>
           </div>
 
           <div>
-            <Styles.AttrLabel defaultValue="DES" />
+            <Styles.AttrLabel readOnly defaultValue="DES" />
             <div>
-              <input defaultValue={char && char.Des} />
+              <input readOnly defaultValue={char && char.Dex} />
             </div>
             <div>
-              <input defaultValue={char && char.DesMod} />
+              <input readOnly defaultValue={char && char.DexMod} />
             </div>
             <div>
-              <input defaultValue={char && char.DesTemp} />
+              <input readOnly defaultValue={char && char.DexTemp} />
             </div>
             <div>
-              <input defaultValue={char && char.DesModTemp} />
-            </div>
-          </div>
-
-          <div>
-            <Styles.AttrLabel defaultValue="CON" />
-            <div>
-              <input defaultValue={char && char.Con} />
-            </div>
-            <div>
-              <input defaultValue={char && char.ConMod} />
-            </div>
-            <div>
-              <input defaultValue={char && char.ConTemp} />
-            </div>
-            <div>
-              <input defaultValue={char && char.ConModTemp} />
+              <input readOnly defaultValue={char && char.DexModTemp} />
             </div>
           </div>
 
           <div>
-            <Styles.AttrLabel defaultValue="INT" />
+            <Styles.AttrLabel readOnly defaultValue="CON" />
             <div>
-              <input defaultValue={char && char.Int} />
+              <input readOnly defaultValue={char && char.Con} />
             </div>
             <div>
-              <input defaultValue={char && char.IntMod} />
+              <input readOnly defaultValue={char && char.ConMod} />
             </div>
             <div>
-              <input defaultValue={char && char.IntTemp} />
+              <input readOnly defaultValue={char && char.ConTemp} />
             </div>
             <div>
-              <input defaultValue={char && char.IntModTemp} />
-            </div>
-          </div>
-
-          <div>
-            <Styles.AttrLabel defaultValue="SAB" />
-            <div>
-              <input defaultValue={char && char.Sab} />
-            </div>
-            <div>
-              <input defaultValue={char && char.SabMod} />
-            </div>
-            <div>
-              <input defaultValue={char && char.SabTemp} />
-            </div>
-            <div>
-              <input defaultValue={char && char.SabModTemp} />
+              <input readOnly defaultValue={char && char.ConModTemp} />
             </div>
           </div>
 
           <div>
-            <Styles.AttrLabel defaultValue="CAR" />
+            <Styles.AttrLabel readOnly defaultValue="INT" />
             <div>
-              <input defaultValue={char && char.Car} />
+              <input readOnly defaultValue={char && char.Int} />
             </div>
             <div>
-              <input defaultValue={char && char.CarMod} />
+              <input readOnly defaultValue={char && char.IntMod} />
             </div>
             <div>
-              <input defaultValue={char && char.CarTemp} />
+              <input readOnly defaultValue={char && char.IntTemp} />
             </div>
             <div>
-              <input defaultValue={char && char.CarModTemp} />
+              <input readOnly defaultValue={char && char.IntModTemp} />
+            </div>
+          </div>
+
+          <div>
+            <Styles.AttrLabel readOnly defaultValue="SAB" />
+            <div>
+              <input readOnly defaultValue={char && char.Wis} />
+            </div>
+            <div>
+              <input readOnly defaultValue={char && char.WisMod} />
+            </div>
+            <div>
+              <input readOnly defaultValue={char && char.WisTemp} />
+            </div>
+            <div>
+              <input readOnly defaultValue={char && char.WisModTemp} />
+            </div>
+          </div>
+
+          <div>
+            <Styles.AttrLabel readOnly defaultValue="CAR" />
+            <div>
+              <input readOnly defaultValue={char && char.Cha} />
+            </div>
+            <div>
+              <input readOnly defaultValue={char && char.ChaMod} />
+            </div>
+            <div>
+              <input readOnly defaultValue={char && char.ChaTemp} />
+            </div>
+            <div>
+              <input readOnly defaultValue={char && char.ChaModTemp} />
             </div>
           </div>
         </Styles.AttributesContainer>
@@ -223,21 +238,27 @@ export default function CharacterDetail() {
           <Styles.HealthContainer>
             <div>
               <div>
-                <Styles.InputShort defaultValue={char && char.Level} />
+                <Styles.InputShort readOnly defaultValue={char && char.Level} />
                 <label htmlFor="CharLevel">Level</label>
               </div>
               <div>
-                <Styles.InputShort defaultValue={char && char.Exp} />
+                <Styles.InputShort readOnly defaultValue={char && char.Exp} />
                 <label htmlFor="charExp">Experiência</label>
               </div>
             </div>
             <div>
               <div>
-                <Styles.InputShort defaultValue={char && char.Health} />
+                <Styles.InputShort
+                  readOnly
+                  defaultValue={char && char.Health}
+                />
                 <label htmlFor="charHealth">Pontos de Vida</label>
               </div>
               <div>
-                <Styles.InputShort defaultValue={char && char.HealthNow} />
+                <Styles.InputShort
+                  readOnly
+                  defaultValue={char && char.HealthNow}
+                />
                 <label htmlFor="charHealth">Vida Atual</label>
               </div>
             </div>
@@ -250,7 +271,7 @@ export default function CharacterDetail() {
 
         <Styles.ResistContainer>
           <legend>Testes de Resistência</legend>
-          {!loading && <ChaResist resistences={resistences} />}
+          {!loading && <CharResist resist={resist} resistMod={resistMod} />}
           <Styles.DefenseContainer>
             {!loading && <CharCa armors={armors} dextMod={dextMod} />}
           </Styles.DefenseContainer>

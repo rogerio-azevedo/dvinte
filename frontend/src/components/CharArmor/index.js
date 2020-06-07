@@ -11,39 +11,39 @@ export default function CharArmor({ armors }) {
           <li key={Math.random()}>
             <div>
               <label htmlFor="inputResist">Nome</label>
-              <InputLarge defaultValue={item.name} />
+              <InputLarge readOnly defaultValue={item.name} />
             </div>
             <div>
               <label htmlFor="inputResist">Tipo</label>
-              <input defaultValue={item.type} />
+              <input readOnly defaultValue={item.type} />
             </div>
             <div>
               <label htmlFor="inputResist">Bonus</label>
-              <input defaultValue={item.bonus} />
+              <input readOnly defaultValue={item.bonus} />
             </div>
             <div>
               <label htmlFor="inputResist">Dest Max</label>
-              <input defaultValue={item.dexterity} />
+              <input readOnly defaultValue={item.dexterity} />
             </div>
             <div>
               <label htmlFor="inputResist">Penalidade</label>
-              <input defaultValue={item.penalty} />
+              <input readOnly defaultValue={item.penalty} />
             </div>
             <div>
               <label htmlFor="inputResist">Deslocamento</label>
-              <input defaultValue={item.displacement} />
+              <input readOnly defaultValue={item.displacement} />
             </div>
             <div>
               <label htmlFor="inputResist">Peso</label>
-              <input defaultValue={item.weight} />
+              <input readOnly defaultValue={item.weight} />
             </div>
             <div>
               <label htmlFor="inputResist">Especial</label>
-              <InputMed defaultValue={item.special} />
+              <InputMed readOnly defaultValue={item.special} />
             </div>
             <div>
               <label htmlFor="inputResist">Preço</label>
-              <InputMed defaultValue={item.price} />
+              <InputMed readOnly defaultValue={item.price} />
             </div>
           </li>
         ))}
