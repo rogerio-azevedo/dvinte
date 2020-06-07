@@ -11,10 +11,10 @@ import {
   InputResit,
 } from './styles'
 
-export default function CharResist({ resist, resistMod }) {
-  const { fortitude } = resist[0].table
-  const { reflex } = resist[0].table
-  const { will } = resist[0].table
+export default function CharResist({ resist, resistMod, loading }) {
+  const { fortitude } = !loading && resist[0].table
+  const { reflex } = !loading && resist[0].table
+  const { will } = !loading && resist[0].table
 
   const forMod = resistMod.fortModTemp
     ? resistMod.fortModTemp
@@ -127,4 +127,5 @@ export default function CharResist({ resist, resistMod }) {
 CharResist.propTypes = {
   resist: PropTypes.arrayOf(object).isRequired,
   resistMod: PropTypes.objectOf(number).isRequired,
+  loading: PropTypes.bool.isRequired,
 }

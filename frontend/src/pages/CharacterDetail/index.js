@@ -271,7 +271,13 @@ export default function CharacterDetail() {
 
         <Styles.ResistContainer>
           <legend>Testes de Resistência</legend>
-          {!loading && <CharResist resist={resist} resistMod={resistMod} />}
+          {!loading && (
+            <CharResist
+              resist={resist}
+              resistMod={resistMod}
+              loading={loading}
+            />
+          )}
           <Styles.DefenseContainer>
             {!loading && <CharCa armors={armors} dextMod={dextMod} />}
           </Styles.DefenseContainer>
