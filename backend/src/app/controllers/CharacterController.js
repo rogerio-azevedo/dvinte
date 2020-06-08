@@ -433,25 +433,13 @@ class CharacterController {
             class_id: (c.CharacterClass && c.CharacterClass.class_id) || 0,
             name: c.name.toUpperCase() || '',
             level: (c.CharacterClass && c.CharacterClass.level) || 0,
+            // tabela: table,
           }))) ||
         [],
-
-      // Table:
-      //   (char &&
-      //     char.classes.map(c =>
-      //       table.find(
-      //         t =>
-      //           t.class_id ===
-      //             (c.CharacterClass && c.CharacterClass.class_id) &&
-      //           t.level === (c.CharacterClass && c.CharacterClass.level)
-      //       )
-      //     )) ||
-      //   [],
 
       Armor: (char && char.toJSON().armor) || [],
       Weapon: (char && char.toJSON().weapon) || [],
     }
-
     return res.json(charData)
   }
 

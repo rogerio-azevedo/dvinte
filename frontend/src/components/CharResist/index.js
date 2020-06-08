@@ -12,10 +12,9 @@ import {
 } from './styles'
 
 export default function CharResist({ resist }) {
-  console.log(resist)
-  const fortitude = 0 // resist.Fortitude
-  const reflex = 0 // resist.Reflex
-  const will = 0 // resist.Will
+  const fortitude = resist.Fortitude
+  const reflex = resist.Reflex
+  const will = resist.Will
 
   const forMod = resist.ConModTemp ? resist.ConModTemp : resist.ConMod
   const refMod = resist.DexModTemp ? resist.DexModTemp : resist.DexMod
@@ -118,5 +117,5 @@ export default function CharResist({ resist }) {
 }
 
 CharResist.propTypes = {
-  // resist: PropTypes.func.isRequired,
+  resist: PropTypes.objectOf.isRequired,
 }
