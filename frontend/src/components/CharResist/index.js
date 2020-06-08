@@ -12,6 +12,7 @@ import {
 } from './styles'
 
 export default function CharResist({ resist }) {
+  console.log(resist)
   const fortitude = resist.Fortitude
   const reflex = resist.Reflex
   const will = resist.Will
@@ -117,5 +118,5 @@ export default function CharResist({ resist }) {
 }
 
 CharResist.propTypes = {
-  resist: PropTypes.func.isRequired,
+  // resist: PropTypes.func.isRequired,
 }
