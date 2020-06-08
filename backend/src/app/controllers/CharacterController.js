@@ -320,15 +320,21 @@ class CharacterController {
             class_id: (c.CharacterClass && c.CharacterClass.class_id) || 0,
             name: c.name.toUpperCase() || '',
             level: (c.CharacterClass && c.CharacterClass.level) || 0,
-
-            // table: table.find(
-            //   t =>
-            //     t.class_id ===
-            //       (c.CharacterClass && c.CharacterClass.class_id) &&
-            //     t.level === (c.CharacterClass && c.CharacterClass.level)
-            // ),
           }))) ||
         [],
+
+      // Fortitude:
+      //   char &&
+      //   char.classes
+      //     .map(c =>
+      //       table.find(
+      //         t =>
+      //           t.class_id ===
+      //             (c.CharacterClass && c.CharacterClass.class_id) &&
+      //           t.level === (c.CharacterClass && c.CharacterClass.level)
+      //       )
+      //     )
+      //     .then(t => t.reduce((prev, curr) => prev + curr, 0)),
 
       Table:
         (char &&
@@ -342,8 +348,120 @@ class CharacterController {
           )) ||
         [],
 
-      Armor: (char && char.armor) || [],
-      Weapon: (char && char.weapon) || [],
+      Fortitude:
+        (char &&
+          char.classes
+            .map(c =>
+              table.find(
+                t =>
+                  t.class_id ===
+                    (c.CharacterClass && c.CharacterClass.class_id) &&
+                  t.level === (c.CharacterClass && c.CharacterClass.level)
+              )
+            )
+            .reduce((acc, val) => {
+              return acc + val.fortitude
+            }, 0)) ||
+        0,
+
+      Reflex:
+        (char &&
+          char.classes
+            .map(c =>
+              table.find(
+                t =>
+                  t.class_id ===
+                    (c.CharacterClass && c.CharacterClass.class_id) &&
+                  t.level === (c.CharacterClass && c.CharacterClass.level)
+              )
+            )
+            .reduce((acc, val) => {
+              return acc + val.reflex
+            }, 0)) ||
+        0,
+
+      Will:
+        (char &&
+          char.classes
+            .map(c =>
+              table.find(
+                t =>
+                  t.class_id ===
+                    (c.CharacterClass && c.CharacterClass.class_id) &&
+                  t.level === (c.CharacterClass && c.CharacterClass.level)
+              )
+            )
+            .reduce((acc, val) => {
+              return acc + val.will
+            }, 0)) ||
+        0,
+
+      BaseAttack:
+        (char &&
+          char.classes
+            .map(c =>
+              table.find(
+                t =>
+                  t.class_id ===
+                    (c.CharacterClass && c.CharacterClass.class_id) &&
+                  t.level === (c.CharacterClass && c.CharacterClass.level)
+              )
+            )
+            .reduce((acc, val) => {
+              return acc + val.base_attack
+            }, 0)) ||
+        0,
+
+      BaseAttack2:
+        (char &&
+          char.classes
+            .map(c =>
+              table.find(
+                t =>
+                  t.class_id ===
+                    (c.CharacterClass && c.CharacterClass.class_id) &&
+                  t.level === (c.CharacterClass && c.CharacterClass.level)
+              )
+            )
+            .reduce((acc, val) => {
+              return acc + val.base_attack2
+            }, 0)) ||
+        0,
+
+      BaseAttack3:
+        (char &&
+          char.classes
+            .map(c =>
+              table.find(
+                t =>
+                  t.class_id ===
+                    (c.CharacterClass && c.CharacterClass.class_id) &&
+                  t.level === (c.CharacterClass && c.CharacterClass.level)
+              )
+            )
+            .reduce((acc, val) => {
+              return acc + val.base_attack3
+            }, 0)) ||
+        0,
+
+      BaseAttack4:
+        (char &&
+          char.classes
+            .map(c =>
+              table.find(
+                t =>
+                  t.class_id ===
+                    (c.CharacterClass && c.CharacterClass.class_id) &&
+                  t.level === (c.CharacterClass && c.CharacterClass.level)
+              )
+            )
+            .reduce((acc, val) => {
+              return acc + val.base_attack4
+            }, 0)) ||
+        0,
+
+      Armor: (char && char.toJSON().armor) || [],
+      Weapon: (char && char.toJSON().weapon) || [],
     }
     console.log(charData)
     return res.json(charData)
