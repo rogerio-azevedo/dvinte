@@ -12,10 +12,9 @@ import {
 } from './styles'
 
 export default function CharResist({ resist }) {
-  console.log(resist)
-  const { fortitude } = resist.Classes[0].table
-  const { reflex } = resist.Classes[0].table
-  const { will } = resist.Classes[0].table
+  const { fortitude } = resist && resist.Classes && resist.Classes[0].table
+  const { reflex } = resist && resist.Classes && resist.Classes[0].table
+  const { will } = resist && resist.Classes && resist.Classes[0].table
 
   const forMod = resist.ConModTemp ? resist.ConModTemp : resist.ConMod
   const refMod = resist.DexModTemp ? resist.DexModTemp : resist.DexMod
