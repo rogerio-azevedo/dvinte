@@ -11,10 +11,11 @@ import {
   InputResit,
 } from './styles'
 
-export default function CharResist({ resist }) {
-  const { fortitude } = resist && resist.Classes && resist.Classes[0].table
-  const { reflex } = resist && resist.Classes && resist.Classes[0].table
-  const { will } = resist && resist.Classes && resist.Classes[0].table
+export default function CharResist({ resist, resistTable }) {
+  console.log(resistTable)
+  const { fortitude } = resistTable[0]
+  const { reflex } = resistTable[0]
+  const { will } = resistTable[0]
 
   const forMod = resist.ConModTemp ? resist.ConModTemp : resist.ConMod
   const refMod = resist.DexModTemp ? resist.DexModTemp : resist.DexMod

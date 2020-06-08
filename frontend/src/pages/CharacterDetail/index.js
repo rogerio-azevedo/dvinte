@@ -18,6 +18,7 @@ export default function CharacterDetail() {
   const [armors, setArmors] = useState()
   const [weapons, setWeapons] = useState()
   const [resist, setResist] = useState()
+  const [resistTable, setResistTable] = useState()
 
   const [dextMod, setDextMod] = useState()
 
@@ -31,6 +32,7 @@ export default function CharacterDetail() {
       setWeapons(response.data.Weapon)
       setDextMod(response.data.DexMod)
       setResist(response.data)
+      setResistTable(response.data.Table)
 
       // async function resistData() {
       //   const result =
@@ -286,7 +288,7 @@ export default function CharacterDetail() {
 
         <Styles.ResistContainer>
           <legend>Testes de Resistência</legend>
-          {!loading && <CharResist resist={resist} />}
+          {!loading && <CharResist resist={resist} resistTable={resistTable} />}
           <Styles.DefenseContainer>
             {!loading && <CharCa armors={armors} dextMod={dextMod} />}
           </Styles.DefenseContainer>

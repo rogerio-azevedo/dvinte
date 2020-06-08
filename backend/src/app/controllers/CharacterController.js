@@ -321,19 +321,31 @@ class CharacterController {
             name: c.name.toUpperCase() || '',
             level: (c.CharacterClass && c.CharacterClass.level) || 0,
 
-            table: table.find(
+            // table: table.find(
+            //   t =>
+            //     t.class_id ===
+            //       (c.CharacterClass && c.CharacterClass.class_id) &&
+            //     t.level === (c.CharacterClass && c.CharacterClass.level)
+            // ),
+          }))) ||
+        [],
+
+      Table:
+        (char &&
+          char.classes.map(c =>
+            table.find(
               t =>
                 t.class_id ===
                   (c.CharacterClass && c.CharacterClass.class_id) &&
                 t.level === (c.CharacterClass && c.CharacterClass.level)
-            ),
-          }))) ||
+            )
+          )) ||
         [],
 
       Armor: (char && char.armor) || [],
       Weapon: (char && char.weapon) || [],
     }
-
+    console.log(charData)
     return res.json(charData)
   }
 
