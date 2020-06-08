@@ -13,9 +13,9 @@ import {
 
 export default function CharResist({ resist }) {
   console.log(resist)
-  const fortitude = resist.Fortitude
-  const reflex = resist.Reflex
-  const will = resist.Will
+  const fortitude = 0 // resist.Fortitude
+  const reflex = 0 // resist.Reflex
+  const will = 0 // resist.Will
 
   const forMod = resist.ConModTemp ? resist.ConModTemp : resist.ConMod
   const refMod = resist.DexModTemp ? resist.DexModTemp : resist.DexMod

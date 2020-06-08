@@ -314,40 +314,6 @@ class CharacterController {
 
       Portrait: (char.portrait && char.portrait.url) || '',
 
-      Classes:
-        (char &&
-          char.classes.map(c => ({
-            class_id: (c.CharacterClass && c.CharacterClass.class_id) || 0,
-            name: c.name.toUpperCase() || '',
-            level: (c.CharacterClass && c.CharacterClass.level) || 0,
-          }))) ||
-        [],
-
-      // Fortitude:
-      //   char &&
-      //   char.classes
-      //     .map(c =>
-      //       table.find(
-      //         t =>
-      //           t.class_id ===
-      //             (c.CharacterClass && c.CharacterClass.class_id) &&
-      //           t.level === (c.CharacterClass && c.CharacterClass.level)
-      //       )
-      //     )
-      //     .then(t => t.reduce((prev, curr) => prev + curr, 0)),
-
-      Table:
-        (char &&
-          char.classes.map(c =>
-            table.find(
-              t =>
-                t.class_id ===
-                  (c.CharacterClass && c.CharacterClass.class_id) &&
-                t.level === (c.CharacterClass && c.CharacterClass.level)
-            )
-          )) ||
-        [],
-
       Fortitude:
         (char &&
           char.classes
@@ -460,10 +426,31 @@ class CharacterController {
             }, 0)) ||
         0,
 
+      Classes:
+        (char &&
+          char.classes.map(c => ({
+            class_id: (c.CharacterClass && c.CharacterClass.class_id) || 0,
+            name: c.name.toUpperCase() || '',
+            level: (c.CharacterClass && c.CharacterClass.level) || 0,
+          }))) ||
+        [],
+
+      // Table:
+      //   (char &&
+      //     char.classes.map(c =>
+      //       table.find(
+      //         t =>
+      //           t.class_id ===
+      //             (c.CharacterClass && c.CharacterClass.class_id) &&
+      //           t.level === (c.CharacterClass && c.CharacterClass.level)
+      //       )
+      //     )) ||
+      //   [],
+
       Armor: (char && char.toJSON().armor) || [],
       Weapon: (char && char.toJSON().weapon) || [],
     }
-    console.log(charData)
+
     return res.json(charData)
   }
 
