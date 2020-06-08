@@ -316,6 +316,7 @@ class CharacterController {
 
       Fortitude:
         (char &&
+          char.classes &&
           char.classes
             .map(c =>
               table.find(
