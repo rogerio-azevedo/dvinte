@@ -12,13 +12,14 @@ import {
 } from './styles'
 
 export default function CharResist({ resist }) {
-  const { fortitude } = resist
-  const { reflex } = resist
-  const { will } = resist
+  console.log(resist)
+  const { fortitude } = resist.Classes[0].table
+  const { reflex } = resist.Classes[0].table
+  const { will } = resist.Classes[0].table
 
-  const forMod = resist.fortModTemp ? resist.fortModTemp : resist.fortMod
-  const refMod = resist.reflexModTemp ? resist.reflexModTemp : resist.reflexMod
-  const wisMod = resist.wisdModTemp ? resist.wisdModTemp : resist.wisdMod
+  const forMod = resist.ConModTemp ? resist.ConModTemp : resist.ConMod
+  const refMod = resist.DexModTemp ? resist.DexModTemp : resist.DexMod
+  const wisMod = resist.WisModTemp ? resist.WisModTemp : resist.WisMod
 
   const forTotal = Number(fortitude) + Number(forMod)
   const refTotal = Number(reflex) + Number(refMod)
@@ -117,5 +118,5 @@ export default function CharResist({ resist }) {
 }
 
 CharResist.propTypes = {
-  // resist: PropTypes.oneOf(Object, Array).isRequired,
+  resist: PropTypes.objectOf.isRequired,
 }

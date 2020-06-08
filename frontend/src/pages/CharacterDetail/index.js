@@ -30,24 +30,33 @@ export default function CharacterDetail() {
       setArmors(response.data.Armor)
       setWeapons(response.data.Weapon)
       setDextMod(response.data.DexMod)
+      setResist(response.data)
 
-      const { fortitude } = response.data.Classes[0].table
-      const { reflex } = response.data.Classes[0].table
-      const { will } = response.data.Classes[0].table
+      // async function resistData() {
+      //   const result =
+      //     (await response.data) && response.data.Classes.map(r => r.table)
+      //   setResist2(result)
+      // }
 
-      setResist({
-        fortitude,
-        reflex,
-        will,
-        fortMod: response.data && response.data.StrMod,
-        fortModTemp: response.data && response.data.StrModTemp,
+      // resistData()
 
-        reflexMod: response.data && response.data.DexMod,
-        reflexModTemp: response.data && response.data.DexModTemp,
+      // const { fortitude } = response.data.Classes[0].table
+      // const { reflex } = response.data.Classes[0].table
+      // const { will } = response.data.Classes[0].table
 
-        wisdMod: response.data && response.data.WisMod,
-        wisdModTemp: response.data && response.data.WisModTemp,
-      })
+      // setResist({
+      //   fortitude,
+      //   reflex,
+      //   will,
+      //   fortMod: response.data && response.data.StrMod,
+      //   fortModTemp: response.data && response.data.StrModTemp,
+
+      //   reflexMod: response.data && response.data.DexMod,
+      //   reflexModTemp: response.data && response.data.DexModTemp,
+
+      //   wisdMod: response.data && response.data.WisMod,
+      //   wisdModTemp: response.data && response.data.WisModTemp,
+      // })
 
       setLoading(false)
     }
