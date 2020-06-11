@@ -6,6 +6,10 @@ class Class extends Model {
     super.init(
       {
         name: Sequelize.STRING,
+        attack: Sequelize.STRING,
+        fortitude: Sequelize.STRING,
+        reflex: Sequelize.STRING,
+        will: Sequelize.STRING,
       },
       {
         sequelize,
@@ -20,11 +24,6 @@ class Class extends Model {
       foreignKey: 'class_id',
       through: CharacterClass,
       as: 'char_class',
-    })
-
-    this.hasOne(models.ClassTable, {
-      as: 'classtables',
-      foreignKey: 'class_id',
     })
   }
 }
