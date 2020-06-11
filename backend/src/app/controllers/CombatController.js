@@ -4,6 +4,8 @@ import Race from '../models/Race'
 import Attribute from '../models/Attribute'
 import AttributeTemp from '../models/AttributeTemp'
 import User from '../models/User'
+import BaseAttack from '../models/BaseAttack'
+import BaseResist from '../models/BaseResist'
 
 class CombatController {
   async index(req, res) {
@@ -36,7 +38,7 @@ class CombatController {
         },
         {
           association: 'classes',
-          attributes: ['name'],
+          attributes: ['name', 'attack', 'fortitude', 'reflex', 'will'],
           through: { attributes: ['level'] },
         },
         {
@@ -119,6 +121,20 @@ class CombatController {
       return textMod
     }
 
+    const levels = char.classes.map(l => l.CharacterClass.level)
+
+    const baseAtack = await BaseAttack.findAll({
+      where: { level: levels },
+      raw: true,
+      attributes: ['level', 'low', 'medium', 'high'],
+    })
+
+    const baseResist = await BaseResist.findAll({
+      where: { level: levels },
+      raw: true,
+      attributes: ['level', 'low', 'high'],
+    })
+
     const charData = {
       Name: char.name.toUpperCase() || '',
       User: (char.user && char.user.name.toUpperCase()) || '',
@@ -176,17 +192,65 @@ class CombatController {
 
       Portrait: (char.portrait && char.portrait.url) || '',
 
+      BaseAttack:
+        char &&
+        char.classes.reduce((total, c) => {
+          const base = baseAtack.find(a => a.level === c.CharacterClass.level)
+          return total + ((base && base[c.attack]) || 0)
+        }, 0),
+
+      // BaseAttack:
+      //   (char &&
+      //     char.classes.map(c =>
+      //       baseAtack.find(
+      //         a => a.level === (c.CharacterClass && c.CharacterClass.level)
+      //       )
+      //     )) ||
+      //   0,
+      // .reduce((acc, val) => {
+      //   return acc + val.base_attack
+      // }, 0)
+
+      Fortitude:
+        char &&
+        char.classes.reduce((total, c) => {
+          const base = baseResist.find(a => a.level === c.CharacterClass.level)
+          return total + ((base && base[c.fortitude]) || 0)
+        }, 0),
+
+      Reflex:
+        char &&
+        char.classes.reduce((total, c) => {
+          const base = baseResist.find(a => a.level === c.CharacterClass.level)
+          return total + ((base && base[c.reflex]) || 0)
+        }, 0),
+
+      Will:
+        char &&
+        char.classes.reduce((total, c) => {
+          const base = baseResist.find(a => a.level === c.CharacterClass.level)
+          return total + ((base && base[c.will]) || 0)
+        }, 0),
+
       Classes:
         (char &&
           char.classes.map(c => ({
             name: c.name.toUpperCase() || '',
+            attack: c.attack || '',
+            fortitude: c.fortitude,
+            reflex: c.reflex,
+            will: c.will,
             level: (c.CharacterClass && c.CharacterClass.level) || 0,
+
+            // tabela: table,
           }))) ||
         [],
 
       Armor: (char && char.armor) || [],
       Weapon: (char && char.weapon) || [],
     }
+
+    console.log(charData)
 
     return res.json(charData)
   }

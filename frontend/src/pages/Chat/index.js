@@ -17,6 +17,12 @@ export default function Chat() {
   const [messages, updateMessages] = useState([])
   const [multiplier, setMultiplier] = useState(1)
   const [charInit, setCharInit] = useState()
+  // const [character, setCharacter] = useState()
+
+  const [hit, setHit] = useState()
+  const [fortitude, setFortitude] = useState()
+  const [reflex, setReflex] = useState()
+  const [will, setWill] = useState()
 
   const [initBoard, setInitBoard] = useState([])
   const from = profile.id
@@ -55,7 +61,26 @@ export default function Chat() {
         },
       })
 
+      // console.log(response.data)
+
+      // setCharacter(response.data)
       setCharInit(response.data.DesMod)
+
+      const SrtMod = response.data.StrModTemp
+        ? response.data.StrModTemp
+        : response.data.StrMod
+
+      const SrtCon = response.data.ConModTemp
+        ? response.data.ConModTemp
+        : response.data.ConMod
+
+      const attack = response.data.BaseAttack
+
+      setHit(SrtMod + attack)
+      setFortitude(response.data.Fortitude + SrtCon)
+      setReflex(response.data.Reflex)
+      setWill(response.data.Will)
+
       setLoading(false)
     } catch (e) {
       toast.error('Conexao com a API mal sucedida.')
@@ -141,6 +166,23 @@ export default function Chat() {
     })
   }
 
+  async function handleAtacar() {
+    const acerto = !loading && hit
+
+    const dice = Math.floor(Math.random() * 20) + 1
+
+    const attack = acerto + dice
+
+    const rolled = `Rolou ataque d20: ${dice} + ${acerto} de base de ataque, com resultado: ${attack}`
+
+    api.post('chats', {
+      id: from,
+      user_id: profile.id,
+      user: profile.name,
+      message: rolled,
+    })
+  }
+
   return (
     <Styles.Container>
       <Styles.CombatContainer>
@@ -151,7 +193,7 @@ export default function Chat() {
               <div>
                 <div>
                   <label htmlFor="inputResist">Acerto</label>
-                  <input defaultValue="" />
+                  <input defaultValue={hit} />
                 </div>
                 <div>
                   <label htmlFor="inputResist">Iniciativa</label>
@@ -161,17 +203,17 @@ export default function Chat() {
               <div>
                 <div>
                   <label htmlFor="inputResist">Fortitude</label>
-                  <input defaultValue="" />
+                  <input defaultValue={fortitude} />
                 </div>
                 <div>
                   <label htmlFor="inputResist">Reflexos</label>
-                  <input defaultValue="" />
+                  <input defaultValue={reflex} />
                 </div>
               </div>
               <div>
                 <div>
                   <label htmlFor="inputResist">Vontade</label>
-                  <input defaultValue="" />
+                  <input defaultValue={will} />
                 </div>
                 <div>
                   <label htmlFor="inputResist">CA</label>
@@ -197,7 +239,7 @@ export default function Chat() {
                   </button>
                 </div>
                 <div>
-                  <button type="button" onClick={handleInitiative}>
+                  <button type="button" onClick={handleAtacar}>
                     Atacar
                   </button>
                 </div>

@@ -295,15 +295,6 @@ class CharacterController {
 
       Portrait: (char.portrait && char.portrait.url) || '',
 
-      // BaseAttack: char?.classes
-      //   .map(c => {
-      //     let base = baseAtack.find(a => a.level === c.CharacterClass?.level)
-      //     return base && base[c.attack]
-      //   })
-      //   .reduce((acc, val) => {
-      //     return acc + val
-      //   }, 0),
-
       BaseAttack:
         char &&
         char.classes.reduce((total, c) => {
