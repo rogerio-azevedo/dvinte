@@ -77,6 +77,41 @@ class CombatController {
       ],
     })
 
+    function getSize(size) {
+      let text = ''
+
+      switch (size) {
+        case 1:
+          text = 'PEQUENO'
+          break
+        case 2:
+          text = 'MÉDIO'
+          break
+        case 3:
+          text = 'GRANDE'
+          break
+        default:
+      }
+      return text
+    }
+
+    function getGender(gender) {
+      let textGender = ''
+
+      switch (gender) {
+        case 1:
+          textGender = 'MASCULINO'
+          break
+        case 2:
+          textGender = 'FEMININO'
+          break
+
+        default:
+      }
+
+      return textGender
+    }
+
     function getModifier(mod) {
       let textMod = 0
 
@@ -143,6 +178,8 @@ class CombatController {
       Health: char.health || 0,
       HealthNow: char.health_now || 0,
       Age: char.age || 0,
+      Gender: getGender(char.gender || 0),
+      Size: getSize(char.size || 0),
 
       Height: char.height || '',
       Weight: char.weight || '',
@@ -155,29 +192,29 @@ class CombatController {
       Divin: (char.divinity && char.divinity.name.toUpperCase()) || '',
 
       Str: (char.attribute && char.attribute.strength) || 0,
-      Des: (char.attribute && char.attribute.dexterity) || 0,
+      Dex: (char.attribute && char.attribute.dexterity) || 0,
       Con: (char.attribute && char.attribute.contitution) || 0,
       Int: (char.attribute && char.attribute.inteligence) || 0,
-      Sab: (char.attribute && char.attribute.wisdom) || 0,
-      Car: (char.attribute && char.attribute.charisma) || 0,
+      Wis: (char.attribute && char.attribute.wisdom) || 0,
+      Cha: (char.attribute && char.attribute.charisma) || 0,
 
       StrMod: getModifier(char.attribute && char.attribute.strength) || 0,
-      DesMod: getModifier(char.attribute && char.attribute.dexterity) || 0,
+      DexMod: getModifier(char.attribute && char.attribute.dexterity) || 0,
       ConMod: getModifier(char.attribute && char.attribute.contitution) || 0,
       IntMod: getModifier(char.attribute && char.attribute.inteligence) || 0,
-      SabMod: getModifier(char.attribute && char.attribute.wisdom) || 0,
-      CarMod: getModifier(char.attribute && char.attribute.charisma) || 0,
+      WisMod: getModifier(char.attribute && char.attribute.wisdom) || 0,
+      ChaMod: getModifier(char.attribute && char.attribute.charisma) || 0,
 
       StrTemp: (char.attribute_temp && char.attribute_temp.strength) || 0,
-      DesTemp: (char.attribute_temp && char.attribute_temp.dexterity) || 0,
+      DexTemp: (char.attribute_temp && char.attribute_temp.dexterity) || 0,
       ConTemp: (char.attribute_temp && char.attribute_temp.contitution) || 0,
       IntTemp: (char.attribute_temp && char.attribute_temp.inteligence) || 0,
-      SabTemp: (char.attribute_temp && char.attribute_temp.wisdom) || 0,
-      CarTemp: (char.attribute_temp && char.attribute_temp.charisma) || 0,
+      WisTemp: (char.attribute_temp && char.attribute_temp.wisdom) || 0,
+      ChaTemp: (char.attribute_temp && char.attribute_temp.charisma) || 0,
 
       StrModTemp:
         getModifier(char.attribute_temp && char.attribute_temp.strength) || 0,
-      DesModTemp:
+      DexModTemp:
         getModifier(char.attribute_temp && char.attribute_temp.dexterity) || 0,
       ConModTemp:
         getModifier(char.attribute_temp && char.attribute_temp.contitution) ||
@@ -185,9 +222,9 @@ class CombatController {
       IntModTemp:
         getModifier(char.attribute_temp && char.attribute_temp.inteligence) ||
         0,
-      SabModTemp:
+      WisModTemp:
         getModifier(char.attribute_temp && char.attribute_temp.wisdom) || 0,
-      CarModTemp:
+      ChaModTemp:
         getModifier(char.attribute_temp && char.attribute_temp.charisma) || 0,
 
       Portrait: (char.portrait && char.portrait.url) || '',
@@ -198,18 +235,6 @@ class CombatController {
           const base = baseAtack.find(a => a.level === c.CharacterClass.level)
           return total + ((base && base[c.attack]) || 0)
         }, 0),
-
-      // BaseAttack:
-      //   (char &&
-      //     char.classes.map(c =>
-      //       baseAtack.find(
-      //         a => a.level === (c.CharacterClass && c.CharacterClass.level)
-      //       )
-      //     )) ||
-      //   0,
-      // .reduce((acc, val) => {
-      //   return acc + val.base_attack
-      // }, 0)
 
       Fortitude:
         char &&
@@ -241,16 +266,12 @@ class CombatController {
             reflex: c.reflex,
             will: c.will,
             level: (c.CharacterClass && c.CharacterClass.level) || 0,
-
-            // tabela: table,
           }))) ||
         [],
 
-      Armor: (char && char.armor) || [],
-      Weapon: (char && char.weapon) || [],
+      Armor: (char && char.toJSON().armor) || [],
+      Weapon: (char && char.toJSON().weapon) || [],
     }
-
-    console.log(charData)
 
     return res.json(charData)
   }

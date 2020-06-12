@@ -19,7 +19,7 @@ export const MapContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 75%;
-  height: 700px;
+  height: 740px;
   border: 1px solid;
 
   -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
@@ -49,7 +49,7 @@ export const TalkContainer = styled.div`
   display: flex;
   width: 25%;
   flex-direction: column;
-  height: 700px;
+  height: 740px;
   border: 1px solid;
 
   -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
@@ -240,7 +240,45 @@ export const Dice = styled.div`
 
 export const InitBoardContainer = styled.div``
 
-export const StatusContainer = styled.div``
+export const StatusContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+
+  > div {
+    display: flex;
+    flex-direction: row;
+
+    > div {
+      display: flex;
+      flex-direction: column;
+      padding: 5px;
+
+      label {
+        width: 70px;
+        font-weight: 600;
+        color: #6f0000;
+        text-align: center;
+      }
+
+      > input {
+        color: #6f0000;
+        width: 70px;
+        height: 30px;
+        text-align: center;
+        font-weight: 600;
+        font-size: 16px;
+        margin: 2px;
+        border-radius: 4px;
+
+        border: 0;
+        -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+        -moz-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+        box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+      }
+    }
+  }
+`
 
 export const ActionContainer = styled.div`
   > div {

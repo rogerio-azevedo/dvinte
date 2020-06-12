@@ -24,6 +24,12 @@ export default function Chat() {
   const [reflex, setReflex] = useState()
   const [will, setWill] = useState()
 
+  const [maxDex, setMaxDex] = useState()
+  const [totalCa, setTotalCa] = useState()
+
+  const [health, setHealth] = useState()
+  const [healthNow, setHealthNow] = useState()
+
   const [initBoard, setInitBoard] = useState([])
   const from = profile.id
 
@@ -52,6 +58,20 @@ export default function Chat() {
     }
   }
 
+  async function calcDext(dexMod) {
+    let dextBonus = 0
+
+    if (dexMod <= maxDex) {
+      dextBonus = dexMod
+    } else if (!maxDex || maxDex === 0) {
+      dextBonus = dexMod
+    } else {
+      dextBonus = maxDex
+    }
+
+    return dextBonus
+  }
+
   async function getCharacter() {
     setLoading(true)
     try {
@@ -61,25 +81,44 @@ export default function Chat() {
         },
       })
 
-      // console.log(response.data)
+      const char = response.data
 
-      // setCharacter(response.data)
-      setCharInit(response.data.DesMod)
+      const SrtMod = char.StrModTemp ? char.StrModTemp : char.StrMod
+      const ConMod = char.ConModTemp ? char.ConModTemp : char.ConMod
+      const DexMod = char.DexModTemp ? char.DexModTemp : char.DexMod
+      const WisMod = char.WisModTemp ? char.WisModTemp : char.WisMod
 
-      const SrtMod = response.data.StrModTemp
-        ? response.data.StrModTemp
-        : response.data.StrMod
+      // const IntMod = char.IntModTemp ? char.IntModTemp : char.IntMod
+      // const ChaMod = char.ChaModTemp ? char.ChaModTemp : char.ChaMod
 
-      const SrtCon = response.data.ConModTemp
-        ? response.data.ConModTemp
-        : response.data.ConMod
+      setCharInit(DexMod)
 
-      const attack = response.data.BaseAttack
+      const shield = char.Armor.filter(t => t.type === 2).reduce((acc, val) => {
+        return acc + val.bonus
+      }, 0)
 
-      setHit(SrtMod + attack)
-      setFortitude(response.data.Fortitude + SrtCon)
-      setReflex(response.data.Reflex)
-      setWill(response.data.Will)
+      const armor = char.Armor.filter(t => t.type === 1).reduce((acc, val) => {
+        return acc + val.bonus
+      }, 0)
+
+      const maxDext = char.Armor.filter(t => t.type === 1).reduce(
+        (acc, val) => {
+          return acc + val.dexterity
+        },
+        0
+      )
+      setMaxDex(maxDext)
+
+      const bonusDext = await calcDext(DexMod)
+      const ca = 10 + shield + armor + bonusDext
+
+      setHealth(char.Health)
+      setHealthNow(char.HealthNow)
+      setTotalCa(ca)
+      setHit(SrtMod + char.BaseAttack)
+      setFortitude(char.Fortitude + ConMod)
+      setReflex(char.Reflex + DexMod)
+      setWill(char.Will + WisMod)
 
       setLoading(false)
     } catch (e) {
@@ -166,7 +205,7 @@ export default function Chat() {
     })
   }
 
-  async function handleAtacar() {
+  async function handleAttack() {
     const acerto = !loading && hit
 
     const dice = Math.floor(Math.random() * 20) + 1
@@ -174,6 +213,51 @@ export default function Chat() {
     const attack = acerto + dice
 
     const rolled = `Rolou ataque d20: ${dice} + ${acerto} de base de ataque, com resultado: ${attack}`
+
+    api.post('chats', {
+      id: from,
+      user_id: profile.id,
+      user: profile.name,
+      message: rolled,
+    })
+  }
+
+  async function handleFortitude() {
+    const dice = Math.floor(Math.random() * 20) + 1
+
+    const fortitudeTest = fortitude + dice
+
+    const rolled = `Rolou teste de Fortitude d20: ${dice} + ${fortitude} de fortitude, com resultado: ${fortitudeTest}`
+
+    api.post('chats', {
+      id: from,
+      user_id: profile.id,
+      user: profile.name,
+      message: rolled,
+    })
+  }
+
+  async function handleReflex() {
+    const dice = Math.floor(Math.random() * 20) + 1
+
+    const reflexTest = reflex + dice
+
+    const rolled = `Rolou teste de Reflexos d20: ${dice} + ${reflex} de reflexos, com resultado: ${reflexTest}`
+
+    api.post('chats', {
+      id: from,
+      user_id: profile.id,
+      user: profile.name,
+      message: rolled,
+    })
+  }
+
+  async function handleWill() {
+    const dice = Math.floor(Math.random() * 20) + 1
+
+    const willTest = will + dice
+
+    const rolled = `Rolou teste de Vontade d20: ${dice} + ${will} de reflexos, com resultado: ${willTest}`
 
     api.post('chats', {
       id: from,
@@ -192,16 +276,6 @@ export default function Chat() {
             <Styles.StatusContainer>
               <div>
                 <div>
-                  <label htmlFor="inputResist">Acerto</label>
-                  <input defaultValue={hit} />
-                </div>
-                <div>
-                  <label htmlFor="inputResist">Iniciativa</label>
-                  <input defaultValue={charInit} />
-                </div>
-              </div>
-              <div>
-                <div>
                   <label htmlFor="inputResist">Fortitude</label>
                   <input defaultValue={fortitude} />
                 </div>
@@ -209,25 +283,32 @@ export default function Chat() {
                   <label htmlFor="inputResist">Reflexos</label>
                   <input defaultValue={reflex} />
                 </div>
-              </div>
-              <div>
                 <div>
                   <label htmlFor="inputResist">Vontade</label>
                   <input defaultValue={will} />
                 </div>
                 <div>
-                  <label htmlFor="inputResist">CA</label>
-                  <input defaultValue="" />
+                  <label htmlFor="inputResist">Iniciativa</label>
+                  <input defaultValue={charInit} />
                 </div>
               </div>
+              <div />
               <div>
                 <div>
-                  <label htmlFor="inputResist">outros</label>
-                  <input defaultValue="" />
+                  <label htmlFor="inputResist">CA</label>
+                  <input defaultValue={totalCa} />
                 </div>
                 <div>
-                  <label htmlFor="inputResist">outros</label>
-                  <input defaultValue="" />
+                  <label htmlFor="inputResist">Acerto</label>
+                  <input defaultValue={hit} />
+                </div>
+                <div>
+                  <label htmlFor="inputResist">PV</label>
+                  <input defaultValue={health} />
+                </div>
+                <div>
+                  <label htmlFor="inputResist">PV Atual</label>
+                  <input defaultValue={healthNow} />
                 </div>
               </div>
             </Styles.StatusContainer>
@@ -239,7 +320,7 @@ export default function Chat() {
                   </button>
                 </div>
                 <div>
-                  <button type="button" onClick={handleAtacar}>
+                  <button type="button" onClick={handleAttack}>
                     Atacar
                   </button>
                 </div>
@@ -251,18 +332,18 @@ export default function Chat() {
               </div>
               <div>
                 <div>
-                  <button type="button" onClick={handleInitiative}>
-                    Reflexos
-                  </button>
-                </div>
-                <div>
-                  <button type="button" onClick={handleInitiative}>
-                    Reflexos
-                  </button>
-                </div>
-                <div>
-                  <button type="button" onClick={handleInitiative}>
+                  <button type="button" onClick={handleFortitude}>
                     Fortitude
+                  </button>
+                </div>
+                <div>
+                  <button type="button" onClick={handleReflex}>
+                    Reflexos
+                  </button>
+                </div>
+                <div>
+                  <button type="button" onClick={handleWill}>
+                    Vontade
                   </button>
                 </div>
               </div>
