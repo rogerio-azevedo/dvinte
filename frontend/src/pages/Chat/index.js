@@ -257,7 +257,7 @@ export default function Chat() {
 
     const willTest = will + dice
 
-    const rolled = `Rolou teste de Vontade d20: ${dice} + ${will} de reflexos, com resultado: ${willTest}`
+    const rolled = `Rolou teste de Vontade d20: ${dice} + ${will} de vontade, com resultado: ${willTest}`
 
     api.post('chats', {
       id: from,
