@@ -249,7 +249,7 @@ export default function Chat() {
 
     const totalDamage = Number(result) + Number(extraDamage)
 
-    const rolled = `Rolou dano d${dice} x ${multi}: ${result} + ${extraDamage} de bônus da arma ${name}, com resultado: ${totalDamage}`
+    const rolled = `Rolou dano ${multi} x d${dice}: ${result} + ${extraDamage} de bônus da arma ${name}, com resultado: ${totalDamage}`
 
     if (!weapon) {
       toast.error('Escolha por favor uma arma antes de realizar o dano.')
