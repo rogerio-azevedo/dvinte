@@ -139,6 +139,8 @@ class CharacterController {
             'weight',
             'special',
             'price',
+            'hit',
+            'damage',
           ],
           as: 'weapon',
         },
