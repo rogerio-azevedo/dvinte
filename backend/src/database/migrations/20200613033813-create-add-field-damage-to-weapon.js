@@ -1,7 +1,7 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.addColumn('weapons', 'damage', {
-      type: Sequelize.STRING,
+      type: Sequelize.INTEGER,
     })
   },
 
