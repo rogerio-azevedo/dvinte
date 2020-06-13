@@ -79,6 +79,24 @@ export const LineContaniner = styled.div`
   }
 `
 
+export const InputMini = styled.input`
+  width: 100px !important;
+  height: 30px !important;
+  border-radius: 4px;
+  border: 1px solid #333;
+  color: #6f0000;
+  font-weight: 600;
+  font-size: 16px !important;
+  text-align: center;
+
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+`
+
 export const InputShort = styled.input`
   width: 110px !important;
   height: 30px !important;
@@ -277,8 +295,8 @@ export const HealthContainer = styled.div`
     justify-items: center;
 
     margin-top: -10px;
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
 
     > div {
       display: flex;

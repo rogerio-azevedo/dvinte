@@ -110,6 +110,7 @@ class CharacterController {
         {
           association: 'armor',
           attributes: [
+            'id',
             'name',
             'type',
             'bonus',
@@ -126,6 +127,7 @@ class CharacterController {
         {
           association: 'weapon',
           attributes: [
+            'id',
             'name',
             'dice',
             'multiplier',
@@ -237,6 +239,7 @@ class CharacterController {
     })
 
     const charData = {
+      Cod: char.id,
       Name: char.name.toUpperCase() || '',
       User: (char.user && char.user.name.toUpperCase()) || '',
       Level: char.level || 0,
@@ -344,8 +347,6 @@ class CharacterController {
             reflex: c.reflex,
             will: c.will,
             level: (c.CharacterClass && c.CharacterClass.level) || 0,
-
-            // tabela: table,
           }))) ||
         [],
 

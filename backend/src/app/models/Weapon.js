@@ -15,6 +15,8 @@ class Weapon extends Model {
         weight: Sequelize.FLOAT,
         special: Sequelize.STRING,
         price: Sequelize.STRING,
+        hit: Sequelize.INTEGER,
+        damage: Sequelize.INTEGER,
       },
       {
         sequelize,

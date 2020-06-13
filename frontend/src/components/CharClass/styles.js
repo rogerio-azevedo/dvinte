@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const Container = styled.div``
 
 export const ClassInput = styled.input`
-  width: 260px !important;
+  width: 275px !important;
   height: 30px !important;
   border-radius: 4px;
   border: 1px solid #333;

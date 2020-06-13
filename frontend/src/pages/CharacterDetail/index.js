@@ -18,19 +18,24 @@ export default function CharacterDetail() {
   const [armors, setArmors] = useState()
   const [weapons, setWeapons] = useState()
   const [resist, setResist] = useState()
-  const [dextMod, setDextMod] = useState()
+  const [strMod, setStrMod] = useState()
+  const [dexMod, setDexMod] = useState()
 
   useEffect(() => {
     async function loadChar() {
       const response = await api.get(`characters/${id}`)
+      const { data } = response
 
-      setChar(response.data)
+      const str = data.StrModTemp ? data.StrModTemp : data.StrMod
+      const dex = data.DexModTemp ? data.DexModTemp : data.DexMod
+
+      setStrMod(str)
+      setDexMod(dex)
+      setChar(data)
       setClasses(response.data.Classes)
       setArmors(response.data.Armor)
       setWeapons(response.data.Weapon)
-      setDextMod(response.data.DexMod)
       setResist(response.data)
-
       setLoading(false)
     }
 
@@ -226,28 +231,38 @@ export default function CharacterDetail() {
           <Styles.HealthContainer>
             <div>
               <div>
-                <Styles.InputShort readOnly defaultValue={char && char.Level} />
+                <Styles.InputMini readOnly defaultValue={char && char.Level} />
                 <label htmlFor="CharLevel">Level</label>
               </div>
               <div>
-                <Styles.InputShort readOnly defaultValue={char && char.Exp} />
+                <Styles.InputMini readOnly defaultValue={char && char.Exp} />
                 <label htmlFor="charExp">Experiência</label>
               </div>
             </div>
             <div>
               <div>
-                <Styles.InputShort
-                  readOnly
-                  defaultValue={char && char.Health}
-                />
-                <label htmlFor="charHealth">Pontos de Vida</label>
+                <Styles.InputMini readOnly defaultValue={char && char.Health} />
+                <label htmlFor="charHealth">PV</label>
               </div>
               <div>
-                <Styles.InputShort
+                <Styles.InputMini
                   readOnly
                   defaultValue={char && char.HealthNow}
                 />
-                <label htmlFor="charHealth">Vida Atual</label>
+                <label htmlFor="charHealth">PV Atual</label>
+              </div>
+            </div>
+            <div>
+              <div>
+                <Styles.InputMini
+                  readOnly
+                  defaultValue={char && char.BaseAttack + strMod}
+                />
+                <label htmlFor="CharLevel">Corpo a Corpo</label>
+              </div>
+              <div>
+                <Styles.InputMini readOnly defaultValue={dexMod} />
+                <label htmlFor="charExp">Iniciativa</label>
               </div>
             </div>
           </Styles.HealthContainer>
@@ -261,7 +276,9 @@ export default function CharacterDetail() {
           <legend>Testes de Resistência</legend>
           {!loading && <CharResist resist={resist} />}
           <Styles.DefenseContainer>
-            {!loading && <CharCa armors={armors} dextMod={dextMod} />}
+            {!loading && (
+              <CharCa armors={armors} dextMod={char && char.DexMod} />
+            )}
           </Styles.DefenseContainer>
         </Styles.ResistContainer>
       </Styles.StatsContainer>

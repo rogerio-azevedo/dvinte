@@ -44,6 +44,7 @@ class CombatController {
         {
           association: 'armor',
           attributes: [
+            'id',
             'name',
             'type',
             'bonus',
@@ -60,6 +61,7 @@ class CombatController {
         {
           association: 'weapon',
           attributes: [
+            'id',
             'name',
             'dice',
             'multiplier',
@@ -71,6 +73,8 @@ class CombatController {
             'weight',
             'special',
             'price',
+            'hit',
+            'damage',
           ],
           as: 'weapon',
         },
@@ -171,6 +175,7 @@ class CombatController {
     })
 
     const charData = {
+      Cod: char.id,
       Name: char.name.toUpperCase() || '',
       User: (char.user && char.user.name.toUpperCase()) || '',
       Level: char.level || 0,

@@ -5,6 +5,8 @@ import { format, parseISO } from 'date-fns'
 import { utcToZonedTime } from 'date-fns-tz'
 import api from '~/services/api'
 
+import SelectWeapon from '~/components/SelectWeapon'
+
 import { connect, socket } from '~/services/socket'
 import RenderMap from '~/components/RenderMap'
 
@@ -17,7 +19,7 @@ export default function Chat() {
   const [messages, updateMessages] = useState([])
   const [multiplier, setMultiplier] = useState(1)
   const [charInit, setCharInit] = useState()
-  // const [character, setCharacter] = useState()
+  const [character, setCharacter] = useState()
 
   const [hit, setHit] = useState()
   const [fortitude, setFortitude] = useState()
@@ -29,6 +31,8 @@ export default function Chat() {
 
   const [health, setHealth] = useState()
   const [healthNow, setHealthNow] = useState()
+
+  const [weapon, setWeapon] = useState()
 
   const [initBoard, setInitBoard] = useState([])
   const from = profile.id
@@ -82,14 +86,12 @@ export default function Chat() {
       })
 
       const char = response.data
+      setCharacter(char)
 
       const SrtMod = char.StrModTemp ? char.StrModTemp : char.StrMod
       const ConMod = char.ConModTemp ? char.ConModTemp : char.ConMod
       const DexMod = char.DexModTemp ? char.DexModTemp : char.DexMod
       const WisMod = char.WisModTemp ? char.WisModTemp : char.WisMod
-
-      // const IntMod = char.IntModTemp ? char.IntModTemp : char.IntMod
-      // const ChaMod = char.ChaModTemp ? char.ChaModTemp : char.ChaMod
 
       setCharInit(DexMod)
 
@@ -206,20 +208,59 @@ export default function Chat() {
   }
 
   async function handleAttack() {
-    const acerto = !loading && hit
-
+    const wep = (await character) && character.Weapon.find(w => w.id === weapon)
+    const extraHit = (wep && wep.hit) || 0
+    const name = wep && wep.name
+    const base = !loading && hit
     const dice = Math.floor(Math.random() * 20) + 1
+    const attack = Number(base) + Number(dice) + Number(extraHit)
 
-    const attack = acerto + dice
+    const rolled = `Rolou ataque d20: ${dice} + ${base} de base + ${extraHit} de bônus da arma ${name}, com resultado: ${attack}`
 
-    const rolled = `Rolou ataque d20: ${dice} + ${acerto} de base de ataque, com resultado: ${attack}`
+    if (!weapon) {
+      toast.error('Escolha por favor uma arma antes de realizar o ataque.')
+    } else {
+      api.post('chats', {
+        id: from,
+        user_id: profile.id,
+        user: profile.name,
+        message: rolled,
+      })
+    }
+  }
 
-    api.post('chats', {
-      id: from,
-      user_id: profile.id,
-      user: profile.name,
-      message: rolled,
-    })
+  async function handleDamage() {
+    const wep = (await character) && character.Weapon.find(w => w.id === weapon)
+
+    const dice = wep && wep.dice
+    const multi = wep && wep.multiplier
+    const name = wep && wep.name
+    const extraDamage = (wep && wep.damage) || 0
+
+    let result = 0
+    const random = () => {
+      return Math.floor(Math.random() * dice) + 1
+    }
+
+    // eslint-disable-next-line
+    for (let i = 0; i < multi; i++) {
+      result += random()
+    }
+
+    const totalDamage = Number(result) + Number(extraDamage)
+
+    const rolled = `Rolou dano d${dice} x ${multi}: ${result} + ${extraDamage} de bônus da arma ${name}, com resultado: ${totalDamage}`
+
+    if (!weapon) {
+      toast.error('Escolha por favor uma arma antes de realizar o dano.')
+    } else {
+      api.post('chats', {
+        id: from,
+        user_id: profile.id,
+        user: profile.name,
+        message: rolled,
+      })
+    }
   }
 
   async function handleFortitude() {
@@ -312,42 +353,26 @@ export default function Chat() {
                 </div>
               </div>
             </Styles.StatusContainer>
-            <Styles.ActionContainer>
+            <Styles.StatusContainer>
               <div>
-                <div>
-                  <button type="button" onClick={handleInitiative}>
-                    Iniciativa
-                  </button>
-                </div>
+                <SelectWeapon
+                  character={character}
+                  changeWeapon={e => setWeapon(e && e.value)}
+                />
+
                 <div>
                   <button type="button" onClick={handleAttack}>
                     Atacar
                   </button>
                 </div>
                 <div>
-                  <button type="button" onClick={handleInitiative}>
+                  <button type="button" onClick={handleDamage}>
                     Dano
                   </button>
                 </div>
               </div>
-              <div>
-                <div>
-                  <button type="button" onClick={handleFortitude}>
-                    Fortitude
-                  </button>
-                </div>
-                <div>
-                  <button type="button" onClick={handleReflex}>
-                    Reflexos
-                  </button>
-                </div>
-                <div>
-                  <button type="button" onClick={handleWill}>
-                    Vontade
-                  </button>
-                </div>
-              </div>
-            </Styles.ActionContainer>
+              <div />
+            </Styles.StatusContainer>
           </Styles.CharContainer>
         </Styles.MapContainer>
         <Styles.TalkContainer>
@@ -438,6 +463,30 @@ export default function Chat() {
               <strong>d20</strong>
             </Styles.Dice>
           </Styles.DiceContainer>
+          <Styles.ActionContainer>
+            <div>
+              <div>
+                <button type="button" onClick={handleInitiative}>
+                  Iniciativa
+                </button>
+              </div>
+              <div>
+                <button type="button" onClick={handleFortitude}>
+                  Fortitude
+                </button>
+              </div>
+              <div>
+                <button type="button" onClick={handleReflex}>
+                  Reflexos
+                </button>
+              </div>
+              <div>
+                <button type="button" onClick={handleWill}>
+                  Vontade
+                </button>
+              </div>
+            </div>
+          </Styles.ActionContainer>
         </Styles.TalkContainer>
       </Styles.CombatContainer>
 

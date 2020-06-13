@@ -22,6 +22,7 @@ import BaseAttackController from './app/controllers/BaseAttackController'
 import BaseResistController from './app/controllers/BaseResistController'
 
 import CombatController from './app/controllers/CombatController'
+import WeaponController from './app/controllers/WeaponController'
 
 const routes = new Router()
 const upload = multer(multerConfig)
@@ -72,5 +73,7 @@ routes.post('/baseresist', BaseResistController.store)
 routes.get('/baseresist', BaseResistController.index)
 
 routes.get('/combats', CombatController.index)
+
+routes.get('/weapons', WeaponController.index)
 
 export default routes

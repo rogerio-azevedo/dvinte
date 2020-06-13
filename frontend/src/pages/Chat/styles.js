@@ -19,7 +19,7 @@ export const MapContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 75%;
-  height: 740px;
+  height: 750px;
   border: 1px solid;
 
   -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
@@ -49,7 +49,7 @@ export const TalkContainer = styled.div`
   display: flex;
   width: 25%;
   flex-direction: column;
-  height: 740px;
+  height: 750px;
   border: 1px solid;
 
   -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
@@ -190,8 +190,9 @@ export const DiceContainer = styled.div`
 `
 
 export const InputMulti = styled.input`
+  height: 38px;
   text-align: center;
-  font-size: 1.5em;
+  font-size: 18px;
   padding: 11px;
   border-radius: 4px;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.12);
@@ -213,7 +214,7 @@ export const InputMulti = styled.input`
 
 export const Dice = styled.div`
   background: #8e0e00;
-  height: 50px;
+  height: 40px;
   width: 50px;
   margin: 3px;
   border-radius: 4px;
@@ -243,7 +244,6 @@ export const InitBoardContainer = styled.div``
 export const StatusContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 10px;
 
   > div {
     display: flex;
@@ -253,6 +253,32 @@ export const StatusContainer = styled.div`
       display: flex;
       flex-direction: column;
       padding: 5px;
+
+      button {
+        color: #6f0000;
+        width: 80px;
+        height: 40px;
+        text-align: center;
+        font-weight: 600;
+        font-size: 14px;
+        margin-right: 8px;
+        margin-left: 8px;
+        border-radius: 4px;
+        border: 0;
+
+        &:hover {
+          background: ${darken(0.1, '#200122')};
+          color: #fff;
+
+          -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
+          -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
+          box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
+        }
+
+        -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+        -moz-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+        box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+      }
 
       label {
         width: 70px;
@@ -281,28 +307,40 @@ export const StatusContainer = styled.div`
 `
 
 export const ActionContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   > div {
     display: flex;
     flex-direction: row;
-    padding: 10px;
-    border: 1px solid;
-    margin: 5px;
 
     > div {
       display: flex;
       flex-direction: column;
+      padding: 2px;
 
       button {
         color: #6f0000;
-        width: 70px;
+        width: 80px;
         height: 40px;
         text-align: center;
         font-weight: 600;
         font-size: 14px;
-        margin: 2px;
+        margin-right: 8px;
+        margin-left: 8px;
         border-radius: 4px;
-
         border: 0;
+
+        &:hover {
+          background: ${darken(0.1, '#200122')};
+          color: #fff;
+
+          -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
+          -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
+          box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
+        }
+
         -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
         -moz-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
         box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
