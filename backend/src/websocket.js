@@ -8,7 +8,7 @@ exports.setupWebsocket = server => {
   io = socketio(server)
 
   io.on('connection', socket => {
-    console.log(`Server has a new connection Id:${socket.id}`)
+    // console.log(`Server has a new connection Id:${socket.id}`)
 
     io.emit('CONNECTED_USERS', onlineUsers)
     io.emit('PREVIOUS_MESSAGES', messages)
@@ -21,6 +21,12 @@ exports.setupWebsocket = server => {
     socket.on('chat.message', messageData => {
       messages.push(messageData)
       io.emit('chat.message', messageData)
+      // console.log(messages)
+    })
+
+    socket.on('init.message', messageData => {
+      messages.push(messageData)
+      io.emit('init.message', messageData)
       console.log(messages)
     })
 
@@ -33,4 +39,8 @@ exports.setupWebsocket = server => {
 
 exports.saveMessage = message => {
   io.emit('chat.message', message)
+}
+
+exports.addInitiative = message => {
+  io.emit('init.message', message)
 }

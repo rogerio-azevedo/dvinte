@@ -239,71 +239,127 @@ export const Dice = styled.div`
   }
 `
 
-export const InitBoardContainer = styled.div``
+export const InitBoardContainer = styled.div`
+  max-height: 120px;
+  overflow: auto;
+
+  ul {
+    li {
+    }
+  }
+`
+
+export const InitUser = styled.input`
+  color: #6f0000;
+  width: 270px !important;
+  height: 25px !important;
+  text-align: center;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  margin: 2px;
+  border-radius: 4px;
+
+  border: 0;
+  -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+`
+
+export const InitValue = styled.input`
+  color: #6f0000;
+  width: 50px !important;
+  height: 25px !important;
+  text-align: center;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  margin: 2px;
+  border-radius: 4px;
+
+  border: 0;
+  -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+`
 
 export const StatusContainer = styled.div`
   display: flex;
   flex-direction: column;
+`
+
+export const GroupStatus = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+`
+export const Resume = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+
+  label {
+    width: 70px;
+    font-weight: 600;
+    color: #6f0000;
+    text-align: center;
+  }
+`
+
+export const InputResume = styled.input`
+  color: #6f0000;
+  width: 70px !important;
+  height: 30px !important;
+  text-align: center;
+  font-weight: 600;
+  font-size: 16px;
+  margin: 2px;
+  border-radius: 4px;
+
+  border: 0;
+  -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+`
+
+export const AttackContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 220px;
 
   > div {
     display: flex;
     flex-direction: row;
 
-    > div {
-      display: flex;
-      flex-direction: column;
-      padding: 5px;
+    button {
+      color: #6f0000;
+      width: 80px;
+      height: 40px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 14px;
+      margin-right: 8px;
+      margin-left: 8px;
+      border-radius: 4px;
+      border: 0;
+      margin-top: 20px;
 
-      button {
-        color: #6f0000;
-        width: 80px;
-        height: 40px;
-        text-align: center;
-        font-weight: 600;
-        font-size: 14px;
-        margin-right: 8px;
-        margin-left: 8px;
-        border-radius: 4px;
-        border: 0;
+      &:hover {
+        background: ${darken(0.1, '#200122')};
+        color: #fff;
 
-        &:hover {
-          background: ${darken(0.1, '#200122')};
-          color: #fff;
-
-          -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
-          -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
-          box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
-        }
-
-        -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
-        -moz-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
-        box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+        -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
+        -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
+        box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
       }
 
-      label {
-        width: 70px;
-        font-weight: 600;
-        color: #6f0000;
-        text-align: center;
-      }
-
-      > input {
-        color: #6f0000;
-        width: 70px;
-        height: 30px;
-        text-align: center;
-        font-weight: 600;
-        font-size: 16px;
-        margin: 2px;
-        border-radius: 4px;
-
-        border: 0;
-        -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
-        -moz-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
-        box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
-      }
+      -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+      -moz-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+      box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
     }
   }
+`
+
+export const WeaponContainer = styled.div`
+  display: flex;
 `
 
 export const ActionContainer = styled.div`

@@ -16,7 +16,7 @@ export default function Chat() {
   const profile = useSelector(state => state.user.profile)
   const [loading, setLoading] = useState()
   const [message, setMessage] = useState('')
-  const [messages, updateMessages] = useState([])
+  const [messages, setMessages] = useState([])
   const [multiplier, setMultiplier] = useState(1)
   const [charInit, setCharInit] = useState()
   const [character, setCharacter] = useState()
@@ -34,7 +34,7 @@ export default function Chat() {
 
   const [weapon, setWeapon] = useState()
 
-  const [initBoard, setInitBoard] = useState([])
+  const [initiatives, setInitiatives] = useState([])
   const from = profile.id
 
   const messagesEndRef = React.createRef(null)
@@ -56,7 +56,7 @@ export default function Chat() {
     try {
       const response = await api.get('/chats')
 
-      updateMessages(response.data)
+      setMessages(response.data)
     } catch (e) {
       toast.error('Conexao com a API mal sucedida.')
     }
@@ -128,6 +128,16 @@ export default function Chat() {
     }
   }
 
+  async function loadInitiative() {
+    try {
+      const response = await api.get('/initiatives')
+
+      setInitiatives(response.data)
+    } catch (e) {
+      toast.error('Conexao com a API mal sucedida.')
+    }
+  }
+
   useEffect(() => {
     scrollToBottom()
   })
@@ -136,15 +146,21 @@ export default function Chat() {
     connect()
     getCharacter()
     loadAllMessages()
+    loadInitiative()
   }, []) // eslint-disable-line
 
   useEffect(() => {
     const handleNewMessage = newMessage =>
-      updateMessages([...messages, newMessage])
+      setMessages([...messages, newMessage])
+
     socket.on('chat.message', handleNewMessage)
 
+    const handleNewInit = newInitiative =>
+      setInitiatives([...initiatives, newInitiative])
+
+    socket.on('init.message', handleNewInit)
     return () => socket.off('chat.message', handleNewMessage)
-  }, [messages])
+  }, [messages, initiatives])
 
   const handleFormSubmit = event => {
     event.preventDefault()
@@ -191,19 +207,22 @@ export default function Chat() {
 
     const rolled = `Rolou iniciativa d20: ${dice} + ${dext} de destreza, com resultado: ${init}`
 
-    setInitBoard([
-      ...initBoard,
-      {
-        user: profile.name,
-        init: dext + dice,
-      },
-    ])
+    // const initiative = {
+    //   user: profile.name,
+    //   init: dext + dice,
+    // }
 
     api.post('chats', {
       id: from,
       user_id: profile.id,
       user: profile.name,
       message: rolled,
+    })
+
+    api.post('initiatives', {
+      user_id: profile.id,
+      user: profile.name,
+      initiative: init,
     })
   }
 
@@ -231,7 +250,10 @@ export default function Chat() {
 
   async function handleDamage() {
     const wep = (await character) && character.Weapon.find(w => w.id === weapon)
-
+    const mod =
+      (await character) && character.StrModTemp
+        ? character.StrModTemp
+        : character.StrMod
     const dice = wep && wep.dice
     const multi = wep && wep.multiplier
     const name = wep && wep.name
@@ -247,9 +269,9 @@ export default function Chat() {
       result += random()
     }
 
-    const totalDamage = Number(result) + Number(extraDamage)
+    const totalDamage = Number(result) + Number(extraDamage) + Number(mod)
 
-    const rolled = `Rolou dano ${multi} x d${dice}: ${result} + ${extraDamage} de bônus da arma ${name}, com resultado: ${totalDamage}`
+    const rolled = `Rolou dano ${multi} x d${dice}: ${result} + ${mod} + ${extraDamage} de bônus da arma ${name}, com resultado: ${totalDamage}`
 
     if (!weapon) {
       toast.error('Escolha por favor uma arma antes de realizar o dano.')
@@ -315,51 +337,70 @@ export default function Chat() {
           <RenderMap />
           <Styles.CharContainer>
             <Styles.StatusContainer>
-              <div>
-                <div>
+              <Styles.GroupStatus>
+                <Styles.Resume>
                   <label htmlFor="inputResist">Fortitude</label>
-                  <input defaultValue={fortitude} />
-                </div>
-                <div>
+                  <Styles.InputResume defaultValue={fortitude} />
+                </Styles.Resume>
+                <Styles.Resume>
                   <label htmlFor="inputResist">Reflexos</label>
-                  <input defaultValue={reflex} />
-                </div>
-                <div>
+                  <Styles.InputResume defaultValue={reflex} />
+                </Styles.Resume>
+                <Styles.Resume>
                   <label htmlFor="inputResist">Vontade</label>
-                  <input defaultValue={will} />
-                </div>
-                <div>
+                  <Styles.InputResume defaultValue={will} />
+                </Styles.Resume>
+                <Styles.Resume>
                   <label htmlFor="inputResist">Iniciativa</label>
-                  <input defaultValue={charInit} />
-                </div>
-              </div>
-              <div />
-              <div>
-                <div>
-                  <label htmlFor="inputResist">CA</label>
-                  <input defaultValue={totalCa} />
-                </div>
-                <div>
-                  <label htmlFor="inputResist">Acerto</label>
-                  <input defaultValue={hit} />
-                </div>
-                <div>
-                  <label htmlFor="inputResist">PV</label>
-                  <input defaultValue={health} />
-                </div>
-                <div>
-                  <label htmlFor="inputResist">PV Atual</label>
-                  <input defaultValue={healthNow} />
-                </div>
-              </div>
-            </Styles.StatusContainer>
-            <Styles.StatusContainer>
-              <div>
-                <SelectWeapon
-                  character={character}
-                  changeWeapon={e => setWeapon(e && e.value)}
-                />
+                  <Styles.InputResume defaultValue={charInit} />
+                </Styles.Resume>
+              </Styles.GroupStatus>
 
+              <Styles.GroupStatus>
+                <Styles.Resume>
+                  <label htmlFor="inputResist">CA</label>
+                  <Styles.InputResume defaultValue={totalCa} />
+                </Styles.Resume>
+                <Styles.Resume>
+                  <label htmlFor="inputResist">Acerto</label>
+                  <Styles.InputResume defaultValue={hit} />
+                </Styles.Resume>
+                <Styles.Resume>
+                  <label htmlFor="inputResist">PV</label>
+                  <Styles.InputResume defaultValue={health} />
+                </Styles.Resume>
+                <Styles.Resume>
+                  <label htmlFor="inputResist">PV Atual</label>
+                  <Styles.InputResume defaultValue={healthNow} />
+                </Styles.Resume>
+              </Styles.GroupStatus>
+            </Styles.StatusContainer>
+            <Styles.InitContainer>
+              <Styles.InitBoardContainer>
+                <h3>Iniciativa</h3>
+
+                <ul>
+                  {initiatives
+                    .sort((a, b) => b.initiative - a.initiative)
+                    .map(item => (
+                      <li key={Math.random()}>
+                        <Styles.InitUser defaultValue={item.user} />
+                        <Styles.InitValue defaultValue={item.initiative} />
+                      </li>
+                    ))}
+                </ul>
+              </Styles.InitBoardContainer>
+            </Styles.InitContainer>
+            <Styles.AttackContainer>
+              <Styles.WeaponContainer>
+                <div>
+                  <SelectWeapon
+                    character={character}
+                    changeWeapon={e => setWeapon(e && e.value)}
+                  />
+                </div>
+              </Styles.WeaponContainer>
+              <div>
                 <div>
                   <button type="button" onClick={handleAttack}>
                     Atacar
@@ -371,8 +412,9 @@ export default function Chat() {
                   </button>
                 </div>
               </div>
+
               <div />
-            </Styles.StatusContainer>
+            </Styles.AttackContainer>
           </Styles.CharContainer>
         </Styles.MapContainer>
         <Styles.TalkContainer>
@@ -489,29 +531,6 @@ export default function Chat() {
           </Styles.ActionContainer>
         </Styles.TalkContainer>
       </Styles.CombatContainer>
-
-      {/* <Styles.DicesRollContainer /> */}
-      {/* <Styles.InitContainer>
-        <div>
-          <input defaultValue={charInit} />
-
-          <button type="button" onClick={handleInitiative}>
-            Iniciativa
-          </button>
-        </div>
-        <Styles.InitBoardContainer>
-          <ul>
-            {initBoard
-              .sort((a, b) => a.init - b.init)
-              .map(item => (
-                <li key={Math.random()}>
-                  <input defaultValue={item.user} />
-                  <input defaultValue={item.init} />
-                </li>
-              ))}
-          </ul>
-        </Styles.InitBoardContainer>
-      </Styles.InitContainer> */}
     </Styles.Container>
   )
 }

@@ -24,6 +24,8 @@ import BaseResistController from './app/controllers/BaseResistController'
 import CombatController from './app/controllers/CombatController'
 import WeaponController from './app/controllers/WeaponController'
 
+import InitiativeController from './app/controllers/InitiativeController'
+
 const routes = new Router()
 const upload = multer(multerConfig)
 
@@ -36,6 +38,9 @@ routes.use(authMiddleware)
 
 routes.post('/chats', ChatController.store)
 routes.get('/chats', ChatController.index)
+
+routes.post('/initiatives', InitiativeController.store)
+routes.get('/initiatives', InitiativeController.index)
 
 routes.get('/users', UserController.index)
 routes.put('/users', UserController.update)
