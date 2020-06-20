@@ -22,6 +22,10 @@ class App {
         path.resolve(__dirname, '..', 'tmp', 'uploads', 'portraits')
       )
     )
+    this.server.use(
+      '/tokens',
+      express.static(path.resolve(__dirname, '..', 'tmp', 'uploads', 'tokens'))
+    )
   }
 
   routes() {

@@ -18,6 +18,11 @@ exports.setupWebsocket = server => {
       io.emit('USER_CONNECTED', user)
     })
 
+    socket.on('USER_DISCONNECTED', user => {
+      onlineUsers = onlineUsers.filter(u => u.id !== user.id)
+      io.emit('USER_DISCONNECTED', user)
+    })
+
     socket.on('chat.message', messageData => {
       messages.push(messageData)
       io.emit('chat.message', messageData)
@@ -27,12 +32,11 @@ exports.setupWebsocket = server => {
     socket.on('init.message', messageData => {
       messages.push(messageData)
       io.emit('init.message', messageData)
-      console.log(messages)
     })
 
-    socket.on('USER_DISCONNECTED', user => {
-      onlineUsers = onlineUsers.filter(u => u.id !== user.id)
-      io.emit('USER_DISCONNECTED', user)
+    socket.on('token.message', messageData => {
+      messages.push(messageData)
+      io.emit('token.message', messageData)
     })
   })
 }
@@ -43,4 +47,8 @@ exports.saveMessage = message => {
 
 exports.addInitiative = message => {
   io.emit('init.message', message)
+}
+
+exports.updateToken = message => {
+  io.emit('token.message', message)
 }

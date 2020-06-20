@@ -8,7 +8,7 @@ class Weapon extends Model {
         dice: Sequelize.STRING,
         multiplier: Sequelize.INTEGER,
         critical: Sequelize.STRING,
-        range: Sequelize.STRING,
+        range: Sequelize.FLOAT,
         type: Sequelize.STRING,
         material: Sequelize.STRING,
         magic: Sequelize.STRING,

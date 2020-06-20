@@ -39,6 +39,11 @@ class Character extends Model {
       as: 'portrait',
     })
 
+    this.hasOne(models.CharToken, {
+      foreignKey: 'character_id',
+      as: 'chartoken',
+    })
+
     this.belongsTo(models.Alignment, {
       foreignKey: 'alignment_id',
       as: 'alignment',
@@ -55,23 +60,23 @@ class Character extends Model {
     })
 
     this.hasOne(models.Attribute, {
-      as: 'attribute',
       foreignKey: 'character_id',
+      as: 'attribute',
     })
 
     this.hasOne(models.AttributeTemp, {
-      as: 'attribute_temp',
       foreignKey: 'character_id',
+      as: 'attribute_temp',
     })
 
     this.hasMany(models.Armor, {
-      as: 'armor',
       foreignKey: 'character_id',
+      as: 'armor',
     })
 
     this.hasMany(models.Weapon, {
-      as: 'weapon',
       foreignKey: 'character_id',
+      as: 'weapon',
     })
 
     this.belongsToMany(models.Class, {

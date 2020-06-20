@@ -48,5 +48,8 @@ export default function SelectWeapon({ changeWeapon, character }) {
 
 SelectWeapon.propTypes = {
   changeWeapon: PropTypes.func.isRequired,
-  character: PropTypes.objectOf.isRequired,
+
+  character: PropTypes.shape({
+    Weapon: PropTypes.object.isRequired,
+  }).isRequired,
 }

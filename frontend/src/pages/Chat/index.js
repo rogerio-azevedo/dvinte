@@ -20,6 +20,7 @@ export default function Chat() {
   const [multiplier, setMultiplier] = useState(1)
   const [charInit, setCharInit] = useState()
   const [character, setCharacter] = useState()
+  const [tokens, setTokens] = useState()
 
   const [hit, setHit] = useState()
   const [fortitude, setFortitude] = useState()
@@ -74,6 +75,16 @@ export default function Chat() {
     }
 
     return dextBonus
+  }
+
+  async function GetTokens() {
+    try {
+      const response = await api.get('/chartokens')
+
+      setTokens(response.data)
+    } catch (e) {
+      toast.error('Conexao com a API mal sucedida.')
+    }
   }
 
   async function getCharacter() {
@@ -145,6 +156,7 @@ export default function Chat() {
   useEffect(() => {
     connect()
     getCharacter()
+    GetTokens()
     loadAllMessages()
     loadInitiative()
   }, []) // eslint-disable-line
@@ -155,12 +167,25 @@ export default function Chat() {
 
     socket.on('chat.message', handleNewMessage)
 
+    return () => socket.off('chat.message', handleNewMessage)
+  }, [messages])
+
+  useEffect(() => {
     const handleNewInit = newInitiative =>
       setInitiatives([...initiatives, newInitiative])
 
     socket.on('init.message', handleNewInit)
-    return () => socket.off('chat.message', handleNewMessage)
-  }, [messages, initiatives])
+
+    return () => socket.off('init.message', handleNewInit)
+  }, [initiatives])
+
+  useEffect(() => {
+    const handleTokens = Tokens => setTokens(Tokens)
+
+    socket.on('token.message', handleTokens)
+
+    return () => socket.off('token.message', handleTokens)
+  }, [tokens])
 
   const handleFormSubmit = event => {
     event.preventDefault()
@@ -250,6 +275,7 @@ export default function Chat() {
 
   async function handleDamage() {
     const wep = (await character) && character.Weapon.find(w => w.id === weapon)
+
     const mod =
       (await character) && character.StrModTemp
         ? character.StrModTemp
@@ -334,44 +360,44 @@ export default function Chat() {
     <Styles.Container>
       <Styles.CombatContainer>
         <Styles.MapContainer>
-          <RenderMap />
+          <RenderMap tokens={tokens} />
           <Styles.CharContainer>
             <Styles.StatusContainer>
               <Styles.GroupStatus>
                 <Styles.Resume>
                   <label htmlFor="inputResist">Fortitude</label>
-                  <Styles.InputResume defaultValue={fortitude} />
+                  <Styles.InputResume readOnly defaultValue={fortitude} />
                 </Styles.Resume>
                 <Styles.Resume>
                   <label htmlFor="inputResist">Reflexos</label>
-                  <Styles.InputResume defaultValue={reflex} />
+                  <Styles.InputResume readOnly defaultValue={reflex} />
                 </Styles.Resume>
                 <Styles.Resume>
                   <label htmlFor="inputResist">Vontade</label>
-                  <Styles.InputResume defaultValue={will} />
+                  <Styles.InputResume readOnly defaultValue={will} />
                 </Styles.Resume>
                 <Styles.Resume>
                   <label htmlFor="inputResist">Iniciativa</label>
-                  <Styles.InputResume defaultValue={charInit} />
+                  <Styles.InputResume readOnly defaultValue={charInit} />
                 </Styles.Resume>
               </Styles.GroupStatus>
 
               <Styles.GroupStatus>
                 <Styles.Resume>
                   <label htmlFor="inputResist">CA</label>
-                  <Styles.InputResume defaultValue={totalCa} />
+                  <Styles.InputResume readOnly defaultValue={totalCa} />
                 </Styles.Resume>
                 <Styles.Resume>
                   <label htmlFor="inputResist">Acerto</label>
-                  <Styles.InputResume defaultValue={hit} />
+                  <Styles.InputResume readOnly defaultValue={hit} />
                 </Styles.Resume>
                 <Styles.Resume>
                   <label htmlFor="inputResist">PV</label>
-                  <Styles.InputResume defaultValue={health} />
+                  <Styles.InputResume readOnly defaultValue={health} />
                 </Styles.Resume>
                 <Styles.Resume>
                   <label htmlFor="inputResist">PV Atual</label>
-                  <Styles.InputResume defaultValue={healthNow} />
+                  <Styles.InputResume readOnly defaultValue={healthNow} />
                 </Styles.Resume>
               </Styles.GroupStatus>
             </Styles.StatusContainer>
@@ -384,8 +410,11 @@ export default function Chat() {
                     .sort((a, b) => b.initiative - a.initiative)
                     .map(item => (
                       <li key={Math.random()}>
-                        <Styles.InitUser defaultValue={item.user} />
-                        <Styles.InitValue defaultValue={item.initiative} />
+                        <Styles.InitUser readOnly defaultValue={item.user} />
+                        <Styles.InitValue
+                          readOnly
+                          defaultValue={item.initiative}
+                        />
                       </li>
                     ))}
                 </ul>
@@ -394,10 +423,12 @@ export default function Chat() {
             <Styles.AttackContainer>
               <Styles.WeaponContainer>
                 <div>
-                  <SelectWeapon
-                    character={character}
-                    changeWeapon={e => setWeapon(e && e.value)}
-                  />
+                  {!loading && (
+                    <SelectWeapon
+                      character={character}
+                      changeWeapon={e => setWeapon(e && e.value)}
+                    />
+                  )}
                 </div>
               </Styles.WeaponContainer>
               <div>

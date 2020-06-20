@@ -1,61 +1,44 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('weapons', {
+    return queryInterface.createTable('char_tokens', {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
       },
-      name: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      dice: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      multiplier: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
-      critical: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      range: {
+      x: {
         type: Sequelize.FLOAT,
         allowNull: false,
       },
-      type: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      material: {
-        type: Sequelize.STRING,
-        allowNull: true,
-      },
-      magic: {
-        type: Sequelize.INTEGER,
-        allowNull: true,
-      },
-      weight: {
+      y: {
         type: Sequelize.FLOAT,
         allowNull: false,
       },
-      special: {
-        type: Sequelize.STRING,
-        allowNull: true,
+      width: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
       },
-      price: {
-        type: Sequelize.STRING,
-        allowNull: true,
+      height: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      rotation: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
       },
       character_id: {
         type: Sequelize.INTEGER,
         references: { model: 'characters', key: 'id' },
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
+      },
+      token_id: {
+        type: Sequelize.INTEGER,
+        references: { model: 'tokens', key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL',
+        allowNull: true,
       },
       created_at: {
         type: Sequelize.DATE,
@@ -69,6 +52,6 @@ module.exports = {
   },
 
   down: queryInterface => {
-    return queryInterface.dropTable('weapons')
+    return queryInterface.dropTable('char_tokens')
   },
 }

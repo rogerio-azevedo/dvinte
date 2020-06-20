@@ -8,8 +8,11 @@ import AlignmentController from './app/controllers/AlignmentController'
 import ClassController from './app/controllers/ClassController'
 import DivinityController from './app/controllers/DivinityController'
 import CharacterController from './app/controllers/CharacterController'
+import MyProfileController from './app/controllers/MyProfileController'
 
 import PortraitController from './app/controllers/PortraitController'
+import TokenController from './app/controllers/TokenController'
+import CharTokenController from './app/controllers/CharTokenController'
 import RaceController from './app/controllers/RaceController'
 
 import SessionController from './app/controllers/SessionController'
@@ -25,6 +28,7 @@ import CombatController from './app/controllers/CombatController'
 import WeaponController from './app/controllers/WeaponController'
 
 import InitiativeController from './app/controllers/InitiativeController'
+import HealthController from './app/controllers/HealthController'
 
 const routes = new Router()
 const upload = multer(multerConfig)
@@ -41,9 +45,12 @@ routes.get('/chats', ChatController.index)
 
 routes.post('/initiatives', InitiativeController.store)
 routes.get('/initiatives', InitiativeController.index)
+routes.delete('/initiatives', InitiativeController.destroy)
 
 routes.get('/users', UserController.index)
 routes.put('/users', UserController.update)
+
+routes.get('/myprofile', MyProfileController.index)
 
 routes.post('/alignments', AlignmentController.store)
 routes.get('/alignments', AlignmentController.index)
@@ -61,6 +68,12 @@ routes.get('/characters/:character_id/classes', ClassController.index)
 
 routes.post('/portraits', upload.single('file'), PortraitController.store)
 routes.get('/portraits', PortraitController.index)
+
+routes.post('/tokens', upload.single('file'), TokenController.store)
+routes.get('/tokens', TokenController.index)
+
+routes.get('/chartokens', CharTokenController.index)
+routes.put('/chartokens', CharTokenController.update)
 
 routes.post('/attributes', AttributeController.store)
 routes.get('/attributes', AttributeController.index)
@@ -80,5 +93,7 @@ routes.get('/baseresist', BaseResistController.index)
 routes.get('/combats', CombatController.index)
 
 routes.get('/weapons', WeaponController.index)
+
+routes.put('/healthnow', HealthController.update)
 
 export default routes

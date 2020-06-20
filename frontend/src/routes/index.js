@@ -13,6 +13,8 @@ import Classe from '~/pages/Classe'
 import Divinity from '~/pages/Divinity'
 import Race from '~/pages/Race'
 import Portrait from '~/pages/Portrait'
+import Token from '~/pages/Token'
+
 import Character from '~/pages/Character'
 import CharacterDetail from '~/pages/CharacterDetail'
 import CharacterCreate from '~/pages/CharacterCreate'
@@ -24,6 +26,7 @@ export default function Routes() {
   return (
     <Switch>
       <Route path="/" exact component={SignIn} />
+
       <Route path="/register" component={SignUp} />
       <Route path="/profile" component={Profile} isPrivate />
 
@@ -33,7 +36,9 @@ export default function Routes() {
       <Route path="/classes" component={Classe} isPrivate />
       <Route path="/divinities" component={Divinity} isPrivate />
       <Route path="/races" component={Race} isPrivate />
+
       <Route path="/portraits" component={Portrait} isPrivate />
+      <Route path="/tokens" component={Token} isPrivate />
 
       <Route path="/characters" component={Character} isPrivate />
       <Route path="/characterview/:id" component={CharacterDetail} isPrivate />

@@ -7,6 +7,8 @@ import Divinity from '../app/models/Divinity'
 import Character from '../app/models/Character'
 import CharacterClass from '../app/models/CharacterClass'
 import Portrait from '../app/models/Portrait'
+import Token from '../app/models/Token'
+import CharToken from '../app/models/CharToken'
 import Race from '../app/models/Race'
 import User from '../app/models/User'
 import Campaign from '../app/models/Campaign'
@@ -26,6 +28,8 @@ const models = [
   Character,
   CharacterClass,
   Portrait,
+  Token,
+  CharToken,
   Campaign,
   Race,
   User,

@@ -10,6 +10,9 @@ import BaseResist from '../models/BaseResist'
 class CombatController {
   async index(req, res) {
     const char = await Character.findOne({
+      where: {
+        is_ativo: true,
+      },
       include: [
         {
           model: User,
@@ -22,7 +25,6 @@ class CombatController {
           as: 'portrait',
           attributes: ['id', 'path', 'url'],
         },
-
         {
           model: Race,
           as: 'race',
@@ -277,7 +279,6 @@ class CombatController {
       Armor: (char && char.toJSON().armor) || [],
       Weapon: (char && char.toJSON().weapon) || [],
     }
-
     return res.json(charData)
   }
 }

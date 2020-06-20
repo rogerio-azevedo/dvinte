@@ -1,6 +1,6 @@
 import Initiative from '../schemas/Initiative'
 
-// import { addInitiative } from '../../websocket'
+import { addInitiative } from '../../websocket'
 
 class InitiativeController {
   async index(req, res) {
@@ -12,11 +12,17 @@ class InitiativeController {
   async store(req, res) {
     const inits = await Initiative.create(req.body)
 
-    // const message = {
-    //   user: inits.name,
-    //   init: inits.init,
-    // }
-    // addInitiative(message)
+    const message = {
+      user: inits.user,
+      initiative: inits.initiative,
+    }
+    addInitiative(message)
+
+    return res.json(inits)
+  }
+
+  async destroy(req, res) {
+    const inits = await Initiative.deleteMany({})
 
     return res.json(inits)
   }
