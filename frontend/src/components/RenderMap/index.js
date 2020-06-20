@@ -10,20 +10,20 @@ import api from '~/services/api'
 
 export default function RenderMap(tokens) {
   const [stagePos, setStagePos] = useState({ x: 0, y: 0 })
-  const [tokenMap, setTokenMap] = useState()
+  // const [tokenMap, setTokenMap] = useState()
 
   // const startX = Math.floor((-stagePos.x - window.innerWidth) / width) * width
   // const endX = Math.floor((-stagePos.x + window.innerWidth * 2) / width) * width
 
-  useEffect(() => {
-    async function loadMap() {
-      const response = await api.get('tokens/1')
+  // useEffect(() => {
+  //   async function loadMap() {
+  //     const response = await api.get('tokens/1')
 
-      setTokenMap(response.data.url)
-    }
+  //     setTokenMap(response.data.url)
+  //   }
 
-    loadMap()
-  }, [])
+  //   loadMap()
+  // }, [])
   // const startY =
   //   Math.floor((-stagePos.y - window.innerHeight) / height) * height
   // const endY =
@@ -99,7 +99,9 @@ export default function RenderMap(tokens) {
     )
   }
 
-  const [map] = useImage(tokenMap)
+  const [map] = useImage(
+    'https://i.pinimg.com/originals/9b/dc/53/9bdc53c96bc91efa31354555bf548254.jpg'
+  )
 
   return (
     <Stage
@@ -114,7 +116,7 @@ export default function RenderMap(tokens) {
     >
       <Layer>
         {/* {gridComponents} */}
-        <Image image={map} opacity={0.7} />
+        <Image image={map} opacity={0.8} />
         {tokens &&
           tokens.tokens &&
           tokens.tokens.map(item => (
