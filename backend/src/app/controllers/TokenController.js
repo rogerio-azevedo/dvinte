@@ -26,8 +26,8 @@ class TokenController {
     } = req.file
 
     await sharp(fullPath)
-      .resize(1920)
-      .png({ quality: 100 })
+      .resize(800)
+      .png({ quality: 95 })
       .toFile(path.resolve(folder, 'tokens', newName))
 
     fs.unlinkSync(fullPath)
