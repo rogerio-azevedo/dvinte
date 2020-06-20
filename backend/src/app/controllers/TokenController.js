@@ -26,7 +26,7 @@ class TokenController {
     } = req.file
 
     await sharp(fullPath)
-      // .resize(2000)
+      .resize(1920)
       .png({ quality: 100 })
       .toFile(path.resolve(folder, 'tokens', newName))
 
