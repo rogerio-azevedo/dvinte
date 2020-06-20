@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import Select from 'react-select'
-import PropTypes, { object } from 'prop-types'
+import PropTypes from 'prop-types'
 
-export default function SelectWeapon({ changeWeapon, character }) {
+export default function SelectWeapon({ changeWeapon, weapons }) {
   const [weapon, setWeapon] = useState([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     async function load() {
       const data =
-        character &&
-        character.Weapon.map(m => ({
+        weapons &&
+        weapons.map(m => ({
           value: m.id,
           label: m.name.toUpperCase(),
         }))
@@ -19,7 +19,7 @@ export default function SelectWeapon({ changeWeapon, character }) {
       setLoading(false)
     }
     load()
-  }, [character])
+  }, [weapons])
 
   const customStyles = {
     input: styles => {
@@ -48,7 +48,7 @@ export default function SelectWeapon({ changeWeapon, character }) {
 
 SelectWeapon.propTypes = {
   changeWeapon: PropTypes.func.isRequired,
-  character: PropTypes.oneOfType([object]).isRequired,
+  weapons: PropTypes.arrayOf.isRequired,
 
   // character: PropTypes.shape({
   //   Weapon: PropTypes.object.isRequired,

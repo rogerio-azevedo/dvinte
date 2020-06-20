@@ -31,6 +31,7 @@ export default function Chat() {
   const [health, setHealth] = useState()
   const [healthNow, setHealthNow] = useState()
   const [weapon, setWeapon] = useState()
+  const [weapons, setWeapons] = useState()
   const [initiatives, setInitiatives] = useState([])
 
   const from = profile.id
@@ -117,6 +118,9 @@ export default function Chat() {
         0
       )
       setMaxDex(maxDext)
+
+      const charWeapons = char && char.Weapon
+      setWeapons(charWeapons)
 
       const bonusDext = await calcDext(DexMod)
       const ca = 10 + shield + armor + bonusDext
@@ -440,7 +444,7 @@ export default function Chat() {
                 <div>
                   {!loadChar && (
                     <SelectWeapon
-                      character={character}
+                      weapons={weapons}
                       changeWeapon={e => setWeapon(e && e.value)}
                     />
                   )}
