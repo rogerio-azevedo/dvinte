@@ -17,7 +17,7 @@ export default function RenderMap(tokens) {
 
   useEffect(() => {
     async function loadMap() {
-      const response = await api.get('tokens/18')
+      const response = await api.get('tokens/1')
 
       setTokenMap(response.data.url)
     }
