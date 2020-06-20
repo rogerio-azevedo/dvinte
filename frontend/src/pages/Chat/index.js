@@ -14,30 +14,26 @@ import * as Styles from './styles'
 
 export default function Chat() {
   const profile = useSelector(state => state.user.profile)
-  const [loading, setLoading] = useState()
+  const [loadChar, setLoadChar] = useState()
   const [message, setMessage] = useState('')
   const [messages, setMessages] = useState([])
   const [multiplier, setMultiplier] = useState(1)
   const [charInit, setCharInit] = useState()
   const [character, setCharacter] = useState()
   const [tokens, setTokens] = useState()
-
-  const [hit, setHit] = useState()
   const [fortitude, setFortitude] = useState()
   const [reflex, setReflex] = useState()
   const [will, setWill] = useState()
-
+  const [melee, setMelee] = useState()
+  const [ranged, setRanged] = useState()
   const [maxDex, setMaxDex] = useState()
   const [totalCa, setTotalCa] = useState()
-
   const [health, setHealth] = useState()
   const [healthNow, setHealthNow] = useState()
-
   const [weapon, setWeapon] = useState()
-
   const [initiatives, setInitiatives] = useState([])
-  const from = profile.id
 
+  const from = profile.id
   const messagesEndRef = React.createRef(null)
 
   function scrollToBottom() {
@@ -88,7 +84,7 @@ export default function Chat() {
   }
 
   async function getCharacter() {
-    setLoading(true)
+    setLoadChar(true)
     try {
       const response = await api.get('combats', {
         params: {
@@ -99,7 +95,7 @@ export default function Chat() {
       const char = response.data
       setCharacter(char)
 
-      const SrtMod = char.StrModTemp ? char.StrModTemp : char.StrMod
+      const StrMod = char.StrModTemp ? char.StrModTemp : char.StrMod
       const ConMod = char.ConModTemp ? char.ConModTemp : char.ConMod
       const DexMod = char.DexModTemp ? char.DexModTemp : char.DexMod
       const WisMod = char.WisModTemp ? char.WisModTemp : char.WisMod
@@ -125,15 +121,16 @@ export default function Chat() {
       const bonusDext = await calcDext(DexMod)
       const ca = 10 + shield + armor + bonusDext
 
+      setMelee(char.BaseAttack + StrMod)
+      setRanged(char.BaseAttack + DexMod)
       setHealth(char.Health)
       setHealthNow(char.HealthNow)
       setTotalCa(ca)
-      setHit(SrtMod + char.BaseAttack)
       setFortitude(char.Fortitude + ConMod)
       setReflex(char.Reflex + DexMod)
       setWill(char.Will + WisMod)
 
-      setLoading(false)
+      setLoadChar(false)
     } catch (e) {
       toast.error('Conexao com a API mal sucedida.')
     }
@@ -224,18 +221,13 @@ export default function Chat() {
   }
 
   async function handleInitiative() {
-    const dext = !loading && charInit
+    const dext = !loadChar && charInit
 
     const dice = Math.floor(Math.random() * 20) + 1
 
     const init = dext + dice
 
     const rolled = `Rolou iniciativa d20: ${dice} + ${dext} de destreza, com resultado: ${init}`
-
-    // const initiative = {
-    //   user: profile.name,
-    //   init: dext + dice,
-    // }
 
     api.post('chats', {
       id: from,
@@ -255,8 +247,27 @@ export default function Chat() {
     const wep = (await character) && character.Weapon.find(w => w.id === weapon)
     const extraHit = (wep && wep.hit) || 0
     const name = wep && wep.name
-    const base = !loading && hit
     const dice = Math.floor(Math.random() * 20) + 1
+
+    let mod = 0
+
+    const StrMod =
+      (await character) && character.StrModTemp
+        ? character.StrModTemp
+        : character.StrMod
+
+    const DexMod =
+      (await character) && character.DexModTemp
+        ? character.DexModTemp
+        : character.DexMod
+
+    if (wep.range > 3) {
+      mod = DexMod
+    } else {
+      mod = StrMod
+    }
+
+    const base = character && character.BaseAttack + mod
     const attack = Number(base) + Number(dice) + Number(extraHit)
 
     const rolled = `Rolou ataque d20: ${dice} + ${base} de base + ${extraHit} de bônus da arma ${name}, com resultado: ${attack}`
@@ -388,8 +399,12 @@ export default function Chat() {
                   <Styles.InputResume readOnly defaultValue={totalCa} />
                 </Styles.Resume>
                 <Styles.Resume>
-                  <label htmlFor="inputResist">Acerto</label>
-                  <Styles.InputResume readOnly defaultValue={hit} />
+                  <label htmlFor="inputResist">Melee</label>
+                  <Styles.InputResume readOnly defaultValue={melee} />
+                </Styles.Resume>
+                <Styles.Resume>
+                  <label htmlFor="inputResist">Ranged</label>
+                  <Styles.InputResume readOnly defaultValue={ranged} />
                 </Styles.Resume>
                 <Styles.Resume>
                   <label htmlFor="inputResist">PV</label>
@@ -423,7 +438,7 @@ export default function Chat() {
             <Styles.AttackContainer>
               <Styles.WeaponContainer>
                 <div>
-                  {!loading && (
+                  {!loadChar && (
                     <SelectWeapon
                       character={character}
                       changeWeapon={e => setWeapon(e && e.value)}

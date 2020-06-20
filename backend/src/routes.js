@@ -71,6 +71,7 @@ routes.get('/portraits', PortraitController.index)
 
 routes.post('/tokens', upload.single('file'), TokenController.store)
 routes.get('/tokens', TokenController.index)
+routes.get('/tokens/:id', TokenController.show)
 
 routes.get('/chartokens', CharTokenController.index)
 routes.put('/chartokens', CharTokenController.update)

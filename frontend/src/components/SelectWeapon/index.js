@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Select from 'react-select'
-import PropTypes from 'prop-types'
+import PropTypes, { object } from 'prop-types'
 
 export default function SelectWeapon({ changeWeapon, character }) {
   const [weapon, setWeapon] = useState([])
@@ -48,8 +48,9 @@ export default function SelectWeapon({ changeWeapon, character }) {
 
 SelectWeapon.propTypes = {
   changeWeapon: PropTypes.func.isRequired,
+  character: PropTypes.oneOfType([object]).isRequired,
 
-  character: PropTypes.shape({
-    Weapon: PropTypes.object.isRequired,
-  }).isRequired,
+  // character: PropTypes.shape({
+  //   Weapon: PropTypes.object.isRequired,
+  // }).isRequired,
 }

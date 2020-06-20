@@ -1,48 +1,59 @@
-import React, { useState } from 'react'
-import { Stage, Layer, Rect, Image } from 'react-konva'
+import React, { useState, useEffect } from 'react'
+import { Stage, Layer, Image } from 'react-konva'
 import useImage from 'use-image'
 import api from '~/services/api'
 
-const width = 50
-const height = 50
+// const width = 50
+// const height = 50
 
-const grid = [['white']]
+// const grid = [['white']]
 
 export default function RenderMap(tokens) {
   const [stagePos, setStagePos] = useState({ x: 0, y: 0 })
-  const startX = Math.floor((-stagePos.x - window.innerWidth) / width) * width
-  const endX = Math.floor((-stagePos.x + window.innerWidth * 2) / width) * width
+  const [tokenMap, setTokenMap] = useState()
 
-  const startY =
-    Math.floor((-stagePos.y - window.innerHeight) / height) * height
-  const endY =
-    Math.floor((-stagePos.y + window.innerHeight * 2) / height) * height
+  // const startX = Math.floor((-stagePos.x - window.innerWidth) / width) * width
+  // const endX = Math.floor((-stagePos.x + window.innerWidth * 2) / width) * width
 
-  const gridComponents = []
-  let i = 0
-  for (let x = startX; x < endX; x += width) {
-    for (let y = startY; y < endY; y += height) {
-      if (i === 4) {
-        i = 0
-      }
+  useEffect(() => {
+    async function loadMap() {
+      const response = await api.get('tokens/18')
 
-      const indexX = Math.abs(x / width) % grid.length
-      const indexY = Math.abs(y / height) % grid[0].length
-
-      gridComponents.push(
-        <Rect
-          x={x}
-          y={y}
-          width={width}
-          height={height}
-          fill={grid[indexX][indexY]}
-          stroke="gray"
-          strokeWidth={2}
-          dash={['5', '5']}
-        />
-      )
+      setTokenMap(response.data.url)
     }
-  }
+
+    loadMap()
+  }, [])
+  // const startY =
+  //   Math.floor((-stagePos.y - window.innerHeight) / height) * height
+  // const endY =
+  //   Math.floor((-stagePos.y + window.innerHeight * 2) / height) * height
+
+  // const gridComponents = []
+  // let i = 0
+  // for (let x = startX; x < endX; x += width) {
+  //   for (let y = startY; y < endY; y += height) {
+  //     if (i === 4) {
+  //       i = 0
+  //     }
+
+  //     const indexX = Math.abs(x / width) % grid.length
+  //     const indexY = Math.abs(y / height) % grid[0].length
+
+  //     gridComponents.push(
+  //       <Rect
+  //         x={x}
+  //         y={y}
+  //         width={width}
+  //         height={height}
+  //         fill={grid[indexX][indexY]}
+  //         stroke="gray"
+  //         strokeWidth={2}
+  //         dash={['5', '5']}
+  //       />
+  //     )
+  //   }
+  // }
 
   async function handleDragEnd(e) {
     api.put('chartokens', {
@@ -88,6 +99,8 @@ export default function RenderMap(tokens) {
     )
   }
 
+  const [map] = useImage(tokenMap)
+
   return (
     <Stage
       x={stagePos.x}
@@ -100,12 +113,13 @@ export default function RenderMap(tokens) {
       }}
     >
       <Layer>
-        {gridComponents}
-
+        {/* {gridComponents} */}
+        <Image image={map} opacity={0.7} />
         {tokens &&
           tokens.tokens &&
           tokens.tokens.map(item => (
             <Token
+              key={item.id}
               id={item.id}
               x={item.x}
               y={item.y}
@@ -117,7 +131,6 @@ export default function RenderMap(tokens) {
               rotation={item.rotation}
             />
           ))}
-
         {/* {tokens &&
           tokens.tokens &&
           tokens.tokens.map(item => (
