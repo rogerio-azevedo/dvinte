@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Stage, Layer, Image } from 'react-konva'
 import useImage from 'use-image'
 import api from '~/services/api'
