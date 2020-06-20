@@ -11,11 +11,11 @@ class TokenController {
     return res.json(list)
   }
 
-  // async show(req, res) {
-  //   const map = await Token.findByPk(req.params.id)
+  async show(req, res) {
+    const map = await Token.findByPk(req.params.id)
 
-  //   return res.json(map)
-  // }
+    return res.json(map)
+  }
 
   async store(req, res) {
     const {
@@ -26,8 +26,9 @@ class TokenController {
     } = req.file
 
     await sharp(fullPath)
-      .resize(500)
-      .png({ quality: 70 })
+      .resize(1920)
+      .png({ quality: 100 })
+      .jpeg({ quality: 100 })
       .toFile(path.resolve(folder, 'tokens', newName))
 
     fs.unlinkSync(fullPath)
