@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+// import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import api from '~/services/api'
+// import api from '~/services/api'
 
 import logoKiper from '~/assets/logo_black.svg'
 import logoPorter from '~/assets/logo_red.svg'
@@ -9,23 +9,22 @@ import logoPorter from '~/assets/logo_red.svg'
 import { Navigation, Container, Dropmenu, Logo } from './styles'
 
 export default function TopNav() {
-  const [link, setLink] = useState('')
-  const profile = useSelector(state => state.user.profile)
+  // const [link, setLink] = useState('')
+  // const profile = useSelector(state => state.user.profile)
   const perfil = true
   const container = React.createRef()
 
-  useEffect(() => {
-    async function load() {
-      const response = await api.get('myprofile', {
-        params: {
-          user: profile.id,
-        },
-      })
-
-      setLink(`/characterview/${response.data}`)
-    }
-    load()
-  }, [profile])
+  // useEffect(() => {
+  //   async function load() {
+  //     // const response = await api.get('myprofile', {
+  //     //   params: {
+  //     //     user: profile.id,
+  //     //   },
+  //     // })
+  //     // setLink(`/characterview/${response.data}`)
+  //   }
+  //   load()
+  // }, [profile])
 
   // const [dig, setDig] = useState(false)
   // const [rel, setRel] = useState(false)
@@ -163,9 +162,9 @@ export default function TopNav() {
             CHAT
           </Link>
 
-          <Link onClick={handleRemoveClick} to={link}>
+          {/* <Link onClick={handleRemoveClick} to={link}>
             MEU CHAR
-          </Link>
+          </Link> */}
         </ul>
       </Container>
     </Navigation>
