@@ -100,7 +100,7 @@ export default function RenderMap(tokens) {
   }
 
   const [map] = useImage(
-    'https://i.pinimg.com/originals/d9/af/29/d9af2911286d49fb488c722d1299ff9c.jpg'
+    'https://i.pinimg.com/originals/2f/d0/e5/2fd0e571854e1f94392b4e47db228659.jpg'
   )
 
   return (
