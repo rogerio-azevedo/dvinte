@@ -256,14 +256,14 @@ export default function Chat() {
     let mod = 0
 
     const StrMod =
-      (await character) && character.StrModTemp
-        ? character.StrModTemp
-        : character.StrMod
+      character && character.StrModTemp
+        ? character && character.StrModTemp
+        : character && character.StrMod
 
     const DexMod =
-      (await character) && character.DexModTemp
-        ? character.DexModTemp
-        : character.DexMod
+      character && character.DexModTemp
+        ? character && character.DexModTemp
+        : character && character.DexMod
 
     if (wep.range > 3) {
       mod = DexMod
@@ -271,7 +271,7 @@ export default function Chat() {
       mod = StrMod
     }
 
-    const base = character && character.BaseAttack + mod
+    const base = (character && character.BaseAttack) + mod
     const attack = Number(base) + Number(dice) + Number(extraHit)
 
     const rolled = `Rolou ataque d20: ${dice} + ${base} de base + ${extraHit} de bônus da arma ${name}, com resultado: ${attack}`
