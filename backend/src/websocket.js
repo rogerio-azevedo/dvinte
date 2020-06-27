@@ -45,6 +45,10 @@ exports.saveMessage = message => {
   io.emit('chat.message', message)
 }
 
+exports.saveNote = message => {
+  io.emit('note.message', message)
+}
+
 exports.addInitiative = message => {
   io.emit('init.message', message)
 }

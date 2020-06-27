@@ -162,9 +162,9 @@ export default function TopNav() {
             CHAT
           </Link>
 
-          {/* <Link onClick={handleRemoveClick} to={link}>
-            MEU CHAR
-          </Link> */}
+          <Link onClick={handleRemoveClick} to="/notes">
+            NOTAS
+          </Link>
         </ul>
       </Container>
     </Navigation>

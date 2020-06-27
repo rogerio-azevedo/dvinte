@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { Stage, Layer, Image } from 'react-konva'
 import useImage from 'use-image'
-import api from '~/services/api'
+
+import Token from '~/components/Token'
 
 // const width = 50
 // const height = 50
@@ -55,49 +56,49 @@ export default function RenderMap(tokens) {
   //   }
   // }
 
-  async function handleDragEnd(e) {
-    api.put('chartokens', {
-      id: e.target.id(),
-      x: e.target.x(),
-      y: e.target.y(),
-    })
-  }
-  async function handleRotate(e) {
-    api.put('chartokens', {
-      id: e.target.id(),
-      rotation: e.target.rotation(),
-    })
-  }
+  // async function handleDragEnd(e) {
+  //   api.put('chartokens', {
+  //     id: e.target.id(),
+  //     x: e.target.x(),
+  //     y: e.target.y(),
+  //   })
+  // }
+  // async function handleRotate(e) {
+  //   api.put('chartokens', {
+  //     id: e.target.id(),
+  //     rotation: e.target.rotation(),
+  //   })
+  // }
 
-  const Token = props => {
-    const { image } = props
-    const { id } = props
-    const { x } = props
-    const { y } = props
-    const { width } = props
-    const { height } = props
-    const { rotation } = props
+  // const Token = props => {
+  //   const { image } = props
+  //   const { id } = props
+  //   const { x } = props
+  //   const { y } = props
+  //   const { width } = props
+  //   const { height } = props
+  //   const { rotation } = props
 
-    const [tokenImg] = useImage(image)
+  //   const [tokenImg] = useImage(image)
 
-    return (
-      <Image
-        draggable
-        id={id}
-        x={x}
-        y={y}
-        image={tokenImg}
-        width={width}
-        height={height}
-        scaleX={1}
-        offsetX={width / 2}
-        offsetY={height / 2}
-        rotation={rotation}
-        onDragEnd={handleDragEnd}
-        onClick={handleRotate}
-      />
-    )
-  }
+  //   return (
+  //     <Image
+  //       draggable
+  //       id={id}
+  //       x={x}
+  //       y={y}
+  //       image={tokenImg}
+  //       width={width}
+  //       height={height}
+  //       scaleX={1}
+  //       offsetX={width / 2}
+  //       offsetY={height / 2}
+  //       rotation={rotation}
+  //       onDragEnd={handleDragEnd}
+  //       onClick={handleRotate}
+  //     />
+  //   )
+  // }
 
   const [map] = useImage(
     'https://i.pinimg.com/originals/2f/d0/e5/2fd0e571854e1f94392b4e47db228659.jpg'
@@ -121,6 +122,7 @@ export default function RenderMap(tokens) {
           tokens.tokens &&
           tokens.tokens.map(item => (
             <Token
+              tokens={tokens}
               key={item.id}
               id={item.id}
               x={item.x}

@@ -30,6 +30,8 @@ import WeaponController from './app/controllers/WeaponController'
 import InitiativeController from './app/controllers/InitiativeController'
 import HealthController from './app/controllers/HealthController'
 
+import NotesController from './app/controllers/NotesController'
+
 const routes = new Router()
 const upload = multer(multerConfig)
 
@@ -42,6 +44,9 @@ routes.use(authMiddleware)
 
 routes.post('/chats', ChatController.store)
 routes.get('/chats', ChatController.index)
+
+routes.post('/notes', NotesController.store)
+routes.get('/notes', NotesController.index)
 
 routes.post('/initiatives', InitiativeController.store)
 routes.get('/initiatives', InitiativeController.index)

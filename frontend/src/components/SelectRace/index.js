@@ -9,7 +9,9 @@ export default function SelectRace({ changeRace }) {
 
   useEffect(() => {
     async function load() {
-      const response = await api.get('races')
+      const response = await api.get(
+        'http://18.230.121.78:15551/datasnap/rest/TServerMethods1/updateP_Consulta_Honorarios_JA/01.06.2020/30.06.2020'
+      )
 
       const races = response.data.map(m => ({
         value: m.id,
