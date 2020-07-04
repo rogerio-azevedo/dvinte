@@ -23,6 +23,9 @@ import Chat from '~/pages/Chat'
 import Campaign from '~/pages/Campaign'
 
 import Notes from '~/pages/Notes'
+import GmTools from '~/pages/GmTools'
+import Map from '~/pages/Map'
+import Combat from '~/pages/Combat'
 
 export default function Routes() {
   return (
@@ -50,6 +53,9 @@ export default function Routes() {
       <Route path="/campaigns" component={Campaign} isPrivate />
 
       <Route path="/notes" component={Notes} isPrivate />
+      <Route path="/gmtools" component={GmTools} isPrivate />
+      <Route path="/map" component={Map} isPrivate />
+      <Route path="/combat" component={Combat} isPrivate />
     </Switch>
   )
 }

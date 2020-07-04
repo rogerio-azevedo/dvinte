@@ -3,24 +3,31 @@ import { darken } from 'polished'
 
 export const Container = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
+  width: 100%;
 `
 
 export const CombatContainer = styled.div`
   display: flex;
-  flex-direction: row;
-  width: 100%;
-  padding: 20px;
+  flex-direction: column;
+  width: 75%;
+  /* padding: 20px; */
 `
 
 export const MapContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  width: 75%;
-  height: 750px;
+  flex-direction: row;
+  margin-top: 10px;
+  width: 100%;
+  height: 600px;
   border: 1px solid;
+  overflow: auto;
+
+  background-size: 55px 55px;
+  background-image: linear-gradient(to right, black 2px, transparent 2px),
+    linear-gradient(to bottom, black 2px, transparent 2px);
 
   -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
   -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
@@ -29,6 +36,9 @@ export const MapContainer = styled.div`
 export const CharContainer = styled.div`
   display: flex;
   flex-direction: row;
+  width: 100%;
+  border: 1px solid;
+  height: 150px;
 
   > div {
     width: 50%;
@@ -46,6 +56,7 @@ export const CharContainer = styled.div`
 `
 
 export const TalkContainer = styled.div`
+  margin-top: 10px;
   display: flex;
   width: 25%;
   flex-direction: column;
@@ -59,6 +70,7 @@ export const TalkContainer = styled.div`
 
 export const ChatContainer = styled.div`
   width: 100%;
+
   flex-direction: row;
   font-family: Arial, sans-serif;
   align-self: left;

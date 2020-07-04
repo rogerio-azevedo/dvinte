@@ -33,6 +33,7 @@ export default function Chat() {
   const [weapon, setWeapon] = useState()
   const [weapons, setWeapons] = useState()
   const [initiatives, setInitiatives] = useState([])
+  const [tool, setTool] = React.useState('Mão')
 
   const from = profile.id
   const messagesEndRef = React.createRef(null)
@@ -375,212 +376,221 @@ export default function Chat() {
     <Styles.Container>
       <Styles.CombatContainer>
         <Styles.MapContainer>
-          <RenderMap tokens={tokens} />
-          <Styles.CharContainer>
-            <Styles.StatusContainer>
-              <Styles.GroupStatus>
-                <Styles.Resume>
-                  <label htmlFor="inputResist">Fortitude</label>
-                  <Styles.InputResume readOnly defaultValue={fortitude} />
-                </Styles.Resume>
-                <Styles.Resume>
-                  <label htmlFor="inputResist">Reflexos</label>
-                  <Styles.InputResume readOnly defaultValue={reflex} />
-                </Styles.Resume>
-                <Styles.Resume>
-                  <label htmlFor="inputResist">Vontade</label>
-                  <Styles.InputResume readOnly defaultValue={will} />
-                </Styles.Resume>
-                <Styles.Resume>
-                  <label htmlFor="inputResist">Iniciativa</label>
-                  <Styles.InputResume readOnly defaultValue={charInit} />
-                </Styles.Resume>
-              </Styles.GroupStatus>
-
-              <Styles.GroupStatus>
-                <Styles.Resume>
-                  <label htmlFor="inputResist">CA</label>
-                  <Styles.InputResume readOnly defaultValue={totalCa} />
-                </Styles.Resume>
-                <Styles.Resume>
-                  <label htmlFor="inputResist">Melee</label>
-                  <Styles.InputResume readOnly defaultValue={melee} />
-                </Styles.Resume>
-                <Styles.Resume>
-                  <label htmlFor="inputResist">Ranged</label>
-                  <Styles.InputResume readOnly defaultValue={ranged} />
-                </Styles.Resume>
-                <Styles.Resume>
-                  <label htmlFor="inputResist">PV</label>
-                  <Styles.InputResume readOnly defaultValue={health} />
-                </Styles.Resume>
-                <Styles.Resume>
-                  <label htmlFor="inputResist">PV Atual</label>
-                  <Styles.InputResume readOnly defaultValue={healthNow} />
-                </Styles.Resume>
-              </Styles.GroupStatus>
-            </Styles.StatusContainer>
-            <Styles.InitContainer>
-              <Styles.InitBoardContainer>
-                <h3>Iniciativa</h3>
-
-                <ul>
-                  {initiatives
-                    .sort((a, b) => b.initiative - a.initiative)
-                    .map(item => (
-                      <li key={Math.random()}>
-                        <Styles.InitUser readOnly defaultValue={item.user} />
-                        <Styles.InitValue
-                          readOnly
-                          defaultValue={item.initiative}
-                        />
-                      </li>
-                    ))}
-                </ul>
-              </Styles.InitBoardContainer>
-            </Styles.InitContainer>
-            <Styles.AttackContainer>
-              <Styles.WeaponContainer>
-                <div>
-                  {!loadChar && (
-                    <SelectWeapon
-                      weapons={weapons}
-                      changeWeapon={e => setWeapon(e && e.value)}
-                    />
-                  )}
-                </div>
-              </Styles.WeaponContainer>
-              <div>
-                <div>
-                  <button type="button" onClick={handleAttack}>
-                    Atacar
-                  </button>
-                </div>
-                <div>
-                  <button type="button" onClick={handleDamage}>
-                    Dano
-                  </button>
-                </div>
-              </div>
-
-              <div />
-            </Styles.AttackContainer>
-          </Styles.CharContainer>
+          <RenderMap tokens={tokens} tool={tool} />
         </Styles.MapContainer>
-        <Styles.TalkContainer>
-          <Styles.ChatContainer>
-            <Styles.ChatHistory>
-              <Styles.List>
-                {messages.map((m, index) => (
-                  <Styles.ListMessage
-                    ref={messagesEndRef}
-                    from={from === m.id ? 1 : 0}
-                    key={index} // eslint-disable-line
-                  >
-                    <Styles.MessageData from={from === m.id ? 1 : 0}>
-                      <Styles.MessageDateTime from={from === m.id ? 1 : 0}>
-                        {formatDate(m.date)}
-                      </Styles.MessageDateTime>
-                      <Styles.MessageDataName from={from === m.id ? 1 : 0}>
-                        {m.user}
-                      </Styles.MessageDataName>
-                    </Styles.MessageData>
-                    <Styles.Message from={from === m.id ? 1 : 0}>
-                      {m.message}
-                    </Styles.Message>
-                  </Styles.ListMessage>
-                ))}
-              </Styles.List>
-            </Styles.ChatHistory>
+        <Styles.CharContainer>
+          <Styles.StatusContainer>
+            <Styles.GroupStatus>
+              <Styles.Resume>
+                <label htmlFor="inputResist">Fortitude</label>
+                <Styles.InputResume readOnly defaultValue={fortitude} />
+              </Styles.Resume>
+              <Styles.Resume>
+                <label htmlFor="inputResist">Reflexos</label>
+                <Styles.InputResume readOnly defaultValue={reflex} />
+              </Styles.Resume>
+              <Styles.Resume>
+                <label htmlFor="inputResist">Vontade</label>
+                <Styles.InputResume readOnly defaultValue={will} />
+              </Styles.Resume>
+              <Styles.Resume>
+                <label htmlFor="inputResist">Iniciativa</label>
+                <Styles.InputResume readOnly defaultValue={charInit} />
+              </Styles.Resume>
+            </Styles.GroupStatus>
 
-            <Styles.FormMessage onSubmit={handleFormSubmit}>
-              <Styles.InputMessage
-                onChange={e => setMessage(e.target.value)}
-                placeholder="Mensagem..."
-                type="text"
-                value={message}
-              />
-            </Styles.FormMessage>
-          </Styles.ChatContainer>
-          <Styles.DiceContainer>
-            <Styles.InputMulti
-              className="multiplier"
-              type="number"
-              pattern="[0-9]*"
-              min="1"
-              max="10"
-              placeholder="1"
-              onChange={e => setMultiplier(e.target.value)}
-            />
-            <Styles.Dice
-              onClick={() => {
-                handleCalculateTotal(4)
+            <Styles.GroupStatus>
+              <Styles.Resume>
+                <label htmlFor="inputResist">CA</label>
+                <Styles.InputResume readOnly defaultValue={totalCa} />
+              </Styles.Resume>
+              <Styles.Resume>
+                <label htmlFor="inputResist">Melee</label>
+                <Styles.InputResume readOnly defaultValue={melee} />
+              </Styles.Resume>
+              <Styles.Resume>
+                <label htmlFor="inputResist">Ranged</label>
+                <Styles.InputResume readOnly defaultValue={ranged} />
+              </Styles.Resume>
+              <Styles.Resume>
+                <label htmlFor="inputResist">PV</label>
+                <Styles.InputResume readOnly defaultValue={health} />
+              </Styles.Resume>
+              <Styles.Resume>
+                <label htmlFor="inputResist">PV Atual</label>
+                <Styles.InputResume readOnly defaultValue={healthNow} />
+              </Styles.Resume>
+            </Styles.GroupStatus>
+          </Styles.StatusContainer>
+          <Styles.InitContainer>
+            <Styles.InitBoardContainer>
+              <h3>Iniciativa</h3>
+
+              <ul>
+                {initiatives
+                  .sort((a, b) => b.initiative - a.initiative)
+                  .map(item => (
+                    <li key={Math.random()}>
+                      <Styles.InitUser readOnly defaultValue={item.user} />
+                      <Styles.InitValue
+                        readOnly
+                        defaultValue={item.initiative}
+                      />
+                    </li>
+                  ))}
+              </ul>
+            </Styles.InitBoardContainer>
+          </Styles.InitContainer>
+          <Styles.AttackContainer>
+            <Styles.WeaponContainer>
+              <div>
+                {!loadChar && (
+                  <SelectWeapon
+                    weapons={weapons}
+                    changeWeapon={e => setWeapon(e && e.value)}
+                  />
+                )}
+              </div>
+            </Styles.WeaponContainer>
+            <select
+              value={tool}
+              onChange={e => {
+                setTool(e.target.value)
               }}
             >
-              <strong>d4</strong>
-            </Styles.Dice>
-            <Styles.Dice
-              onClick={() => {
-                handleCalculateTotal(6)
-              }}
-            >
-              <strong>d6</strong>
-            </Styles.Dice>
-            <Styles.Dice
-              onClick={() => {
-                handleCalculateTotal(8)
-              }}
-            >
-              <strong>d8</strong>
-            </Styles.Dice>
-            <Styles.Dice
-              onClick={() => {
-                handleCalculateTotal(10)
-              }}
-            >
-              <strong>d10</strong>
-            </Styles.Dice>
-            <Styles.Dice
-              onClick={() => {
-                handleCalculateTotal(12)
-              }}
-            >
-              <strong>d12</strong>
-            </Styles.Dice>
-            <Styles.Dice
-              onClick={() => {
-                handleCalculateTotal(20)
-              }}
-            >
-              <strong>d20</strong>
-            </Styles.Dice>
-          </Styles.DiceContainer>
-          <Styles.ActionContainer>
+              <option value="Pincel">Pincel</option>
+              <option value="Mão">Mão</option>
+            </select>
             <div>
               <div>
-                <button type="button" onClick={handleInitiative}>
-                  Iniciativa
+                <button type="button" onClick={handleAttack}>
+                  Atacar
                 </button>
               </div>
               <div>
-                <button type="button" onClick={handleFortitude}>
-                  Fortitude
-                </button>
-              </div>
-              <div>
-                <button type="button" onClick={handleReflex}>
-                  Reflexos
-                </button>
-              </div>
-              <div>
-                <button type="button" onClick={handleWill}>
-                  Vontade
+                <button type="button" onClick={handleDamage}>
+                  Dano
                 </button>
               </div>
             </div>
-          </Styles.ActionContainer>
-        </Styles.TalkContainer>
+
+            <div />
+          </Styles.AttackContainer>
+        </Styles.CharContainer>
       </Styles.CombatContainer>
+      <Styles.TalkContainer>
+        <Styles.ChatContainer>
+          <Styles.ChatHistory>
+            <Styles.List>
+              {messages.map((m, index) => (
+                <Styles.ListMessage
+                  ref={messagesEndRef}
+                  from={from === m.id ? 1 : 0}
+                  key={index} // eslint-disable-line
+                >
+                  <Styles.MessageData from={from === m.id ? 1 : 0}>
+                    <Styles.MessageDateTime from={from === m.id ? 1 : 0}>
+                      {formatDate(m.date)}
+                    </Styles.MessageDateTime>
+                    <Styles.MessageDataName from={from === m.id ? 1 : 0}>
+                      {m.user}
+                    </Styles.MessageDataName>
+                  </Styles.MessageData>
+                  <Styles.Message from={from === m.id ? 1 : 0}>
+                    {m.message}
+                  </Styles.Message>
+                </Styles.ListMessage>
+              ))}
+            </Styles.List>
+          </Styles.ChatHistory>
+
+          <Styles.FormMessage onSubmit={handleFormSubmit}>
+            <Styles.InputMessage
+              onChange={e => setMessage(e.target.value)}
+              placeholder="Mensagem..."
+              type="text"
+              value={message}
+            />
+          </Styles.FormMessage>
+        </Styles.ChatContainer>
+        <Styles.DiceContainer>
+          <Styles.InputMulti
+            className="multiplier"
+            type="number"
+            pattern="[0-9]*"
+            min="1"
+            max="10"
+            placeholder="1"
+            onChange={e => setMultiplier(e.target.value)}
+          />
+          <Styles.Dice
+            onClick={() => {
+              handleCalculateTotal(4)
+            }}
+          >
+            <strong>d4</strong>
+          </Styles.Dice>
+          <Styles.Dice
+            onClick={() => {
+              handleCalculateTotal(6)
+            }}
+          >
+            <strong>d6</strong>
+          </Styles.Dice>
+          <Styles.Dice
+            onClick={() => {
+              handleCalculateTotal(8)
+            }}
+          >
+            <strong>d8</strong>
+          </Styles.Dice>
+          <Styles.Dice
+            onClick={() => {
+              handleCalculateTotal(10)
+            }}
+          >
+            <strong>d10</strong>
+          </Styles.Dice>
+          <Styles.Dice
+            onClick={() => {
+              handleCalculateTotal(12)
+            }}
+          >
+            <strong>d12</strong>
+          </Styles.Dice>
+          <Styles.Dice
+            onClick={() => {
+              handleCalculateTotal(20)
+            }}
+          >
+            <strong>d20</strong>
+          </Styles.Dice>
+        </Styles.DiceContainer>
+        <Styles.ActionContainer>
+          <div>
+            <div>
+              <button type="button" onClick={handleInitiative}>
+                Iniciativa
+              </button>
+            </div>
+            <div>
+              <button type="button" onClick={handleFortitude}>
+                Fortitude
+              </button>
+            </div>
+            <div>
+              <button type="button" onClick={handleReflex}>
+                Reflexos
+              </button>
+            </div>
+            <div>
+              <button type="button" onClick={handleWill}>
+                Vontade
+              </button>
+            </div>
+          </div>
+        </Styles.ActionContainer>
+      </Styles.TalkContainer>
     </Styles.Container>
   )
 }

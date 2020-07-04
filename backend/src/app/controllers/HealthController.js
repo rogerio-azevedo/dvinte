@@ -4,16 +4,21 @@ class HealthController {
   async update(req, res) {
     const char = await Character.findByPk(req.query.id)
 
-    let new_health = 0
+    const { newHealth } = req.body
 
-    if (char.health_now + req.body.newHealth >= char.health) {
-      new_health = char.health
-    } else {
-      new_health = char.health_now + req.body.newHealth
+    function setHealth() {
+      let new_health = 0
+
+      if (char && char.health_now + newHealth >= char.health) {
+        new_health = char.health
+      } else {
+        new_health = char.health_now + newHealth
+      }
+      return new_health
     }
 
     const newChar = await char.update({
-      health_now: new_health,
+      health_now: setHealth(),
     })
 
     return res.json(newChar)

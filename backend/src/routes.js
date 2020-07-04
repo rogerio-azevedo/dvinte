@@ -31,6 +31,7 @@ import InitiativeController from './app/controllers/InitiativeController'
 import HealthController from './app/controllers/HealthController'
 
 import NotesController from './app/controllers/NotesController'
+import LineController from './app/controllers/LineController'
 
 const routes = new Router()
 const upload = multer(multerConfig)
@@ -51,6 +52,10 @@ routes.get('/notes', NotesController.index)
 routes.post('/initiatives', InitiativeController.store)
 routes.get('/initiatives', InitiativeController.index)
 routes.delete('/initiatives', InitiativeController.destroy)
+
+routes.post('/lines', LineController.store)
+routes.get('/lines', LineController.index)
+routes.delete('/lines', LineController.destroy)
 
 routes.get('/users', UserController.index)
 routes.put('/users', UserController.update)

@@ -1,126 +1,75 @@
-import React, { useState } from 'react'
-import { Stage, Layer, Image } from 'react-konva'
+import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
+import { Stage, Layer, Image, Line } from 'react-konva'
 import useImage from 'use-image'
+import { connect, socket } from '~/services/socket'
 
 import Token from '~/components/Token'
 
-// const width = 50
-// const height = 50
-
-// const grid = [['white']]
-
-export default function RenderMap(tokens) {
+export default function RenderMap({ tokens, tool }) {
   const [stagePos, setStagePos] = useState({ x: 0, y: 0 })
-  // const [tokenMap, setTokenMap] = useState()
+  const [lines, setLines] = useState([])
+  const [isDrawing, setIsDrawing] = useState(false)
 
-  // const startX = Math.floor((-stagePos.x - window.innerWidth) / width) * width
-  // const endX = Math.floor((-stagePos.x + window.innerWidth * 2) / width) * width
+  function handleMouseDown() {
+    if (tool === 'Pincel') {
+      setIsDrawing(true)
+      setLines([...lines, []])
+    }
+  }
 
-  // useEffect(() => {
-  //   async function loadMap() {
-  //     const response = await api.get('tokens/1')
+  function handleMouseUp() {
+    if (isDrawing && tool === 'Pincel') {
+      setIsDrawing(false)
+      socket.emit('line.message', lines)
+    }
+  }
 
-  //     setTokenMap(response.data.url)
-  //   }
+  function handleMouseMove({ evt }) {
+    if (!isDrawing && tool !== 'Pincel') {
+      return
+    }
+    const { offsetX, offsetY } = evt
 
-  //   loadMap()
-  // }, [])
-  // const startY =
-  //   Math.floor((-stagePos.y - window.innerHeight) / height) * height
-  // const endY =
-  //   Math.floor((-stagePos.y + window.innerHeight * 2) / height) * height
+    if (isDrawing) {
+      let lastLine = lines[lines.length - 1]
+      lastLine = lastLine.concat([offsetX, offsetY])
+      lines.splice(lines.length - 1, 1, lastLine)
 
-  // const gridComponents = []
-  // let i = 0
-  // for (let x = startX; x < endX; x += width) {
-  //   for (let y = startY; y < endY; y += height) {
-  //     if (i === 4) {
-  //       i = 0
-  //     }
+      setLines(lines.concat())
+    }
+  }
 
-  //     const indexX = Math.abs(x / width) % grid.length
-  //     const indexY = Math.abs(y / height) % grid[0].length
+  useEffect(() => {
+    connect()
+  }, []) // eslint-disable-line
 
-  //     gridComponents.push(
-  //       <Rect
-  //         x={x}
-  //         y={y}
-  //         width={width}
-  //         height={height}
-  //         fill={grid[indexX][indexY]}
-  //         stroke="gray"
-  //         strokeWidth={2}
-  //         dash={['5', '5']}
-  //       />
-  //     )
-  //   }
-  // }
+  useEffect(() => {
+    socket.on('line.message', data => {
+      setLines(data)
+    })
+  }, [lines])
 
-  // async function handleDragEnd(e) {
-  //   api.put('chartokens', {
-  //     id: e.target.id(),
-  //     x: e.target.x(),
-  //     y: e.target.y(),
-  //   })
-  // }
-  // async function handleRotate(e) {
-  //   api.put('chartokens', {
-  //     id: e.target.id(),
-  //     rotation: e.target.rotation(),
-  //   })
-  // }
-
-  // const Token = props => {
-  //   const { image } = props
-  //   const { id } = props
-  //   const { x } = props
-  //   const { y } = props
-  //   const { width } = props
-  //   const { height } = props
-  //   const { rotation } = props
-
-  //   const [tokenImg] = useImage(image)
-
-  //   return (
-  //     <Image
-  //       draggable
-  //       id={id}
-  //       x={x}
-  //       y={y}
-  //       image={tokenImg}
-  //       width={width}
-  //       height={height}
-  //       scaleX={1}
-  //       offsetX={width / 2}
-  //       offsetY={height / 2}
-  //       rotation={rotation}
-  //       onDragEnd={handleDragEnd}
-  //       onClick={handleRotate}
-  //     />
-  //   )
-  // }
-
-  const [map] = useImage(
-    'https://i.pinimg.com/originals/2f/d0/e5/2fd0e571854e1f94392b4e47db228659.jpg'
-  )
+  const [map] = useImage('https://i.imgur.com/cUyn2zF.jpg')
 
   return (
     <Stage
       x={stagePos.x}
       y={stagePos.y}
-      width={1200}
-      height={600}
-      draggable
+      width={3840}
+      height={2160}
+      // draggable
       onDragEnd={e => {
         setStagePos(e.currentTarget.position())
       }}
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
+      onMouseMove={handleMouseMove}
     >
       <Layer>
-        {/* {gridComponents} */}
-        <Image image={map} opacity={0.8} />
+        <Image image={map} opacity={0.88} />
         {tokens &&
-          tokens.tokens &&
-          tokens.tokens.map(item => (
+          tokens.map(item => (
             <Token
               tokens={tokens}
               key={item.id}
@@ -135,26 +84,20 @@ export default function RenderMap(tokens) {
               rotation={item.rotation}
             />
           ))}
-        {/* {tokens &&
-          tokens.tokens &&
-          tokens.tokens.map(item => (
-            <Image
-              draggable
-              id={item.id}
-              x={item.x}
-              y={item.y}
-              image={tok}
-              width={item.width}
-              height={item.height}
-              offsetX={item.width / 2}
-              offsetY={item.height / 2}
-              scaleX={1}
-              rotation={item.angle}
-              onDragEnd={handleDragEnd}
-              onClick={handleRotate}
-            />
-          ))} */}
+        {lines.map((line, i) => (
+          // eslint-disable-next-line
+          <Line key={i} points={line} stroke="red" strokeWidth={3} />
+        ))}
       </Layer>
     </Stage>
   )
+}
+
+RenderMap.propTypes = {
+  tokens: PropTypes.arrayOf(PropTypes.object),
+  tool: PropTypes.string.isRequired,
+}
+
+RenderMap.defaultProps = {
+  tokens: [],
 }

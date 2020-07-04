@@ -165,6 +165,13 @@ export default function TopNav() {
           <Link onClick={handleRemoveClick} to="/notes">
             NOTAS
           </Link>
+
+          {/* <Link onClick={handleRemoveClick} to="/gmtools">
+            GM
+          </Link> */}
+          <Link onClick={handleRemoveClick} to="/map">
+            MAP
+          </Link>
         </ul>
       </Container>
     </Navigation>

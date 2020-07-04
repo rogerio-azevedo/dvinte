@@ -1,12 +1,33 @@
 import React from 'react'
 import { Image } from 'react-konva'
+import Konva from 'konva'
 import useImage from 'use-image'
 import PropTypes from 'prop-types'
 
 import api from '~/services/api'
 
 export default function Token({ image, id, x, y, width, height, rotation }) {
+  async function handleDragStart(e) {
+    e.target.setAttrs({
+      shadowOffset: {
+        x: 15,
+        y: 15,
+      },
+      scaleX: 1.1,
+      scaleY: 1.1,
+    })
+  }
+
   async function handleDragEnd(e) {
+    e.target.to({
+      duration: 0.7,
+      easing: Konva.Easings.ElasticEaseOut,
+      scaleX: 1,
+      scaleY: 1,
+      shadowOffsetX: 5,
+      shadowOffsetY: 5,
+    })
+
     api.put('chartokens', {
       id: e.target.id(),
       x: e.target.x(),
@@ -35,6 +56,11 @@ export default function Token({ image, id, x, y, width, height, rotation }) {
       offsetX={width / 2}
       offsetY={height / 2}
       rotation={rotation}
+      shadowOpacity={0.6}
+      shadowBlur={10}
+      innerRadius={20}
+      outerRadius={40}
+      onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
       onClick={handleRotate}
     />
