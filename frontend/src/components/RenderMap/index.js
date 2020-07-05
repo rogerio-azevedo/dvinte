@@ -50,7 +50,10 @@ export default function RenderMap({ tokens, tool }) {
     })
   }, [lines])
 
-  const [map] = useImage('https://i.imgur.com/cUyn2zF.jpg')
+  // const [map] = useImage('https://i.imgur.com/cUyn2zF.jpg')
+  const [map] = useImage(
+    'https://i.pinimg.com/originals/10/0e/2b/100e2bc6b357eb9909ce215f8d2c72ba.png'
+  )
 
   return (
     <Stage
@@ -93,11 +96,11 @@ export default function RenderMap({ tokens, tool }) {
   )
 }
 
-// RenderMap.propTypes = {
-//   tokens: PropTypes.arrayOf(PropTypes.object),
-//   tool: PropTypes.string.isRequired,
-// }
+RenderMap.propTypes = {
+  tokens: PropTypes.arrayOf(PropTypes.object),
+  tool: PropTypes.string.isRequired,
+}
 
-// RenderMap.defaultProps = {
-//   tokens: [],
-// }
+RenderMap.defaultProps = {
+  tokens: [],
+}
