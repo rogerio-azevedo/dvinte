@@ -93,11 +93,11 @@ export default function RenderMap({ tokens, tool }) {
   )
 }
 
-RenderMap.propTypes = {
-  tokens: PropTypes.arrayOf(PropTypes.object),
-  tool: PropTypes.string.isRequired,
-}
+// RenderMap.propTypes = {
+//   tokens: PropTypes.arrayOf(PropTypes.object),
+//   tool: PropTypes.string.isRequired,
+// }
 
-RenderMap.defaultProps = {
-  tokens: [],
-}
+// RenderMap.defaultProps = {
+//   tokens: [],
+// }
