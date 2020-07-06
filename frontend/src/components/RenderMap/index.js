@@ -88,8 +88,7 @@ export default function RenderMap({ tokens, tool }) {
             />
           ))}
         {lines.map((line, i) => (
-          // eslint-disable-next-line
-          <Line key={i} points={line} stroke="red" strokeWidth={3} />
+          <Line key={i} points={line} stroke="red" strokeWidth={3} /> // eslint-disable-line
         ))}
       </Layer>
     </Stage>
