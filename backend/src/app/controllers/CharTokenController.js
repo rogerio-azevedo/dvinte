@@ -35,14 +35,30 @@ class CharTokenController {
     return res.json(tokens)
   }
 
+  async store(req, res) {
+    const chartoken = await CharToken.create(req.body)
+
+    return res.json(chartoken)
+  }
+
   async update(req, res) {
     const char = await CharToken.findByPk(req.body.id)
 
     const { x } = req.body
     const { y } = req.body
+    const { width } = req.body
+    const { height } = req.body
     const { rotation } = req.body
 
-    if (x && y && rotation) {
+    if (x && y && rotation && width && height) {
+      await char.update({
+        x,
+        y,
+        width,
+        height,
+        rotation: Math.floor(rotation),
+      })
+    } else if (x && y && rotation) {
       await char.update({
         x,
         y,

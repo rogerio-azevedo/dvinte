@@ -6,9 +6,9 @@ class CharToken extends Model {
       {
         x: Sequelize.FLOAT,
         y: Sequelize.FLOAT,
-        width: Sequelize.INTEGER,
-        height: Sequelize.INTEGER,
-        rotation: Sequelize.INTEGER,
+        width: Sequelize.FLOAT,
+        height: Sequelize.FLOAT,
+        rotation: Sequelize.FLOAT,
       },
       {
         sequelize,

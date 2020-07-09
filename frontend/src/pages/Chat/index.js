@@ -375,9 +375,6 @@ export default function Chat() {
   return (
     <Styles.Container>
       <Styles.CombatContainer>
-        <Styles.MapContainer>
-          <RenderMap tokens={tokens} tool={tool} />
-        </Styles.MapContainer>
         <Styles.CharContainer>
           <Styles.StatusContainer>
             <Styles.GroupStatus>
@@ -477,7 +474,11 @@ export default function Chat() {
             <div />
           </Styles.AttackContainer>
         </Styles.CharContainer>
+        <Styles.MapContainer>
+          <RenderMap tokens={tokens} tool={tool} />
+        </Styles.MapContainer>
       </Styles.CombatContainer>
+
       <Styles.TalkContainer>
         <Styles.ChatContainer>
           <Styles.ChatHistory>

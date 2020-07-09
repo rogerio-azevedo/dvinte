@@ -6,7 +6,9 @@ const path = require('path')
 
 class TokenController {
   async index(req, res) {
-    const list = await Token.findAll()
+    const list = await Token.findAll({
+      attributes: ['id', 'name', 'url'],
+    })
 
     return res.json(list)
   }

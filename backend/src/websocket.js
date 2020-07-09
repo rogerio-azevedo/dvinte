@@ -42,7 +42,6 @@ exports.setupWebsocket = server => {
     socket.on('line.message', messageData => {
       messages.push(messageData)
       io.emit('line.message', messageData)
-      console.log(messages)
     })
   })
 }

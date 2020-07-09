@@ -78,6 +78,7 @@ routes.post('/tokens', upload.single('file'), TokenController.store)
 routes.get('/tokens', TokenController.index)
 
 routes.get('/chartokens', CharTokenController.index)
+routes.post('/chartokens', CharTokenController.store)
 routes.put('/chartokens', CharTokenController.update)
 
 routes.post('/attributes', AttributeController.store)
