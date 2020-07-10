@@ -16,6 +16,7 @@ export default function RenderToken({
   rotation,
   onSelect,
   isSelected,
+  draggable,
 }) {
   const shapeRef = useRef()
   const trRef = useRef()
@@ -71,7 +72,7 @@ export default function RenderToken({
   return (
     <>
       <Image
-        draggable
+        draggable={draggable}
         id={id}
         x={x}
         y={y}
@@ -108,4 +109,5 @@ RenderToken.propTypes = {
   rotation: PropTypes.number.isRequired,
   onSelect: PropTypes.func.isRequired,
   isSelected: PropTypes.bool.isRequired,
+  draggable: PropTypes.bool.isRequired,
 }

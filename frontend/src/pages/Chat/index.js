@@ -33,7 +33,6 @@ export default function Chat() {
   const [weapon, setWeapon] = useState()
   const [weapons, setWeapons] = useState()
   const [initiatives, setInitiatives] = useState([])
-  const [tool, setTool] = React.useState('Mão')
 
   const from = profile.id
   const messagesEndRef = React.createRef(null)
@@ -449,15 +448,6 @@ export default function Chat() {
                 )}
               </div>
             </Styles.WeaponContainer>
-            <select
-              value={tool}
-              onChange={e => {
-                setTool(e.target.value)
-              }}
-            >
-              <option value="Pincel">Pincel</option>
-              <option value="Mão">Mão</option>
-            </select>
             <div>
               <div>
                 <button type="button" onClick={handleAttack}>
@@ -470,12 +460,11 @@ export default function Chat() {
                 </button>
               </div>
             </div>
-
             <div />
           </Styles.AttackContainer>
         </Styles.CharContainer>
         <Styles.MapContainer>
-          <RenderMap tokens={tokens} tool={tool} />
+          <RenderMap tokens={tokens} />
         </Styles.MapContainer>
       </Styles.CombatContainer>
 

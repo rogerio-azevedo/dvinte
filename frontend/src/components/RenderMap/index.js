@@ -7,16 +7,20 @@ import { connect, socket } from '~/services/socket'
 import RenderToken from '~/components/RenderToken'
 import { Container } from './styles'
 
-export default function RenderMap({ tokens, tool }) {
+export default function RenderMap({ tokens }) {
   const [stagePos, setStagePos] = useState({ x: 0, y: 0 })
   const [lines, setLines] = useState([])
   const [isDrawing, setIsDrawing] = useState(false)
+  const [isDraggable, setIsDraggable] = useState(false)
   const [selectedId, selectShape] = useState(null)
 
-  function handleMouseDown() {
-    if (tool === 'Pincel') {
+  function handleMouseDown({ evt }) {
+    if (evt.button === 1) {
       setIsDrawing(true)
+      setIsDraggable(false)
       setLines([...lines, []])
+    } else if (evt.button === 0) {
+      setIsDraggable(true)
     }
   }
 
@@ -26,14 +30,14 @@ export default function RenderMap({ tokens, tool }) {
       selectShape(null)
     }
 
-    if (isDrawing && tool === 'Pincel') {
+    if (isDrawing) {
       setIsDrawing(false)
       socket.emit('line.message', lines)
     }
   }
 
   function handleMouseMove({ evt }) {
-    if (!isDrawing && tool !== 'Pincel') {
+    if (!isDrawing) {
       return
     }
     const { offsetX, offsetY } = evt
@@ -46,36 +50,6 @@ export default function RenderMap({ tokens, tool }) {
       setLines(lines.concat())
     }
   }
-
-  // const addLine = (stage, layer, mode = 'brush') => {
-  //   let isPaint = false
-  //   let lastLine
-  //   stage.on('mousedown touchstart', function (e) {
-  //     isPaint = true
-  //     const pos = stage.getPointerPosition()
-  //     lastLine = new Line({
-  //       stroke: mode == 'brush' ? 'red' : 'white',
-  //       strokeWidth: mode == 'brush' ? 5 : 20,
-  //       globalCompositeOperation:
-  //         mode === 'brush' ? 'source-over' : 'destination-out',
-  //       points: [pos.x, pos.y],
-  //       draggable: mode == 'brush',
-  //     })
-  //     layer.add(lastLine)
-  //   })
-  //   stage.on('mouseup touchend', function () {
-  //     isPaint = false
-  //   })
-  //   stage.on('mousemove touchmove', function () {
-  //     if (!isPaint) {
-  //       return
-  //     }
-  //     const pos = stage.getPointerPosition()
-  //     const newPoints = lastLine.points().concat([pos.x, pos.y])
-  //     lastLine.points(newPoints)
-  //     layer.batchDraw()
-  //   })
-  // }
 
   useEffect(() => {
     connect()
@@ -111,7 +85,7 @@ export default function RenderMap({ tokens, tool }) {
         onMouseMove={handleMouseMove}
       >
         <Layer>
-          <Image image={map} opacity={0.88} />
+          <Image image={map} opacity={0.85} />
           {tokens &&
             tokens.map(item => (
               <RenderToken
@@ -130,6 +104,7 @@ export default function RenderMap({ tokens, tool }) {
                 offsetX={item.width / 2}
                 offsetY={item.height / 2}
                 rotation={item.rotation}
+                draggable={isDraggable}
               />
             ))}
 
@@ -139,10 +114,7 @@ export default function RenderMap({ tokens, tool }) {
               points={line}
               stroke="red"
               strokeWidth={3}
-              // globalCompositeOperation={
-              //   tool === 'Pincel' ? 'source-over' : 'destination-out'
-              // }
-            /> // eslint-disable-line
+            />
           ))}
         </Layer>
       </Stage>
@@ -152,7 +124,6 @@ export default function RenderMap({ tokens, tool }) {
 
 RenderMap.propTypes = {
   tokens: PropTypes.arrayOf(PropTypes.object),
-  tool: PropTypes.string.isRequired,
 }
 
 RenderMap.defaultProps = {
