@@ -32,10 +32,10 @@ export default function SelectWeapon({ changeWeapon, weapons }) {
   }
 
   return (
-    <div style={{ width: '250px', marginRight: '15px' }}>
+    <div style={{ width: '220px', marginRight: '15px' }}>
       <Select
         styles={customStyles}
-        maxMenuHeight={250}
+        maxMenuHeight={220}
         placeholder="ESCOLHA A ARMA"
         onChange={changeWeapon}
         isLoading={loading}
