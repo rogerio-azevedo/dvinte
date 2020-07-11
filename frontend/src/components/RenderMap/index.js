@@ -74,8 +74,8 @@ export default function RenderMap({ tokens }) {
       <Stage
         x={stagePos.x}
         y={stagePos.y}
-        width={3000}
-        height={3000}
+        width={1920}
+        height={1080}
         // draggable
         onDragEnd={e => {
           setStagePos(e.currentTarget.position())
@@ -85,6 +85,23 @@ export default function RenderMap({ tokens }) {
         onMouseMove={handleMouseMove}
       >
         <Layer>
+          {/* <Label x={150} y={50}>
+            <Tag
+              fill="black"
+              pointerDirection="down"
+              pointerWidth={10}
+              pointerHeight={10}
+              lineJoin="round"
+              shadowColor="black"
+            />
+            <Text
+              text="Tooltip pointing down"
+              fontFamily="Calibri"
+              fontSize={18}
+              padding={5}
+              fill="white"
+            />
+          </Label> */}
           <Image image={map} opacity={0.85} />
           {tokens &&
             tokens.map(item => (

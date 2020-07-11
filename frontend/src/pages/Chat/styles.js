@@ -15,16 +15,12 @@ export const CombatContainer = styled.div`
   flex-direction: column;
   height: 800px;
   overflow: auto;
-
-  /* padding: 20px; */
 `
 
 export const BaseContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 75%;
-
-  /* padding: 20px; */
 `
 
 export const MapContainer = styled.div`
@@ -34,38 +30,9 @@ export const MapContainer = styled.div`
   width: 2160px;
   border: 1px solid;
 
-  /* background-size: 55px 55px;
-  background-image: linear-gradient(to right, black 2px, transparent 2px),
-    linear-gradient(to bottom, black 2px, transparent 2px); */
-
   -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
   -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-`
-
-export const CharContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  height: 350px;
-
-  -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-  -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-
-  > div {
-    width: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    > div {
-      input {
-        height: 40px;
-        width: 45px;
-      }
-    }
-  }
 `
 
 export const TalkContainer = styled.div`
@@ -73,7 +40,7 @@ export const TalkContainer = styled.div`
   display: flex;
   width: 25%;
   flex-direction: column;
-  height: 800px;
+  height: 790px;
   border: 1px solid;
 
   -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
@@ -88,35 +55,12 @@ export const ChatContainer = styled.div`
   align-self: left;
 `
 
-export const InitContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-
-  input {
-    color: #6f0000;
-    width: 50px;
-    height: 40px;
-    text-align: center;
-    font-weight: 600;
-    font-size: 20px;
-    margin: 2px;
-    border-radius: 4px;
-
-    border: 0;
-    -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
-    -moz-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
-    box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
-  }
-`
-
 export const ChatHistory = styled.div`
   padding: 30px 30px 20px;
   border-bottom: 2px solid white;
   overflow-y: scroll;
-  height: 550px;
+  height: 480px;
 `
-
-export const List = styled.ul``
 
 export const MessageData = styled.div`
   margin-bottom: 15px;
@@ -214,7 +158,7 @@ export const DiceContainer = styled.div`
 `
 
 export const InputMulti = styled.input`
-  height: 38px;
+  height: 32px;
   text-align: center;
   font-size: 18px;
   padding: 11px;
@@ -238,7 +182,7 @@ export const InputMulti = styled.input`
 
 export const Dice = styled.div`
   background: #8e0e00;
-  height: 40px;
+  height: 35px;
   width: 50px;
   margin: 3px;
   border-radius: 4px;
@@ -263,122 +207,37 @@ export const Dice = styled.div`
   }
 `
 
-export const InitBoardContainer = styled.div`
-  max-height: 120px;
-  overflow: auto;
-
-  ul {
-    li {
-    }
-  }
-`
-
-export const InitUser = styled.input`
-  color: #6f0000;
-  width: 270px !important;
-  height: 25px !important;
-  text-align: center;
-  font-weight: 500 !important;
-  font-size: 14px !important;
-  margin: 2px;
-  border-radius: 4px;
-
-  border: 0;
-  -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
-  -moz-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
-  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
-`
-
-export const InitValue = styled.input`
-  color: #6f0000;
-  width: 50px !important;
-  height: 25px !important;
-  text-align: center;
-  font-weight: 500 !important;
-  font-size: 14px !important;
-  margin: 2px;
-  border-radius: 4px;
-
-  border: 0;
-  -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
-  -moz-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
-  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
-`
-
-export const StatusContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`
-
-export const GroupStatus = styled.div`
-  display: flex;
-  flex-direction: row;
-  margin-top: 10px;
-`
-export const Resume = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 5px;
-
-  label {
-    width: 70px;
-    font-weight: 600;
-    color: #6f0000;
-    text-align: center;
-  }
-`
-
-export const InputResume = styled.input`
-  color: #6f0000;
-  width: 70px !important;
-  height: 30px !important;
-  text-align: center;
-  font-weight: 600;
-  font-size: 16px;
-  margin: 2px;
-  border-radius: 4px;
-
-  border: 0;
-  -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
-  -moz-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
-  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
-`
-
 export const AttackContainer = styled.div`
   display: flex;
-  flex-direction: column;
-  width: 220px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
 
-  > div {
-    display: flex;
-    flex-direction: row;
+  button {
+    color: #6f0000;
+    width: 60px !important;
+    height: 40px !important;
+    text-align: center;
+    font-weight: 600;
+    font-size: 14px;
+    margin-right: 8px;
+    margin-left: 8px;
+    border-radius: 4px;
+    border: 0;
 
-    button {
-      color: #6f0000;
-      width: 80px;
-      height: 40px;
-      text-align: center;
-      font-weight: 600;
-      font-size: 14px;
-      margin-right: 8px;
-      margin-left: 8px;
-      border-radius: 4px;
-      border: 0;
-      margin-top: 20px;
+    &:hover {
+      background: ${darken(0.1, '#200122')};
+      color: #fff;
 
-      &:hover {
-        background: ${darken(0.1, '#200122')};
-        color: #fff;
-
-        -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
-        -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
-        box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
-      }
-
-      -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
-      -moz-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
-      box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+      -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
+      -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
+      box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
     }
+
+    -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+    box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
   }
 `
 
@@ -397,13 +256,13 @@ export const ActionContainer = styled.div`
 
     > div {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       padding: 2px;
 
       button {
         color: #6f0000;
         width: 80px;
-        height: 40px;
+        height: 35px !important;
         text-align: center;
         font-weight: 600;
         font-size: 14px;

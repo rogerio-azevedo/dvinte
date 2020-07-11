@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, createRef } from 'react'
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import { format, parseISO } from 'date-fns'
@@ -9,6 +9,8 @@ import SelectWeapon from '~/components/SelectWeapon'
 
 import { connect, socket } from '~/services/socket'
 import RenderMap from '~/components/RenderMap'
+import ModalCharacterStatus from '~/components/ModalCharacterStatus'
+import ModalInitiatives from '~/components/ModalInitiatives'
 
 import * as Styles from './styles'
 
@@ -24,18 +26,13 @@ export default function Chat() {
   const [fortitude, setFortitude] = useState()
   const [reflex, setReflex] = useState()
   const [will, setWill] = useState()
-  const [melee, setMelee] = useState()
-  const [ranged, setRanged] = useState()
   const [maxDex, setMaxDex] = useState()
-  const [totalCa, setTotalCa] = useState()
-  const [health, setHealth] = useState()
-  const [healthNow, setHealthNow] = useState()
   const [weapon, setWeapon] = useState()
   const [weapons, setWeapons] = useState()
-  const [initiatives, setInitiatives] = useState([])
+  const [charStatus, setCharStatus] = useState()
 
   const from = profile.id
-  const messagesEndRef = React.createRef(null)
+  const messagesEndRef = createRef(null)
 
   function scrollToBottom() {
     if (messagesEndRef.current) {
@@ -101,8 +98,6 @@ export default function Chat() {
       const DexMod = char.DexModTemp ? char.DexModTemp : char.DexMod
       const WisMod = char.WisModTemp ? char.WisModTemp : char.WisMod
 
-      setCharInit(DexMod)
-
       const shield = char.Armor.filter(t => t.type === 2).reduce((acc, val) => {
         return acc + val.bonus
       }, 0)
@@ -125,26 +120,24 @@ export default function Chat() {
       const bonusDext = await calcDext(DexMod)
       const ca = 10 + shield + armor + bonusDext
 
-      setMelee(char.BaseAttack + StrMod)
-      setRanged(char.BaseAttack + DexMod)
-      setHealth(char.Health)
-      setHealthNow(char.HealthNow)
-      setTotalCa(ca)
+      setCharInit(DexMod)
       setFortitude(char.Fortitude + ConMod)
       setReflex(char.Reflex + DexMod)
       setWill(char.Will + WisMod)
 
+      setCharStatus({
+        fortitude: char.Fortitude + ConMod,
+        reflex: char.Reflex + DexMod,
+        will: char.Will + WisMod,
+        charInit: DexMod,
+        melee: char.BaseAttack + StrMod,
+        ranged: char.BaseAttack + DexMod,
+        totalCa: ca,
+        health: char.Health,
+        healthNow: char.HealthNow,
+      })
+
       setLoadChar(false)
-    } catch (e) {
-      toast.error('Conexao com a API mal sucedida.')
-    }
-  }
-
-  async function loadInitiative() {
-    try {
-      const response = await api.get('/initiatives')
-
-      setInitiatives(response.data)
     } catch (e) {
       toast.error('Conexao com a API mal sucedida.')
     }
@@ -159,7 +152,6 @@ export default function Chat() {
     getCharacter()
     GetTokens()
     loadAllMessages()
-    loadInitiative()
   }, []) // eslint-disable-line
 
   useEffect(() => {
@@ -170,15 +162,6 @@ export default function Chat() {
 
     return () => socket.off('chat.message', handleNewMessage)
   }, [messages])
-
-  useEffect(() => {
-    const handleNewInit = newInitiative =>
-      setInitiatives([...initiatives, newInitiative])
-
-    socket.on('init.message', handleNewInit)
-
-    return () => socket.off('init.message', handleNewInit)
-  }, [initiatives])
 
   useEffect(() => {
     const handleTokens = Tokens => setTokens(Tokens)
@@ -221,29 +204,6 @@ export default function Chat() {
       user_id: profile.id,
       user: profile.name,
       message: rolled,
-    })
-  }
-
-  async function handleInitiative() {
-    const dext = !loadChar && charInit
-
-    const dice = Math.floor(Math.random() * 20) + 1
-
-    const init = dext + dice
-
-    const rolled = `Rolou iniciativa d20: ${dice} + ${dext} de destreza, com resultado: ${init}`
-
-    api.post('chats', {
-      id: from,
-      user_id: profile.id,
-      user: profile.name,
-      message: rolled,
-    })
-
-    api.post('initiatives', {
-      user_id: profile.id,
-      user: profile.name,
-      initiative: init,
     })
   }
 
@@ -374,95 +334,6 @@ export default function Chat() {
   return (
     <Styles.Container>
       <Styles.CombatContainer>
-        <Styles.CharContainer>
-          <Styles.StatusContainer>
-            <Styles.GroupStatus>
-              <Styles.Resume>
-                <label htmlFor="inputResist">Fortitude</label>
-                <Styles.InputResume readOnly defaultValue={fortitude} />
-              </Styles.Resume>
-              <Styles.Resume>
-                <label htmlFor="inputResist">Reflexos</label>
-                <Styles.InputResume readOnly defaultValue={reflex} />
-              </Styles.Resume>
-              <Styles.Resume>
-                <label htmlFor="inputResist">Vontade</label>
-                <Styles.InputResume readOnly defaultValue={will} />
-              </Styles.Resume>
-              <Styles.Resume>
-                <label htmlFor="inputResist">Iniciativa</label>
-                <Styles.InputResume readOnly defaultValue={charInit} />
-              </Styles.Resume>
-            </Styles.GroupStatus>
-
-            <Styles.GroupStatus>
-              <Styles.Resume>
-                <label htmlFor="inputResist">CA</label>
-                <Styles.InputResume readOnly defaultValue={totalCa} />
-              </Styles.Resume>
-              <Styles.Resume>
-                <label htmlFor="inputResist">Melee</label>
-                <Styles.InputResume readOnly defaultValue={melee} />
-              </Styles.Resume>
-              <Styles.Resume>
-                <label htmlFor="inputResist">Ranged</label>
-                <Styles.InputResume readOnly defaultValue={ranged} />
-              </Styles.Resume>
-              <Styles.Resume>
-                <label htmlFor="inputResist">PV</label>
-                <Styles.InputResume readOnly defaultValue={health} />
-              </Styles.Resume>
-              <Styles.Resume>
-                <label htmlFor="inputResist">PV Atual</label>
-                <Styles.InputResume readOnly defaultValue={healthNow} />
-              </Styles.Resume>
-            </Styles.GroupStatus>
-          </Styles.StatusContainer>
-          <Styles.InitContainer>
-            <Styles.InitBoardContainer>
-              <h3>Iniciativa</h3>
-
-              <ul>
-                {initiatives
-                  .sort((a, b) => b.initiative - a.initiative)
-                  .map(item => (
-                    <li key={Math.random()}>
-                      <Styles.InitUser readOnly defaultValue={item.user} />
-                      <Styles.InitValue
-                        readOnly
-                        defaultValue={item.initiative}
-                      />
-                    </li>
-                  ))}
-              </ul>
-            </Styles.InitBoardContainer>
-          </Styles.InitContainer>
-          <Styles.AttackContainer>
-            <Styles.WeaponContainer>
-              <div>
-                {!loadChar && (
-                  <SelectWeapon
-                    weapons={weapons}
-                    changeWeapon={e => setWeapon(e && e.value)}
-                  />
-                )}
-              </div>
-            </Styles.WeaponContainer>
-            <div>
-              <div>
-                <button type="button" onClick={handleAttack}>
-                  Atacar
-                </button>
-              </div>
-              <div>
-                <button type="button" onClick={handleDamage}>
-                  Dano
-                </button>
-              </div>
-            </div>
-            <div />
-          </Styles.AttackContainer>
-        </Styles.CharContainer>
         <Styles.MapContainer>
           <RenderMap tokens={tokens} />
         </Styles.MapContainer>
@@ -471,7 +342,7 @@ export default function Chat() {
       <Styles.TalkContainer>
         <Styles.ChatContainer>
           <Styles.ChatHistory>
-            <Styles.List>
+            <ul>
               {messages.map((m, index) => (
                 <Styles.ListMessage
                   ref={messagesEndRef}
@@ -491,7 +362,7 @@ export default function Chat() {
                   </Styles.Message>
                 </Styles.ListMessage>
               ))}
-            </Styles.List>
+            </ul>
           </Styles.ChatHistory>
 
           <Styles.FormMessage onSubmit={handleFormSubmit}>
@@ -559,11 +430,6 @@ export default function Chat() {
         <Styles.ActionContainer>
           <div>
             <div>
-              <button type="button" onClick={handleInitiative}>
-                Iniciativa
-              </button>
-            </div>
-            <div>
               <button type="button" onClick={handleFortitude}>
                 Fortitude
               </button>
@@ -579,6 +445,43 @@ export default function Chat() {
               </button>
             </div>
           </div>
+        </Styles.ActionContainer>
+        <Styles.ActionContainer>
+          <div>
+            {!loadChar && (
+              <ModalInitiatives
+                profile={profile}
+                from={from}
+                charInit={charInit}
+              />
+            )}
+          </div>
+          <div>
+            {!loadChar && <ModalCharacterStatus charStatus={charStatus} />}
+          </div>
+        </Styles.ActionContainer>
+        <Styles.ActionContainer>
+          <Styles.AttackContainer>
+            <Styles.WeaponContainer>
+              {!loadChar && (
+                <SelectWeapon
+                  weapons={weapons}
+                  changeWeapon={e => setWeapon(e && e.value)}
+                />
+              )}
+            </Styles.WeaponContainer>
+
+            <div>
+              <button type="button" onClick={handleAttack}>
+                Atacar
+              </button>
+            </div>
+            <div>
+              <button type="button" onClick={handleDamage}>
+                Dano
+              </button>
+            </div>
+          </Styles.AttackContainer>
         </Styles.ActionContainer>
       </Styles.TalkContainer>
     </Styles.Container>
