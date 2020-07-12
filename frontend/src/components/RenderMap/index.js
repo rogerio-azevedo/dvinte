@@ -61,14 +61,16 @@ export default function RenderMap({ tokens }) {
     })
   }, [lines])
 
-  // const [map] = useImage(
-  //   'https://i.pinimg.com/originals/10/0e/2b/100e2bc6b357eb9909ce215f8d2c72ba.png'
-  // )
+  const [map] = useImage(
+    'https://i.pinimg.com/originals/10/0e/2b/100e2bc6b357eb9909ce215f8d2c72ba.png'
+  )
 
   // const [map] = useImage('https://i.imgur.com/cUyn2zF.jpg')
-  const [map] = useImage(
-    'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/7496599d-01b9-4cc1-87e2-6c6313c4df5f/dd2zqek-fbaa86e2-d1e7-4935-b8cb-29fb8a117342.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3sicGF0aCI6IlwvZlwvNzQ5NjU5OWQtMDFiOS00Y2MxLTg3ZTItNmM2MzEzYzRkZjVmXC9kZDJ6cWVrLWZiYWE4NmUyLWQxZTctNDkzNS1iOGNiLTI5ZmI4YTExNzM0Mi5wbmcifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ.upcbJj1jL9lY6qm-PHeNSh_RBfa3rpXAKLbJDLKxDDs'
-  )
+
+  // const [map] = useImage(
+  //   'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/7496599d-01b9-4cc1-87e2-6c6313c4df5f/dd2zqek-fbaa86e2-d1e7-4935-b8cb-29fb8a117342.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3sicGF0aCI6IlwvZlwvNzQ5NjU5OWQtMDFiOS00Y2MxLTg3ZTItNmM2MzEzYzRkZjVmXC9kZDJ6cWVrLWZiYWE4NmUyLWQxZTctNDkzNS1iOGNiLTI5ZmI4YTExNzM0Mi5wbmcifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ.upcbJj1jL9lY6qm-PHeNSh_RBfa3rpXAKLbJDLKxDDs'
+  // )
+
   return (
     <Container>
       <Stage
