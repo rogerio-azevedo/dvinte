@@ -76,8 +76,8 @@ export default function RenderMap({ tokens }) {
       <Stage
         x={stagePos.x}
         y={stagePos.y}
-        width={1920}
-        height={1080}
+        width={3000}
+        height={3000}
         // draggable
         onDragEnd={e => {
           setStagePos(e.currentTarget.position())
