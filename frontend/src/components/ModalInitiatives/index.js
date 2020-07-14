@@ -63,6 +63,7 @@ export default function ModalInitiatives({ from, profile, charInit }) {
       user_id: profile.id,
       user: profile.name,
       message: rolled,
+      type: 8,
     })
 
     api.post('initiatives', {

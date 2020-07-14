@@ -9,7 +9,6 @@ export const Container = styled.div`
 
 export const HeaderContainer = styled.div`
   display: flex;
-
   justify-content: space-between !important;
 `
 

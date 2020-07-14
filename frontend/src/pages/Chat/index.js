@@ -180,6 +180,7 @@ export default function Chat() {
         user_id: profile.id,
         user: profile.name,
         message,
+        type: 1,
       })
 
       setMessage('')
@@ -204,6 +205,7 @@ export default function Chat() {
       user_id: profile.id,
       user: profile.name,
       message: rolled,
+      type: 2,
     })
   }
 
@@ -244,6 +246,7 @@ export default function Chat() {
         user_id: profile.id,
         user: profile.name,
         message: rolled,
+        type: 3,
       })
     }
   }
@@ -282,6 +285,7 @@ export default function Chat() {
         user_id: profile.id,
         user: profile.name,
         message: rolled,
+        type: 4,
       })
     }
   }
@@ -298,6 +302,7 @@ export default function Chat() {
       user_id: profile.id,
       user: profile.name,
       message: rolled,
+      type: 5,
     })
   }
 
@@ -313,6 +318,7 @@ export default function Chat() {
       user_id: profile.id,
       user: profile.name,
       message: rolled,
+      type: 6,
     })
   }
 
@@ -328,6 +334,7 @@ export default function Chat() {
       user_id: profile.id,
       user: profile.name,
       message: rolled,
+      type: 7,
     })
   }
 
