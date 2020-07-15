@@ -17,6 +17,7 @@ class Weapon extends Model {
         price: Sequelize.STRING,
         hit: Sequelize.INTEGER,
         damage: Sequelize.INTEGER,
+        is_twohand: Sequelize.BOOLEAN,
       },
       {
         sequelize,

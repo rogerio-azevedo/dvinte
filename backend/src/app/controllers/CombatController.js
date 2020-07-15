@@ -77,6 +77,7 @@ class CombatController {
             'price',
             'hit',
             'damage',
+            'is_twohand',
           ],
           as: 'weapon',
         },

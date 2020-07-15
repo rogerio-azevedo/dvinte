@@ -141,6 +141,7 @@ class CharacterController {
             'price',
             'hit',
             'damage',
+            'is_twohand',
           ],
           as: 'weapon',
         },

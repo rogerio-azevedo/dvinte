@@ -258,6 +258,9 @@ export default function Chat() {
       (await character) && character.StrModTemp
         ? character.StrModTemp
         : character.StrMod
+
+    const exMod = Math.floor(wep && wep.is_twohand ? mod * 1.5 : mod)
+
     const dice = wep && wep.dice
     const multi = wep && wep.multiplier
     const name = wep && wep.name
@@ -273,9 +276,9 @@ export default function Chat() {
       result += random()
     }
 
-    const totalDamage = Number(result) + Number(extraDamage) + Number(mod)
+    const totalDamage = Number(result) + Number(extraDamage) + Number(exMod)
 
-    const rolled = `Rolou dano ${multi} x d${dice}: ${result} + ${mod} + ${extraDamage} de bônus da arma ${name}, com resultado: ${totalDamage}`
+    const rolled = `Rolou dano ${multi} x d${dice}: ${result} + ${exMod} + ${extraDamage} de bônus da arma ${name}, com resultado: ${totalDamage}`
 
     if (!weapon) {
       toast.error('Escolha por favor uma arma antes de realizar o dano.')
