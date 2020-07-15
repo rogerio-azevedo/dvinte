@@ -32,12 +32,8 @@ export default function ModalInitiatives({ from, profile, charInit }) {
     setInitiatives(response.data)
   }
 
-  useEffect(() => {
-    connect()
-    loadInitiative()
-  }, []) // eslint-disable-line
-
   function openModal() {
+    loadInitiative()
     setIsOpen(true)
   }
 
@@ -87,6 +83,10 @@ export default function ModalInitiatives({ from, profile, charInit }) {
 
     setInitiatives([])
   }
+
+  useEffect(() => {
+    connect()
+  }, []) // eslint-disable-line
 
   return (
     <Styles.Container>
