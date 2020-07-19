@@ -18,6 +18,10 @@ const LogsSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    result: {
+      type: Number,
+      required: true,
+    },
     type: {
       type: Number,
       required: true,

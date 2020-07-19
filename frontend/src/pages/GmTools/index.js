@@ -6,11 +6,23 @@ import * as Styles from './styles'
 
 export default function GmTools() {
   const [character, setCharacter] = useState()
+  const [health, setHealth] = useState()
+
+  // function useInput({ type /* ... */ }) {
+  //   const input = (
+  //     <input
+  //       value={value}
+  //       onChange={e => setValue(e.target.value)}
+  //       type={type}
+  //     />
+  //   )
+  //   return [value, input]
+  // }
 
   function handleHealth() {
     api.put(
       '/healthnow',
-      { newHealth: 100 },
+      { newHealth: health },
       {
         params: {
           id: character,
@@ -25,7 +37,10 @@ export default function GmTools() {
       <Styles.HealthContainer>
         <SelectCharacter changeCharacter={e => setCharacter(e && e.value)} />
 
-        <Styles.InputHealth />
+        <Styles.InputHealth
+          value={health}
+          onChange={e => setHealth(e.target.value)}
+        />
         <Styles.ButtonHealth onClick={handleHealth}>
           Carregar
         </Styles.ButtonHealth>

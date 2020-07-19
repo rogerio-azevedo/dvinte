@@ -3,7 +3,7 @@ import Select from 'react-select'
 import PropTypes from 'prop-types'
 
 export default function SelectLevel({ changeLevel }) {
-  const [level, setLevels] = useState([])
+  const [level, setLevel] = useState([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export default function SelectLevel({ changeLevel }) {
         { value: 20, label: 'VINTE' },
       ]
 
-      setLevels(niveis)
+      setLevel(niveis)
       setLoading(false)
     }
     load()

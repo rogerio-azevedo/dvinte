@@ -11,6 +11,7 @@ import { connect, socket } from '~/services/socket'
 import RenderMap from '~/components/RenderMap'
 import ModalCharacterStatus from '~/components/ModalCharacterStatus'
 import ModalInitiatives from '~/components/ModalInitiatives'
+import ModalDamages from '~/components/ModalDamages'
 
 import * as Styles from './styles'
 
@@ -180,6 +181,7 @@ export default function Chat() {
         user_id: profile.id,
         user: profile.name,
         message,
+        result: 0,
         type: 1,
       })
 
@@ -205,6 +207,7 @@ export default function Chat() {
       user_id: profile.id,
       user: profile.name,
       message: rolled,
+      result: calc,
       type: 2,
     })
   }
@@ -246,6 +249,7 @@ export default function Chat() {
         user_id: profile.id,
         user: profile.name,
         message: rolled,
+        result: attack,
         type: 3,
       })
     }
@@ -288,6 +292,7 @@ export default function Chat() {
         user_id: profile.id,
         user: profile.name,
         message: rolled,
+        result: totalDamage,
         type: 4,
       })
     }
@@ -305,6 +310,7 @@ export default function Chat() {
       user_id: profile.id,
       user: profile.name,
       message: rolled,
+      result: fortitudeTest,
       type: 5,
     })
   }
@@ -321,6 +327,7 @@ export default function Chat() {
       user_id: profile.id,
       user: profile.name,
       message: rolled,
+      result: reflexTest,
       type: 6,
     })
   }
@@ -337,6 +344,7 @@ export default function Chat() {
       user_id: profile.id,
       user: profile.name,
       message: rolled,
+      result: willTest,
       type: 7,
     })
   }
@@ -468,6 +476,9 @@ export default function Chat() {
           </div>
           <div>
             {!loadChar && <ModalCharacterStatus charStatus={charStatus} />}
+          </div>
+          <div>
+            <ModalDamages />
           </div>
         </Styles.ActionContainer>
         <Styles.ActionContainer>

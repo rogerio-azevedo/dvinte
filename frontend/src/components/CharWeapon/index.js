@@ -18,8 +18,8 @@ export default function CharWeapon({ weapons }) {
               <input readOnly defaultValue={item.multiplier} />
             </div>
             <div>
-              <label htmlFor="inputResist">Dados</label>
-              <input readOnly defaultValue={item.dice} />
+              <label htmlFor="inputResist">Dado</label>
+              <input readOnly defaultValue={`d${item.dice}`} />
             </div>
             <div>
               <label htmlFor="inputResist">Crítico</label>
