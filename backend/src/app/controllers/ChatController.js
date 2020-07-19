@@ -36,6 +36,8 @@ class ChatController {
       user: chat.user,
       date: chat.createdAt,
       message: chat.message,
+      result: chat.result,
+      type: chat.type,
     }
     saveMessage(message)
 
