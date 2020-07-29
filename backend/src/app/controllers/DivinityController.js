@@ -9,6 +9,11 @@ class DivinityController {
     return res.json(list)
   }
 
+  async show(req, res) {
+    const div = await Divinity.findByPk(req.params.id)
+    return res.json(div)
+  }
+
   async store(req, res) {
     const divinity = await Divinity.create(req.body)
 

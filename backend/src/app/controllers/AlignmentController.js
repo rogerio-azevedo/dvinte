@@ -9,6 +9,11 @@ class AlignmentController {
     return res.json(list)
   }
 
+  async show(req, res) {
+    const alig = await Alignment.findByPk(req.params.id)
+    return res.json(alig)
+  }
+
   async store(req, res) {
     const alignments = await Alignment.create(req.body)
 

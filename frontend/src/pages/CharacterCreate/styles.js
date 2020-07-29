@@ -2,45 +2,88 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
   display: flex;
-  flex: 1;
+  justify-content: center;
   align-items: center;
-  align-self: center;
-  flex-direction: column;
-  margin: 20px;
-`
+  flex-direction: row;
+  padding: 50px;
 
-export const FormContainer = styled.div`
-  margin-top: 20px;
-`
-
-export const InputContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  justify-items: center;
-
-  span {
-    color: #bf1650;
-
-    &::before {
-      display: inline;
-      content: '⚠ ';
-    }
+  h1 {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
   }
 `
 
-export const InputText = styled.input`
-  width: 250px;
-  border: 1px solid;
-  border-radius: 4px;
-  height: 40px;
-  padding: 0 15px;
-  color: rgba(111, 0, 0, 1);
-  font-weight: 500;
-  font-size: 15px;
+export const ContentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 900px;
+  height: 600px;
+`
 
-  &::placeholder {
-    color: rgba(111, 0, 0, 0.5);
+export const ImageContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-gap: 15px;
+  padding: 20px 20px 0 20px;
+  overflow-y: scroll;
+  border-radius: 6px;
+`
+
+export const DivPage = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  margin-top: 10px;
+`
+
+export const ActivePage = styled.div`
+  background: #8e0e00;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin: 10px;
+  cursor: pointer;
+`
+
+export const Page = styled.div`
+  background: #bbb;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin: 10px;
+  cursor: pointer;
+`
+
+export const Item = styled.div`
+  width: 90px;
+  height: 110px;
+  cursor: pointer;
+
+  img {
+    width: 100%;
+    height: 110px;
+    object-fit: cover;
+    border-radius: 15%;
+    background: #aaa;
+    pointer-events: none;
+
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+
+    border: ${props => (props.ispicked ? '4px solid' : '0')};
+    border-color: ${props => (props.ispicked ? '#26d61c' : 'black')};
+    box-shadow: ${props =>
+      props.ispicked
+        ? '0px 0px 16px 0px rgba(0, 0, 0, 0.6)'
+        : '0px 0px 10px 0px rgba(0, 0, 0, 0.6)'};
   }
 `

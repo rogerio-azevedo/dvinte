@@ -3,7 +3,7 @@ import Select from 'react-select'
 import PropTypes from 'prop-types'
 import api from '~/services/api'
 
-export default function SelectDivinity({ changeDivinity }) {
+export default function SelectDivinity({ changeDivinity, defaultValue }) {
   const [divinity, setDivinity] = useState([])
   const [loading, setLoading] = useState(true)
 
@@ -35,6 +35,7 @@ export default function SelectDivinity({ changeDivinity }) {
   return (
     <div style={{ width: '250px', marginRight: '15px' }}>
       <Select
+        value={divinity.filter(option => option.value === defaultValue)}
         styles={customStyles}
         maxMenuHeight={250}
         placeholder="ESCOLHA A DIVINDADE"
@@ -49,4 +50,9 @@ export default function SelectDivinity({ changeDivinity }) {
 
 SelectDivinity.propTypes = {
   changeDivinity: PropTypes.func.isRequired,
+  defaultValue: PropTypes.number,
+}
+
+SelectDivinity.defaultProps = {
+  defaultValue: 0,
 }

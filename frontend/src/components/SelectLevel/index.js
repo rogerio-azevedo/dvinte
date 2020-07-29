@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react'
 import Select from 'react-select'
 import PropTypes from 'prop-types'
 
-export default function SelectLevel({ changeLevel }) {
+import * as Styles from './styles'
+
+export default function SelectLevel({ changeLevel, defaultValue }) {
   const [level, setLevel] = useState([])
   const [loading, setLoading] = useState(true)
 
@@ -38,18 +40,24 @@ export default function SelectLevel({ changeLevel }) {
   }, [])
 
   const customStyles = {
-    input: styles => {
-      return {
-        ...styles,
-        height: '30px',
-        minHeight: '30px',
-      }
-    },
+    option: provided => ({
+      ...provided,
+      borderBottom: '1px dotted #8e0e00',
+      color: '#8e0e00',
+      padding: 10,
+    }),
+
+    control: base => ({
+      ...base,
+      border: 0,
+      boxShadow: '0px 0px 6px 0px rgba(0, 0, 0, 0.6)',
+    }),
   }
 
   return (
-    <div style={{ width: '250px', marginRight: '15px' }}>
+    <Styles.Container>
       <Select
+        value={level.filter(option => option.value === defaultValue)}
         styles={customStyles}
         maxMenuHeight={250}
         placeholder="ESCOLHA O NIVEL"
@@ -58,10 +66,15 @@ export default function SelectLevel({ changeLevel }) {
         options={level}
         isClearable
       />
-    </div>
+    </Styles.Container>
   )
 }
 
 SelectLevel.propTypes = {
   changeLevel: PropTypes.func.isRequired,
+  defaultValue: PropTypes.number,
+}
+
+SelectLevel.defaultProps = {
+  defaultValue: 0,
 }

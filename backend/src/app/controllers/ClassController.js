@@ -9,6 +9,11 @@ class ClassController {
     return res.json(classes)
   }
 
+  async show(req, res) {
+    const classe = await Class.findByPk(req.params.id)
+    return res.json(classe)
+  }
+
   async store(req, res) {
     const classes = await Class.create(req.body)
 

@@ -11,6 +11,11 @@ class PortraitController {
     return res.json(list)
   }
 
+  async show(req, res) {
+    const portrait = await Portrait.findByPk(req.params.id)
+    return res.json(portrait)
+  }
+
   async store(req, res) {
     const {
       originalname: fileName,

@@ -27,6 +27,11 @@ import GmTools from '~/pages/GmTools'
 import Map from '~/pages/Map'
 import Combat from '~/pages/Combat'
 
+import CharBase from '~/pages/CharacterCreate/CharBase'
+import CharClass from '~/pages/CharacterCreate/CharClass'
+import CharAttributes from '~/pages/CharacterCreate/CharAttributes'
+import CharPreview from '~/pages/CharacterCreate/CharPreview'
+
 export default function Routes() {
   return (
     <Switch>
@@ -56,6 +61,11 @@ export default function Routes() {
       <Route path="/gmtools" component={GmTools} isPrivate />
       <Route path="/map" component={Map} isPrivate />
       <Route path="/combat" component={Combat} isPrivate />
+
+      <Route path="/charbase" component={CharBase} isPrivate />
+      <Route path="/charclass" component={CharClass} isPrivate />
+      <Route path="/charattributes" component={CharAttributes} isPrivate />
+      <Route path="/charpreview" component={CharPreview} isPrivate />
     </Switch>
   )
 }

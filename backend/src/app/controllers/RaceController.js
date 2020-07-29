@@ -9,6 +9,11 @@ class RaceController {
     return res.json(list)
   }
 
+  async show(req, res) {
+    const race = await Race.findByPk(req.params.id)
+    return res.json(race)
+  }
+
   async store(req, res) {
     const race = await Race.create(req.body)
 

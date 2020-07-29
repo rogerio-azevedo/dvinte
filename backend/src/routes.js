@@ -60,12 +60,15 @@ routes.get('/myprofile', MyProfileController.index)
 
 routes.post('/alignments', AlignmentController.store)
 routes.get('/alignments', AlignmentController.index)
+routes.get('/alignments/:id', AlignmentController.show)
 
 routes.post('/classes', ClassController.store)
 routes.get('/classes', ClassController.index)
+routes.get('/classes/:id', ClassController.show)
 
 routes.post('/divinities', DivinityController.store)
 routes.get('/divinities', DivinityController.index)
+routes.get('/divinities/:id', DivinityController.show)
 
 routes.post('/characters', CharacterController.store)
 routes.get('/characters', CharacterController.index)
@@ -74,6 +77,7 @@ routes.get('/characters/:character_id/classes', ClassController.index)
 
 routes.post('/portraits', upload.single('file'), PortraitController.store)
 routes.get('/portraits', PortraitController.index)
+routes.get('/portraits/:id', PortraitController.show)
 
 routes.post('/tokens', upload.single('file'), TokenController.store)
 routes.get('/tokens', TokenController.index)
@@ -87,6 +91,7 @@ routes.get('/attributes', AttributeController.index)
 
 routes.post('/races', RaceController.store)
 routes.get('/races', RaceController.index)
+routes.get('/races/:id', RaceController.show)
 
 routes.post('/campaigns', CampaignController.store)
 routes.get('/campaigns', CampaignController.index)

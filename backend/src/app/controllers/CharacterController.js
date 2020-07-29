@@ -8,6 +8,7 @@ import AttributeTemp from '../models/AttributeTemp'
 import User from '../models/User'
 import BaseAttack from '../models/BaseAttack'
 import BaseResist from '../models/BaseResist'
+import CharacterClass from '../models/CharacterClass'
 
 class CharacterController {
   async index(req, res) {
@@ -360,8 +361,120 @@ class CharacterController {
   }
 
   async store(req, res) {
-    const person = await Character.create(req.body)
+    const data = req.body
 
+    function getExp(lv) {
+      let exp = 0
+
+      switch (lv) {
+        case 1:
+          exp = 0
+          break
+        case 2:
+          exp = 1000
+          break
+        case 3:
+          exp = 3000
+          break
+        case 4:
+          exp = 6000
+          break
+        case 5:
+          exp = 10000
+          break
+        case 6:
+          exp = 15000
+          break
+        case 7:
+          exp = 21000
+          break
+        case 8:
+          exp = 28000
+          break
+        case 9:
+          exp = 36000
+          break
+        case 10:
+          exp = 45000
+          break
+        case 11:
+          exp = 55000
+          break
+        case 12:
+          exp = 66000
+          break
+        case 13:
+          exp = 78000
+          break
+        case 14:
+          exp = 91000
+          break
+        case 15:
+          exp = 105000
+          break
+        case 16:
+          exp = 120000
+          break
+        case 17:
+          exp = 136000
+          break
+        case 18:
+          exp = 153000
+          break
+        case 19:
+          exp = 171000
+          break
+        case 20:
+          exp = 190000
+          break
+        default:
+      }
+
+      return exp
+    }
+
+    const charData = {
+      name: data.name,
+      age: data.age,
+      gender: data.gender,
+      skin: data.skin,
+      eye: data.eye,
+      hair: data.hair,
+      height: data.height,
+      weight: data.weight,
+      level: data.level,
+      health: data.health,
+      health_now: data.health_now,
+      exp: getExp(data.level),
+      size: data.size,
+      user_id: data.user_id,
+      portrait_id: data.portrait_id,
+      alignment_id: data.alignment_id,
+      race_id: data.race_id,
+      divinity_id: data.divinity_id,
+      is_ativo: data.is_ativo,
+    }
+
+    const person = await Character.create(charData)
+
+    const attrData = {
+      character_id: person.id,
+      strength: req.body.attributes.str,
+      dexterity: req.body.attributes.dex,
+      contitution: req.body.attributes.con,
+      inteligence: req.body.attributes.int,
+      wisdom: req.body.attributes.wis,
+      charisma: req.body.attributes.cha,
+    }
+
+    const classData = req.body.classe.map(item => ({
+      ...item,
+      character_id: person.id,
+    }))
+
+    await Attribute.create(attrData)
+
+    await CharacterClass.bulkCreate(classData)
     return res.json(person)
   }
 }

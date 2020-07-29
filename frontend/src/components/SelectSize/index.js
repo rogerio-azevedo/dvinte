@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Select from 'react-select'
 import PropTypes from 'prop-types'
 
-export default function SelectSize({ changeSize }) {
+export default function SelectSize({ changeSize, defaultValue }) {
   const [size, setSize] = useState([])
   const [loading, setLoading] = useState(true)
 
@@ -33,6 +33,7 @@ export default function SelectSize({ changeSize }) {
   return (
     <div style={{ width: '250px', marginRight: '15px' }}>
       <Select
+        value={size.filter(option => option.value === defaultValue)}
         styles={customStyles}
         maxMenuHeight={250}
         placeholder="ESCOLHA O TAMANHO"
@@ -47,4 +48,9 @@ export default function SelectSize({ changeSize }) {
 
 SelectSize.propTypes = {
   changeSize: PropTypes.func.isRequired,
+  defaultValue: PropTypes.number,
+}
+
+SelectSize.defaultProps = {
+  defaultValue: 0,
 }

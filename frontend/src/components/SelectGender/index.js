@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Select from 'react-select'
 import PropTypes from 'prop-types'
 
-export default function SelectGender({ changeGender }) {
+export default function SelectGender({ changeGender, defaultValue }) {
   const [gender, setGender] = useState([])
   const [loading, setLoading] = useState(true)
 
@@ -32,6 +32,7 @@ export default function SelectGender({ changeGender }) {
   return (
     <div style={{ width: '250px', marginRight: '15px' }}>
       <Select
+        value={gender.filter(option => option.value === defaultValue)}
         styles={customStyles}
         maxMenuHeight={250}
         placeholder="ESCOLHA O SEXO"
@@ -46,4 +47,9 @@ export default function SelectGender({ changeGender }) {
 
 SelectGender.propTypes = {
   changeGender: PropTypes.func.isRequired,
+  defaultValue: PropTypes.number,
+}
+
+SelectGender.defaultProps = {
+  defaultValue: 0,
 }

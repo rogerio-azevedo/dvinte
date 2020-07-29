@@ -3,7 +3,7 @@ import Select from 'react-select'
 import PropTypes from 'prop-types'
 import api from '~/services/api'
 
-export default function SelectAlignment({ changeAlignment }) {
+export default function SelectAlignment({ changeAlignment, defaultValue }) {
   const [alignment, setAlignment] = useState([])
   const [loading, setLoading] = useState(true)
 
@@ -35,6 +35,7 @@ export default function SelectAlignment({ changeAlignment }) {
   return (
     <div style={{ width: '250px', marginRight: '15px' }}>
       <Select
+        value={alignment.filter(option => option.value === defaultValue)}
         styles={customStyles}
         maxMenuHeight={250}
         placeholder="ESCOLHA O ALINHAMENTO"
@@ -49,4 +50,9 @@ export default function SelectAlignment({ changeAlignment }) {
 
 SelectAlignment.propTypes = {
   changeAlignment: PropTypes.func.isRequired,
+  defaultValue: PropTypes.number,
+}
+
+SelectAlignment.defaultProps = {
+  defaultValue: 0,
 }

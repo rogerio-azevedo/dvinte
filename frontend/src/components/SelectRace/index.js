@@ -3,7 +3,7 @@ import Select from 'react-select'
 import PropTypes from 'prop-types'
 import api from '~/services/api'
 
-export default function SelectRace({ changeRace }) {
+export default function SelectRace({ changeRace, defaultValue }) {
   const [race, setRace] = useState([])
   const [loading, setLoading] = useState(true)
 
@@ -35,6 +35,7 @@ export default function SelectRace({ changeRace }) {
   return (
     <div style={{ width: '250px', marginRight: '15px' }}>
       <Select
+        value={race.filter(option => option.value === defaultValue)}
         styles={customStyles}
         maxMenuHeight={250}
         placeholder="ESCOLHA A RAÇA"
@@ -49,4 +50,9 @@ export default function SelectRace({ changeRace }) {
 
 SelectRace.propTypes = {
   changeRace: PropTypes.func.isRequired,
+  defaultValue: PropTypes.number,
+}
+
+SelectRace.defaultProps = {
+  defaultValue: 0,
 }
