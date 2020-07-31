@@ -109,7 +109,7 @@ class CharacterController {
           through: { attributes: ['level'] },
         },
         {
-          association: 'armor',
+          association: 'armors',
           attributes: [
             'id',
             'name',
@@ -118,31 +118,30 @@ class CharacterController {
             'dexterity',
             'penalty',
             'magic',
-            'displacement',
+            'displacement_s',
+            'displacement_m',
             'weight',
-            'special',
             'price',
           ],
-          as: 'armor',
+          through: { attributes: ['defense'] },
         },
         {
-          association: 'weapon',
+          association: 'weapons',
           attributes: [
             'id',
             'name',
-            'dice',
-            'multiplier',
+            'dice_s',
+            'dice_m',
+            'multiplier_s',
+            'multiplier_m',
             'critical',
+            'crit_from',
             'range',
             'type',
             'material',
-            'magic',
             'weight',
-            'special',
             'price',
-            'hit',
-            'damage',
-            'is_twohand',
+            'two_hand',
           ],
           as: 'weapon',
         },
@@ -321,41 +320,48 @@ class CharacterController {
       //   return acc + val.base_attack
       // }, 0)
 
-      Fortitude:
-        char &&
-        char.classes.reduce((total, c) => {
-          const base = baseResist.find(a => a.level === c.CharacterClass.level)
-          return total + ((base && base[c.fortitude]) || 0)
-        }, 0),
+      Fortitude: char?.classes?.reduce((total, c) => {
+        const base = baseResist.find(a => a.level === c.CharacterClass.level)
+        return total + ((base && base[c.fortitude]) || 0)
+      }, 0),
 
-      Reflex:
-        char &&
-        char.classes.reduce((total, c) => {
-          const base = baseResist.find(a => a.level === c.CharacterClass.level)
-          return total + ((base && base[c.reflex]) || 0)
-        }, 0),
+      Reflex: char?.classes?.reduce((total, c) => {
+        const base = baseResist.find(a => a.level === c.CharacterClass.level)
+        return total + ((base && base[c.reflex]) || 0)
+      }, 0),
 
-      Will:
-        char &&
-        char.classes.reduce((total, c) => {
-          const base = baseResist.find(a => a.level === c.CharacterClass.level)
-          return total + ((base && base[c.will]) || 0)
-        }, 0),
+      Will: char?.classes?.reduce((total, c) => {
+        const base = baseResist.find(a => a.level === c.CharacterClass.level)
+        return total + ((base && base[c.will]) || 0)
+      }, 0),
 
       Classes:
-        (char &&
-          char.classes.map(c => ({
-            name: c.name.toUpperCase() || '',
-            attack: c.attack || '',
-            fortitude: c.fortitude,
-            reflex: c.reflex,
-            will: c.will,
-            level: (c.CharacterClass && c.CharacterClass.level) || 0,
-          }))) ||
-        [],
+        char?.classes?.map(c => ({
+          name: c.name.toUpperCase() || '',
+          attack: c.attack || '',
+          fortitude: c.fortitude,
+          reflex: c.reflex,
+          will: c.will,
+          level: c.CharacterClass?.level || 0,
+        })) || [],
 
-      Armor: (char && char.toJSON().armor) || [],
-      Weapon: (char && char.toJSON().weapon) || [],
+      Armor:
+        char?.armors?.map(c => ({
+          name: c.name.toUpperCase() || '',
+          type: c.type || 0,
+          bonus: c.bonus || 0,
+          dexterity: c.dexterity || 0,
+          penalty: c.penalty || 0,
+          magic: c.magic || 0,
+          displacement_s: c.displacement_s || 0,
+          displacement_m: c.displacement_m || 0,
+          weight: c.weight || 0,
+          price: c.price || 0,
+          defense: c.CharacterArmor?.defense || 0,
+          description: c.CharacterArmor?.description || '',
+        })) || [],
+
+      Weapon: (char && char.toJSON().weapons) || [],
     }
     return res.json(charData)
   }

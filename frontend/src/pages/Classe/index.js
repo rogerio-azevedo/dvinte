@@ -24,6 +24,7 @@ export default function Classe() {
   const onSubmit = (data, e) => {
     async function saveData() {
       setLoading(true)
+      console.log(data)
       const classe = await api.post('classes', data)
 
       const newList = [classe.data, ...list]
@@ -48,6 +49,43 @@ export default function Classe() {
             placeholder="Informe a Classe"
           />
           {errors.name && errors.name.type === 'required' && (
+            <span>Essa informação é obrigatória</span>
+          )}
+
+          <select name="attack" ref={register({ required: true })}>
+            <option value="">Selecione</option>
+            <option value="low">High</option>
+            <option value="medium">Medium</option>
+            <option value="high">Low</option>
+          </select>
+          {errors.attack && errors.attack.type === 'required' && (
+            <span>Essa informação é obrigatória</span>
+          )}
+
+          <select name="fortitude" ref={register({ required: true })}>
+            <option value="">Selecione</option>
+            <option value="low">High</option>
+            <option value="high">Low</option>
+          </select>
+          {errors.fortitude && errors.fortitude.type === 'required' && (
+            <span>Essa informação é obrigatória</span>
+          )}
+
+          <select name="reflex" ref={register({ required: true })}>
+            <option value="">Selecione</option>
+            <option value="low">High</option>
+            <option value="high">Low</option>
+          </select>
+          {errors.reflex && errors.reflex.type === 'required' && (
+            <span>Essa informação é obrigatória</span>
+          )}
+
+          <select name="will" ref={register({ required: true })}>
+            <option value="">Selecione</option>
+            <option value="low">High</option>
+            <option value="high">Low</option>
+          </select>
+          {errors.will && errors.will.type === 'required' && (
             <span>Essa informação é obrigatória</span>
           )}
           <Button loading={loading ? 1 : 0} type="submit" TextButton="Gravar" />

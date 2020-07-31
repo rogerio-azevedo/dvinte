@@ -67,3 +67,18 @@ export const InputMed = styled.input`
   -moz-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
   box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
 `
+
+export const InputShort = styled.input`
+  color: #6f0000;
+  width: 80px !important;
+  height: 30px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 16px;
+  margin: 5px;
+
+  border: 0;
+  -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+`

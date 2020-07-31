@@ -1,6 +1,6 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('weapons', {
+    return queryInterface.createTable('armors', {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -11,51 +11,49 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      dice: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      multiplier: {
+      type: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      critical: {
-        type: Sequelize.STRING,
+      bonus: {
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
-      range: {
-        type: Sequelize.FLOAT,
+      dexterity: {
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
-      type: {
-        type: Sequelize.STRING,
+      penalty: {
+        type: Sequelize.INTEGER,
         allowNull: false,
-      },
-      material: {
-        type: Sequelize.STRING,
-        allowNull: true,
       },
       magic: {
         type: Sequelize.INTEGER,
         allowNull: true,
       },
-      weight: {
+      displacement_s: {
         type: Sequelize.FLOAT,
         allowNull: false,
       },
-      special: {
-        type: Sequelize.STRING,
-        allowNull: true,
+      displacement_m: {
+        type: Sequelize.FLOAT,
+        allowNull: false,
+      },
+      weight: {
+        type: Sequelize.FLOAT,
+        allowNull: false,
       },
       price: {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      character_id: {
-        type: Sequelize.INTEGER,
-        references: { model: 'characters', key: 'id' },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
+      book: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      version: {
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       created_at: {
         type: Sequelize.DATE,
@@ -69,6 +67,6 @@ module.exports = {
   },
 
   down: queryInterface => {
-    return queryInterface.dropTable('weapons')
+    return queryInterface.dropTable('armors')
   },
 }

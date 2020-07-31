@@ -3,7 +3,7 @@ import PropTypes, { object } from 'prop-types'
 
 import { Container, InputLarge, InputMed } from './styles'
 
-export default function CharArmor({ armors }) {
+export default function CharArmor({ armors, size }) {
   return (
     <Container>
       <ul>
@@ -31,15 +31,16 @@ export default function CharArmor({ armors }) {
             </div>
             <div>
               <label htmlFor="inputResist">Deslocamento</label>
-              <input readOnly defaultValue={item.displacement} />
+              <input
+                readOnly
+                defaultValue={
+                  size === 'MÉDIO' ? item.displacement_m : item.displacement_s
+                }
+              />
             </div>
             <div>
               <label htmlFor="inputResist">Peso</label>
               <input readOnly defaultValue={item.weight} />
-            </div>
-            <div>
-              <label htmlFor="inputResist">Especial</label>
-              <InputMed readOnly defaultValue={item.special} />
             </div>
             <div>
               <label htmlFor="inputResist">Preço</label>
@@ -54,4 +55,5 @@ export default function CharArmor({ armors }) {
 
 CharArmor.propTypes = {
   armors: PropTypes.arrayOf(object).isRequired,
+  size: PropTypes.string.isRequired,
 }

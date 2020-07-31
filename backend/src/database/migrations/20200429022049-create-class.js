@@ -11,6 +11,22 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      attack: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      fortitude: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      reflex: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      will: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,

@@ -11,9 +11,7 @@ import ButtonNext from '~/components/ButtonNext'
 import * as Styles from './styles'
 
 export default function CharPreview() {
-  const charStore = useSelector(
-    state => (state.character && state.character) || {}
-  )
+  const charStore = useSelector(state => state.character || {})
 
   const [character, setCharacter] = useState()
   const [portrait, setPortrait] = useState()
@@ -226,11 +224,7 @@ export default function CharPreview() {
                 <Styles.ValueContainer>
                   <Styles.AttrsValue
                     readOnly
-                    value={
-                      character &&
-                      character.attributes &&
-                      character.attributes.str
-                    }
+                    value={character?.attributes?.str}
                   />
                 </Styles.ValueContainer>
               </Styles.GroupContainer>
@@ -240,11 +234,7 @@ export default function CharPreview() {
                 <Styles.ValueContainer>
                   <Styles.AttrsValue
                     readOnly
-                    value={
-                      character &&
-                      character.attributes &&
-                      character.attributes.dex
-                    }
+                    value={character?.attributes?.dex}
                   />
                 </Styles.ValueContainer>
               </Styles.GroupContainer>
@@ -268,11 +258,7 @@ export default function CharPreview() {
                 <Styles.ValueContainer>
                   <Styles.AttrsValue
                     readOnly
-                    value={
-                      character &&
-                      character.attributes &&
-                      character.attributes.int
-                    }
+                    value={character?.attributes?.int}
                   />
                 </Styles.ValueContainer>
               </Styles.GroupContainer>
@@ -282,11 +268,7 @@ export default function CharPreview() {
                 <Styles.ValueContainer>
                   <Styles.AttrsValue
                     readOnly
-                    value={
-                      character &&
-                      character.attributes &&
-                      character.attributes.wis
-                    }
+                    value={character?.attributes?.wis}
                   />
                 </Styles.ValueContainer>
               </Styles.GroupContainer>
@@ -296,30 +278,22 @@ export default function CharPreview() {
                 <Styles.ValueContainer>
                   <Styles.AttrsValue
                     readOnly
-                    value={
-                      character &&
-                      character.attributes &&
-                      character.attributes.cha
-                    }
+                    value={character?.attributes?.cha}
                   />
                 </Styles.ValueContainer>
               </Styles.GroupContainer>
             </Styles.AttributesContainer>
             <Styles.ClassContainer>
               <ul>
-                {character &&
-                  character.classe.map(item => (
-                    <li key={Math.random()}>
-                      <Styles.ClassInput
-                        readOnly
-                        defaultValue={item.className}
-                      />
-                      <Styles.ClassValueInput
-                        readOnly
-                        defaultValue={item.level}
-                      />
-                    </li>
-                  ))}
+                {character?.classe?.map(item => (
+                  <li key={Math.random()}>
+                    <Styles.ClassInput readOnly defaultValue={item.className} />
+                    <Styles.ClassValueInput
+                      readOnly
+                      defaultValue={item.level}
+                    />
+                  </li>
+                ))}
               </ul>
             </Styles.ClassContainer>
           </Styles.AttrsContainer>

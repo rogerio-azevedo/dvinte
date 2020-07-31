@@ -1,5 +1,7 @@
 import { Sequelize, Model } from 'sequelize'
 import CharacterClass from './CharacterClass'
+import CharacterWeapon from './CharacterWeapon'
+import CharacterArmor from './CharacterArmor'
 
 class Character extends Model {
   static init(sequelize) {
@@ -69,20 +71,22 @@ class Character extends Model {
       as: 'attribute_temp',
     })
 
-    this.hasMany(models.Armor, {
+    this.belongsToMany(models.Armor, {
+      through: CharacterArmor,
       foreignKey: 'character_id',
-      as: 'armor',
-    })
-
-    this.hasMany(models.Weapon, {
-      foreignKey: 'character_id',
-      as: 'weapon',
+      as: 'armors',
     })
 
     this.belongsToMany(models.Class, {
       through: CharacterClass,
       foreignKey: 'character_id',
       as: 'classes',
+    })
+
+    this.belongsToMany(models.Weapon, {
+      through: CharacterWeapon,
+      foreignKey: 'character_id',
+      as: 'weapons',
     })
   }
 }

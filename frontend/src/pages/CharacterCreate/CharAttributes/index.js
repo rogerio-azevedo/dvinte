@@ -11,30 +11,12 @@ import ButtonNext from '~/components/ButtonNext'
 import * as Styles from './styles'
 
 export default function CharAttributes() {
-  const strStore = useSelector(
-    s =>
-      (s.character && s.character.attributes && s.character.attributes.str) || 8
-  )
-  const dexStore = useSelector(
-    s =>
-      (s.character && s.character.attributes && s.character.attributes.dex) || 8
-  )
-  const conStore = useSelector(
-    s =>
-      (s.character && s.character.attributes && s.character.attributes.con) || 8
-  )
-  const intStore = useSelector(
-    s =>
-      (s.character && s.character.attributes && s.character.attributes.int) || 8
-  )
-  const wisStore = useSelector(
-    s =>
-      (s.character && s.character.attributes && s.character.attributes.wis) || 8
-  )
-  const chaStore = useSelector(
-    s =>
-      (s.character && s.character.attributes && s.character.attributes.cha) || 8
-  )
+  const strStore = useSelector(state => state.character?.attributes?.str || 8)
+  const dexStore = useSelector(state => state.character?.attributes?.dex || 8)
+  const conStore = useSelector(state => state.character?.attributes?.con || 8)
+  const intStore = useSelector(state => state.character?.attributes?.int || 8)
+  const wisStore = useSelector(state => state.character?.attributes?.wis || 8)
+  const chaStore = useSelector(state => state.character?.attributes?.cha || 8)
 
   const dispatch = useDispatch()
   const [str, setStr] = useState(strStore)

@@ -14,6 +14,8 @@ import Divinity from '~/pages/Divinity'
 import Race from '~/pages/Race'
 import Portrait from '~/pages/Portrait'
 import Token from '~/pages/Token'
+import Weapon from '~/pages/Weapon'
+import Armor from '~/pages/Armor'
 
 import Character from '~/pages/Character'
 import CharacterDetail from '~/pages/CharacterDetail'
@@ -46,6 +48,8 @@ export default function Routes() {
       <Route path="/classes" component={Classe} isPrivate />
       <Route path="/divinities" component={Divinity} isPrivate />
       <Route path="/races" component={Race} isPrivate />
+      <Route path="/weapons" component={Weapon} isPrivate />
+      <Route path="/armors" component={Armor} isPrivate />
 
       <Route path="/portraits" component={Portrait} isPrivate />
       <Route path="/tokens" component={Token} isPrivate />

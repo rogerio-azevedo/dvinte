@@ -21,7 +21,7 @@ export default function CharacterBase() {
   const [picked, setPicked] = useState(selected)
 
   async function handlePick(item) {
-    await setPicked(item && item.id)
+    await setPicked(item?.id)
     dispatch(charPortraitRequest({ portrait: item.id }))
   }
 
@@ -44,19 +44,18 @@ export default function CharacterBase() {
       <Styles.ContentContainer>
         <h1>Cadastro de Personagem - RETRATO</h1>
         <Styles.ImageContainer ispicked={picked}>
-          {portraits &&
-            portraits.map(item => (
-              <ul key={item.id}>
-                <li>
-                  <Styles.Item
-                    onClick={() => handlePick(item)}
-                    ispicked={picked === item.id ? 1 : 0}
-                  >
-                    <img src={item.url} alt="" />
-                  </Styles.Item>
-                </li>
-              </ul>
-            ))}
+          {portraits?.map(item => (
+            <ul key={item.id}>
+              <li>
+                <Styles.Item
+                  onClick={() => handlePick(item)}
+                  ispicked={picked === item.id ? 1 : 0}
+                >
+                  <img src={item.url} alt="" />
+                </Styles.Item>
+              </li>
+            </ul>
+          ))}
         </Styles.ImageContainer>
         <Styles.DivPage>
           <Link to="charactercreate">

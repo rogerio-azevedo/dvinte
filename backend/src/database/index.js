@@ -5,7 +5,9 @@ import Alignment from '../app/models/Alignment'
 import Class from '../app/models/Class'
 import Divinity from '../app/models/Divinity'
 import Character from '../app/models/Character'
+import CharacterArmor from '../app/models/CharacterArmor'
 import CharacterClass from '../app/models/CharacterClass'
+import CharacterWeapon from '../app/models/CharacterWeapon'
 import Portrait from '../app/models/Portrait'
 import Token from '../app/models/Token'
 import CharToken from '../app/models/CharToken'
@@ -26,7 +28,9 @@ const models = [
   Class,
   Divinity,
   Character,
+  CharacterArmor,
   CharacterClass,
+  CharacterWeapon,
   Portrait,
   Token,
   CharToken,

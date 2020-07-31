@@ -3,9 +3,6 @@ import Weapon from '../models/Weapon'
 class WeaponController {
   async index(req, res) {
     const list = await Weapon.findAll({
-      where: {
-        character_id: req.query.cod,
-      },
       order: [['name', 'ASC']],
     })
 
@@ -13,9 +10,27 @@ class WeaponController {
   }
 
   async store(req, res) {
-    const divinity = await Weapon.create(req.body)
+    const wep = {
+      crit_from: Number(req.body.crit_from),
+      critical: Number(req.body.critical),
+      dice_m: Number(req.body.dice_m),
+      dice_s: Number(req.body.dice_s),
+      material: req.body.material,
+      multiplier_m: Number(req.body.multiplier_m),
+      multiplier_s: Number(req.body.multiplier_s),
+      name: req.body.name,
+      price: Number(req.body.price),
+      range: parseFloat(req.body.range),
+      two_hand: req.body.switch,
+      type: req.body.type,
+      weight: parseFloat(req.body.weight),
+      book: req.body.book,
+      version: req.body.version,
+    }
 
-    return res.json(divinity)
+    const weapon = await Weapon.create(wep)
+
+    return res.json(weapon)
   }
 }
 

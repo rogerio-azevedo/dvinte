@@ -117,5 +117,5 @@ export default function CharResist({ resist }) {
 }
 
 CharResist.propTypes = {
-  resist: PropTypes.func.isRequired,
+  resist: PropTypes.object.isRequired,
 }

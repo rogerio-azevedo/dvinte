@@ -1,23 +1,25 @@
 import { Sequelize, Model } from 'sequelize'
+import CharacterWeapon from './CharacterWeapon'
 
 class Weapon extends Model {
   static init(sequelize) {
     super.init(
       {
         name: Sequelize.STRING,
-        dice: Sequelize.STRING,
-        multiplier: Sequelize.INTEGER,
-        critical: Sequelize.STRING,
+        dice_s: Sequelize.INTEGER,
+        dice_m: Sequelize.INTEGER,
+        multiplier_s: Sequelize.INTEGER,
+        multiplier_m: Sequelize.INTEGER,
+        critical: Sequelize.INTEGER,
+        crit_from: Sequelize.INTEGER,
         range: Sequelize.FLOAT,
         type: Sequelize.STRING,
         material: Sequelize.STRING,
-        magic: Sequelize.STRING,
         weight: Sequelize.FLOAT,
-        special: Sequelize.STRING,
-        price: Sequelize.STRING,
-        hit: Sequelize.INTEGER,
-        damage: Sequelize.INTEGER,
-        is_twohand: Sequelize.BOOLEAN,
+        price: Sequelize.INTEGER,
+        two_hand: Sequelize.BOOLEAN,
+        book: Sequelize.STRING,
+        version: Sequelize.STRING,
       },
       {
         sequelize,
@@ -25,6 +27,14 @@ class Weapon extends Model {
     )
 
     return this
+  }
+
+  static associate(models) {
+    this.belongsToMany(models.Character, {
+      foreignKey: 'weapon_id',
+      through: CharacterWeapon,
+      as: 'char_weapon',
+    })
   }
 }
 

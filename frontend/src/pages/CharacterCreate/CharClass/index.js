@@ -15,9 +15,7 @@ import ButtonNext from '~/components/ButtonNext'
 import * as Styles from './styles'
 
 export default function CharClass() {
-  const classStore = useSelector(
-    state => (state.character && state.character.classe) || []
-  )
+  const classStore = useSelector(state => state.character?.classe || [])
 
   const dispatch = useDispatch()
   const [level, setLevel] = useState()
@@ -36,8 +34,6 @@ export default function CharClass() {
     }
 
     handleNewClass(newClass)
-    // setClasse()
-    // setLevel()
   }
 
   function handleRemove(item) {
@@ -63,14 +59,14 @@ export default function CharClass() {
                 <label htmlFor="character">Classe</label>
                 <SelectClasse
                   defaultValue={classe}
-                  changeClasse={e => setClasse(e && e.value)}
+                  changeClasse={e => setClasse(e?.value)}
                 />
               </div>
               <div>
                 <label htmlFor="character">Level</label>
                 <SelectLevel
                   defaultValue={level}
-                  changeLevel={e => setLevel(e && e.value)}
+                  changeLevel={e => setLevel(e?.value)}
                 />
               </div>
               <div>

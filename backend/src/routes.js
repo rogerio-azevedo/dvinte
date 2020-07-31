@@ -26,6 +26,7 @@ import BaseResistController from './app/controllers/BaseResistController'
 
 import CombatController from './app/controllers/CombatController'
 import WeaponController from './app/controllers/WeaponController'
+import ArmorController from './app/controllers/ArmorController'
 
 import InitiativeController from './app/controllers/InitiativeController'
 import HealthController from './app/controllers/HealthController'
@@ -104,7 +105,11 @@ routes.get('/baseresist', BaseResistController.index)
 
 routes.get('/combats', CombatController.index)
 
+routes.post('/weapons', WeaponController.store)
 routes.get('/weapons', WeaponController.index)
+
+routes.post('/armors', ArmorController.store)
+routes.get('/armors', ArmorController.index)
 
 routes.put('/healthnow', HealthController.update)
 

@@ -20,52 +20,26 @@ import ButtonNext from '~/components/ButtonNext'
 import * as Styles from './styles'
 
 export default function CharBase() {
-  const profile = useSelector(state => state.user.profile)
+  const profile = useSelector(state => state.user?.profile)
   const userId = profile.id
 
-  const name = useSelector(
-    s => s.character && s.character.base && s.character.base.name
-  )
-  const age = useSelector(
-    s => s.character && s.character.base && s.character.base.age
-  )
-  const height = useSelector(
-    s => s.character && s.character.base && s.character.base.height
-  )
-  const weight = useSelector(
-    s => s.character && s.character.base && s.character.base.weight
-  )
-  const hair = useSelector(
-    s => s.character && s.character.base && s.character.base.hair
-  )
-  const eye = useSelector(
-    s => s.character && s.character.base && s.character.base.eye
-  )
-  const skin = useSelector(
-    s => s.character && s.character.base && s.character.base.skin
-  )
+  const name = useSelector(state => state.character?.base?.name)
+  const age = useSelector(state => state.character?.base?.age)
+  const height = useSelector(state => state.character?.base?.height)
+  const weight = useSelector(state => state.character?.base?.weight)
+  const hair = useSelector(state => state.character?.base?.hair)
+  const eye = useSelector(state => state.character?.base?.eye)
+  const skin = useSelector(state => state.character?.base?.skin)
 
   const is_ativo = true
   const user_id = userId
 
-  const levelStore = useSelector(
-    s => s.character && s.character.base && s.character.base.level
-  )
-  const sizeStore = useSelector(
-    s => s.character && s.character.base && s.character.base.size
-  )
-  const genderStore = useSelector(
-    s => s.character && s.character.base && s.character.base.gender
-  )
-  const divinityStore = useSelector(
-    s => s.character && s.character.base && s.character.base.divinity
-  )
-  const alignmentStore = useSelector(
-    s => s.character && s.character.base && s.character.base.alignment
-  )
-  const raceStore = useSelector(
-    s => s.character && s.character.base && s.character.base.race
-  )
+  const levelStore = useSelector(state => state.character?.base?.level)
+  const sizeStore = useSelector(state => state.character?.base?.size)
+  const genderStore = useSelector(state => state.character?.base?.gender)
+  const divinityStore = useSelector(state => state.character?.base?.divinity)
+  const alignmentStore = useSelector(state => state.character?.base?.alignment)
+  const raceStore = useSelector(state => state.character?.base?.race)
 
   const [level, setLevel] = useState(levelStore)
   const [size, setSize] = useState(sizeStore)
@@ -241,7 +215,7 @@ export default function CharBase() {
                 <SelectLevel
                   name="level"
                   defaultValue={level}
-                  changeLevel={e => handleLevel(e && e.value)}
+                  changeLevel={e => handleLevel(e?.value)}
                 />
               </div>
 
@@ -250,7 +224,7 @@ export default function CharBase() {
                 <SelectSize
                   name="size"
                   defaultValue={size}
-                  changeSize={e => handleSize(e && e.value)}
+                  changeSize={e => handleSize(e?.value)}
                 />
               </div>
 
@@ -259,7 +233,7 @@ export default function CharBase() {
                 <SelectGender
                   name="gender"
                   defaultValue={gender}
-                  changeGender={e => handleGender(e && e.value)}
+                  changeGender={e => handleGender(e?.value)}
                 />
               </div>
             </Styles.InputContainer>
@@ -270,7 +244,7 @@ export default function CharBase() {
                 <SelectAlignment
                   name="alignment"
                   defaultValue={alignment}
-                  changeAlignment={e => handleAlignment(e && e.value)}
+                  changeAlignment={e => handleAlignment(e?.value)}
                 />
               </div>
 
@@ -279,7 +253,7 @@ export default function CharBase() {
                 <SelectRace
                   name="race"
                   defaultValue={race}
-                  changeRace={e => handleRace(e && e.value)}
+                  changeRace={e => handleRace(e?.value)}
                 />
               </div>
 
@@ -288,7 +262,7 @@ export default function CharBase() {
                 <SelectDivinity
                   name="divinity"
                   defaultValue={divinity}
-                  changeDivinity={e => handleDivinity(e && e.value)}
+                  changeDivinity={e => handleDivinity(e?.value)}
                 />
               </div>
             </Styles.InputContainer>

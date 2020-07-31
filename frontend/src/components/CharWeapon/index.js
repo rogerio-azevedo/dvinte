@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes, { object } from 'prop-types'
 
-import { Container, InputLarge, InputMed } from './styles'
+import { Container, InputLarge, InputMed, InputShort } from './styles'
 
-export default function CharWeapon({ weapons }) {
+export default function CharWeapon({ weapons, size }) {
   return (
     <Container>
       <ul>
@@ -15,19 +15,32 @@ export default function CharWeapon({ weapons }) {
             </div>
             <div>
               <label htmlFor="inputResist">Qtde</label>
-              <input readOnly defaultValue={item.multiplier} />
+              <input
+                readOnly
+                defaultValue={
+                  size === 'MÉDIO' ? item.multiplier_m : item.multiplier_s
+                }
+              />
             </div>
             <div>
               <label htmlFor="inputResist">Dado</label>
-              <input readOnly defaultValue={`d${item.dice}`} />
+              <input
+                readOnly
+                defaultValue={`d${
+                  size === 'MÉDIO' ? item.dice_m : item.dice_s
+                }`}
+              />
             </div>
             <div>
               <label htmlFor="inputResist">Crítico</label>
-              <InputMed readOnly defaultValue={item.critical} />
+              <InputMed
+                readOnly
+                defaultValue={`${item.crit_from}-20 / ${item.critical}x`}
+              />
             </div>
             <div>
               <label htmlFor="inputResist">Alcance</label>
-              <input readOnly defaultValue={item.range} />
+              <InputShort readOnly defaultValue={item.range} />
             </div>
             <div>
               <label htmlFor="inputResist">Tipo</label>
@@ -38,20 +51,12 @@ export default function CharWeapon({ weapons }) {
               <InputMed readOnly defaultValue={item.material} />
             </div>
             <div>
-              <label htmlFor="inputResist">Mágico</label>
-              <InputMed readOnly defaultValue={item.magic} />
-            </div>
-            <div>
               <label htmlFor="inputResist">Peso</label>
-              <input readOnly defaultValue={item.weight} />
-            </div>
-            <div>
-              <label htmlFor="inputResist">Especial</label>
-              <InputMed readOnly defaultValue={item.special} />
+              <InputShort readOnly defaultValue={item.weight} />
             </div>
             <div>
               <label htmlFor="inputResist">Preço</label>
-              <InputMed readOnly defaultValue={item.price} />
+              <InputShort readOnly defaultValue={item.price} />
             </div>
           </li>
         ))}
@@ -62,4 +67,5 @@ export default function CharWeapon({ weapons }) {
 
 CharWeapon.propTypes = {
   weapons: PropTypes.arrayOf(object).isRequired,
+  size: PropTypes.string.isRequired,
 }
