@@ -12,12 +12,17 @@ export const Container = styled.div`
 
 export const FormContainer = styled.div`
   display: flex;
-  width: 430px;
+  width: 650px;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   justify-items: center;
   margin-top: 20px;
+
+  div {
+    display: flex;
+    flex-direction: column;
+  }
 
   span {
     color: #bf1650;
@@ -30,6 +35,21 @@ export const FormContainer = styled.div`
 
   input {
     width: 280px;
+    border: 1px solid;
+    border-radius: 4px;
+    height: 40px;
+    padding: 0 15px;
+    color: rgba(111, 0, 0, 1);
+    font-weight: 500;
+    font-size: 15px;
+
+    &::placeholder {
+      color: rgba(111, 0, 0, 0.6);
+    }
+  }
+
+  select {
+    width: 120px;
     border: 1px solid;
     border-radius: 4px;
     height: 40px;

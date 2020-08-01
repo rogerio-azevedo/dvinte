@@ -43,51 +43,67 @@ export default function Classe() {
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormContainer>
-          <input
-            name="name"
-            ref={register({ required: true })}
-            placeholder="Informe a Classe"
-          />
-          {errors.name && errors.name.type === 'required' && (
-            <span>Essa informação é obrigatória</span>
-          )}
+          <div>
+            <label htmlFor="Nome">Nome</label>
+            <input
+              name="name"
+              ref={register({ required: true })}
+              placeholder="Informe a Classe"
+            />
+            {errors.name && errors.name.type === 'required' && (
+              <span>Essa informação é obrigatória</span>
+            )}
+          </div>
 
-          <select name="attack" ref={register({ required: true })}>
-            <option value="">Selecione</option>
-            <option value="low">High</option>
-            <option value="medium">Medium</option>
-            <option value="high">Low</option>
-          </select>
-          {errors.attack && errors.attack.type === 'required' && (
-            <span>Essa informação é obrigatória</span>
-          )}
+          <div>
+            <label htmlFor="Attack">Attack</label>
+            <select name="attack" ref={register({ required: true })}>
+              <option value="">Selecione</option>
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
+            {errors.attack && errors.attack.type === 'required' && (
+              <span>Essa informação é obrigatória</span>
+            )}
+          </div>
 
-          <select name="fortitude" ref={register({ required: true })}>
-            <option value="">Selecione</option>
-            <option value="low">High</option>
-            <option value="high">Low</option>
-          </select>
-          {errors.fortitude && errors.fortitude.type === 'required' && (
-            <span>Essa informação é obrigatória</span>
-          )}
+          <div>
+            <label htmlFor="fortitude">Fortitude</label>
+            <select name="fortitude" ref={register({ required: true })}>
+              <option value="">Selecione</option>
+              <option value="low">Low</option>
+              <option value="high">High</option>
+            </select>
+            {errors.fortitude && errors.fortitude.type === 'required' && (
+              <span>Essa informação é obrigatória</span>
+            )}
+          </div>
 
-          <select name="reflex" ref={register({ required: true })}>
-            <option value="">Selecione</option>
-            <option value="low">High</option>
-            <option value="high">Low</option>
-          </select>
-          {errors.reflex && errors.reflex.type === 'required' && (
-            <span>Essa informação é obrigatória</span>
-          )}
+          <div>
+            <label htmlFor="reflex">Reflex</label>
+            <select name="reflex" ref={register({ required: true })}>
+              <option value="">Selecione</option>
+              <option value="low">Low</option>
+              <option value="high">High</option>
+            </select>
+            {errors.reflex && errors.reflex.type === 'required' && (
+              <span>Essa informação é obrigatória</span>
+            )}
+          </div>
 
-          <select name="will" ref={register({ required: true })}>
-            <option value="">Selecione</option>
-            <option value="low">High</option>
-            <option value="high">Low</option>
-          </select>
-          {errors.will && errors.will.type === 'required' && (
-            <span>Essa informação é obrigatória</span>
-          )}
+          <div>
+            <label htmlFor="will">Will</label>
+            <select name="will" ref={register({ required: true })}>
+              <option value="">Selecione</option>
+              <option value="low">Low</option>
+              <option value="high">High</option>
+            </select>
+            {errors.will && errors.will.type === 'required' && (
+              <span>Essa informação é obrigatória</span>
+            )}
+          </div>
+
           <Button loading={loading ? 1 : 0} type="submit" TextButton="Gravar" />
         </FormContainer>
       </form>
