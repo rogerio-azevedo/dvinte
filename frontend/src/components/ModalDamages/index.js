@@ -74,15 +74,14 @@ export default function ModalDamages() {
         <Styles.InitContainer>
           <Styles.InitBoardContainer>
             <ul>
-              {damages &&
-                damages
-                  // .sort((a, b) => b.initiative - a.initiative)
-                  .map(item => (
-                    <li key={Math.random()}>
-                      <Styles.InitUser readOnly defaultValue={item.user} />
-                      <Styles.InitValue readOnly defaultValue={item.damage} />
-                    </li>
-                  ))}
+              {damages
+                ?.sort((a, b) => b.damage - a.damage)
+                .map(item => (
+                  <li key={Math.random()}>
+                    <Styles.InitUser readOnly defaultValue={item.user} />
+                    <Styles.InitValue readOnly defaultValue={item.damage} />
+                  </li>
+                ))}
             </ul>
           </Styles.InitBoardContainer>
         </Styles.InitContainer>

@@ -417,10 +417,14 @@ export const ArmorContainer = styled.fieldset`
   padding: 2px;
 
   legend {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     font-size: 18px;
     font-weight: 600;
     margin-left: 20px;
-    width: 210px;
+    width: 250px;
     color: #6f0000;
     background: #fff;
     -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
@@ -446,10 +450,14 @@ export const WeaponContainer = styled.fieldset`
   padding: 20px;
 
   legend {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     font-size: 18px;
     font-weight: 600;
-    margin-left: 20px;
-    width: 210px;
+    margin-left: 5px;
+    width: 130px;
     color: #6f0000;
     background: #fff;
     -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);

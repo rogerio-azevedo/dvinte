@@ -27,11 +27,16 @@ export default function CharCa({ armors, dextMod }) {
       return acc + (val.bonus + val.defense)
     }, 0)
 
-  const maxDext = armors
-    .filter(t => t.type === 1)
+  const outros = armors
+    .filter(t => t.type === 5)
     .reduce((acc, val) => {
-      return acc + val.dexterity
+      return acc + (val.bonus + val.defense)
     }, 0)
+
+  const maxDext = armors.reduce(
+    (min, p) => (p?.dexterity < min ? p?.dexterity : min),
+    armors[0]?.dexterity
+  )
 
   function calcDext(value) {
     let dextBonus = 0
@@ -49,7 +54,7 @@ export default function CharCa({ armors, dextMod }) {
 
   const bonusDext = calcDext(dextMod)
 
-  const totalCa = 10 + shield + armor + bonusDext + natural
+  const totalCa = 10 + shield + armor + bonusDext + natural + outros
 
   return (
     <Container>
@@ -76,7 +81,7 @@ export default function CharCa({ armors, dextMod }) {
         </div>
         <div>
           <label htmlFor="inputResist">tam</label>
-          <InputDefense readOnly defaultValue="" />
+          <InputDefense readOnly defaultValue="0" />
         </div>
         <div>
           <label htmlFor="inputResist">arm nat</label>
@@ -84,11 +89,11 @@ export default function CharCa({ armors, dextMod }) {
         </div>
         <div>
           <label htmlFor="inputResist">deflex</label>
-          <InputDefense readOnly defaultValue="" />
+          <InputDefense readOnly defaultValue="0" />
         </div>
         <div>
           <label htmlFor="inputResist">outros</label>
-          <InputDefense readOnly defaultValue="" />
+          <InputDefense readOnly defaultValue={outros} />
         </div>
       </InputResitContainer>
     </Container>

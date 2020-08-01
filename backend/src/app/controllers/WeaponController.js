@@ -11,6 +11,7 @@ class WeaponController {
 
   async store(req, res) {
     const wep = {
+      name: req.body.name.toUpperCase(),
       crit_from: Number(req.body.crit_from),
       critical: Number(req.body.critical),
       dice_m: Number(req.body.dice_m),
@@ -18,7 +19,6 @@ class WeaponController {
       material: req.body.material,
       multiplier_m: Number(req.body.multiplier_m),
       multiplier_s: Number(req.body.multiplier_s),
-      name: req.body.name,
       price: Number(req.body.price),
       range: parseFloat(req.body.range),
       two_hand: req.body.switch,

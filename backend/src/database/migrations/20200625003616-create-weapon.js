@@ -28,11 +28,11 @@ module.exports = {
         allowNull: false,
       },
       critical: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
       crit_from: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
       range: {

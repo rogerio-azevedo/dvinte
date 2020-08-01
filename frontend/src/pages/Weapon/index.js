@@ -5,6 +5,8 @@ import { Switch } from '@material-ui/core'
 import { Table } from 'antd'
 
 import Button from '~/components/Button'
+import { FaPlusCircle } from 'react-icons/fa'
+import ModalWeaponCreate from '~/components/ModalWeaponCreate'
 
 import api from '~/services/api'
 
@@ -21,6 +23,7 @@ export default function Weapon() {
   const { handleSubmit, register, reset, control } = useForm({ defaultValues })
   const [loading, setLoading] = useState(false)
   const [list, setList] = useState([])
+  const [showform, setShowform] = useState('hide')
 
   useEffect(() => {
     async function loadData() {
@@ -47,6 +50,7 @@ export default function Weapon() {
       setLoading(false)
 
       reset(defaultValues)
+      setShowform('hide')
     }
     saveData()
   }
@@ -113,18 +117,32 @@ export default function Weapon() {
       render: (text, item) => `${item.version}`,
     },
 
-    // {
-    //   title: 'Ação',
-    //   dataIndex: 'ver',
-    //   render: (text, item) => <Link to={`/characterview/${item.id}`}>Ver</Link>,
-    // },
+    {
+      title: 'Comprar',
+      dataIndex: 'buy',
+      render: (text, item) => <ModalWeaponCreate weapon={item} />,
+    },
   ]
+
+  function handleAdd() {
+    setShowform('show')
+  }
 
   return (
     <Styles.Container>
       <Styles.ContentContainer>
-        <h1>Cadastro de Armas</h1>
-        <Styles.FormContainer>
+        <Styles.HeaderContainer>
+          <h1>Cadastro de Armas</h1>
+
+          <FaPlusCircle
+            color="#8e0e00"
+            size={40}
+            onClick={handleAdd}
+            cursor={'pointer'}
+          />
+        </Styles.HeaderContainer>
+
+        <Styles.FormContainer showform={showform}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Styles.InputContainer>
               <div>

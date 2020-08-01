@@ -26,6 +26,10 @@ const LogsSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    isCrit: {
+      type: String,
+      required: false,
+    },
   },
   {
     timestamps: true,

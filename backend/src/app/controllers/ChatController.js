@@ -23,6 +23,7 @@ class ChatController {
       user: c.user,
       date: c.createdAt,
       message: c.message,
+      isCrit: c.isCrit,
     }))
 
     return res.json(mensages)
@@ -38,6 +39,7 @@ class ChatController {
       message: chat.message,
       result: chat.result,
       type: chat.type,
+      isCrit: chat?.isCrit,
     }
     saveMessage(message)
 

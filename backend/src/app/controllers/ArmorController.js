@@ -11,7 +11,7 @@ class ArmorController {
 
   async store(req, res) {
     const arm = {
-      name: req.body.name,
+      name: req.body.name.toUpperCase(),
       bonus: Number(req.body.bonus),
       dexterity: Number(req.body.dexterity),
       penalty: Number(req.body.penalty),

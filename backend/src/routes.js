@@ -33,6 +33,8 @@ import HealthController from './app/controllers/HealthController'
 
 import NotesController from './app/controllers/NotesController'
 import DamageController from './app/controllers/DamageController'
+import CharacterWeaponController from './app/controllers/CharacterWeaponController'
+import CharacterArmorController from './app/controllers/CharacterArmorController'
 
 const routes = new Router()
 const upload = multer(multerConfig)
@@ -114,5 +116,8 @@ routes.get('/armors', ArmorController.index)
 routes.put('/healthnow', HealthController.update)
 
 routes.get('/damages', DamageController.index)
+
+routes.post('/characterweapons', CharacterWeaponController.store)
+routes.post('/characterarmors', CharacterArmorController.store)
 
 export default routes

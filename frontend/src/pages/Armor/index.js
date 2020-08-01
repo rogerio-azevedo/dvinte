@@ -4,6 +4,8 @@ import { Select } from 'antd'
 import { Table } from 'antd'
 
 import Button from '~/components/Button'
+import { FaPlusCircle } from 'react-icons/fa'
+import ModalArmorCreate from '~/components/ModalArmorCreate'
 
 import api from '~/services/api'
 
@@ -20,6 +22,7 @@ export default function Armor() {
   const { handleSubmit, register, reset, control } = useForm({ defaultValues })
   const [loading, setLoading] = useState(false)
   const [list, setList] = useState([])
+  const [showform, setShowform] = useState('hide')
 
   useEffect(() => {
     async function loadData() {
@@ -46,6 +49,7 @@ export default function Armor() {
       setLoading(false)
 
       reset(defaultValues)
+      setShowform('hide')
     }
     saveData()
   }
@@ -59,10 +63,10 @@ export default function Armor() {
     {
       title: 'Nome',
       dataIndex: 'name',
-      key: 'name',
+      render: (text, item) => item.name.toUpperCase(),
     },
     {
-      title: 'Bonus',
+      title: 'Bônus',
       dataIndex: 'bonus',
       render: (text, item) => `${item.bonus} CA`,
     },
@@ -111,19 +115,32 @@ export default function Armor() {
       dataIndex: 'version',
       render: (text, item) => `${item.version}`,
     },
-
-    // {
-    //   title: 'Ação',
-    //   dataIndex: 'ver',
-    //   render: (text, item) => <Link to={`/characterview/${item.id}`}>Ver</Link>,
-    // },
+    {
+      title: 'Comprar',
+      dataIndex: 'buy',
+      render: (text, item) => <ModalArmorCreate armor={item} />,
+    },
   ]
+
+  function handleAdd() {
+    setShowform('show')
+  }
 
   return (
     <Styles.Container>
       <Styles.ContentContainer>
-        <h1>Cadastro de Armaduras</h1>
-        <Styles.FormContainer>
+        <Styles.HeaderContainer>
+          <h1>Cadastro de Armaduras e Escudos</h1>
+
+          <FaPlusCircle
+            color="#8e0e00"
+            size={40}
+            onClick={handleAdd}
+            cursor={'pointer'}
+          />
+        </Styles.HeaderContainer>
+
+        <Styles.FormContainer showform={showform}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Styles.InputContainer>
               <div>

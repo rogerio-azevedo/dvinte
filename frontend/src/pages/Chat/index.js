@@ -51,7 +51,6 @@ export default function Chat() {
   async function loadAllMessages() {
     try {
       const response = await api.get('/chats')
-
       setMessages(response.data)
     } catch (e) {
       toast.error('Conexao com a API mal sucedida.')
@@ -99,27 +98,43 @@ export default function Chat() {
       const DexMod = char.DexModTemp ? char.DexModTemp : char.DexMod
       const WisMod = char.WisModTemp ? char.WisModTemp : char.WisMod
 
-      const shield = char.Armor.filter(t => t.type === 2).reduce((acc, val) => {
-        return acc + val.bonus
-      }, 0)
-
-      const armor = char.Armor.filter(t => t.type === 1).reduce((acc, val) => {
-        return acc + val.bonus
-      }, 0)
-
-      const maxDext = char.Armor.filter(t => t.type === 1).reduce(
+      const shield = char?.Armor.filter(t => t.type === 2).reduce(
         (acc, val) => {
-          return acc + val.dexterity
+          return acc + (val.bonus + val.defense)
         },
         0
       )
+
+      const armor = char?.Armor.filter(t => t.type === 1).reduce((acc, val) => {
+        return acc + (val.bonus + val.defense)
+      }, 0)
+
+      const natural = char?.Armor.filter(t => t.type === 3).reduce(
+        (acc, val) => {
+          return acc + (val.bonus + val.defense)
+        },
+        0
+      )
+
+      const outros = char?.Armor.filter(t => t.type === 5).reduce(
+        (acc, val) => {
+          return acc + (val.bonus + val.defense)
+        },
+        0
+      )
+
+      const maxDext = char?.Armor.reduce(
+        (min, p) => (p?.dexterity < min ? p?.dexterity : min),
+        char?.Armor[0]?.dexterity
+      )
+
       setMaxDex(maxDext)
 
-      const charWeapons = char && char.Weapon
+      const charWeapons = char?.Weapon
       setWeapons(charWeapons)
 
       const bonusDext = await calcDext(DexMod)
-      const ca = 10 + shield + armor + bonusDext
+      const ca = 10 + shield + armor + bonusDext + natural + outros
 
       setCharInit(DexMod)
       setFortitude(char.Fortitude + ConMod)
@@ -213,33 +228,50 @@ export default function Chat() {
   }
 
   async function handleAttack() {
-    const wep = (await character) && character.Weapon.find(w => w.id === weapon)
-    const extraHit = (wep && wep.hit) || 0
-    const name = wep && wep.name
+    const wep = await character?.Weapon?.find(w => w.id === weapon)
+    const extraHit = wep?.hit || 0
+    const critFrom = wep.crit_from_mod > 0 ? wep.crit_from_mod : wep.crit_from
+    const name = wep?.name
     const dice = Math.floor(Math.random() * 20) + 1
+
+    let isCrit = ''
+
+    if (dice >= critFrom) {
+      isCrit = 'HIT'
+    } else if (dice === 1) {
+      isCrit = 'FAIL'
+    } else {
+      isCrit = 'NORMAL'
+    }
 
     let mod = 0
 
-    const StrMod =
-      character && character.StrModTemp
-        ? character && character.StrModTemp
-        : character && character.StrMod
+    const StrMod = character?.StrModTemp
+      ? character?.StrModTemp
+      : character?.StrMod
 
-    const DexMod =
-      character && character.DexModTemp
-        ? character && character.DexModTemp
-        : character && character.DexMod
+    const DexMod = character?.DexModTemp
+      ? character?.DexModTemp
+      : character?.DexMod
 
-    if (wep.range > 3) {
+    if (wep?.range > 3) {
       mod = DexMod
     } else {
       mod = StrMod
     }
 
-    const base = (character && character.BaseAttack) + mod
+    const base = character?.BaseAttack + mod
     const attack = Number(base) + Number(dice) + Number(extraHit)
 
-    const rolled = `Rolou ataque d20: ${dice} + ${base} de base + ${extraHit} de bônus da arma ${name}, com resultado: ${attack}`
+    let rolled = ''
+
+    if (isCrit === 'HIT') {
+      rolled = `ACERTO CRÍTICO d20: ${dice} + ${base} de base + ${extraHit} de bônus da arma ${name}, com resultado: ${attack}`
+    } else if (isCrit === 'FAIL') {
+      rolled = `ERRO CRÍTICO d20: ${dice} + ${base} de base + ${extraHit} de bônus da arma ${name}, com resultado: ${attack}`
+    } else {
+      rolled = `Rolou ataque d20: ${dice} + ${base} de base + ${extraHit} de bônus da arma ${name}, com resultado: ${attack}`
+    }
 
     if (!weapon) {
       toast.error('Escolha por favor uma arma antes de realizar o ataque.')
@@ -251,28 +283,32 @@ export default function Chat() {
         message: rolled,
         result: attack,
         type: 3,
+        isCrit: isCrit,
       })
     }
   }
 
   async function handleDamage() {
-    const wep = (await character) && character.Weapon.find(w => w.id === weapon)
+    const wep = await character?.Weapon?.find(w => w.id === weapon)
+    const size = await character?.Size
 
-    const mod =
-      (await character) && character.StrModTemp
-        ? character.StrModTemp
-        : character.StrMod
+    const mod = (await character?.StrModTemp)
+      ? character.StrModTemp
+      : character.StrMod
 
-    const exMod = Math.floor(wep && wep.is_twohand ? mod * 1.5 : mod)
+    const exMod = Math.floor(wep?.two_hand ? mod * 1.5 : mod)
 
-    const dice = wep && wep.dice
-    const multi = wep && wep.multiplier
-    const name = wep && wep.name
-    const extraDamage = (wep && wep.damage) || 0
+    const dice = size === 'MÉDIO' ? wep?.dice_m : wep?.dice_s
+    const multi = size === 'MÉDIO' ? wep?.multiplier_m : wep?.multiplier_s
+    const name = wep?.name
+    const extraDamage = wep?.damage || 0
+
+    const element =
+      wep?.element > 0 ? Math.floor(Math.random() * wep?.element) + 1 : 0
 
     let result = 0
     const random = () => {
-      return Math.floor(Math.random() * dice) + 1
+      return Math.floor(Math.random() * Number(dice)) + 1
     }
 
     // eslint-disable-next-line
@@ -280,9 +316,62 @@ export default function Chat() {
       result += random()
     }
 
-    const totalDamage = Number(result) + Number(extraDamage) + Number(exMod)
+    const totalDamage =
+      Number(result) + Number(extraDamage) + Number(exMod) + Number(element)
 
-    const rolled = `Rolou dano ${multi} x d${dice}: ${result} + ${exMod} + ${extraDamage} de bônus da arma ${name}, com resultado: ${totalDamage}`
+    const rolled = `Rolou dano ${multi} x d${dice}: ${result} + ${exMod} de mod de força + ${extraDamage} de bônus da arma, + ${element} de bônus elemento  com a arma ${name}. Com resultado: ${totalDamage}`
+
+    if (!weapon) {
+      toast.error('Escolha por favor uma arma antes de realizar o dano.')
+    } else {
+      api.post('chats', {
+        id: from,
+        user_id: profile.id,
+        user: profile.name,
+        message: rolled,
+        result: totalDamage,
+        type: 4,
+      })
+    }
+  }
+
+  async function handleCritDamage() {
+    const wep = await character?.Weapon?.find(w => w.id === weapon)
+    const size = await character?.Size
+    const critMult = wep?.crit_mod < 0 ? wep?.crit_mod : wep?.critical
+
+    console.log(wep)
+    const mod = (await character?.StrModTemp)
+      ? character.StrModTemp
+      : character.StrMod
+
+    const exMod = Math.floor(wep?.two_hand ? mod * 1.5 : mod) * critMult
+    const extraDamage = wep?.damage || 0
+    const name = wep?.name
+
+    const dice = size === 'MÉDIO' ? wep?.dice_m : wep?.dice_s
+    const multi =
+      size === 'MÉDIO'
+        ? wep?.multiplier_m * critMult
+        : wep?.multiplier_s * critMult
+
+    const element =
+      wep?.element > 0 ? Math.floor(Math.random() * wep?.element) + 1 : 0
+
+    let result = 0
+    const random = () => {
+      return Math.floor(Math.random() * Number(dice)) + 1
+    }
+
+    // eslint-disable-next-line
+    for (let i = 0; i < multi; i++) {
+      result += random()
+    }
+
+    const totalDamage =
+      Number(result) + Number(extraDamage) + Number(exMod) + Number(element)
+
+    const rolled = `Rolou dano ${multi} x d${dice}: ${result} + ${exMod} de mod de força + ${extraDamage} de bônus da arma, + ${element} de bônus elemento  com a arma ${name}. Com resultado: ${totalDamage}`
 
     if (!weapon) {
       toast.error('Escolha por favor uma arma antes de realizar o dano.')
@@ -375,7 +464,7 @@ export default function Chat() {
                       {m.user}
                     </Styles.MessageDataName>
                   </Styles.MessageData>
-                  <Styles.Message from={from === m.id ? 1 : 0}>
+                  <Styles.Message crit={m.isCrit} from={from === m.id ? 1 : 0}>
                     {m.message}
                   </Styles.Message>
                 </Styles.ListMessage>
@@ -464,7 +553,36 @@ export default function Chat() {
             </div>
           </div>
         </Styles.ActionContainer>
+        <Styles.AttackContainer>
+          <Styles.WeaponContainer>
+            {!loadChar && (
+              <SelectWeapon
+                weapons={weapons}
+                changeWeapon={e => setWeapon(e?.value)}
+              />
+            )}
+          </Styles.WeaponContainer>
+
+          <div>
+            <button type="button" onClick={handleAttack}>
+              Atacar
+            </button>
+          </div>
+          <div>
+            <button type="button" onClick={handleDamage}>
+              Dano
+            </button>
+          </div>
+        </Styles.AttackContainer>
         <Styles.ActionContainer>
+          <div>
+            <div>
+              <button type="button" onClick={handleCritDamage}>
+                Crítico
+              </button>
+            </div>
+          </div>
+
           <div>
             {!loadChar && (
               <ModalInitiatives
@@ -481,29 +599,7 @@ export default function Chat() {
             <ModalDamages />
           </div>
         </Styles.ActionContainer>
-        <Styles.ActionContainer>
-          <Styles.AttackContainer>
-            <Styles.WeaponContainer>
-              {!loadChar && (
-                <SelectWeapon
-                  weapons={weapons}
-                  changeWeapon={e => setWeapon(e && e.value)}
-                />
-              )}
-            </Styles.WeaponContainer>
-
-            <div>
-              <button type="button" onClick={handleAttack}>
-                Atacar
-              </button>
-            </div>
-            <div>
-              <button type="button" onClick={handleDamage}>
-                Dano
-              </button>
-            </div>
-          </Styles.AttackContainer>
-        </Styles.ActionContainer>
+        <Styles.ActionContainer></Styles.ActionContainer>
       </Styles.TalkContainer>
     </Styles.Container>
   )

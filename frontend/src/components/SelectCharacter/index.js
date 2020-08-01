@@ -23,13 +23,18 @@ export default function SelectCharacter({ changeCharacter }) {
   }, [])
 
   const customStyles = {
-    input: styles => {
-      return {
-        ...styles,
-        height: '30px',
-        minHeight: '30px',
-      }
-    },
+    option: provided => ({
+      ...provided,
+      borderBottom: '1px dotted #8e0e00',
+      color: '#8e0e00',
+      padding: 10,
+    }),
+
+    control: base => ({
+      ...base,
+      border: 0,
+      boxShadow: '0px 0px 6px 0px rgba(0, 0, 0, 0.6)',
+    }),
   }
 
   return (
@@ -37,7 +42,7 @@ export default function SelectCharacter({ changeCharacter }) {
       <Select
         styles={customStyles}
         maxMenuHeight={250}
-        placeholder="ESCOLHA A PERSOLAGEM"
+        placeholder="ESCOLHA A PERSONAGEM"
         onChange={changeCharacter}
         isLoading={loading}
         options={character}

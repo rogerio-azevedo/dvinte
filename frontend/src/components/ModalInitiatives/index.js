@@ -126,18 +126,14 @@ export default function ModalInitiatives({ from, profile, charInit }) {
         <Styles.InitContainer>
           <Styles.InitBoardContainer>
             <ul>
-              {initiatives &&
-                initiatives
-                  .sort((a, b) => b.initiative - a.initiative)
-                  .map(item => (
-                    <li key={Math.random()}>
-                      <Styles.InitUser readOnly defaultValue={item.user} />
-                      <Styles.InitValue
-                        readOnly
-                        defaultValue={item.initiative}
-                      />
-                    </li>
-                  ))}
+              {initiatives
+                ?.sort((a, b) => b.initiative - a.initiative)
+                .map(item => (
+                  <li key={Math.random()}>
+                    <Styles.InitUser readOnly defaultValue={item.user} />
+                    <Styles.InitValue readOnly defaultValue={item.initiative} />
+                  </li>
+                ))}
             </ul>
           </Styles.InitBoardContainer>
         </Styles.InitContainer>

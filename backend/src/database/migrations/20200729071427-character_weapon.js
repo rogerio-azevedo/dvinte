@@ -34,11 +34,11 @@ module.exports = {
         allowNull: true,
       },
       crit_mod: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
       crit_from_mod: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
       description: {

@@ -80,7 +80,6 @@ export const MessageDataName = styled.span`
 `
 
 export const Message = styled.div`
-  color: #000;
   padding: 8px 12px;
   line-height: 26px;
   font-size: 14px;
@@ -88,6 +87,12 @@ export const Message = styled.div`
   margin-bottom: 30px;
   width: 90%;
   position: relative;
+  color: ${props =>
+    props.crit === 'HIT'
+      ? '#0000FF'
+      : props.crit === 'FAIL'
+      ? '#FF0000'
+      : '#000'};
 
   background: ${props => (props.from ? '#c3e88d' : '#94c2ed')};
   float: ${props => (props.from ? 'right' : 'left')};
@@ -221,9 +226,9 @@ export const AttackContainer = styled.div`
     text-align: center;
     font-weight: 600;
     font-size: 14px;
+    border-radius: 4px;
     margin-right: 8px;
     margin-left: 8px;
-    border-radius: 4px;
     border: 0;
 
     &:hover {
@@ -261,7 +266,7 @@ export const ActionContainer = styled.div`
 
       button {
         color: #6f0000;
-        width: 80px;
+        width: 75px;
         height: 35px !important;
         text-align: center;
         font-weight: 600;

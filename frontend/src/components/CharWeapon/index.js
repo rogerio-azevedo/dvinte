@@ -35,8 +35,14 @@ export default function CharWeapon({ weapons, size }) {
               <label htmlFor="inputResist">Crítico</label>
               <InputMed
                 readOnly
-                defaultValue={`${item.crit_from}-20 / ${item.critical}x`}
+                defaultValue={`${
+                  item.crit_from_mod > 0 ? item.crit_from_mod : item.crit_from
+                }-20 / ${item.crit_mod > 0 ? item.crit_mod : item.critical}x`}
               />
+            </div>
+            <div>
+              <label htmlFor="inputResist">Elemento</label>
+              <InputShort readOnly defaultValue={`d${item.element}`} />
             </div>
             <div>
               <label htmlFor="inputResist">Alcance</label>
@@ -52,11 +58,11 @@ export default function CharWeapon({ weapons, size }) {
             </div>
             <div>
               <label htmlFor="inputResist">Peso</label>
-              <InputShort readOnly defaultValue={item.weight} />
+              <InputShort readOnly defaultValue={`${item.weight} kg`} />
             </div>
             <div>
               <label htmlFor="inputResist">Preço</label>
-              <InputShort readOnly defaultValue={item.price} />
+              <InputMed readOnly defaultValue={`${item.price} PO`} />
             </div>
           </li>
         ))}

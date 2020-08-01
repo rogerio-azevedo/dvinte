@@ -1,77 +1,61 @@
 import styled from 'styled-components'
+import { darken } from 'polished'
 
 export const Container = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  padding: 50px;
-
-  h1 {
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -o-user-select: none;
-    user-select: none;
-  }
-`
-
-export const ContentContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 600px;
+  align-items: center !important;
+  justify-content: center !important;
 `
 
 export const HeaderContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between !important;
 `
 
-export const FormContainer = styled.div`
-  width: 100%;
-  height: 600px;
+export const ButtonsContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
 
-  form {
-    display: ${props => (props.showform === 'hide' ? 'none' : 'block')};
+  div {
+    display: flex;
+    flex-direction: column;
   }
 `
 
-export const DivPage = styled.div`
-  display: flex;
-  flex: 1;
-  flex-direction: row;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
-  margin-top: 10px;
-`
+export const Button = styled.button`
+  color: #6f0000;
+  width: 90px;
+  height: 40px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 14px;
+  border-radius: 4px;
+  border: 0;
 
-export const ActivePage = styled.div`
-  background: #8e0e00;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  margin: 10px;
-  cursor: pointer;
-`
+  &:hover {
+    background: ${darken(0.1, '#200122')};
+    color: #fff;
 
-export const Page = styled.div`
-  background: #bbb;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  margin: 10px;
-  cursor: pointer;
-`
+    -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
+    -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
+  }
 
+  -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+`
 export const InputContainer = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   justify-items: center;
-  padding: 15px;
+  padding-bottom: 10px;
+  padding-top: 10px;
 
   > div {
     display: flex;
@@ -79,17 +63,35 @@ export const InputContainer = styled.div`
   }
 `
 
-export const InputLarge = styled.input`
+export const WeaponExtLarge = styled.textarea`
+  width: 380px;
+  height: 80px;
+  border: 1px solid;
+  border-radius: 4px;
+  padding: 5px;
+  color: rgba(111, 0, 0, 1);
+  font-weight: 500;
+  font-size: 15px;
+  margin-top: 4px;
+
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+`
+
+export const WeaponLarge = styled.input`
   width: 250px;
   border: 1px solid;
   border-radius: 4px;
-  height: 40px;
+  height: 38px;
   padding: 0 15px;
   color: rgba(111, 0, 0, 1);
   font-weight: 500;
   font-size: 15px;
   margin-top: 4px;
-  text-transform: uppercase;
 
   &::placeholder {
     color: rgba(111, 0, 0, 0.5);
@@ -103,17 +105,17 @@ export const InputLarge = styled.input`
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
 `
 
-export const InputMed = styled.input`
-  width: 120px;
+export const WeaponMed = styled.input`
+  width: 100px;
   border: 1px solid;
   border-radius: 4px;
-  height: 40px;
+  height: 38px;
   padding: 0 15px;
   color: rgba(111, 0, 0, 1);
   font-weight: 500;
   font-size: 15px;
   margin-top: 4px;
-  text-transform: uppercase;
+  text-align: center;
 
   &::placeholder {
     color: rgba(111, 0, 0, 0.5);
@@ -127,17 +129,17 @@ export const InputMed = styled.input`
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
 `
 
-export const InputShort = styled.input`
-  width: 80px;
+export const WeaponShort = styled.input`
+  width: 60px;
   border: 1px solid;
   border-radius: 4px;
-  height: 40px;
+  height: 38px;
   padding: 0 15px;
   color: rgba(111, 0, 0, 1);
   font-weight: 500;
   font-size: 15px;
   margin-top: 4px;
-  text-transform: uppercase;
+  text-align: center;
 
   &::placeholder {
     color: rgba(111, 0, 0, 0.5);
@@ -149,47 +151,4 @@ export const InputShort = styled.input`
   -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
   -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-`
-
-export const SelectMed = styled.select`
-  width: 180px;
-  border: 1px solid;
-  border-radius: 4px;
-  height: 40px;
-  padding: 0 15px;
-  color: rgba(111, 0, 0, 1);
-  font-weight: 500;
-  font-size: 15px;
-  margin-top: 4px;
-
-  &::placeholder {
-    color: rgba(111, 0, 0, 0.5);
-  }
-
-  border-top: 0;
-  border-left: 0;
-  border-right: 0;
-  -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-  -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-`
-
-export const TableContainer = styled.div`
-  width: 100%;
-  padding: 30px;
-  border-radius: 4px;
-  max-height: 700px;
-  overflow: auto;
-`
-
-export const Portrait = styled.div`
-  height: 90px;
-  width: 90px;
-
-  img {
-    width: 100%;
-    height: 90px;
-    object-fit: cover;
-    border-radius: 50%;
-  }
 `

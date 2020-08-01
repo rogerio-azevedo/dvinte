@@ -2,16 +2,18 @@ import React, { useEffect, useState } from 'react'
 import Select from 'react-select'
 import PropTypes from 'prop-types'
 
-export default function SelectWeapon({ changeWeapon, weapons }) {
+export default function SelectArmor({ changeWeapon, weapons }) {
   const [weapon, setWeapon] = useState([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     async function load() {
-      const data = weapons?.map(m => ({
-        value: m.id,
-        label: m.name.toUpperCase(),
-      }))
+      const data =
+        weapons &&
+        weapons.map(m => ({
+          value: m.id,
+          label: m.name.toUpperCase(),
+        }))
 
       setWeapon(data)
       setLoading(false)
@@ -44,11 +46,11 @@ export default function SelectWeapon({ changeWeapon, weapons }) {
   )
 }
 
-SelectWeapon.propTypes = {
+SelectArmor.propTypes = {
   changeWeapon: PropTypes.func.isRequired,
   weapons: PropTypes.arrayOf(PropTypes.object),
 }
 
-SelectWeapon.defaultProps = {
+SelectArmor.defaultProps = {
   weapons: [],
 }

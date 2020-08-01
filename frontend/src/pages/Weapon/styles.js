@@ -23,9 +23,18 @@ export const ContentContainer = styled.div`
   height: 600px;
 `
 
+export const HeaderContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
+
 export const FormContainer = styled.div`
   width: 100%;
   height: 600px;
+
+  form {
+    display: ${props => (props.showform === 'hide' ? 'none' : 'block')};
+  }
 `
 
 export const DivPage = styled.div`

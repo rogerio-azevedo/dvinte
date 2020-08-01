@@ -8,11 +8,11 @@ export const Container = styled.div`
   padding: 50px;
 
   h1 {
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -o-user-select: none;
-    user-select: none;
+    -webkit-user-select: none !important;
+    -khtml-user-select: none !important;
+    -moz-user-select: none !important;
+    -o-user-select: none !important;
+    user-select: none !important;
   }
 `
 
@@ -61,12 +61,12 @@ export const AttrLabel = styled.input`
   border-radius: 4px;
   border: 0;
 
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Old versions of Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none; /* Non-prefixed version, currently*/
+  -webkit-touch-callout: none !important; /* iOS Safari */
+  -webkit-user-select: none !important; /* Safari */
+  -khtml-user-select: none !important; /* Konqueror HTML */
+  -moz-user-select: none !important; /* Old versions of Firefox */
+  -ms-user-select: none !important; /* Internet Explorer/Edge */
+  user-select: none !important; /* Non-prefixed version, currently*/
 
   -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.5);
   -moz-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.5);
@@ -85,12 +85,12 @@ export const AttrValue = styled.input`
   border-radius: 4px;
   border: 0;
 
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Old versions of Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none; /* Non-prefixed version, currently*/
+  -webkit-touch-callout: none !important; /* iOS Safari */
+  -webkit-user-select: none !important; /* Safari */
+  -khtml-user-select: none !important; /* Konqueror HTML */
+  -moz-user-select: none !important; /* Old versions of Firefox */
+  -ms-user-select: none !important; /* Internet Explorer/Edge */
+  user-select: none !important; /* Non-prefixed version, currently*/
 
   -webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.6);
   -moz-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.6);

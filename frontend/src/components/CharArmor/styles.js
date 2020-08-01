@@ -40,7 +40,7 @@ export const Container = styled.div`
 `
 export const InputLarge = styled.input`
   color: #6f0000;
-  width: 260px !important;
+  width: 300px !important;
   height: 30px;
   text-align: center;
   font-weight: 600;

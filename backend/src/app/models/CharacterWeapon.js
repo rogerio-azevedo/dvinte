@@ -9,8 +9,8 @@ class CharacterWeapon extends Model {
         hit: Sequelize.INTEGER,
         damage: Sequelize.INTEGER,
         element: Sequelize.INTEGER,
-        crit_mod: Sequelize.STRING,
-        crit_from_mod: Sequelize.STRING,
+        crit_mod: Sequelize.INTEGER,
+        crit_from_mod: Sequelize.INTEGER,
         description: Sequelize.STRING,
       },
       {

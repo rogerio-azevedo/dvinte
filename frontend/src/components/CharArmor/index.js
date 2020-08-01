@@ -17,9 +17,14 @@ export default function CharArmor({ armors, size }) {
               <label htmlFor="inputResist">Tipo</label>
               <input readOnly defaultValue={item.type} />
             </div>
+
             <div>
-              <label htmlFor="inputResist">Bonus</label>
+              <label htmlFor="inputResist">Bônus</label>
               <input readOnly defaultValue={item.bonus} />
+            </div>
+            <div>
+              <label htmlFor="inputResist">Encant</label>
+              <input readOnly defaultValue={item.defense} />
             </div>
             <div>
               <label htmlFor="inputResist">Dest Max</label>
@@ -40,11 +45,11 @@ export default function CharArmor({ armors, size }) {
             </div>
             <div>
               <label htmlFor="inputResist">Peso</label>
-              <input readOnly defaultValue={item.weight} />
+              <input readOnly defaultValue={`${item.weight} kg`} />
             </div>
             <div>
               <label htmlFor="inputResist">Preço</label>
-              <InputMed readOnly defaultValue={item.price} />
+              <InputMed readOnly defaultValue={`${item.price} PO`} />
             </div>
           </li>
         ))}

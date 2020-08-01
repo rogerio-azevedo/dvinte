@@ -122,6 +122,8 @@ class CharacterController {
             'displacement_m',
             'weight',
             'price',
+            'book',
+            'version',
           ],
           through: { attributes: ['defense'] },
         },
@@ -140,8 +142,10 @@ class CharacterController {
             'type',
             'material',
             'weight',
-            'price',
             'two_hand',
+            'price',
+            'book',
+            'version',
           ],
           as: 'weapon',
         },
@@ -347,6 +351,7 @@ class CharacterController {
 
       Armor:
         char?.armors?.map(c => ({
+          id: c.id || 0,
           name: c.name.toUpperCase() || '',
           type: c.type || 0,
           bonus: c.bonus || 0,
@@ -357,11 +362,37 @@ class CharacterController {
           displacement_m: c.displacement_m || 0,
           weight: c.weight || 0,
           price: c.price || 0,
+          book: c.book || '',
+          version: c.version || '',
           defense: c.CharacterArmor?.defense || 0,
           description: c.CharacterArmor?.description || '',
         })) || [],
 
-      Weapon: (char && char.toJSON().weapons) || [],
+      Weapon:
+        char?.weapons?.map(c => ({
+          id: c.id || 0,
+          name: c.name.toUpperCase() || '',
+          dice_s: c.dice_s || 0,
+          dice_m: c.dice_m || 0,
+          multiplier_s: c.multiplier_s || 0,
+          multiplier_m: c.multiplier_m || 0,
+          critical: c.critical || 0,
+          crit_from: c.crit_from || 0,
+          range: c.range || 0,
+          type: c.type || '',
+          weight: c.weight || 0,
+          material: c.material || '',
+          two_hand: c.two_hand || false,
+          price: c.price || 0,
+          book: c.book || '',
+          version: c.version || '',
+          hit: c.CharacterWeapon?.hit || 0,
+          damage: c.CharacterWeapon?.damage || 0,
+          element: c.CharacterWeapon?.element || 0,
+          crit_mod: c.CharacterWeapon?.crit_mod || 0,
+          crit_from_mod: c.CharacterWeapon?.crit_from_mod || 0,
+          description: c.CharacterWeapon?.description || '',
+        })) || [],
     }
     return res.json(charData)
   }
