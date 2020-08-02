@@ -346,7 +346,7 @@ export default function Chat() {
       : character.StrMod
 
     const exMod = Math.floor(wep?.two_hand ? mod * 1.5 : mod) * critMult
-    const extraDamage = wep?.damage || 0
+    const extraDamage = wep?.damage * critMult || 0
     const name = wep?.name
 
     const dice = size === 'MÉDIO' ? wep?.dice_m : wep?.dice_s
