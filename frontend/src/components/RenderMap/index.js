@@ -61,7 +61,9 @@ export default function RenderMap({ tokens }) {
     })
   }, [lines])
 
-  const [map] = useImage('https://i.imgur.com/cUyn2zF.jpg')
+  // const [map] = useImage('https://i.imgur.com/cUyn2zF.jpg')
+
+  const [map] = useImage('https://i.redd.it/eouyl4et4mn11.jpg')
 
   // const [map] = useImage('https://i.imgur.com/cUyn2zF.jpg')
 
