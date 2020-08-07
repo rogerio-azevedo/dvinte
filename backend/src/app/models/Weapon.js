@@ -17,7 +17,7 @@ class Weapon extends Model {
         material: Sequelize.STRING,
         weight: Sequelize.FLOAT,
         price: Sequelize.INTEGER,
-        two_hand: Sequelize.BOOLEAN,
+        str_bonus: Sequelize.FLOAT,
         book: Sequelize.STRING,
         version: Sequelize.STRING,
       },

@@ -24,7 +24,6 @@ import AttributeController from './app/controllers/AttributeController'
 import BaseAttackController from './app/controllers/BaseAttackController'
 import BaseResistController from './app/controllers/BaseResistController'
 
-import CombatController from './app/controllers/CombatController'
 import WeaponController from './app/controllers/WeaponController'
 import ArmorController from './app/controllers/ArmorController'
 
@@ -104,8 +103,6 @@ routes.get('/baseattack', BaseAttackController.index)
 
 routes.post('/baseresist', BaseResistController.store)
 routes.get('/baseresist', BaseResistController.index)
-
-routes.get('/combats', CombatController.index)
 
 routes.post('/weapons', WeaponController.store)
 routes.get('/weapons', WeaponController.index)

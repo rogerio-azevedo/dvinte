@@ -21,7 +21,7 @@ class WeaponController {
       multiplier_s: Number(req.body.multiplier_s),
       price: Number(req.body.price),
       range: parseFloat(req.body.range),
-      two_hand: req.body.switch,
+      str_bonus: parseFloat(req.body.str_bonus),
       type: req.body.type,
       weight: parseFloat(req.body.weight),
       book: req.body.book,

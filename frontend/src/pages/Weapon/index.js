@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { Select } from 'antd'
-import { Switch } from '@material-ui/core'
 import { Table } from 'antd'
 
 import Button from '~/components/Button'
@@ -102,9 +101,9 @@ export default function Weapon() {
       render: (text, item) => `${item.weight} kg`,
     },
     {
-      title: 'Duas mãos',
-      dataIndex: 'two_hand',
-      render: (text, item) => (item.two_hand ? 'SIM' : 'NÃO'),
+      title: 'Força',
+      dataIndex: 'str_bonus',
+      key: 'str_bonus',
     },
     {
       title: 'Livro',
@@ -213,13 +212,21 @@ export default function Weapon() {
                 />
               </div>
               <div>
+                <label htmlFor="character">Peso</label>
+                <Styles.InputMed
+                  name="weight"
+                  ref={register({ required: true })}
+                />
+              </div>
+              <Styles.SelectContainer>
                 <label htmlFor="character">Tipo</label>
                 <section>
                   <Controller
                     as={
-                      <Select
+                      <Styles.SelectFormated
+                        size={'large'}
                         showSearch
-                        style={{ width: 200 }}
+                        style={{ width: '100%' }}
                         placeholder="Escolha o Tipo"
                         optionFilterProp="children"
                         filterOption={(input, option) =>
@@ -231,13 +238,13 @@ export default function Weapon() {
                         <Option value="CONCUSSÃO">CONCUSSÃO</Option>
                         <Option value="CORTANTE">CORTANTE</Option>
                         <Option value="PERFURANTE">PERFURANTE</Option>
-                      </Select>
+                      </Styles.SelectFormated>
                     }
                     name="type"
                     control={control}
                   />
                 </section>
-              </div>
+              </Styles.SelectContainer>
             </Styles.InputContainer>
 
             <Styles.InputContainer>
@@ -248,13 +255,7 @@ export default function Weapon() {
                   ref={register({ required: true })}
                 />
               </div>
-              <div>
-                <label htmlFor="character">Peso</label>
-                <Styles.InputMed
-                  name="weight"
-                  ref={register({ required: true })}
-                />
-              </div>
+
               <div>
                 <label htmlFor="character">Livro</label>
                 <Styles.InputLarge
@@ -263,14 +264,15 @@ export default function Weapon() {
                 />
               </div>
 
-              <div>
+              <Styles.SelectContainer>
                 <label htmlFor="character">Versão</label>
                 <section>
                   <Controller
                     as={
-                      <Select
+                      <Styles.SelectFormated
+                        size={'large'}
                         showSearch
-                        style={{ width: 180 }}
+                        style={{ width: '100%' }}
                         placeholder="Escolha a Versão"
                         optionFilterProp="children"
                         filterOption={(input, option) =>
@@ -279,33 +281,51 @@ export default function Weapon() {
                             .indexOf(input.toLowerCase()) >= 0
                         }
                       >
-                        <Option value="V 1.0e">V 1.0e</Option>
-                        <Option value="V 2.0e">V 2.0e</Option>
-                        <Option value="V 3.0e">V 3.0e</Option>
-                        <Option value="V 3.5e">V 3.5e</Option>
-                        <Option value="V 4.0e">V 4.0e</Option>
-                        <Option value="V 5.0e">V 5.0e</Option>
-                      </Select>
+                        <Option value="V 1.0e">Versão 1.0e</Option>
+                        <Option value="V 2.0e">Versão 2.0e</Option>
+                        <Option value="V 3.0e">Versão 3.0e</Option>
+                        <Option value="V 3.5e">Versão 3.5e</Option>
+                        <Option value="V 4.0e">Versão 4.0e</Option>
+                        <Option value="V 5.0e">Versão 5.0e</Option>
+                      </Styles.SelectFormated>
                     }
                     name="version"
                     control={control}
                   />
                 </section>
-              </div>
+              </Styles.SelectContainer>
 
-              <div>
-                <label htmlFor="character">Duas Mãos</label>
-                <div>
-                  <section>
-                    <Controller
-                      as={<Switch value="checkedA" />}
-                      type="checkbox"
-                      name="switch"
-                      control={control}
-                    />
-                  </section>
-                </div>
-              </div>
+              <Styles.SelectContainer>
+                <label htmlFor="character">Bônus de Força</label>
+                <section>
+                  <Controller
+                    as={
+                      <Styles.SelectFormated
+                        size={'large'}
+                        showSearch
+                        style={{ width: '100%' }}
+                        placeholder="Escolha a Bonus"
+                        optionFilterProp="children"
+                        filterOption={(input, option) =>
+                          option.children
+                            .toLowerCase()
+                            .indexOf(input.toLowerCase()) >= 0
+                        }
+                      >
+                        <Option value={0}>Sem bônus de Força</Option>
+                        <Option value={0.5}>Bônus de 0.5 a Força</Option>
+                        <Option value={1}>Bônus de 1x a Força</Option>
+                        <Option value={1.5}>Bônus de 1.5x a Força</Option>
+                        <Option value={2}>Bônus de 2x a Força</Option>
+                        <Option value={2.5}>Bônus de 2.5x a Força</Option>
+                        <Option value={3}>Bônus de 3x a Força</Option>
+                      </Styles.SelectFormated>
+                    }
+                    name="str_bonus"
+                    control={control}
+                  />
+                </section>
+              </Styles.SelectContainer>
             </Styles.InputContainer>
 
             <Styles.InputContainer loading={loading ? 1 : 0}>

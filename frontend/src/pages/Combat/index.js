@@ -56,7 +56,7 @@ export default function Combat() {
 
       setMessages(response.data)
     } catch (e) {
-      toast.error('Conexao com a API mal sucedida.')
+      toast.error('Falha ao carregar as mensagens do Chat.')
     }
   }
 
@@ -80,18 +80,14 @@ export default function Combat() {
 
       setTokens(response.data)
     } catch (e) {
-      toast.error('Conexao com a API mal sucedida.')
+      toast.error('Falha ao tentar carregar os Tokens')
     }
   }
 
   async function getCharacter() {
     setLoadChar(true)
     try {
-      const response = await api.get('combats', {
-        params: {
-          user: profile.id,
-        },
-      })
+      const response = await api.get(`characters/${profile.id}`)
 
       const char = response.data
       setCharacter(char)
@@ -136,7 +132,7 @@ export default function Combat() {
 
       setLoadChar(false)
     } catch (e) {
-      toast.error('Conexao com a API mal sucedida.')
+      toast.error('Falha ao tentar carregar os dados dos personagens')
     }
   }
 
@@ -146,7 +142,7 @@ export default function Combat() {
 
       setInitiatives(response.data)
     } catch (e) {
-      toast.error('Conexao com a API mal sucedida.')
+      toast.error('Falha ao tentar carregar as iniciativas')
     }
   }
 

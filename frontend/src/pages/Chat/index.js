@@ -53,7 +53,7 @@ export default function Chat() {
       const response = await api.get('/chats')
       setMessages(response.data)
     } catch (e) {
-      toast.error('Conexao com a API mal sucedida.')
+      toast.error('Houve um problema ao carregar as mensagens do Chat!')
     }
   }
 
@@ -77,18 +77,14 @@ export default function Chat() {
 
       setTokens(response.data)
     } catch (e) {
-      toast.error('Conexao com a API mal sucedida.')
+      toast.error('Houve um problema ao carregar as Tokens dos Personagens!')
     }
   }
 
   async function getCharacter() {
     setLoadChar(true)
     try {
-      const response = await api.get('combats', {
-        params: {
-          user: profile.id,
-        },
-      })
+      const response = await api.get(`characters/${profile.id}`)
 
       const char = response.data
       setCharacter(char)
@@ -155,7 +151,7 @@ export default function Chat() {
 
       setLoadChar(false)
     } catch (e) {
-      toast.error('Conexao com a API mal sucedida.')
+      toast.error('Houve um problema ao carregar os dados dos personagens!')
     }
   }
 
@@ -228,54 +224,53 @@ export default function Chat() {
   }
 
   async function handleAttack() {
-    const wep = await character?.Weapon?.find(w => w.id === weapon)
-    const extraHit = wep?.hit || 0
-    const critFrom = wep.crit_from_mod > 0 ? wep.crit_from_mod : wep.crit_from
-    const name = wep?.name
-    const dice = Math.floor(Math.random() * 20) + 1
+    if (weapon) {
+      const wep = await character?.Weapon?.find(w => w.id === weapon)
+      const extraHit = wep?.hit || 0
+      const critFrom =
+        wep?.crit_from_mod > 0 ? wep?.crit_from_mod : wep?.crit_from
+      const name = wep?.name
+      const dice = Math.floor(Math.random() * 20) + 1
 
-    let isCrit = ''
+      let isCrit = ''
 
-    if (dice >= critFrom) {
-      isCrit = 'HIT'
-    } else if (dice === 1) {
-      isCrit = 'FAIL'
-    } else {
-      isCrit = 'NORMAL'
-    }
+      if (dice >= critFrom) {
+        isCrit = 'HIT'
+      } else if (dice === 1) {
+        isCrit = 'FAIL'
+      } else {
+        isCrit = 'NORMAL'
+      }
 
-    let mod = 0
+      let mod = 0
 
-    const StrMod = character?.StrModTemp
-      ? character?.StrModTemp
-      : character?.StrMod
+      const StrMod = character?.StrModTemp
+        ? character?.StrModTemp
+        : character?.StrMod
 
-    const DexMod = character?.DexModTemp
-      ? character?.DexModTemp
-      : character?.DexMod
+      const DexMod = character?.DexModTemp
+        ? character?.DexModTemp
+        : character?.DexMod
 
-    if (wep?.range > 3) {
-      mod = DexMod
-    } else {
-      mod = StrMod
-    }
+      if (wep?.range > 3) {
+        mod = DexMod
+      } else {
+        mod = StrMod
+      }
 
-    const base = character?.BaseAttack + mod
-    const attack = Number(base) + Number(dice) + Number(extraHit)
+      const base = character?.BaseAttack + mod
+      const attack = Number(base) + Number(dice) + Number(extraHit)
 
-    let rolled = ''
+      let rolled = ''
 
-    if (isCrit === 'HIT') {
-      rolled = `ACERTO CRÍTICO d20: ${dice} + ${base} de base + ${extraHit} de bônus da arma ${name}, com resultado: ${attack}`
-    } else if (isCrit === 'FAIL') {
-      rolled = `ERRO CRÍTICO d20: ${dice} + ${base} de base + ${extraHit} de bônus da arma ${name}, com resultado: ${attack}`
-    } else {
-      rolled = `Rolou ataque d20: ${dice} + ${base} de base + ${extraHit} de bônus da arma ${name}, com resultado: ${attack}`
-    }
+      if (isCrit === 'HIT') {
+        rolled = `ACERTO CRÍTICO d20: ${dice} + ${base} de base + ${extraHit} de bônus da arma ${name}, com resultado: ${attack}`
+      } else if (isCrit === 'FAIL') {
+        rolled = `ERRO CRÍTICO d20: ${dice} + ${base} de base + ${extraHit} de bônus da arma ${name}, com resultado: ${attack}`
+      } else {
+        rolled = `Rolou ataque d20: ${dice} + ${base} de base + ${extraHit} de bônus da arma ${name}, com resultado: ${attack}`
+      }
 
-    if (!weapon) {
-      toast.error('Escolha por favor uma arma antes de realizar o ataque.')
-    } else {
       api.post('chats', {
         id: from,
         user_id: profile.id,
@@ -285,45 +280,45 @@ export default function Chat() {
         type: 3,
         isCrit: isCrit,
       })
+    } else {
+      toast.error('Escolha por favor uma arma antes de realizar o ataque.')
     }
   }
 
   async function handleDamage() {
-    const wep = await character?.Weapon?.find(w => w.id === weapon)
-    const size = await character?.Size
+    if (weapon) {
+      const wep = await character?.Weapon?.find(w => w.id === weapon)
+      const size = await character?.Size
 
-    const mod = (await character?.StrModTemp)
-      ? character.StrModTemp
-      : character.StrMod
+      const mod = (await character?.StrModTemp)
+        ? character.StrModTemp
+        : character.StrMod
 
-    const exMod = Math.floor(wep?.two_hand ? mod * 1.5 : mod)
+      const exMod = Math.floor(wep?.str_bonus * mod)
 
-    const dice = size === 'MÉDIO' ? wep?.dice_m : wep?.dice_s
-    const multi = size === 'MÉDIO' ? wep?.multiplier_m : wep?.multiplier_s
-    const name = wep?.name
-    const extraDamage = wep?.damage || 0
+      const dice = size === 'MÉDIO' ? wep?.dice_m : wep?.dice_s
+      const multi = size === 'MÉDIO' ? wep?.multiplier_m : wep?.multiplier_s
+      const name = wep?.name
+      const extraDamage = wep?.damage || 0
 
-    const element =
-      wep?.element > 0 ? Math.floor(Math.random() * wep?.element) + 1 : 0
+      const element =
+        wep?.element > 0 ? Math.floor(Math.random() * wep?.element) + 1 : 0
 
-    let result = 0
-    const random = () => {
-      return Math.floor(Math.random() * Number(dice)) + 1
-    }
+      let result = 0
+      const random = () => {
+        return Math.floor(Math.random() * Number(dice)) + 1
+      }
 
-    // eslint-disable-next-line
-    for (let i = 0; i < multi; i++) {
-      result += random()
-    }
+      // eslint-disable-next-line
+      for (let i = 0; i < multi; i++) {
+        result += random()
+      }
 
-    const totalDamage =
-      Number(result) + Number(extraDamage) + Number(exMod) + Number(element)
+      const totalDamage =
+        Number(result) + Number(extraDamage) + Number(exMod) + Number(element)
 
-    const rolled = `Rolou dano ${multi} x d${dice}: ${result} + ${exMod} de mod de força + ${extraDamage} de bônus da arma, + ${element} de bônus elemento  com a arma ${name}. Com resultado: ${totalDamage}`
+      const rolled = `Rolou dano ${multi} x d${dice}: ${result} + ${exMod} de mod de força + ${extraDamage} de bônus da arma, + ${element} de bônus elemento  com a arma ${name}. Com resultado: ${totalDamage}`
 
-    if (!weapon) {
-      toast.error('Escolha por favor uma arma antes de realizar o dano.')
-    } else {
       api.post('chats', {
         id: from,
         user_id: profile.id,
@@ -332,6 +327,8 @@ export default function Chat() {
         result: totalDamage,
         type: 4,
       })
+    } else {
+      toast.error('Escolha por favor uma arma antes de realizar o dano.')
     }
   }
 
@@ -345,7 +342,7 @@ export default function Chat() {
       ? character.StrModTemp
       : character.StrMod
 
-    const exMod = Math.floor(wep?.two_hand ? mod * 1.5 : mod) * critMult
+    const exMod = Math.floor(wep?.str_Bonus * mod) * critMult
     const extraDamage = wep?.damage * critMult || 0
     const name = wep?.name
 

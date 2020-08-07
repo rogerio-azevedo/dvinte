@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Select } from 'antd'
 
 export const Container = styled.div`
   display: flex;
@@ -68,7 +69,7 @@ export const Page = styled.div`
 export const InputContainer = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   justify-items: center;
   padding: 15px;
@@ -84,7 +85,7 @@ export const InputContainer = styled.div`
 `
 
 export const InputLarge = styled.input`
-  width: 250px;
+  width: 280px;
   border: 1px solid;
   border-radius: 4px;
   height: 40px;
@@ -107,8 +108,8 @@ export const InputLarge = styled.input`
 `
 
 export const InputMed = styled.input`
-  width: 120px;
-  border: 1px solid;
+  width: 160px;
+  border: 1px solid rgba(111, 0, 0, 1);
   border-radius: 4px;
   height: 40px;
   padding: 0 15px;
@@ -130,7 +131,7 @@ export const InputMed = styled.input`
 `
 
 export const InputShort = styled.input`
-  width: 80px;
+  width: 90px;
   border: 1px solid;
   border-radius: 4px;
   height: 40px;
@@ -151,21 +152,16 @@ export const InputShort = styled.input`
   -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
 `
+export const SelectContainer = styled.div`
+  width: 280px;
 
-export const SelectMed = styled.select`
-  width: 180px;
-  border: 1px solid;
-  border-radius: 4px;
-  height: 40px;
-  padding: 0 15px;
-  color: rgba(111, 0, 0, 1);
-  font-weight: 500;
-  font-size: 15px;
-  margin-top: 4px;
-
-  &::placeholder {
-    color: rgba(111, 0, 0, 0.5);
+  label {
+    margin-bottom: 3px;
   }
+`
+export const SelectFormated = styled(Select)`
+  border: 1px solid rgba(111, 0, 0, 1);
+  border-radius: 4px;
 
   border-top: 0;
   border-left: 0;
