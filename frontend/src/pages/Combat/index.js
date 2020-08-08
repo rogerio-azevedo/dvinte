@@ -52,7 +52,7 @@ export default function Combat() {
 
   async function loadAllMessages() {
     try {
-      const response = await api.get('/chats')
+      const response = await api.get('/combats')
 
       setMessages(response.data)
     } catch (e) {
@@ -188,7 +188,7 @@ export default function Combat() {
     event.preventDefault()
 
     if (message.trim()) {
-      api.post('chats', {
+      api.post('combats', {
         id: from,
         user_id: profile.id,
         user: profile.name,
@@ -212,7 +212,7 @@ export default function Combat() {
 
     const rolled = `Rolou ${multiplier} x d${sides} com resultado: ${calc}`
 
-    api.post('chats', {
+    api.post('combats', {
       id: from,
       user_id: profile.id,
       user: profile.name,
@@ -229,7 +229,7 @@ export default function Combat() {
 
     const rolled = `Rolou iniciativa d20: ${dice} + ${dext} de destreza, com resultado: ${init}`
 
-    api.post('chats', {
+    api.post('combats', {
       id: from,
       user_id: profile.id,
       user: profile.name,
@@ -275,7 +275,7 @@ export default function Combat() {
     if (!weapon) {
       toast.error('Escolha por favor uma arma antes de realizar o ataque.')
     } else {
-      api.post('chats', {
+      api.post('combats', {
         id: from,
         user_id: profile.id,
         user: profile.name,
@@ -313,7 +313,7 @@ export default function Combat() {
     if (!weapon) {
       toast.error('Escolha por favor uma arma antes de realizar o dano.')
     } else {
-      api.post('chats', {
+      api.post('combats', {
         id: from,
         user_id: profile.id,
         user: profile.name,
@@ -329,7 +329,7 @@ export default function Combat() {
 
     const rolled = `Rolou teste de Fortitude d20: ${dice} + ${fortitude} de fortitude, com resultado: ${fortitudeTest}`
 
-    api.post('chats', {
+    api.post('combats', {
       id: from,
       user_id: profile.id,
       user: profile.name,
@@ -344,7 +344,7 @@ export default function Combat() {
 
     const rolled = `Rolou teste de Reflexos d20: ${dice} + ${reflex} de reflexos, com resultado: ${reflexTest}`
 
-    api.post('chats', {
+    api.post('combats', {
       id: from,
       user_id: profile.id,
       user: profile.name,
@@ -359,7 +359,7 @@ export default function Combat() {
 
     const rolled = `Rolou teste de Vontade d20: ${dice} + ${will} de vontade, com resultado: ${willTest}`
 
-    api.post('chats', {
+    api.post('combats', {
       id: from,
       user_id: profile.id,
       user: profile.name,

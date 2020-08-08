@@ -27,6 +27,12 @@ export default function CharCa({ armors, dextMod }) {
       return acc + (val.bonus + val.defense)
     }, 0)
 
+  const deflex = armors
+    .filter(t => t.type === 4)
+    .reduce((acc, val) => {
+      return acc + (val.bonus + val.defense)
+    }, 0)
+
   const outros = armors
     .filter(t => t.type === 5)
     .reduce((acc, val) => {
@@ -89,7 +95,7 @@ export default function CharCa({ armors, dextMod }) {
         </div>
         <div>
           <label htmlFor="inputResist">deflex</label>
-          <InputDefense readOnly defaultValue="0" />
+          <InputDefense readOnly defaultValue={deflex} />
         </div>
         <div>
           <label htmlFor="inputResist">outros</label>

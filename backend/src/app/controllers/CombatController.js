@@ -1,78 +1,40 @@
-import Character from '../models/Character'
-import Portrait from '../models/Portrait'
-import Divinity from '../models/Divinity'
-import Alignment from '../models/Alignment'
-import Race from '../models/Race'
-import Attribute from '../models/Attribute'
-import AttributeTemp from '../models/AttributeTemp'
-import User from '../models/User'
-import BaseAttack from '../models/BaseAttack'
-import BaseResist from '../models/BaseResist'
-import CharacterClass from '../models/CharacterClass'
+import Logs from '../schemas/Logs'
 
-import getSize from '../../util/getSize'
-import getGender from '../../util/getGender'
-import getModifier from '../../util/getModifier'
+import { saveMessage } from '../../websocket'
 
-class CharacterController {
+const { format, subDays, addDays } = require('date-fns')
+const { utcToZonedTime } = require('date-fns-tz')
+
+const DateBR = utcToZonedTime(new Date(), 'America/Sao_Paulo')
+const date1 = subDays(DateBR, 8)
+const date2 = addDays(DateBR, 1)
+
+class CombatController {
   async index(req, res) {
-    const list = await Character.findAll({
-      where: {
-        is_ativo: true,
-      },
-      attributes: ['id', 'name', 'gender', 'health', 'exp', 'skin', 'level'],
-      include: [
-        {
-          model: Portrait,
-          as: 'portrait',
-          attributes: ['id', 'path', 'url'],
-        },
-        {
-          model: Divinity,
-          as: 'divinity',
-          attributes: ['name'],
-        },
-        {
-          model: Alignment,
-          as: 'alignment',
-          attributes: ['name'],
-        },
-        {
-          model: Race,
-          as: 'race',
-          attributes: ['name'],
-        },
-        {
-          model: User,
-          as: 'user',
-          attributes: ['name'],
-        },
-        {
-          model: Attribute,
-          as: 'attribute',
-        },
-      ],
-      order: [['name', 'ASC']],
+    const data1 = format(date1, "yyyy-MM-dd'T00:00:00")
+    const data2 = format(date2, "yyyy-MM-dd'T23:59:59")
+
+    const log = await Logs.find({
+      createdAt: { $gte: data1, $lte: data2 },
     })
 
-    const chars = list.map(c => ({
+    const mensages = log.map(c => ({
       id: c.id,
-      name: c.name,
-      health: c.health,
-      exp: c.exp,
-      skin: c.skin,
-      level: c.level,
-      portrait: (c.portrait && c.portrait.url) || '',
-      alignment: (c.alignment && c.alignment.name) || '',
-      race: (c.race && c.race.name) || '',
-      user: (c.user && c.user.name) || '',
+      user: c.user,
+      date: c.createdAt,
+      message: c.message,
+      isCrit: c.isCrit,
     }))
 
-    return res.json(chars)
+    return res.json(mensages)
   }
 
   async show(req, res) {
-    const char = await Character.findByPk(req.params.id, {
+    const user_id = req.params.user_id
+    const char_id = req.params.char_id
+
+    const char = await Character.findOne({
+      where: { user_id: req.params.id },
       include: [
         {
           model: Portrait,
@@ -309,122 +271,21 @@ class CharacterController {
   }
 
   async store(req, res) {
-    const data = req.body
+    const chat = await Logs.create(req.body)
 
-    function getExp(lv) {
-      let exp = 0
-
-      switch (lv) {
-        case 1:
-          exp = 0
-          break
-        case 2:
-          exp = 1000
-          break
-        case 3:
-          exp = 3000
-          break
-        case 4:
-          exp = 6000
-          break
-        case 5:
-          exp = 10000
-          break
-        case 6:
-          exp = 15000
-          break
-        case 7:
-          exp = 21000
-          break
-        case 8:
-          exp = 28000
-          break
-        case 9:
-          exp = 36000
-          break
-        case 10:
-          exp = 45000
-          break
-        case 11:
-          exp = 55000
-          break
-        case 12:
-          exp = 66000
-          break
-        case 13:
-          exp = 78000
-          break
-        case 14:
-          exp = 91000
-          break
-        case 15:
-          exp = 105000
-          break
-        case 16:
-          exp = 120000
-          break
-        case 17:
-          exp = 136000
-          break
-        case 18:
-          exp = 153000
-          break
-        case 19:
-          exp = 171000
-          break
-        case 20:
-          exp = 190000
-          break
-        default:
-      }
-
-      return exp
+    const message = {
+      id: chat.id,
+      user: chat.user,
+      date: chat.createdAt,
+      message: chat.message,
+      result: chat.result,
+      type: chat.type,
+      isCrit: chat?.isCrit,
     }
+    saveMessage(message)
 
-    const charData = {
-      name: data.name,
-      age: data.age,
-      gender: data.gender,
-      skin: data.skin,
-      eye: data.eye,
-      hair: data.hair,
-      height: data.height,
-      weight: data.weight,
-      level: data.level,
-      health: data.health,
-      health_now: data.health_now,
-      exp: getExp(data.level),
-      size: data.size,
-      user_id: data.user_id,
-      portrait_id: data.portrait_id,
-      alignment_id: data.alignment_id,
-      race_id: data.race_id,
-      divinity_id: data.divinity_id,
-      is_ativo: data.is_ativo,
-    }
-
-    const person = await Character.create(charData)
-
-    const attrData = {
-      character_id: person.id,
-      strength: req.body.attributes.str,
-      dexterity: req.body.attributes.dex,
-      contitution: req.body.attributes.con,
-      inteligence: req.body.attributes.int,
-      wisdom: req.body.attributes.wis,
-      charisma: req.body.attributes.cha,
-    }
-
-    const classData = req.body.classe.map(item => ({
-      ...item,
-      character_id: person.id,
-    }))
-
-    await Attribute.create(attrData)
-
-    await CharacterClass.bulkCreate(classData)
-    return res.json(person)
+    return res.json(chat)
   }
 }
 
-export default new CharacterController()
+export default new CombatController()

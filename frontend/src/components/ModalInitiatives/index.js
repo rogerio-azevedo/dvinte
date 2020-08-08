@@ -54,7 +54,7 @@ export default function ModalInitiatives({ from, profile, charInit }) {
 
     const rolled = `Rolou iniciativa d20: ${dice} + ${dext} de destreza, com resultado: ${initTotal}`
 
-    api.post('chats', {
+    api.post('combats', {
       id: from,
       user_id: profile.id,
       user: profile.name,

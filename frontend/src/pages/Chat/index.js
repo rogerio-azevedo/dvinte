@@ -50,7 +50,7 @@ export default function Chat() {
 
   async function loadAllMessages() {
     try {
-      const response = await api.get('/chats')
+      const response = await api.get('/combats')
       setMessages(response.data)
     } catch (e) {
       toast.error('Houve um problema ao carregar as mensagens do Chat!')
@@ -187,7 +187,7 @@ export default function Chat() {
     event.preventDefault()
 
     if (message.trim()) {
-      api.post('chats', {
+      api.post('combats', {
         id: from,
         user_id: profile.id,
         user: profile.name,
@@ -213,7 +213,7 @@ export default function Chat() {
 
     const rolled = `Rolou ${multiplier} x d${sides} com resultado: ${calc}`
 
-    api.post('chats', {
+    api.post('combats', {
       id: from,
       user_id: profile.id,
       user: profile.name,
@@ -271,7 +271,7 @@ export default function Chat() {
         rolled = `Rolou ataque d20: ${dice} + ${base} de base + ${extraHit} de bônus da arma ${name}, com resultado: ${attack}`
       }
 
-      api.post('chats', {
+      api.post('combats', {
         id: from,
         user_id: profile.id,
         user: profile.name,
@@ -319,7 +319,7 @@ export default function Chat() {
 
       const rolled = `Rolou dano ${multi} x d${dice}: ${result} + ${exMod} de mod de força + ${extraDamage} de bônus da arma, + ${element} de bônus elemento  com a arma ${name}. Com resultado: ${totalDamage}`
 
-      api.post('chats', {
+      api.post('combats', {
         id: from,
         user_id: profile.id,
         user: profile.name,
@@ -335,14 +335,14 @@ export default function Chat() {
   async function handleCritDamage() {
     const wep = await character?.Weapon?.find(w => w.id === weapon)
     const size = await character?.Size
-    const critMult = wep?.crit_mod < 0 ? wep?.crit_mod : wep?.critical
+    const critMult = wep?.crit_mod > 0 ? wep?.crit_mod : wep?.critical
+    console.log(wep?.crit_mod)
 
-    console.log(wep)
     const mod = (await character?.StrModTemp)
       ? character.StrModTemp
       : character.StrMod
 
-    const exMod = Math.floor(wep?.str_Bonus * mod) * critMult
+    const exMod = Math.floor(wep?.str_bonus * mod) * critMult
     const extraDamage = wep?.damage * critMult || 0
     const name = wep?.name
 
@@ -368,12 +368,12 @@ export default function Chat() {
     const totalDamage =
       Number(result) + Number(extraDamage) + Number(exMod) + Number(element)
 
-    const rolled = `Rolou dano ${multi} x d${dice}: ${result} + ${exMod} de mod de força + ${extraDamage} de bônus da arma, + ${element} de bônus elemento  com a arma ${name}. Com resultado: ${totalDamage}`
+    const rolled = `DANO CRÍTICO ${multi} x d${dice}: ${result} + ${exMod} de mod de força + ${extraDamage} de bônus da arma, + ${element} de bônus elemento  com a arma ${name}. Com resultado: ${totalDamage}`
 
     if (!weapon) {
       toast.error('Escolha por favor uma arma antes de realizar o dano.')
     } else {
-      api.post('chats', {
+      api.post('combats', {
         id: from,
         user_id: profile.id,
         user: profile.name,
@@ -391,7 +391,7 @@ export default function Chat() {
 
     const rolled = `Rolou teste de Fortitude d20: ${dice} + ${fortitude} de fortitude, com resultado: ${fortitudeTest}`
 
-    api.post('chats', {
+    api.post('combats', {
       id: from,
       user_id: profile.id,
       user: profile.name,
@@ -408,7 +408,7 @@ export default function Chat() {
 
     const rolled = `Rolou teste de Reflexos d20: ${dice} + ${reflex} de reflexos, com resultado: ${reflexTest}`
 
-    api.post('chats', {
+    api.post('combats', {
       id: from,
       user_id: profile.id,
       user: profile.name,
@@ -425,7 +425,7 @@ export default function Chat() {
 
     const rolled = `Rolou teste de Vontade d20: ${dice} + ${will} de vontade, com resultado: ${willTest}`
 
-    api.post('chats', {
+    api.post('combats', {
       id: from,
       user_id: profile.id,
       user: profile.name,

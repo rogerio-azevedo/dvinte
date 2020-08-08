@@ -18,7 +18,8 @@ import RaceController from './app/controllers/RaceController'
 import SessionController from './app/controllers/SessionController'
 import UserController from './app/controllers/UserController'
 
-import ChatController from './app/controllers/ChatController'
+import CombatController from './app/controllers/CombatController'
+
 import CampaignController from './app/controllers/CampaignController'
 import AttributeController from './app/controllers/AttributeController'
 import BaseAttackController from './app/controllers/BaseAttackController'
@@ -35,6 +36,8 @@ import DamageController from './app/controllers/DamageController'
 import CharacterWeaponController from './app/controllers/CharacterWeaponController'
 import CharacterArmorController from './app/controllers/CharacterArmorController'
 
+import AttributeTempController from './app/controllers/AttributeTempController'
+
 const routes = new Router()
 const upload = multer(multerConfig)
 
@@ -45,8 +48,9 @@ routes.get('/check', (req, res) => res.send('API ONLINE'))
 
 routes.use(authMiddleware)
 
-routes.post('/chats', ChatController.store)
-routes.get('/chats', ChatController.index)
+routes.post('/combats', CombatController.store)
+routes.get('/combats', CombatController.index)
+routes.get('/combats', CombatController.show)
 
 routes.post('/notes', NotesController.store)
 routes.get('/notes', NotesController.index)
@@ -116,5 +120,10 @@ routes.get('/damages', DamageController.index)
 
 routes.post('/characterweapons', CharacterWeaponController.store)
 routes.post('/characterarmors', CharacterArmorController.store)
+
+routes.get('/attributetemps', AttributeTempController.index)
+routes.get('/attributetemps/:id', AttributeTempController.show)
+routes.post('/attributetemps', AttributeTempController.store)
+routes.put('/attributetemps/:id', AttributeTempController.update)
 
 export default routes
