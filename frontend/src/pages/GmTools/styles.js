@@ -8,7 +8,23 @@ export const Container = styled.div`
   align-items: center;
 `
 
+export const CharacterContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+`
+
 export const HealthContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+`
+
+export const FuryContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -36,6 +52,58 @@ export const ButtonHealth = styled.button`
   height: 40px;
   width: 120px;
   background: #8e0e00;
+  font-weight: bold;
+  color: #fff;
+  border: 0;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: background 0.3s;
+  display: ${props => (props.loading ? 'none' : 'block')};
+
+  &:hover {
+    background: ${darken(0.09, '#8e0e00')};
+  }
+`
+
+export const ButtonFury = styled.button`
+  height: 40px;
+  width: 120px;
+  background: ${props => (props.buttoncolor === 'fury' ? '#8e0e00' : '#eee')};
+  font-weight: bold;
+  color: #fff;
+  border: 0;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: background 0.3s;
+  display: ${props => (props.loading ? 'none' : 'block')};
+
+  &:hover {
+    background: ${darken(0.09, '#8e0e00')};
+  }
+`
+
+export const ButtonNormal = styled.button`
+  height: 40px;
+  width: 120px;
+  background: ${props => (props.buttoncolor === 'normal' ? '#8e0e00' : '#eee')};
+  font-weight: bold;
+  color: #fff;
+  border: 0;
+  border-radius: 4px;
+  font-size: 16px;
+  transition: background 0.3s;
+  display: ${props => (props.loading ? 'none' : 'block')};
+
+  &:hover {
+    background: ${darken(0.09, '#8e0e00')};
+  }
+`
+
+export const ButtonFatigue = styled.button`
+  height: 40px;
+  width: 120px;
+  background: ${props =>
+    props.buttoncolor === 'fatigue' ? '#8e0e00' : '#eee'};
   font-weight: bold;
   color: #fff;
   border: 0;

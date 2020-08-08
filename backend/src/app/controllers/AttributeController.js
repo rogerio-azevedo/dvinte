@@ -1,6 +1,6 @@
 import Attribute from '../models/Attribute'
 
-class LevelController {
+class AttributeController {
   async index(req, res) {
     const atts = await Attribute.findAll({})
 
@@ -14,4 +14,4 @@ class LevelController {
   }
 }
 
-export default new LevelController()
+export default new AttributeController()
