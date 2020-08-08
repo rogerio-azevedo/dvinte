@@ -72,7 +72,8 @@ class CharacterController {
   }
 
   async show(req, res) {
-    const char = await Character.findByPk(req.params.id, {
+    const char = await Character.findOne({
+      where: { user_id: req.params.id },
       include: [
         {
           model: Portrait,
