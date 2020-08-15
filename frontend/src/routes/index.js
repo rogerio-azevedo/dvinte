@@ -33,6 +33,7 @@ import CharBase from '~/pages/CharacterCreate/CharBase'
 import CharClass from '~/pages/CharacterCreate/CharClass'
 import CharAttributes from '~/pages/CharacterCreate/CharAttributes'
 import CharPreview from '~/pages/CharacterCreate/CharPreview'
+import Equipment from '~/pages/Equipment'
 
 export default function Routes() {
   return (
@@ -50,6 +51,7 @@ export default function Routes() {
       <Route path="/races" component={Race} isPrivate />
       <Route path="/weapons" component={Weapon} isPrivate />
       <Route path="/armors" component={Armor} isPrivate />
+      <Route path="/equipments" component={Equipment} isPrivate />
 
       <Route path="/portraits" component={Portrait} isPrivate />
       <Route path="/tokens" component={Token} isPrivate />

@@ -5,6 +5,7 @@ import api from '~/services/api'
 import CharClass from '~/components/CharClass'
 import CharArmor from '~/components/CharArmor'
 import CharWeapon from '~/components/CharWeapon'
+import CharEquipment from '~/components/CharEquipment'
 import CharCa from '~/components/CharCa'
 import CharResist from '~/components/CharResist'
 
@@ -17,6 +18,7 @@ export default function CharacterDetail() {
   const [classes, setClasses] = useState()
   const [armors, setArmors] = useState()
   const [weapons, setWeapons] = useState()
+  const [equipments, setEquipments] = useState()
   const [resist, setResist] = useState()
   const [strMod, setStrMod] = useState()
   const [dexMod, setDexMod] = useState()
@@ -35,6 +37,7 @@ export default function CharacterDetail() {
       setClasses(response.data.Classes)
       setArmors(response.data.Armor)
       setWeapons(response.data.Weapon)
+      setEquipments(response.data.Equipment)
       setResist(response.data)
       setLoading(false)
     }
@@ -285,6 +288,14 @@ export default function CharacterDetail() {
           <legend>Armas</legend>
           {!loading && <CharWeapon weapons={weapons} size={char?.Size} />}
         </Styles.WeaponContainer>
+      </Styles.ArmoryContainer>
+      <Styles.ArmoryContainer>
+        <Styles.EquipmentContainer>
+          <legend>Equipamentos</legend>
+          {!loading && (
+            <CharEquipment equipments={equipments} char={char?.Cod} />
+          )}
+        </Styles.EquipmentContainer>
       </Styles.ArmoryContainer>
     </Styles.Container>
   )

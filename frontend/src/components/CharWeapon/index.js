@@ -7,7 +7,7 @@ export default function CharWeapon({ weapons, size }) {
   return (
     <Container>
       <ul>
-        {weapons.map(item => (
+        {weapons?.map(item => (
           <li key={Math.random()}>
             <div>
               <label htmlFor="inputResist">Nome</label>

@@ -27,6 +27,7 @@ import BaseResistController from './app/controllers/BaseResistController'
 
 import WeaponController from './app/controllers/WeaponController'
 import ArmorController from './app/controllers/ArmorController'
+import EquipmentController from './app/controllers/EquipmentController'
 
 import InitiativeController from './app/controllers/InitiativeController'
 import HealthController from './app/controllers/HealthController'
@@ -37,6 +38,7 @@ import CharacterWeaponController from './app/controllers/CharacterWeaponControll
 import CharacterArmorController from './app/controllers/CharacterArmorController'
 
 import AttributeTempController from './app/controllers/AttributeTempController'
+import CharacterEquipmentController from './app/controllers/CharacterEquipmentController'
 
 const routes = new Router()
 const upload = multer(multerConfig)
@@ -50,7 +52,7 @@ routes.use(authMiddleware)
 
 routes.post('/combats', CombatController.store)
 routes.get('/combats', CombatController.index)
-routes.get('/combats', CombatController.show)
+routes.get('/combats/:id', CombatController.show)
 
 routes.post('/notes', NotesController.store)
 routes.get('/notes', NotesController.index)
@@ -111,6 +113,9 @@ routes.get('/baseresist', BaseResistController.index)
 routes.post('/weapons', WeaponController.store)
 routes.get('/weapons', WeaponController.index)
 
+routes.post('/equipments', EquipmentController.store)
+routes.get('/equipments', EquipmentController.index)
+
 routes.post('/armors', ArmorController.store)
 routes.get('/armors', ArmorController.index)
 
@@ -120,6 +125,8 @@ routes.get('/damages', DamageController.index)
 
 routes.post('/characterweapons', CharacterWeaponController.store)
 routes.post('/characterarmors', CharacterArmorController.store)
+routes.post('/characterequipments', CharacterEquipmentController.store)
+routes.delete('/characterequipments/:id', CharacterEquipmentController.destroy)
 
 routes.get('/attributetemps', AttributeTempController.index)
 routes.get('/attributetemps/:id', AttributeTempController.show)

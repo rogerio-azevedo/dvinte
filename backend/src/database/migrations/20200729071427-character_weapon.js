@@ -41,6 +41,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
+      dex_damage: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+      },
       description: {
         type: Sequelize.STRING,
         allowNull: true,

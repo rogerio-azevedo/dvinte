@@ -1,6 +1,22 @@
 import Logs from '../schemas/Logs'
+import Character from '../models/Character'
+import Portrait from '../models/Portrait'
+import Divinity from '../models/Divinity'
+import Alignment from '../models/Alignment'
+import Race from '../models/Race'
+import Attribute from '../models/Attribute'
+import AttributeTemp from '../models/AttributeTemp'
+import User from '../models/User'
+import BaseAttack from '../models/BaseAttack'
+import BaseResist from '../models/BaseResist'
+import CharacterClass from '../models/CharacterClass'
+
+import getSize from '../../util/getSize'
+import getGender from '../../util/getGender'
+import getModifier from '../../util/getModifier'
 
 import { saveMessage } from '../../websocket'
+import Character from '../models/Character'
 
 const { format, subDays, addDays } = require('date-fns')
 const { utcToZonedTime } = require('date-fns-tz')
@@ -30,11 +46,11 @@ class CombatController {
   }
 
   async show(req, res) {
-    const user_id = req.params.user_id
-    const char_id = req.params.char_id
-
     const char = await Character.findOne({
-      where: { user_id: req.params.id },
+      where: {
+        user_id: req.params.id,
+        is_ativo: true,
+      },
       include: [
         {
           model: Portrait,
@@ -91,7 +107,7 @@ class CombatController {
             'book',
             'version',
           ],
-          through: { attributes: ['defense'] },
+          through: { attributes: ['defense', 'description'] },
         },
         {
           association: 'weapons',
@@ -120,7 +136,29 @@ class CombatController {
               'element',
               'crit_mod',
               'crit_from_mod',
+              'dex_damage',
+              'description',
             ],
+          },
+        },
+        {
+          association: 'equipments',
+          attributes: [
+            'id',
+            'name',
+            'str_temp',
+            'dex_temp',
+            'con_temp',
+            'int_temp',
+            'wis_temp',
+            'cha_temp',
+            'weight',
+            'price',
+            'book',
+            'version',
+          ],
+          through: {
+            attributes: ['description'],
           },
         },
       ],
@@ -264,7 +302,25 @@ class CombatController {
           element: c.CharacterWeapon?.element || 0,
           crit_mod: c.CharacterWeapon?.crit_mod || 0,
           crit_from_mod: c.CharacterWeapon?.crit_from_mod || 0,
+          dex_damage: c.CharacterWeapon?.dex_damage || false,
           description: c.CharacterWeapon?.description || '',
+        })) || [],
+
+      Equipment:
+        char?.equipments?.map(c => ({
+          id: c.id || 0,
+          name: c.name.toUpperCase() || '',
+          str_temp: c.str_temp || 0,
+          dex_temp: c.dex_temp || 0,
+          con_temp: c.con_temp || 0,
+          int_temp: c.int_temp || 0,
+          wis_temp: c.wis_temp || 0,
+          cha_temp: c.cha_temp || 0,
+          weight: c.weight || 0,
+          price: c.price || 0,
+          book: c.book || '',
+          version: c.version || '',
+          description: c.CharacterEquipment?.description || '',
         })) || [],
     }
     return res.json(charData)

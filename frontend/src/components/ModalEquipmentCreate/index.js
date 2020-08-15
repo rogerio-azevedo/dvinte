@@ -4,7 +4,6 @@ import { FaTimes } from 'react-icons/fa/'
 import { FaRegMoneyBillAlt } from 'react-icons/fa/'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
-import { Switch } from 'antd'
 
 import api from '~/services/api'
 
@@ -27,21 +26,20 @@ const customStyles = {
 
 Modal.setAppElement('#root')
 
-export default function ModalWeaponCreate({ weapon }) {
+export default function ModalEquipmentCreate({ equipment }) {
   const { handleSubmit, register, setValue } = useForm()
   const [modalIsOpen, setIsOpen] = useState(false)
-  const [selectedWeapon, setSelectedWeapon] = useState()
+  const [selectedEquipment, setSelectedEquipment] = useState()
 
   useEffect(() => {
     register({ name: 'character' })
-    register({ name: 'dex_damage' })
   }, [register])
 
   const onSubmit = (data, e) => {
     async function saveData() {
-      await api.post('characterweapons', data)
+      await api.post('characterequipments', data)
       e.target.reset()
-      toast.success('Arma vinculada com sucesso!')
+      toast.success('Equipamento vinculado com sucesso!')
     }
     saveData()
 
@@ -50,7 +48,8 @@ export default function ModalWeaponCreate({ weapon }) {
 
   function openModal() {
     setIsOpen(true)
-    setSelectedWeapon(weapon)
+    setSelectedEquipment(equipment)
+    //setValue('cod', selectedWeapon?.id)
   }
 
   function afterOpenModal() {
@@ -59,14 +58,6 @@ export default function ModalWeaponCreate({ weapon }) {
 
   function closeModal() {
     setIsOpen(false)
-  }
-
-  function onChange(checked) {
-    if (checked === true) {
-      setValue('dex_damage', checked)
-    } else {
-      setValue('dex_damage', false)
-    }
   }
 
   return (
@@ -85,7 +76,7 @@ export default function ModalWeaponCreate({ weapon }) {
         contentLabel="Example Modal"
       >
         <Styles.HeaderContainer>
-          <h2>Cadastro de Arma</h2>
+          <h2>Cadastro de Equipamento</h2>
           <FaTimes
             onClick={closeModal}
             color="red"
@@ -98,70 +89,24 @@ export default function ModalWeaponCreate({ weapon }) {
             <div>
               <label htmlFor="weapon">Cod</label>
               <Styles.WeaponShort
-                name="weapon"
+                name="equipment"
                 ref={register({ required: true })}
                 readOnly
-                value={selectedWeapon?.id}
+                value={selectedEquipment?.id}
               />
             </div>
             <div>
               <label htmlFor="weapon">Nome</label>
               <Styles.WeaponLarge
                 readOnly
-                value={selectedWeapon?.name.toUpperCase()}
+                value={selectedEquipment?.name.toUpperCase()}
               />
             </div>
           </Styles.InputContainer>
 
           <Styles.InputContainer>
             <div>
-              <label htmlFor="weapon">Acerto Extra</label>
-              <Styles.WeaponMed name="hit" ref={register({ required: true })} />
-            </div>
-            <div>
-              <label htmlFor="weapon">Dano Extra</label>
-              <Styles.WeaponMed
-                name="damage"
-                ref={register({ required: true })}
-              />
-            </div>
-
-            <div>
-              <label htmlFor="weapon">Elemento (dado)</label>
-              <Styles.WeaponMed
-                name="element"
-                ref={register({ required: true })}
-              />
-            </div>
-
-            <div>
-              <label htmlFor="weapon">Dex (dano)</label>
-              <div style={{ marginTop: '18px' }}>
-                <Switch
-                  name="dex_damage"
-                  defaultChecked={false}
-                  onChange={onChange}
-                />
-              </div>
-            </div>
-          </Styles.InputContainer>
-          <Styles.InputContainer>
-            <div>
-              <label htmlFor="weapon">Crítico Mínimo</label>
-              <Styles.WeaponMed
-                name="crit_from_mod"
-                ref={register({ required: true })}
-              />
-            </div>
-            <div>
-              <label htmlFor="weapon">Crit Multiplicador</label>
-              <Styles.WeaponMed
-                name="crit_mod"
-                ref={register({ required: true })}
-              />
-            </div>
-            <div>
-              <label style={{ color: '#fff' }} htmlFor="weapon">
+              <label style={{ color: '#fff' }} htmlFor="equipment">
                 .
               </label>
               <SelectCharacter
@@ -173,7 +118,7 @@ export default function ModalWeaponCreate({ weapon }) {
 
           <Styles.ButtonsContainer>
             <div>
-              <label htmlFor="weapon">Observação</label>
+              <label htmlFor="equipment">Observação</label>
               <Styles.WeaponExtLarge
                 type="text"
                 name="description"

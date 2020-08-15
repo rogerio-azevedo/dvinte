@@ -507,3 +507,73 @@ export const WeaponContainer = styled.fieldset`
     }
   }
 `
+
+export const EquipmentContainer = styled.fieldset`
+  margin-top: 20px;
+  border: 1px solid #6f0000;
+  border-radius: 4px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+
+  legend {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 600;
+    margin-left: 5px;
+    width: 180px;
+    color: #6f0000;
+    background: #fff;
+    -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+    padding: 5px;
+    border-radius: 4px;
+  }
+
+  -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+
+  div {
+    ul {
+      overflow-y: auto;
+
+      li {
+        display: flex;
+        flex-direction: row;
+
+        div {
+          display: flex;
+          flex-direction: column;
+
+          > label {
+            margin-left: 10px !important;
+          }
+
+          input {
+            color: #6f0000;
+            width: 65px;
+            height: 30px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 16px;
+            margin: 5px;
+            margin-right: 10px;
+
+            border: 0;
+            -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+            -moz-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+            box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+          }
+        }
+      }
+    }
+  }
+`

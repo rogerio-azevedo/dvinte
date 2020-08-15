@@ -11,6 +11,7 @@ class CharacterWeapon extends Model {
         element: Sequelize.INTEGER,
         crit_mod: Sequelize.INTEGER,
         crit_from_mod: Sequelize.INTEGER,
+        dex_damage: Sequelize.BOOLEAN,
         description: Sequelize.STRING,
       },
       {

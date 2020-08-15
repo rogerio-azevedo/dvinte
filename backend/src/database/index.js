@@ -8,6 +8,7 @@ import Character from '../app/models/Character'
 import CharacterArmor from '../app/models/CharacterArmor'
 import CharacterClass from '../app/models/CharacterClass'
 import CharacterWeapon from '../app/models/CharacterWeapon'
+import CharacterEquipment from '../app/models/CharacterEquipment'
 import Portrait from '../app/models/Portrait'
 import Token from '../app/models/Token'
 import CharToken from '../app/models/CharToken'
@@ -18,6 +19,7 @@ import Attribute from '../app/models/Attribute'
 import AttributeTemp from '../app/models/AttributeTemp'
 import Armor from '../app/models/Armor'
 import Weapon from '../app/models/Weapon'
+import Equipment from '../app/models/Equipment'
 import BaseAttack from '../app/models/BaseAttack'
 import BaseResist from '../app/models/BaseResist'
 
@@ -41,6 +43,8 @@ const models = [
   AttributeTemp,
   Armor,
   Weapon,
+  Equipment,
+  CharacterEquipment,
   BaseAttack,
   BaseResist,
 ]

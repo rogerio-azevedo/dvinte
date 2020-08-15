@@ -8,13 +8,14 @@ class AttributeTempController {
   }
 
   async show(req, res) {
-    const atts = await AttributeTemp.findOne({
+    console.log(req.params.id)
+    const attrs = await AttributeTemp.findOne({
       where: {
         character_id: req.params.id,
       },
     })
     console.log(attrs)
-    return res.json(atts)
+    return res.json(attrs)
   }
 
   async store(req, res) {
@@ -24,9 +25,30 @@ class AttributeTempController {
   }
 
   async update(req, res) {
-    const atts = await AttributeTemp.update(req.body)
+    const attrs = await AttributeTemp.findOne({
+      where: {
+        character_id: req.params.id,
+      },
+    })
 
-    return res.json(atts)
+    let newAttrs = {}
+
+    if (attrs) {
+      newAttrs = {
+        character_id: attrs.character_id,
+        strength: attrs.strength + req.body.str,
+        dexterity: attrs.dexterity,
+        contitution: attrs.contitution + req.body.con,
+        inteligence: attrs.inteligence,
+        wisdom: attrs.wisdom,
+        charisma: attrs.charisma,
+      }
+    }
+
+    await AttributeTemp.update(newAttrs, {
+      where: { character_id: attrs.character_id },
+    })
+    return res.json(attrs)
   }
 }
 

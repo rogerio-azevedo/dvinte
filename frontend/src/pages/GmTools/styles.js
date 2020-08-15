@@ -34,21 +34,21 @@ export const FuryContainer = styled.div`
 export const InputHealth = styled.input`
   color: #6f0000;
   width: 80px;
-  height: 40px;
+  height: 36px;
   text-align: center;
   font-weight: 600;
   font-size: 20px;
   margin: 2px;
   border-radius: 4px;
   margin-right: 20px;
-
   border: 0;
+
   -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
   -moz-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
   box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
 `
 
-export const ButtonHealth = styled.button`
+export const Button = styled.button`
   height: 40px;
   width: 120px;
   background: #8e0e00;
@@ -59,58 +59,7 @@ export const ButtonHealth = styled.button`
   font-size: 16px;
   transition: background 0.3s;
   display: ${props => (props.loading ? 'none' : 'block')};
-
-  &:hover {
-    background: ${darken(0.09, '#8e0e00')};
-  }
-`
-
-export const ButtonFury = styled.button`
-  height: 40px;
-  width: 120px;
-  background: ${props => (props.buttoncolor === 'fury' ? '#8e0e00' : '#eee')};
-  font-weight: bold;
-  color: #fff;
-  border: 0;
-  border-radius: 4px;
-  font-size: 16px;
-  transition: background 0.3s;
-  display: ${props => (props.loading ? 'none' : 'block')};
-
-  &:hover {
-    background: ${darken(0.09, '#8e0e00')};
-  }
-`
-
-export const ButtonNormal = styled.button`
-  height: 40px;
-  width: 120px;
-  background: ${props => (props.buttoncolor === 'normal' ? '#8e0e00' : '#eee')};
-  font-weight: bold;
-  color: #fff;
-  border: 0;
-  border-radius: 4px;
-  font-size: 16px;
-  transition: background 0.3s;
-  display: ${props => (props.loading ? 'none' : 'block')};
-
-  &:hover {
-    background: ${darken(0.09, '#8e0e00')};
-  }
-`
-
-export const ButtonFatigue = styled.button`
-  height: 40px;
-  width: 120px;
-  background: ${props =>
-    props.buttoncolor === 'fatigue' ? '#8e0e00' : '#eee'};
-  font-weight: bold;
-  color: #fff;
-  border: 0;
-  border-radius: 4px;
-  font-size: 16px;
-  transition: background 0.3s;
-  display: ${props => (props.loading ? 'none' : 'block')};
+  margin: 0 10px;
 
   &:hover {
     background: ${darken(0.09, '#8e0e00')};

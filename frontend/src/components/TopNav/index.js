@@ -121,6 +121,11 @@ export default function TopNav() {
                   </Link>
                 </li>
                 <li>
+                  <Link onClick={handleRemoveClick} to="/equipments">
+                    Equipamentos
+                  </Link>
+                </li>
+                <li>
                   <Link onClick={handleRemoveClick} to="/races">
                     Raças
                   </Link>

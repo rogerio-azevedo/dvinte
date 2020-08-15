@@ -7,7 +7,7 @@ export default function CharClass({ classes }) {
   return (
     <Container>
       <ul>
-        {classes.map(item => (
+        {classes?.map(item => (
           <li key={Math.random()}>
             <ClassInput readOnly defaultValue={item.name} />
             <ClassValueInput readOnly defaultValue={item.level} />

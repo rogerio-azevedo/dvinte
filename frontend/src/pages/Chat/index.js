@@ -84,8 +84,7 @@ export default function Chat() {
   async function getCharacter() {
     setLoadChar(true)
     try {
-      const response = await api.get(`characters/${profile.id}`)
-
+      const response = await api.get(`combats/${profile.id}`)
       const char = response.data
       setCharacter(char)
 
@@ -290,9 +289,22 @@ export default function Chat() {
       const wep = await character?.Weapon?.find(w => w.id === weapon)
       const size = await character?.Size
 
-      const mod = (await character?.StrModTemp)
-        ? character.StrModTemp
-        : character.StrMod
+      let mod = 0
+      let modType = ''
+
+      if (wep?.dex_damage === true) {
+        mod = (await character?.DexModTemp)
+          ? character.DexModTemp
+          : character.DexMod
+
+        modType = 'de mod de Destreza'
+      } else {
+        mod = (await character?.StrModTemp)
+          ? character.StrModTemp
+          : character.StrMod
+
+        modType = 'de mod de Força'
+      }
 
       const exMod = Math.floor(wep?.str_bonus * mod)
 
@@ -317,7 +329,7 @@ export default function Chat() {
       const totalDamage =
         Number(result) + Number(extraDamage) + Number(exMod) + Number(element)
 
-      const rolled = `Rolou dano ${multi} x d${dice}: ${result} + ${exMod} de mod de força + ${extraDamage} de bônus da arma, + ${element} de bônus elemento  com a arma ${name}. Com resultado: ${totalDamage}`
+      const rolled = `Rolou dano ${multi} x d${dice}: ${result} + ${exMod} ${modType} + ${extraDamage} de bônus da arma, + ${element} de bônus elemento  com a arma ${name}. Com resultado: ${totalDamage}`
 
       api.post('combats', {
         id: from,

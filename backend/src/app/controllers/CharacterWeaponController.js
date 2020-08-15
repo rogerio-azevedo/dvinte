@@ -10,6 +10,7 @@ class CharacterWeaponController {
       element: Number(req.body?.element),
       crit_mod: Number(req.body?.crit_mod),
       crit_from_mod: Number(req.body?.crit_from_mod),
+      dex_damage: req.body?.dex_damage ? req.body.dex_damage : false,
       description: req.body?.description,
     }
     const weapon = await CharacterWeapon.create(weaponChar)

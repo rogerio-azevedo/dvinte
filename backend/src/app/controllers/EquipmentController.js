@@ -10,7 +10,7 @@ class EquipmentController {
   }
 
   async store(req, res) {
-    const wep = {
+    const equip = {
       name: req.body.name.toUpperCase(),
       str_temp: Number(req.body.str_temp),
       dex_temp: Number(req.body.dex_temp),
@@ -24,9 +24,9 @@ class EquipmentController {
       version: req.body.version,
     }
 
-    const weapon = await Equipment.create(wep)
+    const equipment = await Equipment.create(equip)
 
-    return res.json(weapon)
+    return res.json(equipment)
   }
 }
 
