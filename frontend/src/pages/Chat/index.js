@@ -350,9 +350,22 @@ export default function Chat() {
     const critMult = wep?.crit_mod > 0 ? wep?.crit_mod : wep?.critical
     console.log(wep?.crit_mod)
 
-    const mod = (await character?.StrModTemp)
-      ? character.StrModTemp
-      : character.StrMod
+    let mod = 0
+    let modType = ''
+
+    if (wep?.dex_damage === true) {
+      mod = (await character?.DexModTemp)
+        ? character.DexModTemp
+        : character.DexMod
+
+      modType = 'de mod de Destreza'
+    } else {
+      mod = (await character?.StrModTemp)
+        ? character.StrModTemp
+        : character.StrMod
+
+      modType = 'de mod de Força'
+    }
 
     const exMod = Math.floor(wep?.str_bonus * mod) * critMult
     const extraDamage = wep?.damage * critMult || 0
@@ -380,7 +393,7 @@ export default function Chat() {
     const totalDamage =
       Number(result) + Number(extraDamage) + Number(exMod) + Number(element)
 
-    const rolled = `DANO CRÍTICO ${multi} x d${dice}: ${result} + ${exMod} de mod de força + ${extraDamage} de bônus da arma, + ${element} de bônus elemento  com a arma ${name}. Com resultado: ${totalDamage}`
+    const rolled = `DANO CRÍTICO ${multi} x d${dice}: ${result} + ${exMod} ${modType} + ${extraDamage} de bônus da arma, + ${element} de bônus elemento  com a arma ${name}. Com resultado: ${totalDamage}`
 
     if (!weapon) {
       toast.error('Escolha por favor uma arma antes de realizar o dano.')
