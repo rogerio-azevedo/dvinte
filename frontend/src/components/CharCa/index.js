@@ -60,7 +60,7 @@ export default function CharCa({ armors, dextMod }) {
 
   const bonusDext = calcDext(dextMod)
 
-  const totalCa = 10 + shield + armor + bonusDext + natural + outros
+  const totalCa = 10 + shield + armor + bonusDext + natural + deflex + outros
 
   return (
     <Container>
