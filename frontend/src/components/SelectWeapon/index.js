@@ -30,7 +30,7 @@ export default function SelectWeapon({ changeWeapon, weapons }) {
   }
 
   return (
-    <div style={{ width: '220px', marginRight: '15px' }}>
+    <div style={{ width: '335px' }}>
       <Select
         styles={customStyles}
         maxMenuHeight={220}

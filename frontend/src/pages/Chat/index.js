@@ -584,7 +584,8 @@ export default function Chat() {
               />
             )}
           </Styles.WeaponContainer>
-
+        </Styles.AttackContainer>
+        <Styles.AttackContainer>
           <div>
             <button type="button" onClick={handleAttack}>
               Atacar
@@ -595,16 +596,13 @@ export default function Chat() {
               Dano
             </button>
           </div>
+          <div>
+            <button type="button" onClick={handleCritDamage}>
+              Dano Crítico
+            </button>
+          </div>
         </Styles.AttackContainer>
         <Styles.ActionContainer>
-          <div>
-            <div>
-              <button type="button" onClick={handleCritDamage}>
-                Crítico
-              </button>
-            </div>
-          </div>
-
           <div>
             {!loadChar && (
               <ModalInitiatives
@@ -615,10 +613,10 @@ export default function Chat() {
             )}
           </div>
           <div>
-            {!loadChar && <ModalCharacterStatus charStatus={charStatus} />}
+            <ModalDamages />
           </div>
           <div>
-            <ModalDamages />
+            {!loadChar && <ModalCharacterStatus charStatus={charStatus} />}
           </div>
         </Styles.ActionContainer>
         <Styles.ActionContainer></Styles.ActionContainer>

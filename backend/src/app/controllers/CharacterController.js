@@ -13,6 +13,7 @@ import CharacterClass from '../models/CharacterClass'
 import getSize from '../../util/getSize'
 import getGender from '../../util/getGender'
 import getModifier from '../../util/getModifier'
+import getCharXp from '../../util/getCharXp'
 
 class CharacterController {
   async index(req, res) {
@@ -20,7 +21,16 @@ class CharacterController {
       where: {
         is_ativo: true,
       },
-      attributes: ['id', 'name', 'gender', 'health', 'exp', 'skin', 'level'],
+      attributes: [
+        'id',
+        'name',
+        'gender',
+        'health',
+        'health_now',
+        'exp',
+        'skin',
+        'level',
+      ],
       include: [
         {
           model: Portrait,
@@ -51,14 +61,49 @@ class CharacterController {
           model: Attribute,
           as: 'attribute',
         },
+        {
+          model: AttributeTemp,
+          as: 'attribute_temp',
+        },
+        {
+          association: 'classes',
+          attributes: ['name', 'attack', 'fortitude', 'reflex', 'will'],
+          through: { attributes: ['level'] },
+        },
+        {
+          association: 'armors',
+          attributes: [
+            'id',
+            'name',
+            'type',
+            'bonus',
+            'dexterity',
+            'displacement_s',
+            'displacement_m',
+          ],
+          through: { attributes: ['defense', 'description'] },
+        },
       ],
       order: [['name', 'ASC']],
+    })
+
+    const baseAtack = await BaseAttack.findAll({
+      //where: { level: levels },
+      raw: true,
+      attributes: ['level', 'low', 'medium', 'high'],
+    })
+
+    const baseResist = await BaseResist.findAll({
+      //where: { level: levels },
+      raw: true,
+      attributes: ['level', 'low', 'high'],
     })
 
     const chars = list.map(c => ({
       id: c.id,
       name: c.name,
       health: c.health,
+      health_now: c.health_now,
       exp: c.exp,
       skin: c.skin,
       level: c.level,
@@ -66,7 +111,153 @@ class CharacterController {
       alignment: (c.alignment && c.alignment.name) || '',
       race: (c.race && c.race.name) || '',
       user: (c.user && c.user.name) || '',
+
+      str: c?.attribute_temp
+        ? c?.attribute_temp?.strength
+        : c?.attribute?.strength || 0,
+
+      dex: c?.attribute_temp
+        ? c?.attribute_temp?.dexterity
+        : c?.attribute?.dexterity || 0,
+
+      con: c?.attribute_temp
+        ? c?.attribute_temp?.contitution
+        : c?.attribute?.contitution || 0,
+
+      int: c?.attribute_temp
+        ? c?.attribute_temp?.inteligence
+        : c?.attribute?.inteligence || 0,
+
+      wis: c?.attribute_temp
+        ? c?.attribute_temp?.wisdom
+        : c?.attribute?.wisdom || 0,
+
+      cha: c?.attribute_temp
+        ? c?.attribute_temp.charisma
+        : c?.attribute?.charisma || 0,
+
+      dexMod: c?.attribute_temp
+        ? getModifier(c?.attribute_temp?.dexterity)
+        : getModifier(c?.attribute?.dexterity),
+
+      strMod: c?.attribute_temp
+        ? getModifier(c?.attribute_temp?.strength)
+        : getModifier(c?.attribute?.strength),
+
+      conMod: c?.attribute_temp
+        ? getModifier(c?.attribute_temp?.contitution)
+        : getModifier(c?.attribute?.contitution),
+
+      wisMod: c?.attribute_temp
+        ? getModifier(c?.attribute_temp?.wisdom)
+        : getModifier(c?.attribute?.wisdom),
+
+      armor:
+        c?.armors
+          ?.filter(t => t.type === 1)
+          .map(c => ({
+            name: c.name.toUpperCase() || '',
+            type: c.type || 0,
+            bonus: c.bonus || 0,
+            dexterity: c.dexterity || 0,
+            displacement_s: c.displacement_s || 0,
+            displacement_m: c.displacement_m || 0,
+            defense: c.CharacterArmor?.defense || 0,
+          }))
+          .reduce((acc, val) => {
+            return acc + (val.bonus + val.defense)
+          }, 0) || 0,
+
+      shield:
+        c?.armors
+          ?.filter(t => t.type === 2)
+          .map(c => ({
+            name: c.name.toUpperCase() || '',
+            type: c.type || 0,
+            bonus: c.bonus || 0,
+            dexterity: c.dexterity || 0,
+            displacement_s: c.displacement_s || 0,
+            displacement_m: c.displacement_m || 0,
+            defense: c.CharacterArmor?.defense || 0,
+          }))
+          .reduce((acc, val) => {
+            return acc + (val.bonus + val.defense)
+          }, 0) || 0,
+
+      natural:
+        c?.armors
+          ?.filter(t => t.type === 3)
+          .map(c => ({
+            name: c.name.toUpperCase() || '',
+            type: c.type || 0,
+            bonus: c.bonus || 0,
+            dexterity: c.dexterity || 0,
+            displacement_s: c.displacement_s || 0,
+            displacement_m: c.displacement_m || 0,
+            defense: c.CharacterArmor?.defense || 0,
+          }))
+          .reduce((acc, val) => {
+            return acc + (val.bonus + val.defense)
+          }, 0) || 0,
+
+      deflex:
+        c?.armors
+          ?.filter(t => t.type === 4)
+          .map(c => ({
+            name: c.name.toUpperCase() || '',
+            type: c.type || 0,
+            bonus: c.bonus || 0,
+            dexterity: c.dexterity || 0,
+            displacement_s: c.displacement_s || 0,
+            displacement_m: c.displacement_m || 0,
+            defense: c.CharacterArmor?.defense || 0,
+          }))
+          .reduce((acc, val) => {
+            return acc + (val.bonus + val.defense)
+          }, 0) || 0,
+
+      others:
+        c?.armors
+          ?.filter(t => t.type === 5)
+          .map(c => ({
+            name: c.name.toUpperCase() || '',
+            type: c.type || 0,
+            bonus: c.bonus || 0,
+            dexterity: c.dexterity || 0,
+            displacement_s: c.displacement_s || 0,
+            displacement_m: c.displacement_m || 0,
+            defense: c.CharacterArmor?.defense || 0,
+          }))
+          .reduce((acc, val) => {
+            return acc + (val.bonus + val.defense)
+          }, 0) || 0,
+
+      maxDex: Math.min(
+        ...c?.armors?.filter(t => t.dexterity > 0).map(item => item.dexterity)
+      ),
+
+      baseAttack: c?.classes?.reduce((total, cl) => {
+        const base = baseAtack.find(a => a.level === cl.CharacterClass.level)
+        return total + ((base && base[cl.attack]) || 0)
+      }, 0),
+
+      fortitude: c?.classes?.reduce((total, c) => {
+        const base = baseResist.find(a => a.level === c.CharacterClass.level)
+        return total + ((base && base[c.fortitude]) || 0)
+      }, 0),
+
+      reflex: c?.classes?.reduce((total, c) => {
+        const base = baseResist.find(a => a.level === c.CharacterClass.level)
+        return total + ((base && base[c.reflex]) || 0)
+      }, 0),
+
+      will: c?.classes?.reduce((total, c) => {
+        const base = baseResist.find(a => a.level === c.CharacterClass.level)
+        return total + ((base && base[c.will]) || 0)
+      }, 0),
     }))
+
+    console.log(chars)
 
     return res.json(chars)
   }
@@ -351,76 +542,6 @@ class CharacterController {
   async store(req, res) {
     const data = req.body
 
-    function getExp(lv) {
-      let exp = 0
-
-      switch (lv) {
-        case 1:
-          exp = 0
-          break
-        case 2:
-          exp = 1000
-          break
-        case 3:
-          exp = 3000
-          break
-        case 4:
-          exp = 6000
-          break
-        case 5:
-          exp = 10000
-          break
-        case 6:
-          exp = 15000
-          break
-        case 7:
-          exp = 21000
-          break
-        case 8:
-          exp = 28000
-          break
-        case 9:
-          exp = 36000
-          break
-        case 10:
-          exp = 45000
-          break
-        case 11:
-          exp = 55000
-          break
-        case 12:
-          exp = 66000
-          break
-        case 13:
-          exp = 78000
-          break
-        case 14:
-          exp = 91000
-          break
-        case 15:
-          exp = 105000
-          break
-        case 16:
-          exp = 120000
-          break
-        case 17:
-          exp = 136000
-          break
-        case 18:
-          exp = 153000
-          break
-        case 19:
-          exp = 171000
-          break
-        case 20:
-          exp = 190000
-          break
-        default:
-      }
-
-      return exp
-    }
-
     const charData = {
       name: data.name,
       age: data.age,
@@ -433,7 +554,7 @@ class CharacterController {
       level: data.level,
       health: data.health,
       health_now: data.health_now,
-      exp: getExp(data.level),
+      exp: getCharXp(data.level),
       size: data.size,
       user_id: data.user_id,
       portrait_id: data.portrait_id,

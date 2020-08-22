@@ -61,8 +61,12 @@ export default function RenderMap({ tokens }) {
     })
   }, [lines])
 
+  // const [map] = useImage(
+  //   'https://i.pinimg.com/originals/10/0e/2b/100e2bc6b357eb9909ce215f8d2c72ba.png'
+  // )
+
   const [map] = useImage(
-    'https://i.pinimg.com/originals/10/0e/2b/100e2bc6b357eb9909ce215f8d2c72ba.png'
+    'https://i.pinimg.com/originals/24/fb/9c/24fb9c4d630ee59df2b7f10acd515d81.jpg'
   )
 
   //const [map] = useImage('https://i.redd.it/eouyl4et4mn11.jpg')

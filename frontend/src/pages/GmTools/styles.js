@@ -65,3 +65,23 @@ export const Button = styled.button`
     background: ${darken(0.09, '#8e0e00')};
   }
 `
+
+export const TableContainer = styled.div`
+  width: 100%;
+  padding: 30px;
+  border-radius: 4px;
+  max-height: 500px;
+  overflow: auto;
+`
+
+export const Portrait = styled.div`
+  height: 35px;
+  width: 35px;
+
+  img {
+    width: 100%;
+    height: 35px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+`

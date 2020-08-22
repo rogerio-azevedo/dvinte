@@ -159,7 +159,7 @@ export const DiceContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 10px;
-  margin-top: 10px;
+  margin-bottom: 10px;
 `
 
 export const InputMulti = styled.input`
@@ -217,12 +217,12 @@ export const AttackContainer = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 10px;
 
   button {
     color: #6f0000;
-    width: 60px !important;
-    height: 40px !important;
+    width: 100px !important;
+    height: 35px !important;
     text-align: center;
     font-weight: 600;
     font-size: 14px;
@@ -254,6 +254,7 @@ export const ActionContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: -10px;
 
   > div {
     display: flex;
@@ -262,11 +263,10 @@ export const ActionContainer = styled.div`
     > div {
       display: flex;
       flex-direction: row;
-      padding: 2px;
 
       button {
         color: #6f0000;
-        width: 75px;
+        width: 100px;
         height: 35px !important;
         text-align: center;
         font-weight: 600;
