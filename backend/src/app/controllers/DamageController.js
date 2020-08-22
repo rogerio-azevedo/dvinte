@@ -7,6 +7,7 @@ const { utcToZonedTime } = require('date-fns-tz')
 
 const DateBR = utcToZonedTime(new Date(), 'America/Sao_Paulo')
 const newDate = new Date()
+const dateNow = Date.now()
 const date1 = subDays(DateBR, 0)
 const date2 = addDays(DateBR, 0)
 
@@ -18,6 +19,7 @@ class DamageController {
 
     console.log('DATEBR', DateBR)
     console.log('NEW DATE', newDate)
+    console.log('DATE NOW', dateNow)
     console.log('DATE1', date1)
     console.log('DATE2', date2)
 
