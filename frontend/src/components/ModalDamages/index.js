@@ -56,7 +56,7 @@ export default function ModalDamages() {
       id: 0,
       user_id: profile.id,
       user: profile.name,
-      message: 'Sessão Iniciada',
+      message: 'Sessão Iniciada!!!',
       result: 0,
       type: 0,
     })
@@ -67,7 +67,7 @@ export default function ModalDamages() {
       id: 0,
       user_id: profile.id,
       user: profile.name,
-      message: 'Sessão Iniciada',
+      message: 'Combate Iniciado!!!',
       result: 0,
       type: 8,
     })
