@@ -87,14 +87,24 @@ class CharacterController {
       order: [['name', 'ASC']],
     })
 
+    const levels = list
+      .map(({ classes }) => classes)
+      .map(a => a.map(({ CharacterClass }) => CharacterClass))
+      .map(l => l.map(({ level }) => level))
+      .reduce((result, current) => {
+        result.push(...current)
+        return result
+      })
+      .filter((v, i, a) => a.indexOf(v) === i)
+
     const baseAtack = await BaseAttack.findAll({
-      //where: { level: levels },
+      where: { level: levels },
       raw: true,
       attributes: ['level', 'low', 'medium', 'high'],
     })
 
     const baseResist = await BaseResist.findAll({
-      //where: { level: levels },
+      where: { level: levels },
       raw: true,
       attributes: ['level', 'low', 'high'],
     })
@@ -256,8 +266,6 @@ class CharacterController {
         return total + ((base && base[c.will]) || 0)
       }, 0),
     }))
-
-    console.log(chars)
 
     return res.json(chars)
   }

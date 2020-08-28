@@ -348,7 +348,6 @@ export default function Chat() {
     const wep = await character?.Weapon?.find(w => w.id === weapon)
     const size = await character?.Size
     const critMult = wep?.crit_mod > 0 ? wep?.crit_mod : wep?.critical
-    console.log(wep?.crit_mod)
 
     let mod = 0
     let modType = ''

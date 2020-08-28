@@ -24,7 +24,6 @@ export default function Classe() {
   const onSubmit = (data, e) => {
     async function saveData() {
       setLoading(true)
-      console.log(data)
       const classe = await api.post('classes', data)
 
       const newList = [classe.data, ...list]

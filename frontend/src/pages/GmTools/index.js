@@ -17,30 +17,11 @@ export default function GmTools() {
   const [list, setList] = useState([])
   const [loading, setLoading] = useState(false)
 
-  // function useInput({ type /* ... */ }) {
-  //   const input = (
-  //     <input
-  //       value={value}
-  //       onChange={e => setValue(e.target.value)}
-  //       type={type}
-  //     />
-  //   )
-  //   return [value, input]
-  // }
-
-  // async function setFury(char) {
-  //   console.log(char)
-  //   const response = await api.put(`attributetemps/${character}`, {
-  //     str
-  //   })
-  // }
-
   async function loadChar() {
     setLoading(true)
     const response = await api.get('characters')
 
     const result = response.data
-    console.log(result)
 
     setList(result)
     setLoading(false)

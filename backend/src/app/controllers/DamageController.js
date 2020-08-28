@@ -6,38 +6,58 @@ const { format, subDays, addDays, parseISO } = require('date-fns')
 const { utcToZonedTime } = require('date-fns-tz')
 
 const DateBR = utcToZonedTime(new Date(), 'America/Sao_Paulo')
-const newDate = new Date()
-const dateNow = Date.now()
-const date1 = subDays(DateBR, 0)
-const date2 = addDays(DateBR, 0)
+const date2 = addDays(DateBR, 1)
 
 class DamageController {
   async index(req, res) {
-    const data1 = format(date1, "yyyy-MM-dd'T00:00:00")
+    const sessionStart = await Logs.aggregate([
+      {
+        $match: { type: 0 },
+      },
+      {
+        $project: {
+          _id: 0,
+          createdAt: 1,
+        },
+      },
+      {
+        $sort: { createdAt: -1 },
+      },
+      {
+        $limit: 1,
+      },
+    ])
+
+    const combatStart = await Logs.aggregate([
+      {
+        $match: { type: 8 },
+      },
+      {
+        $project: {
+          _id: 0,
+          createdAt: 1,
+        },
+      },
+      {
+        $sort: { createdAt: -1 },
+      },
+      {
+        $limit: 1,
+      },
+    ])
+
     const data2 = format(date2, "yyyy-MM-dd'T23:59:59")
-    const type = 'day'
-
-    console.log('DATEBR', DateBR)
-    console.log('NEW DATE', newDate)
-    console.log('DATE NOW', dateNow)
-    console.log('DATE1', date1)
-    console.log('DATE2', date2)
-
-    console.log('DATA1', data1)
-    console.log('DATA2', data2)
-
-    console.log('PARSED DATA1', parseISO(data1))
-    console.log('PARSED DATA2', parseISO(data2))
+    const { type } = req.query
 
     let match = {}
 
-    if (type === 'day') {
+    if (type === 'combat') {
       match = {
         $match: {
           type: 4,
           createdAt: {
-            $gte: data1,
-            $lte: data2,
+            $gte: combatStart[0].createdAt,
+            $lte: parseISO(data2),
           },
         },
       }
@@ -46,8 +66,8 @@ class DamageController {
         $match: {
           type: 4,
           createdAt: {
-            $gte: data1,
-            $lte: data2,
+            $gte: sessionStart[0].createdAt,
+            $lte: parseISO(data2),
           },
         },
       }

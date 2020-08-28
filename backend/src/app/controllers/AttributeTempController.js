@@ -8,13 +8,11 @@ class AttributeTempController {
   }
 
   async show(req, res) {
-    console.log(req.params.id)
     const attrs = await AttributeTemp.findOne({
       where: {
         character_id: req.params.id,
       },
     })
-    console.log(attrs)
     return res.json(attrs)
   }
 

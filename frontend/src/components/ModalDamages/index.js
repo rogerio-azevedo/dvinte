@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { useSelector } from 'react-redux'
+
 import Modal from 'react-modal'
 import { FaTimes } from 'react-icons/fa/'
 import api from '~/services/api'
@@ -21,11 +23,17 @@ const customStyles = {
 Modal.setAppElement('#root')
 
 export default function ModalDamages() {
+  const profile = useSelector(state => state.user.profile)
+
   const [modalIsOpen, setIsOpen] = useState(false)
   const [damages, setDamages] = useState([])
 
-  async function loadDamage() {
-    const response = await api.get('/damages')
+  async function loadDamage(type) {
+    const response = await api.get('/damages', {
+      params: {
+        type: type,
+      },
+    })
 
     setDamages(response.data)
   }
@@ -43,10 +51,32 @@ export default function ModalDamages() {
     setIsOpen(false)
   }
 
+  function handleStartSession() {
+    api.post('combats', {
+      id: 0,
+      user_id: profile.id,
+      user: profile.name,
+      message: 'Sessão Iniciada',
+      result: 0,
+      type: 0,
+    })
+  }
+
+  function handleStartCombat() {
+    api.post('combats', {
+      id: 0,
+      user_id: profile.id,
+      user: profile.name,
+      message: 'Sessão Iniciada',
+      result: 0,
+      type: 8,
+    })
+  }
+
   return (
     <Styles.Container>
       <Styles.Button type="button" onClick={openModal}>
-        Damage
+        Damages
       </Styles.Button>
       <Modal
         isOpen={modalIsOpen}
@@ -66,8 +96,14 @@ export default function ModalDamages() {
         </Styles.HeaderContainer>
 
         <Styles.ButtonsContainer>
-          <Styles.Button type="button" onClick={loadDamage}>
+          <Styles.Button type="button" onClick={() => loadDamage('reload')}>
             Recarregar
+          </Styles.Button>
+          <Styles.Button type="button" onClick={() => loadDamage('session')}>
+            Aventura
+          </Styles.Button>
+          <Styles.Button type="button" onClick={() => loadDamage('combat')}>
+            Combate
           </Styles.Button>
         </Styles.ButtonsContainer>
 
@@ -85,6 +121,14 @@ export default function ModalDamages() {
             </ul>
           </Styles.InitBoardContainer>
         </Styles.InitContainer>
+        <Styles.ResetButtonsContainer>
+          <Styles.ButtonLarge type="button" onClick={handleStartSession}>
+            Inicia Aventura
+          </Styles.ButtonLarge>
+          <Styles.ButtonLarge type="button" onClick={handleStartCombat}>
+            Inicia Combate
+          </Styles.ButtonLarge>
+        </Styles.ResetButtonsContainer>
       </Modal>
     </Styles.Container>
   )
