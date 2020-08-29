@@ -20,6 +20,11 @@ class Campaign extends Model {
       foreignKey: 'user_id',
       as: 'users',
     })
+
+    this.hasOne(models.GameMap, {
+      foreignKey: 'campaign_id',
+      as: 'campaign',
+    })
   }
 }
 

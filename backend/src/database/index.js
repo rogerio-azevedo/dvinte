@@ -22,6 +22,7 @@ import Weapon from '../app/models/Weapon'
 import Equipment from '../app/models/Equipment'
 import BaseAttack from '../app/models/BaseAttack'
 import BaseResist from '../app/models/BaseResist'
+import GameMap from '../app/models/GameMap'
 
 import databaseConfig from '../config/database'
 
@@ -47,6 +48,7 @@ const models = [
   CharacterEquipment,
   BaseAttack,
   BaseResist,
+  GameMap,
 ]
 
 class Database {

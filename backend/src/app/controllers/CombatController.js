@@ -166,8 +166,6 @@ class CombatController {
 
     const levels = char?.classes?.map(l => l.CharacterClass?.level)
 
-    console.log(levels)
-
     const baseAtack = await BaseAttack.findAll({
       where: { level: levels },
       raw: true,
