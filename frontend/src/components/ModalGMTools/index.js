@@ -90,7 +90,7 @@ export default function ModalGMTolls() {
         contentLabel="Example Modal"
       >
         <Styles.HeaderContainer>
-          <h2>Cadastro de Mapa</h2>
+          <h2>Cadastro de Mapas</h2>
           <FaTimes
             onClick={closeModal}
             color="red"
