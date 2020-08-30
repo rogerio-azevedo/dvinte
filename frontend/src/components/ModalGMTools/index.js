@@ -81,7 +81,7 @@ export default function ModalGMTolls() {
 
   return (
     <Styles.Container>
-      <FaCog size={30} onClick={openModal} cursor="pointer" />
+      <FaCog size={30} onClick={openModal} cursor="pointer" opacity={0.1} />
       <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}
