@@ -13,7 +13,7 @@ export default function RenderMap({ tokens }) {
   const [stagePos, setStagePos] = useState({ x: 0, y: 0 })
 
   const [lines, setLines] = useState([])
-  const [size, setSize] = useState(60)
+  // const [size, setSize] = useState(60)
 
   const [isDrawing, setIsDrawing] = useState(false)
   const [isDraggable, setIsDraggable] = useState(false)
@@ -81,7 +81,7 @@ export default function RenderMap({ tokens }) {
     const lastLine = {
       ...newLines[newLines.length - 1],
     }
-    lastLine.size = size
+    lastLine.size = 50
     lastLine.points = lastLine.points.concat([pointer.x, pointer.y])
     newLines[newLines.length - 1] = lastLine
     setLines(newLines)
