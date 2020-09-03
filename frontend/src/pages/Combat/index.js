@@ -15,10 +15,9 @@ import {
   GiTreasureMap,
 } from 'react-icons/gi'
 
-import RenderMap from '~/components/RenderMap'
-
 import * as Styles from './styles'
 
+import RenderMap from '~/components/CombatComponents/RenderMap'
 import Chat from '~/components/CombatComponents/Chat'
 import Savins from '~/components/CombatComponents/Savings'
 import Armory from '~/components/CombatComponents/Armory'

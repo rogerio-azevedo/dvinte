@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 import api from '~/services/api'
-import RenderMap from '~/components/RenderMap'
+import RenderMap from '~/components/CombatComponents/RenderMap'
 import { connect, socket } from '~/services/socket'
 
 import { Container, MapContainer } from './styles'
