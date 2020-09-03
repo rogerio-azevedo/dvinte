@@ -173,8 +173,8 @@ export default function TopNav() {
             </Dropmenu>
           </li>
 
-          <Link onClick={handleRemoveClick} to="/chat">
-            CHAT
+          <Link onClick={handleRemoveClick} to="/combat">
+            COMBATE
           </Link>
 
           <Link onClick={handleRemoveClick} to="/notes">

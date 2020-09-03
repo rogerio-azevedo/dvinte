@@ -5,7 +5,7 @@ import { Table } from 'antd'
 
 import Button from '~/components/Button'
 import { FaPlusCircle } from 'react-icons/fa'
-import ModalEquipmentCreate from '~/components/ModalEquipmentCreate'
+import ModalEquipmentCreate from '~/components/Modals/ModalEquipmentCreate'
 
 import api from '~/services/api'
 

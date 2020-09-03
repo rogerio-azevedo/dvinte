@@ -8,7 +8,6 @@ import { Container, MapContainer } from './styles'
 
 export default function Map() {
   const [tokens, setTokens] = useState()
-  const [tool, setTool] = React.useState('Mão')
 
   async function GetTokens() {
     try {
@@ -35,17 +34,8 @@ export default function Map() {
 
   return (
     <Container>
-      <select
-        value={tool}
-        onChange={e => {
-          setTool(e.target.value)
-        }}
-      >
-        <option value="Pincel">Pincel</option>
-        <option value="Mão">Mão</option>
-      </select>
       <MapContainer>
-        <RenderMap tokens={tokens} tool={tool} />
+        <RenderMap tokens={tokens} />
       </MapContainer>
     </Container>
   )

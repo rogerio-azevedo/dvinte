@@ -14,16 +14,12 @@ module.exports = {
         onDelete: 'CASCADE',
         allowNull: false,
       },
-      url: {
+      battle: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      width: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
-      height: {
-        type: Sequelize.INTEGER,
+      world: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
       grid: {
@@ -32,10 +28,6 @@ module.exports = {
       },
       fog: {
         type: Sequelize.BOOLEAN,
-        allowNull: false,
-      },
-      type: {
-        type: Sequelize.INTEGER,
         allowNull: false,
       },
       owner: {

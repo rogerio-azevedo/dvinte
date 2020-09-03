@@ -3,49 +3,13 @@ import { darken } from 'polished'
 
 export const Container = styled.div`
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
   justify-content: center;
-  width: 100%;
-  height: 800px;
-`
+  align-items: center;
 
-export const CombatContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 800px;
-  overflow: auto;
-`
-
-export const BaseContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 75%;
-`
-
-export const MapContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  margin-top: 5px;
-  width: 2160px;
-  border: 1px solid;
-
-  -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-  -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-`
-
-export const TalkContainer = styled.div`
-  margin-top: 10px;
-  display: flex;
-  width: 25%;
-  flex-direction: column;
-  height: 790px;
-  border: 1px solid;
-
-  -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-  -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+  h2 {
+    margin-top: 20px;
+  }
 `
 
 export const ChatContainer = styled.div`
@@ -53,13 +17,17 @@ export const ChatContainer = styled.div`
   flex-direction: row;
   font-family: Arial, sans-serif;
   align-self: left;
+
+  -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
 `
 
 export const ChatHistory = styled.div`
   padding: 30px 30px 20px;
   border-bottom: 2px solid white;
   overflow-y: scroll;
-  height: 480px;
+  height: 300px;
 `
 
 export const MessageData = styled.div`
@@ -209,86 +177,5 @@ export const Dice = styled.div`
     color: #fff;
     font-size: 16px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-`
-
-export const AttackContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  margin-top: 10px;
-
-  button {
-    color: #6f0000;
-    width: 100px !important;
-    height: 35px !important;
-    text-align: center;
-    font-weight: 600;
-    font-size: 14px;
-    border-radius: 4px;
-    margin-right: 8px;
-    margin-left: 8px;
-    border: 0;
-
-    &:hover {
-      background: ${darken(0.1, '#200122')};
-      color: #fff;
-
-      -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
-      -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
-      box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
-    }
-
-    -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
-    -moz-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
-    box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
-  }
-`
-
-export const WeaponContainer = styled.div`
-  display: flex;
-`
-
-export const ActionContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: -10px;
-
-  > div {
-    display: flex;
-    flex-direction: row;
-
-    > div {
-      display: flex;
-      flex-direction: row;
-
-      button {
-        color: #6f0000;
-        width: 100px;
-        height: 35px !important;
-        text-align: center;
-        font-weight: 600;
-        font-size: 14px;
-        margin-right: 8px;
-        margin-left: 8px;
-        border-radius: 4px;
-        border: 0;
-
-        &:hover {
-          background: ${darken(0.1, '#200122')};
-          color: #fff;
-
-          -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
-          -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
-          box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.5);
-        }
-
-        -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
-        -moz-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
-        box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
-      }
-    }
   }
 `

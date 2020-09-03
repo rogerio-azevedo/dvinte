@@ -3,18 +3,19 @@ import { darken } from 'polished'
 
 export const Container = styled.div`
   display: flex;
-  align-items: center !important;
-  justify-content: center !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `
 
 export const HeaderContainer = styled.div`
   display: flex;
-  justify-content: space-between !important;
+  margin-top: 20px;
 `
 
 export const StatusContainer = styled.div`
   display: flex;
-  align-items: center !important;
+  align-items: center;
   flex-direction: column;
   margin-top: 30px;
 `

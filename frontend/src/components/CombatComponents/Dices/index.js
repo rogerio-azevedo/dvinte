@@ -1,17 +1,13 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import {
-  Container,
-  InputMulti,
-  DiceContainer,
-  Dice,
-  InputResult,
-} from './styles'
 
-export default function RollDices() {
+import api from '~/services/api'
+
+import * as Styles from './styles'
+
+export default function Dices() {
   const profile = useSelector(state => state.user.profile)
   const [multiplier, setMultiplier] = useState(1)
-  const [result, setResult] = useState()
 
   function handleCalculateTotal(sides) {
     let calc = 0
@@ -24,16 +20,22 @@ export default function RollDices() {
       calc += random()
     }
 
-    const rolled = `${profile.name}: rolou ${multiplier}x d${sides} com resultado: ${calc}`
+    const rolled = `Rolou ${multiplier} x d${sides} com resultado: ${calc}`
 
-    setResult(rolled)
+    api.post('combats', {
+      id: profile.id,
+      user_id: profile.id,
+      user: profile.name,
+      message: rolled,
+      result: calc,
+      type: 2,
+    })
   }
 
   return (
-    <Container>
-      <h1>Rolagem de Dados</h1>
-
-      <InputMulti
+    <Styles.Container>
+      <h2>Rolagem de Dados</h2>
+      <Styles.InputMulti
         className="multiplier"
         type="number"
         pattern="[0-9]*"
@@ -42,51 +44,50 @@ export default function RollDices() {
         placeholder="1"
         onChange={e => setMultiplier(e.target.value)}
       />
-      <DiceContainer>
-        <Dice
+      <Styles.DiceContainer>
+        <Styles.Dice
           onClick={() => {
             handleCalculateTotal(4)
           }}
         >
           <strong>d4</strong>
-        </Dice>
-        <Dice
+        </Styles.Dice>
+        <Styles.Dice
           onClick={() => {
             handleCalculateTotal(6)
           }}
         >
           <strong>d6</strong>
-        </Dice>
-        <Dice
+        </Styles.Dice>
+        <Styles.Dice
           onClick={() => {
             handleCalculateTotal(8)
           }}
         >
           <strong>d8</strong>
-        </Dice>
-        <Dice
+        </Styles.Dice>
+        <Styles.Dice
           onClick={() => {
             handleCalculateTotal(10)
           }}
         >
           <strong>d10</strong>
-        </Dice>
-        <Dice
+        </Styles.Dice>
+        <Styles.Dice
           onClick={() => {
             handleCalculateTotal(12)
           }}
         >
           <strong>d12</strong>
-        </Dice>
-        <Dice
+        </Styles.Dice>
+        <Styles.Dice
           onClick={() => {
             handleCalculateTotal(20)
           }}
         >
           <strong>d20</strong>
-        </Dice>
-      </DiceContainer>
-      <InputResult value={result} />
-    </Container>
+        </Styles.Dice>
+      </Styles.DiceContainer>
+    </Styles.Container>
   )
 }

@@ -1,64 +1,48 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
-import { format, parseISO } from 'date-fns'
-import { utcToZonedTime } from 'date-fns-tz'
+import ReactTooltip from 'react-tooltip'
+
 import api from '~/services/api'
 
-import SelectWeapon from '~/components/SelectWeapon'
-
 import { connect, socket } from '~/services/socket'
+import { FaComments, FaUserClock, FaDiceD20 } from 'react-icons/fa/'
+
+import {
+  GiSwordBrandish,
+  GiSwordsEmblem,
+  GiBloodySword,
+  GiTreasureMap,
+} from 'react-icons/gi'
+
+import RenderMap from '~/components/RenderMap'
 
 import * as Styles from './styles'
 
+import Chat from '~/components/CombatComponents/Chat'
+import Savins from '~/components/CombatComponents/Savings'
+import Armory from '~/components/CombatComponents/Armory'
+import Initiatives from '~/components/CombatComponents/Initiatives'
+import DamagesCounter from '~/components/CombatComponents/DamagesCounter'
+import CharStatus from '~/components/CombatComponents/CharStatus'
+import LogBoard from '~/components/CombatComponents/LogBoard'
+import Dices from '~/components/CombatComponents/Dices'
+import MapTool from '~/components/CombatComponents/MapTool'
+
 export default function Combat() {
-  const profile = useSelector(state => state.user.profile)
+  const { profile } = useSelector(state => state.user)
+  const [menu, setMenu] = useState('attack')
+
   const [loadChar, setLoadChar] = useState()
-  const [message, setMessage] = useState('')
-  const [messages, setMessages] = useState([])
-  const [multiplier, setMultiplier] = useState(1)
   const [charInit, setCharInit] = useState()
   const [character, setCharacter] = useState()
   const [tokens, setTokens] = useState()
   const [fortitude, setFortitude] = useState()
   const [reflex, setReflex] = useState()
   const [will, setWill] = useState()
-  const [melee, setMelee] = useState()
-  const [ranged, setRanged] = useState()
   const [maxDex, setMaxDex] = useState()
-  const [totalCa, setTotalCa] = useState()
-  const [health, setHealth] = useState()
-  const [healthNow, setHealthNow] = useState()
-  const [weapon, setWeapon] = useState()
   const [weapons, setWeapons] = useState()
-  const [initiatives, setInitiatives] = useState([])
-  const [tool, setTool] = React.useState('Mão')
-
-  const from = profile.id
-  const messagesEndRef = React.createRef(null)
-
-  function scrollToBottom() {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: 'smooth' })
-    }
-  }
-
-  function formatDate(date) {
-    const convertedDate = parseISO(date)
-    const localDate = utcToZonedTime(convertedDate, 'America/Sao_Paulo')
-
-    return format(localDate, 'dd-MM-yy HH:mm:ss')
-  }
-
-  async function loadAllMessages() {
-    try {
-      const response = await api.get('/combats')
-
-      setMessages(response.data)
-    } catch (e) {
-      toast.error('Falha ao carregar as mensagens do Chat.')
-    }
-  }
+  const [charStatus, setCharStatus] = useState()
 
   async function calcDext(dexMod) {
     let dextBonus = 0
@@ -80,15 +64,14 @@ export default function Combat() {
 
       setTokens(response.data)
     } catch (e) {
-      toast.error('Falha ao tentar carregar os Tokens')
+      toast.error('Houve um problema ao carregar as Tokens dos Personagens!')
     }
   }
 
   async function getCharacter() {
     setLoadChar(true)
     try {
-      const response = await api.get(`characters/${profile.id}`)
-
+      const response = await api.get(`combats/${profile.id}`)
       const char = response.data
       setCharacter(char)
 
@@ -97,84 +80,72 @@ export default function Combat() {
       const DexMod = char.DexModTemp ? char.DexModTemp : char.DexMod
       const WisMod = char.WisModTemp ? char.WisModTemp : char.WisMod
 
-      setCharInit(DexMod)
-
-      const shield = char.Armor.filter(t => t.type === 2).reduce((acc, val) => {
-        return acc + val.bonus
-      }, 0)
-
-      const armor = char.Armor.filter(t => t.type === 1).reduce((acc, val) => {
-        return acc + val.bonus
-      }, 0)
-
-      const maxDext = char.Armor.filter(t => t.type === 1).reduce(
+      const shield = char?.Armor.filter(t => t.type === 2).reduce(
         (acc, val) => {
-          return acc + val.dexterity
+          return acc + (val.bonus + val.defense)
         },
         0
       )
+
+      const armor = char?.Armor.filter(t => t.type === 1).reduce((acc, val) => {
+        return acc + (val.bonus + val.defense)
+      }, 0)
+
+      const natural = char?.Armor.filter(t => t.type === 3).reduce(
+        (acc, val) => {
+          return acc + (val.bonus + val.defense)
+        },
+        0
+      )
+
+      const outros = char?.Armor.filter(t => t.type === 5).reduce(
+        (acc, val) => {
+          return acc + (val.bonus + val.defense)
+        },
+        0
+      )
+
+      const maxDext = char?.Armor.reduce(
+        (min, p) => (p?.dexterity < min ? p?.dexterity : min),
+        char?.Armor[0]?.dexterity
+      )
+
       setMaxDex(maxDext)
 
-      const charWeapons = char && char.Weapon
+      const charWeapons = char?.Weapon
       setWeapons(charWeapons)
 
       const bonusDext = await calcDext(DexMod)
-      const ca = 10 + shield + armor + bonusDext
+      const ca = 10 + shield + armor + bonusDext + natural + outros
 
-      setMelee(char.BaseAttack + StrMod)
-      setRanged(char.BaseAttack + DexMod)
-      setHealth(char.Health)
-      setHealthNow(char.HealthNow)
-      setTotalCa(ca)
+      setCharInit(DexMod)
       setFortitude(char.Fortitude + ConMod)
       setReflex(char.Reflex + DexMod)
       setWill(char.Will + WisMod)
 
+      setCharStatus({
+        fortitude: char.Fortitude + ConMod,
+        reflex: char.Reflex + DexMod,
+        will: char.Will + WisMod,
+        charInit: DexMod,
+        melee: char.BaseAttack + StrMod,
+        ranged: char.BaseAttack + DexMod,
+        totalCa: ca,
+        health: char.Health,
+        healthNow: char.HealthNow,
+      })
+
       setLoadChar(false)
     } catch (e) {
-      toast.error('Falha ao tentar carregar os dados dos personagens')
+      toast.error('Houve um problema ao carregar os dados dos personagens!')
     }
   }
-
-  async function loadInitiative() {
-    try {
-      const response = await api.get('/initiatives')
-
-      setInitiatives(response.data)
-    } catch (e) {
-      toast.error('Falha ao tentar carregar as iniciativas')
-    }
-  }
-
-  useEffect(() => {
-    scrollToBottom()
-  })
 
   useEffect(() => {
     connect()
     getCharacter()
     GetTokens()
-    loadAllMessages()
-    loadInitiative()
   }, []) // eslint-disable-line
-
-  useEffect(() => {
-    const handleNewMessage = newMessage =>
-      setMessages([...messages, newMessage])
-
-    socket.on('chat.message', handleNewMessage)
-
-    return () => socket.off('chat.message', handleNewMessage)
-  }, [messages])
-
-  useEffect(() => {
-    const handleNewInit = newInitiative =>
-      setInitiatives([...initiatives, newInitiative])
-
-    socket.on('init.message', handleNewInit)
-
-    return () => socket.off('init.message', handleNewInit)
-  }, [initiatives])
 
   useEffect(() => {
     const handleTokens = Tokens => setTokens(Tokens)
@@ -184,400 +155,118 @@ export default function Combat() {
     return () => socket.off('token.message', handleTokens)
   }, [tokens])
 
-  const handleFormSubmit = event => {
-    event.preventDefault()
-
-    if (message.trim()) {
-      api.post('combats', {
-        id: from,
-        user_id: profile.id,
-        user: profile.name,
-        message,
-      })
-
-      setMessage('')
-    }
-  }
-
-  function handleCalculateTotal(sides) {
-    let calc = 0
-    const random = () => {
-      return Math.floor(Math.random() * sides) + 1
-    }
-
-    // eslint-disable-next-line
-    for (let i = 0; i < multiplier; i++) {
-      calc += random()
-    }
-
-    const rolled = `Rolou ${multiplier} x d${sides} com resultado: ${calc}`
-
-    api.post('combats', {
-      id: from,
-      user_id: profile.id,
-      user: profile.name,
-      message: rolled,
-    })
-  }
-
-  async function handleInitiative() {
-    const dext = !loadChar && charInit
-
-    const dice = Math.floor(Math.random() * 20) + 1
-
-    const init = dext + dice
-
-    const rolled = `Rolou iniciativa d20: ${dice} + ${dext} de destreza, com resultado: ${init}`
-
-    api.post('combats', {
-      id: from,
-      user_id: profile.id,
-      user: profile.name,
-      message: rolled,
-    })
-
-    api.post('initiatives', {
-      user_id: profile.id,
-      user: profile.name,
-      initiative: init,
-    })
-  }
-
-  async function handleAttack() {
-    const wep = (await character) && character.Weapon.find(w => w.id === weapon)
-    const extraHit = (wep && wep.hit) || 0
-    const name = wep && wep.name
-    const dice = Math.floor(Math.random() * 20) + 1
-
-    let mod = 0
-
-    const StrMod =
-      character && character.StrModTemp
-        ? character && character.StrModTemp
-        : character && character.StrMod
-
-    const DexMod =
-      character && character.DexModTemp
-        ? character && character.DexModTemp
-        : character && character.DexMod
-
-    if (wep.range > 3) {
-      mod = DexMod
-    } else {
-      mod = StrMod
-    }
-
-    const base = (character && character.BaseAttack) + mod
-    const attack = Number(base) + Number(dice) + Number(extraHit)
-
-    const rolled = `Rolou ataque d20: ${dice} + ${base} de base + ${extraHit} de bônus da arma ${name}, com resultado: ${attack}`
-
-    if (!weapon) {
-      toast.error('Escolha por favor uma arma antes de realizar o ataque.')
-    } else {
-      api.post('combats', {
-        id: from,
-        user_id: profile.id,
-        user: profile.name,
-        message: rolled,
-      })
-    }
-  }
-
-  async function handleDamage() {
-    const wep = (await character) && character.Weapon.find(w => w.id === weapon)
-
-    const mod =
-      (await character) && character.StrModTemp
-        ? character.StrModTemp
-        : character.StrMod
-    const dice = wep && wep.dice
-    const multi = wep && wep.multiplier
-    const name = wep && wep.name
-    const extraDamage = (wep && wep.damage) || 0
-
-    let result = 0
-    const random = () => {
-      return Math.floor(Math.random() * dice) + 1
-    }
-
-    // eslint-disable-next-line
-    for (let i = 0; i < multi; i++) {
-      result += random()
-    }
-
-    const totalDamage = Number(result) + Number(extraDamage) + Number(mod)
-
-    const rolled = `Rolou dano ${multi} x d${dice}: ${result} + ${mod} + ${extraDamage} de bônus da arma ${name}, com resultado: ${totalDamage}`
-
-    if (!weapon) {
-      toast.error('Escolha por favor uma arma antes de realizar o dano.')
-    } else {
-      api.post('combats', {
-        id: from,
-        user_id: profile.id,
-        user: profile.name,
-        message: rolled,
-      })
-    }
-  }
-
-  async function handleFortitude() {
-    const dice = Math.floor(Math.random() * 20) + 1
-
-    const fortitudeTest = fortitude + dice
-
-    const rolled = `Rolou teste de Fortitude d20: ${dice} + ${fortitude} de fortitude, com resultado: ${fortitudeTest}`
-
-    api.post('combats', {
-      id: from,
-      user_id: profile.id,
-      user: profile.name,
-      message: rolled,
-    })
-  }
-
-  async function handleReflex() {
-    const dice = Math.floor(Math.random() * 20) + 1
-
-    const reflexTest = reflex + dice
-
-    const rolled = `Rolou teste de Reflexos d20: ${dice} + ${reflex} de reflexos, com resultado: ${reflexTest}`
-
-    api.post('combats', {
-      id: from,
-      user_id: profile.id,
-      user: profile.name,
-      message: rolled,
-    })
-  }
-
-  async function handleWill() {
-    const dice = Math.floor(Math.random() * 20) + 1
-
-    const willTest = will + dice
-
-    const rolled = `Rolou teste de Vontade d20: ${dice} + ${will} de vontade, com resultado: ${willTest}`
-
-    api.post('combats', {
-      id: from,
-      user_id: profile.id,
-      user: profile.name,
-      message: rolled,
-    })
+  function handleMenu(tipo) {
+    setMenu(tipo)
   }
 
   return (
     <Styles.Container>
+      <Styles.CombatContainer>
+        <Styles.MapContainer>
+          <RenderMap tokens={tokens} />
+        </Styles.MapContainer>
+      </Styles.CombatContainer>
+
       <Styles.TalkContainer>
-        <Styles.ChatContainer>
-          <Styles.ChatHistory>
-            <Styles.List>
-              {messages.map((m, index) => (
-                <Styles.ListMessage
-                  ref={messagesEndRef}
-                  from={from === m.id ? 1 : 0}
-                  key={index} // eslint-disable-line
-                >
-                  <Styles.MessageData from={from === m.id ? 1 : 0}>
-                    <Styles.MessageDateTime from={from === m.id ? 1 : 0}>
-                      {formatDate(m.date)}
-                    </Styles.MessageDateTime>
-                    <Styles.MessageDataName from={from === m.id ? 1 : 0}>
-                      {m.user}
-                    </Styles.MessageDataName>
-                  </Styles.MessageData>
-                  <Styles.Message from={from === m.id ? 1 : 0}>
-                    {m.message}
-                  </Styles.Message>
-                </Styles.ListMessage>
-              ))}
-            </Styles.List>
-          </Styles.ChatHistory>
+        {!loadChar && (
+          <Styles.IconContainer>
+            <ReactTooltip />
+            <div data-tip="Atacar">
+              <GiSwordBrandish
+                size={25}
+                color="#8e0e00"
+                cursor="pointer"
+                onClick={() => handleMenu('attack')}
+              />
+            </div>
 
-          <Styles.FormMessage onSubmit={handleFormSubmit}>
-            <Styles.InputMessage
-              onChange={e => setMessage(e.target.value)}
-              placeholder="Mensagem..."
-              type="text"
-              value={message}
-            />
-          </Styles.FormMessage>
-        </Styles.ChatContainer>
-        <Styles.DiceContainer>
-          <Styles.InputMulti
-            className="multiplier"
-            type="number"
-            pattern="[0-9]*"
-            min="1"
-            max="10"
-            placeholder="1"
-            onChange={e => setMultiplier(e.target.value)}
+            <div data-tip="Bate Papo">
+              <FaComments
+                size={28}
+                color="#8e0e00"
+                cursor="pointer"
+                onClick={() => handleMenu('chat')}
+              />
+            </div>
+
+            <div data-tip="Testes e Dados">
+              <FaDiceD20
+                size={25}
+                color="#8e0e00"
+                cursor="pointer"
+                onClick={() => handleMenu('saves')}
+              />
+            </div>
+
+            <div data-tip="Medidor de Dano">
+              <GiBloodySword
+                size={30}
+                color="#8e0e00"
+                cursor="pointer"
+                onClick={() => handleMenu('damage')}
+              />
+            </div>
+
+            <div data-tip="Iniciativas">
+              <FaUserClock
+                size={30}
+                color="#8e0e00"
+                cursor="pointer"
+                onClick={() => handleMenu('init')}
+              />
+            </div>
+
+            <div data-tip="Status do Personagem">
+              <GiSwordsEmblem
+                size={28}
+                color="#8e0e00"
+                cursor="pointer"
+                onClick={() => handleMenu('status')}
+              />
+            </div>
+
+            <div data-tip="Configurações">
+              <GiTreasureMap
+                size={28}
+                color="#8e0e00"
+                cursor="pointer"
+                onClick={() => handleMenu('config')}
+              />
+            </div>
+          </Styles.IconContainer>
+        )}
+
+        {/*
+        {!loadChar && (
+          <CombatTools charStatus={charStatus} charInit={charInit} />
+        )} */}
+        {menu === 'chat' ? (
+          <Chat />
+        ) : menu === 'init' ? (
+          <Initiatives
+            profile={profile}
+            from={profile.id}
+            charInit={charInit}
           />
-          <Styles.Dice
-            onClick={() => {
-              handleCalculateTotal(4)
-            }}
-          >
-            <strong>d4</strong>
-          </Styles.Dice>
-          <Styles.Dice
-            onClick={() => {
-              handleCalculateTotal(6)
-            }}
-          >
-            <strong>d6</strong>
-          </Styles.Dice>
-          <Styles.Dice
-            onClick={() => {
-              handleCalculateTotal(8)
-            }}
-          >
-            <strong>d8</strong>
-          </Styles.Dice>
-          <Styles.Dice
-            onClick={() => {
-              handleCalculateTotal(10)
-            }}
-          >
-            <strong>d10</strong>
-          </Styles.Dice>
-          <Styles.Dice
-            onClick={() => {
-              handleCalculateTotal(12)
-            }}
-          >
-            <strong>d12</strong>
-          </Styles.Dice>
-          <Styles.Dice
-            onClick={() => {
-              handleCalculateTotal(20)
-            }}
-          >
-            <strong>d20</strong>
-          </Styles.Dice>
-        </Styles.DiceContainer>
-        <Styles.ActionContainer>
-          <div>
-            <div>
-              <button type="button" onClick={handleInitiative}>
-                Iniciativa
-              </button>
-            </div>
-            <div>
-              <button type="button" onClick={handleFortitude}>
-                Fortitude
-              </button>
-            </div>
-            <div>
-              <button type="button" onClick={handleReflex}>
-                Reflexos
-              </button>
-            </div>
-            <div>
-              <button type="button" onClick={handleWill}>
-                Vontade
-              </button>
-            </div>
-          </div>
-        </Styles.ActionContainer>
+        ) : menu === 'saves' ? (
+          <Styles.SavesConteiner>
+            <Savins fortitude={fortitude} reflex={reflex} will={will} />
+            <Dices />
+            <LogBoard />
+          </Styles.SavesConteiner>
+        ) : menu === 'damage' ? (
+          <DamagesCounter />
+        ) : menu === 'status' ? (
+          <CharStatus charStatus={charStatus} />
+        ) : menu === 'attack' ? (
+          <Styles.AttackContainer>
+            <Armory character={character} weapons={weapons} />
+            <LogBoard />
+          </Styles.AttackContainer>
+        ) : (
+          <MapTool />
+        )}
       </Styles.TalkContainer>
-      <Styles.CharContainer>
-        <Styles.StatusContainer>
-          <Styles.GroupStatus>
-            <Styles.Resume>
-              <label htmlFor="inputResist">Fortitude</label>
-              <Styles.InputResume readOnly defaultValue={fortitude} />
-            </Styles.Resume>
-            <Styles.Resume>
-              <label htmlFor="inputResist">Reflexos</label>
-              <Styles.InputResume readOnly defaultValue={reflex} />
-            </Styles.Resume>
-            <Styles.Resume>
-              <label htmlFor="inputResist">Vontade</label>
-              <Styles.InputResume readOnly defaultValue={will} />
-            </Styles.Resume>
-            <Styles.Resume>
-              <label htmlFor="inputResist">Iniciativa</label>
-              <Styles.InputResume readOnly defaultValue={charInit} />
-            </Styles.Resume>
-          </Styles.GroupStatus>
-
-          <Styles.GroupStatus>
-            <Styles.Resume>
-              <label htmlFor="inputResist">CA</label>
-              <Styles.InputResume readOnly defaultValue={totalCa} />
-            </Styles.Resume>
-            <Styles.Resume>
-              <label htmlFor="inputResist">Melee</label>
-              <Styles.InputResume readOnly defaultValue={melee} />
-            </Styles.Resume>
-            <Styles.Resume>
-              <label htmlFor="inputResist">Ranged</label>
-              <Styles.InputResume readOnly defaultValue={ranged} />
-            </Styles.Resume>
-            <Styles.Resume>
-              <label htmlFor="inputResist">PV</label>
-              <Styles.InputResume readOnly defaultValue={health} />
-            </Styles.Resume>
-            <Styles.Resume>
-              <label htmlFor="inputResist">PV Atual</label>
-              <Styles.InputResume readOnly defaultValue={healthNow} />
-            </Styles.Resume>
-          </Styles.GroupStatus>
-        </Styles.StatusContainer>
-        <Styles.InitContainer>
-          <Styles.InitBoardContainer>
-            <h3>Iniciativa</h3>
-
-            <ul>
-              {initiatives
-                .sort((a, b) => b.initiative - a.initiative)
-                .map(item => (
-                  <li key={Math.random()}>
-                    <Styles.InitUser readOnly defaultValue={item.user} />
-                    <Styles.InitValue readOnly defaultValue={item.initiative} />
-                  </li>
-                ))}
-            </ul>
-          </Styles.InitBoardContainer>
-        </Styles.InitContainer>
-        <Styles.AttackContainer>
-          <Styles.WeaponContainer>
-            <div>
-              {!loadChar && (
-                <SelectWeapon
-                  weapons={weapons}
-                  changeWeapon={e => setWeapon(e && e.value)}
-                />
-              )}
-            </div>
-          </Styles.WeaponContainer>
-          <select
-            value={tool}
-            onChange={e => {
-              setTool(e.target.value)
-            }}
-          >
-            <option value="Pincel">Pincel</option>
-            <option value="Mão">Mão</option>
-          </select>
-          <div>
-            <div>
-              <button type="button" onClick={handleAttack}>
-                Atacar
-              </button>
-            </div>
-            <div>
-              <button type="button" onClick={handleDamage}>
-                Dano
-              </button>
-            </div>
-          </div>
-
-          <div />
-        </Styles.AttackContainer>
-      </Styles.CharContainer>
     </Styles.Container>
   )
 }

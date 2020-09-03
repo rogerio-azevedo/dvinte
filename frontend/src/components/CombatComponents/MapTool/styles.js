@@ -3,13 +3,13 @@ import { darken } from 'polished'
 
 export const Container = styled.div`
   display: flex;
-  align-items: center !important;
-  justify-content: center !important;
-`
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
-export const HeaderContainer = styled.div`
-  display: flex;
-  justify-content: space-between !important;
+  h2 {
+    margin-top: 20px;
+  }
 `
 
 export const ButtonsContainer = styled.div`
@@ -64,7 +64,7 @@ export const InputContainer = styled.div`
 `
 
 export const InputLarge = styled.input`
-  width: 510px;
+  width: 300px;
   border: 1px solid;
   border-radius: 4px;
   height: 38px;

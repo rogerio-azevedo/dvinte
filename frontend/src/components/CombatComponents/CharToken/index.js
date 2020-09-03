@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 
 import api from '~/services/api'
 
-export default function RenderToken({
+export default function CharToken({
   image,
   id,
   x,
@@ -20,6 +20,8 @@ export default function RenderToken({
 }) {
   const shapeRef = useRef()
   const trRef = useRef()
+
+  const grid = 68
 
   async function handleDragStart(e) {
     e.target.setAttrs({
@@ -40,6 +42,9 @@ export default function RenderToken({
       scaleY: 1,
       shadowOffsetX: 5,
       shadowOffsetY: 5,
+
+      x: Math.round(e.target.x() / grid) * grid,
+      y: Math.round(e.target.y() / grid) * grid,
     })
 
     api.put('chartokens', {
@@ -80,8 +85,8 @@ export default function RenderToken({
         width={width}
         height={height}
         scaleX={1}
-        offsetX={width / 2}
-        offsetY={height / 2}
+        // offsetX={68 / 2}
+        // offsetY={68 / 2}
         rotation={rotation}
         shadowOpacity={0.6}
         onClick={onSelect}
@@ -99,7 +104,7 @@ export default function RenderToken({
   )
 }
 
-RenderToken.propTypes = {
+CharToken.propTypes = {
   image: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
   x: PropTypes.number.isRequired,

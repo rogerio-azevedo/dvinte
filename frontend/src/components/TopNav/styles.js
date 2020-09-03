@@ -21,6 +21,7 @@ export const Container = styled.div`
     padding-left: 0;
     margin-bottom: 0;
     list-style: none;
+
     a {
       border-left: 1px solid #999;
       font-weight: bold;
@@ -29,11 +30,13 @@ export const Container = styled.div`
       padding-left: 10px;
       cursor: pointer;
     }
+
     li {
       position: relative;
       font-weight: bold;
       margin-right: 25px;
       padding-left: 10px;
+
       strong {
         border-left: 1px solid #999;
         font-weight: bold;
@@ -65,6 +68,7 @@ export const Dropmenu = styled.div`
   background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, 0.15);
   display: ${props => (props.dig || props.rel ? 'block' : 'none')};
+
   &::before {
     content: '';
     position: absolute;
@@ -76,6 +80,7 @@ export const Dropmenu = styled.div`
     border-right: 20px solid transparent;
     border-bottom: 20px solid rgba(255, 255, 255, 0.75);
   }
+
   ul {
     li {
       width: 100%;
@@ -85,6 +90,7 @@ export const Dropmenu = styled.div`
       white-space: nowrap;
       background-color: transparent;
       border: 0;
+
       > a {
         border-left: 0;
         font-weight: 200;

@@ -1,6 +1,14 @@
 import styled from 'styled-components'
 
 export const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
   height: 100%;
-  /* background: linear-gradient(-90deg, #7159c1, #ab59c1); */
+`
+
+export const PageContainer = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  height: Calc(100% - 51px);
 `

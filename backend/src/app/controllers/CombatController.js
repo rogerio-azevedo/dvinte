@@ -9,7 +9,6 @@ import AttributeTemp from '../models/AttributeTemp'
 import User from '../models/User'
 import BaseAttack from '../models/BaseAttack'
 import BaseResist from '../models/BaseResist'
-import CharacterClass from '../models/CharacterClass'
 
 import getSize from '../../util/getSize'
 import getGender from '../../util/getGender'
