@@ -10,11 +10,16 @@ import { Container } from './styles'
 
 import api from '~/services/api'
 
-const grid = 68
-const gridWidth = 2000
-
 export default function RenderMap({ tokens }) {
   const [stagePos, setStagePos] = useState({ x: 0, y: 0 })
+  const [lines, setLines] = useState([])
+  const [isDrawing, setIsDrawing] = useState(false)
+  const [isDraggable, setIsDraggable] = useState(false)
+  const [selectedId, selectShape] = useState(null)
+  const [mapData, setMapData] = useState({})
+
+  const grid = 68
+  const gridWidth = 2000
 
   const linesA = []
   const linesB = []
@@ -39,20 +44,8 @@ export default function RenderMap({ tokens }) {
     )
   }
 
-  const [lines, setLines] = useState([])
-  const [isDrawing, setIsDrawing] = useState(false)
-  const [isDraggable, setIsDraggable] = useState(false)
-  const [selectedId, selectShape] = useState(null)
-
-  const [mapData, setMapData] = useState({})
-
   async function getMap() {
-    const response = await api.get('maps/1', {
-      params: {
-        type: 2,
-      },
-    })
-
+    const response = await api.get('maps/1')
     setMapData(response.data)
   }
 
@@ -113,7 +106,7 @@ export default function RenderMap({ tokens }) {
     })
   }, [lines])
 
-  const [map] = useImage(mapData?.url)
+  const [map] = useImage(mapData.battle)
 
   return (
     <Container>

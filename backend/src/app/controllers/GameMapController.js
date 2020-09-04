@@ -14,7 +14,6 @@ class GameMapController {
     const map = await GameMap.findOne({
       where: {
         campaign_id: Number(req.params.id),
-        type: Number(req.query.type),
       },
     })
     return res.json(map)
@@ -23,11 +22,11 @@ class GameMapController {
   async store(req, res) {
     const newMap = {
       campaign_id: 1,
-      url: req.body?.url,
-      grid: req.body.grid,
-      fog: req.body?.fog,
-      owner: Number(req.body?.owner),
-      type: Number(req.body?.type),
+      battle: req.body?.battle,
+      world: req.body?.world,
+      grid: req.body.grid || true,
+      fog: req.body?.fog || false,
+      owner: Number(req.body?.owner) || 1,
     }
 
     const gameMap = await GameMap.create(newMap)
