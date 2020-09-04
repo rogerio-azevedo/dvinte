@@ -66,11 +66,15 @@ class Database {
   }
 
   mongo() {
-    this.mongoConnection = mongoose.connect(process.env.MONGO_URL, {
-      useNewUrlParser: true,
-      useFindAndModify: true,
-      useUnifiedTopology: true,
-    })
+    this.mongoConnection = mongoose.connect(
+      process.env.MONGO_URL,
+      { user: 'dvinte', pass: 'DV1nt3P455!' },
+      {
+        useNewUrlParser: true,
+        useFindAndModify: true,
+        useUnifiedTopology: true,
+      }
+    )
   }
 }
 
