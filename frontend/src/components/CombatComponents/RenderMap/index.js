@@ -18,7 +18,7 @@ export default function RenderMap({ tokens }) {
   const [selectedId, selectShape] = useState(null)
   const [mapData, setMapData] = useState({})
 
-  const grid = 68
+  const grid = 1
   const gridWidth = 2000
 
   const linesA = []
