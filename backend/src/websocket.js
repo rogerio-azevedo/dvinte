@@ -39,6 +39,11 @@ exports.setupWebsocket = server => {
       io.emit('token.message', messageData)
     })
 
+    socket.on('map.message', messageData => {
+      messages.push(messageData)
+      io.emit('map.message', messageData)
+    })
+
     socket.on('line.message', messageData => {
       messages.push(messageData)
       io.emit('line.message', messageData)
@@ -60,6 +65,10 @@ exports.addInitiative = message => {
 
 exports.updateToken = message => {
   io.emit('token.message', message)
+}
+
+exports.addLine = message => {
+  io.emit('map.message', message)
 }
 
 exports.addLine = message => {

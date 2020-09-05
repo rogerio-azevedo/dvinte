@@ -6,6 +6,8 @@ class GameMap extends Model {
       {
         battle: Sequelize.STRING,
         world: Sequelize.STRING,
+        width: Sequelize.INTEGER,
+        height: Sequelize.INTEGER,
         grid: Sequelize.BOOLEAN,
         fog: Sequelize.BOOLEAN,
         owner: Sequelize.INTEGER,

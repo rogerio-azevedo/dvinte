@@ -26,7 +26,7 @@ import Campaign from '~/pages/Campaign'
 
 import Notes from '~/pages/Notes'
 import GmTools from '~/pages/GmTools'
-import Map from '~/pages/Map'
+import WorldMap from '~/pages/WorldMap'
 import Combat from '~/pages/Combat'
 
 import CharBase from '~/pages/CharacterCreate/CharBase'
@@ -64,7 +64,7 @@ export default function Routes() {
 
       <Route path="/notes" component={Notes} isPrivate />
       <Route path="/gmtools" component={GmTools} isPrivate />
-      <Route path="/map" component={Map} isPrivate />
+      <Route path="/map" component={WorldMap} isPrivate />
       <Route path="/combat" component={Combat} isPrivate />
 
       <Route path="/charbase" component={CharBase} isPrivate />

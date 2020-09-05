@@ -21,7 +21,7 @@ export default function CharToken({
   const shapeRef = useRef()
   const trRef = useRef()
 
-  const grid = 68
+  const grid = 1
 
   async function handleDragStart(e) {
     e.target.setAttrs({

@@ -22,6 +22,14 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      width: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      height: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
       grid: {
         type: Sequelize.BOOLEAN,
         allowNull: false,

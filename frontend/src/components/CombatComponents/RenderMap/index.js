@@ -19,7 +19,7 @@ export default function RenderMap({ tokens }) {
   const [mapData, setMapData] = useState({})
 
   const grid = 68
-  const gridWidth = 2000
+  const gridWidth = mapData.width
 
   const linesA = []
   const linesB = []
@@ -48,6 +48,14 @@ export default function RenderMap({ tokens }) {
     const response = await api.get('maps/1')
     setMapData(response.data)
   }
+
+  useEffect(() => {
+    const handleMaps = Maps => setMapData(Maps)
+
+    socket.on('map.message', handleMaps)
+
+    return () => socket.off('map.message', handleMaps)
+  }, [mapData])
 
   useEffect(() => {
     getMap()
@@ -106,26 +114,18 @@ export default function RenderMap({ tokens }) {
     })
   }, [lines])
 
+  //https://i.imgur.com/cUyn2zF.jpg - Ponte Rio
+  //https://i.redd.it/viyjhos0nfk51.png - Jardel
+  //https://i.imgur.com/mxoppD5.jpeg - Inicio Aventura
   const [map] = useImage(mapData.battle)
 
   return (
     <Container>
-      {/* <input
-        value={size}
-        onChange={e => {
-          setSize(parseInt(e.target.value))
-        }}
-        type="range"
-        step="3"
-        min="3"
-        max="200"
-      /> */}
-
       <Stage
         x={stagePos.x}
         y={stagePos.y}
-        width={2000}
-        height={2000}
+        width={mapData.width}
+        height={mapData.height}
         //draggable
         onDragEnd={e => {
           setStagePos(e.currentTarget.position())
@@ -138,10 +138,19 @@ export default function RenderMap({ tokens }) {
         }}
       >
         <Layer>
-          <Image image={map} opacity={1} />
+          <Image
+            image={map}
+            opacity={1}
+            width={mapData.width}
+            height={mapData.height}
+          />
         </Layer>
 
-        <Layer>
+        <Layer
+          opacity={mapData.grid ? 1 : 0}
+          width={mapData.width}
+          height={mapData.height}
+        >
           {linesA}
           {linesB}
         </Layer>
@@ -168,10 +177,10 @@ export default function RenderMap({ tokens }) {
           <Rect
             x={0}
             y={0}
-            width={2000}
-            height={2000}
+            width={mapData.width}
+            height={mapData.height}
             fill="#333"
-            opacity={0}
+            opacity={mapData.fog ? 1 : 0}
           />
 
           {lines.map(line => (
