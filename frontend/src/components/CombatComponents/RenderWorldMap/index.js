@@ -9,7 +9,7 @@ import { Container } from './styles'
 import api from '~/services/api'
 
 export default function RenderWorldMap() {
-  const [stagePos, setStagePos] = useState({ x: 0, y: 0 })
+  // const [stagePos, setStagePos] = useState({ x: 0, y: 0 })
   const [mapData, setMapData] = useState({})
   const [stageScale, setStageScale] = useState(1)
   const [stageX, setStageX] = useState(0)
@@ -23,7 +23,7 @@ export default function RenderWorldMap() {
   function handleWheel(e) {
     e.evt.preventDefault()
 
-    const scaleBy = 1.02
+    const scaleBy = 1.08
     const stage = e.target.getStage()
     const oldScale = stage.scaleX()
     const mousePointTo = {
@@ -70,9 +70,9 @@ export default function RenderWorldMap() {
         height={window.innerHeight}
         onWheel={handleWheel}
         draggable
-        onDragEnd={e => {
-          setStagePos(e.currentTarget.position())
-        }}
+        // onDragEnd={e => {
+        //   setStagePos(e.currentTarget.position())
+        // }}
         onContextMenu={e => {
           e.evt.preventDefault()
         }}
