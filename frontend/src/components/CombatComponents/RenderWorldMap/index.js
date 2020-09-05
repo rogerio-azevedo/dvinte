@@ -11,10 +11,37 @@ import api from '~/services/api'
 export default function RenderWorldMap() {
   const [stagePos, setStagePos] = useState({ x: 0, y: 0 })
   const [mapData, setMapData] = useState({})
+  const [stageScale, setStageScale] = useState(1)
+  const [stageX, setStageX] = useState(0)
+  const [stageY, setStageY] = useState(0)
 
   async function getMap() {
     const response = await api.get('maps/1')
     setMapData(response.data)
+  }
+
+  function handleWheel(e) {
+    e.evt.preventDefault()
+
+    const scaleBy = 1.02
+    const stage = e.target.getStage()
+    const oldScale = stage.scaleX()
+    const mousePointTo = {
+      x: stage.getPointerPosition().x / oldScale - stage.x() / oldScale,
+      y: stage.getPointerPosition().y / oldScale - stage.y() / oldScale,
+    }
+
+    const newScale = e.evt.deltaY > 0 ? oldScale * scaleBy : oldScale / scaleBy
+
+    setStageScale(newScale)
+
+    setStageX(
+      -(mousePointTo.x - stage.getPointerPosition().x / newScale) * newScale
+    )
+
+    setStageY(
+      -(mousePointTo.y - stage.getPointerPosition().y / newScale) * newScale
+    )
   }
 
   useEffect(() => {
@@ -35,17 +62,17 @@ export default function RenderWorldMap() {
   return (
     <Container>
       <Stage
-        x={stagePos.x}
-        y={stagePos.y}
+        x={stageX}
+        y={stageY}
+        scaleX={stageScale}
+        scaleY={stageScale}
         width={window.innerWidth}
         height={window.innerHeight}
+        onWheel={handleWheel}
         draggable
         onDragEnd={e => {
           setStagePos(e.currentTarget.position())
         }}
-        // onMouseDown={handleMouseDown}
-        // onMouseUp={handleMouseUp}
-        // onMouseMove={handleMouseMove}
         onContextMenu={e => {
           e.evt.preventDefault()
         }}
