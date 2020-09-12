@@ -223,15 +223,16 @@ export default function Combat() {
                 onClick={() => handleMenu('status')}
               />
             </div>
-
-            <div data-tip="Configurações">
-              <GiTreasureMap
-                size={28}
-                color="#8e0e00"
-                cursor="pointer"
-                onClick={() => handleMenu('config')}
-              />
-            </div>
+            {profile.is_gm && (
+              <div data-tip="Configurações">
+                <GiTreasureMap
+                  size={28}
+                  color="#8e0e00"
+                  cursor="pointer"
+                  onClick={() => handleMenu('config')}
+                />
+              </div>
+            )}
           </Styles.IconContainer>
         )}
 
