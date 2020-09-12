@@ -67,7 +67,7 @@ exports.updateToken = message => {
   io.emit('token.message', message)
 }
 
-exports.addLine = message => {
+exports.changeMap = message => {
   io.emit('map.message', message)
 }
 

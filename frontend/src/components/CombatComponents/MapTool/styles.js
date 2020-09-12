@@ -87,7 +87,7 @@ export const InputLarge = styled.input`
 `
 
 export const InputMed = styled.input`
-  width: 80px;
+  width: 200px;
   border: 1px solid;
   border-radius: 4px;
   height: 38px;
@@ -111,7 +111,7 @@ export const InputMed = styled.input`
 `
 
 export const InputShort = styled.input`
-  width: 60px;
+  width: 110px;
   border: 1px solid;
   border-radius: 4px;
   height: 38px;

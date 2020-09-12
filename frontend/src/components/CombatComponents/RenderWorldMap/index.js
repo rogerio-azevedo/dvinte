@@ -57,7 +57,7 @@ export default function RenderWorldMap() {
     connect()
   }, []) // eslint-disable-line
 
-  const [map] = useImage(mapData.world)
+  const [map] = useImage(mapData?.world)
 
   return (
     <Container>

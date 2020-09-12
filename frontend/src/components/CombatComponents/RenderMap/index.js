@@ -19,7 +19,8 @@ export default function RenderMap({ tokens }) {
   const [mapData, setMapData] = useState({})
 
   const grid = 68
-  const gridWidth = mapData.width
+  const gridWidth =
+    mapData?.width > mapData?.height ? mapData?.width : mapData?.height
 
   const linesA = []
   const linesB = []
@@ -28,8 +29,9 @@ export default function RenderMap({ tokens }) {
     linesA.push(
       <Line
         key={`${i}v`}
-        strokeWidth={2}
-        stroke={'black'}
+        strokeWidth={1}
+        stroke={'white'}
+        opacity={0.7}
         points={[i * grid, 0, i * grid, gridWidth]}
       />
     )
@@ -37,8 +39,9 @@ export default function RenderMap({ tokens }) {
     linesB.push(
       <Line
         key={`${i}h`}
-        strokeWidth={2}
-        stroke={'black'}
+        strokeWidth={1}
+        stroke={'white'}
+        opacity={0.7}
         points={[0, i * grid, gridWidth, i * grid]}
       />
     )
@@ -46,15 +49,17 @@ export default function RenderMap({ tokens }) {
 
   async function getMap() {
     const response = await api.get('maps/1')
-    setMapData(response.data)
+    setMapData(response?.data)
   }
 
   useEffect(() => {
-    const handleMaps = Maps => setMapData(Maps)
+    socket.on('map.message', data => {
+      setMapData(data)
 
-    socket.on('map.message', handleMaps)
-
-    return () => socket.off('map.message', handleMaps)
+      if (data.portrait !== '') {
+        setStagePos({ x: 0, y: 0 })
+      }
+    })
   }, [mapData])
 
   useEffect(() => {
@@ -114,19 +119,23 @@ export default function RenderMap({ tokens }) {
     })
   }, [lines])
 
-  //https://i.imgur.com/cUyn2zF.jpg - Ponte Rio
+  const defaultMap = 'https://i.imgur.com/cUyn2zF.jpg'
   //https://i.redd.it/viyjhos0nfk51.png - Jardel
   //https://i.imgur.com/mxoppD5.jpeg - Inicio Aventura
-  const [map] = useImage(mapData.battle)
+  const [map] = useImage(mapData?.battle || defaultMap)
+
+  const [portrait] = useImage(mapData?.portrait || '')
 
   return (
     <Container>
       <Stage
         x={stagePos.x}
         y={stagePos.y}
-        width={mapData.width}
-        height={mapData.height}
-        //draggable
+        // width={mapData?.width || 1000}
+        // height={mapData?.height || 1000}
+        width={window.innerWidth}
+        height={window.innerHeight}
+        draggable
         onDragEnd={e => {
           setStagePos(e.currentTarget.position())
         }}
@@ -141,15 +150,17 @@ export default function RenderMap({ tokens }) {
           <Image
             image={map}
             opacity={1}
-            width={mapData.width}
-            height={mapData.height}
+            //width={window.innerWidth}
+            //height={window.innerHeight}
+            width={mapData?.width}
+            height={mapData?.height}
           />
         </Layer>
 
         <Layer
-          opacity={mapData.grid ? 1 : 0}
-          width={mapData.width}
-          height={mapData.height}
+          opacity={mapData?.grid ? 1 : 0}
+          width={window.innerWidth}
+          height={window.innerHeight}
         >
           {linesA}
           {linesB}
@@ -177,10 +188,12 @@ export default function RenderMap({ tokens }) {
           <Rect
             x={0}
             y={0}
-            width={mapData.width}
-            height={mapData.height}
+            // width={mapData?.width}
+            // height={mapData?.height}
+            width={window.innerWidth}
+            height={window.innerHeight}
             fill="#333"
-            opacity={mapData.fog ? 1 : 0}
+            opacity={mapData?.fog ? 1 : 0}
           />
 
           {lines.map(line => (
@@ -194,6 +207,15 @@ export default function RenderMap({ tokens }) {
               }
             />
           ))}
+        </Layer>
+
+        <Layer>
+          <Image
+            image={portrait}
+            opacity={1}
+            width={mapData?.orientation ? 450 : 800}
+            height={mapData?.orientation ? 600 : 450}
+          />
         </Layer>
 
         <Layer>

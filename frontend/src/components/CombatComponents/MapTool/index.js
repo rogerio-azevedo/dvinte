@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import { Switch } from 'antd'
 
@@ -10,59 +9,85 @@ import * as Styles from './styles'
 
 export default function MapTool() {
   const profile = useSelector(state => state.user.profile)
-  const { handleSubmit, register, setValue } = useForm()
-  const [size, setSize] = useState(60)
+  const [battle, setBattle] = useState('')
+  const [world, setWorld] = useState('')
+  const [width, setWidth] = useState('')
+  const [height, setHeight] = useState('')
+  const [grid, setGrid] = useState(true)
+  const [fog, setFog] = useState(false)
+  const [portrait, setPortrait] = useState('')
+  const [orientation, setOrientation] = useState(true)
+
   const [fogOpacity, setFogOpacity] = useState(60)
+  const [size, setSize] = useState(60)
 
-  useEffect(() => {
-    setValue('owner', profile.id)
-    setValue('grid', true)
-    setValue('fog', false)
-  }, []) //eslint-disable-line
-
-  useEffect(() => {
-    register({ name: 'grid' })
-    register({ name: 'fog' })
-    register({ name: 'owner' })
-  }, [register])
-
-  const onSubmit = (data, e) => {
-    async function saveData() {
-      await api.post('maps', data)
-      e.target.reset()
-      toast.success('Arma vinculada com sucesso!')
+  async function handleSave() {
+    const mapData = {
+      campaign_id: 1,
+      battle,
+      world,
+      portrait,
+      orientation,
+      width,
+      height,
+      grid,
+      fog,
+      owner: profile.id,
     }
-    saveData()
+
+    await api.post('maps', mapData)
+    toast.success('Mapa alterado com sucesso!')
   }
 
-  useEffect(() => {}, [])
+  useEffect(() => {
+    api.get(`maps/${1}`).then(response => {
+      const { data } = response
+
+      if (data) {
+        setBattle(data.battle)
+        setWorld(data.world)
+        setWidth(data.width)
+        setHeight(data.height)
+        setGrid(data.grid)
+        setFog(data.fog)
+      }
+    })
+  }, [])
 
   function handleGrid(checked) {
     if (checked === true) {
-      setValue('grid', checked)
+      setGrid(checked)
     } else {
-      setValue('grid', false)
+      setGrid(false)
     }
   }
 
   function handleFog(checked) {
     if (checked === true) {
-      setValue('fog', checked)
+      setFog(checked)
     } else {
-      setValue('fog', false)
+      setFog(false)
+    }
+  }
+
+  function handleOrientation(checked) {
+    if (checked === true) {
+      setOrientation(checked)
+    } else {
+      setOrientation(false)
     }
   }
 
   return (
     <Styles.Container>
       <h2>Cadastro de Mapas</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form>
         <Styles.InputContainer>
           <div>
             <label htmlFor="battle">Mapa Batalha</label>
             <Styles.InputLarge
-              name="battle"
-              ref={register({ required: true })}
+              value={battle}
+              onChange={e => setBattle(e.target.value)}
             />
           </div>
         </Styles.InputContainer>
@@ -71,8 +96,26 @@ export default function MapTool() {
           <div>
             <label htmlFor="world">Mapa Mundo</label>
             <Styles.InputLarge
-              name="world"
-              ref={register({ required: true })}
+              value={world}
+              onChange={e => setWorld(e.target.value)}
+            />
+          </div>
+        </Styles.InputContainer>
+
+        <Styles.InputContainer>
+          <div>
+            <label htmlFor="width">Largura</label>
+            <Styles.InputShort
+              value={width}
+              onChange={e => setWidth(e.target.value)}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="height">Altura</label>
+            <Styles.InputShort
+              value={height}
+              onChange={e => setHeight(e.target.value)}
             />
           </div>
         </Styles.InputContainer>
@@ -81,17 +124,44 @@ export default function MapTool() {
           <div>
             <label htmlFor="grid">Grid</label>
             <div style={{ marginTop: '18px' }}>
-              <Switch name="grid" defaultChecked={true} onChange={handleGrid} />
+              <Switch
+                checked={grid}
+                defaultChecked={grid}
+                onChange={handleGrid}
+              />
             </div>
           </div>
 
           <div>
             <label htmlFor="fog">Fog</label>
             <div style={{ marginTop: '18px' }}>
-              <Switch name="fog" defaultChecked={false} onChange={handleFog} />
+              <Switch checked={fog} defaultChecked={fog} onChange={handleFog} />
             </div>
           </div>
         </Styles.InputContainer>
+
+        <Styles.InputContainer>
+          <div>
+            <label htmlFor="portrait">Retrato Endereço</label>
+            <Styles.InputMed
+              value={portrait}
+              onChange={e => setPortrait(e.target.value)}
+            />
+          </div>
+          <div>
+            <label htmlFor="port">Paisag/Retrat</label>
+            <div style={{ marginTop: '18px' }}>
+              <Switch
+                checked={orientation}
+                defaultChecked={orientation}
+                onChange={handleOrientation}
+              />
+            </div>
+          </div>
+        </Styles.InputContainer>
+
+        <Styles.InputContainer></Styles.InputContainer>
+
         <Styles.InputContainer>
           <div>
             <label htmlFor="size">Borracha</label>
@@ -123,7 +193,9 @@ export default function MapTool() {
         </Styles.InputContainer>
 
         <Styles.ButtonsContainer>
-          <Styles.Button type="submit">Cadastrar</Styles.Button>
+          <Styles.Button type="button" onClick={handleSave}>
+            Cadastrar
+          </Styles.Button>
         </Styles.ButtonsContainer>
       </form>
     </Styles.Container>
