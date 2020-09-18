@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
@@ -11,8 +11,6 @@ import SelectRace from '~/components/SelectRace'
 import SelectLevel from '~/components/SelectLevel'
 import SelectGender from '~/components/SelectGender'
 import SelectSize from '~/components/SelectSize'
-
-import Button from '~/components/Button'
 
 import ButtonPrev from '~/components/ButtonPrev'
 import ButtonNext from '~/components/ButtonNext'
@@ -49,6 +47,7 @@ export default function CharBase() {
   const [race, setRace] = useState(raceStore)
 
   const dispatch = useDispatch()
+  const formRef = useRef(null)
 
   const { register, handleSubmit, errors, setValue } = useForm({
     defaultValues: {
@@ -115,6 +114,10 @@ export default function CharBase() {
     setRace(data)
   }
 
+  function handleSave() {
+    formRef.current.dispatchEvent(new Event('submit', { cancelable: true }))
+  }
+
   return (
     <Styles.Container>
       <ButtonPrev linkto="charactercreate" display="show" />
@@ -122,7 +125,7 @@ export default function CharBase() {
       <Styles.ContentContainer>
         <h1>Cadastro de Personagem - DADOS BÁSICOS</h1>
         <Styles.FormContainer>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit)} ref={formRef}>
             <Styles.InputContainer>
               <div>
                 <label htmlFor="character">Nome</label>
@@ -267,9 +270,9 @@ export default function CharBase() {
               </div>
             </Styles.InputContainer>
 
-            <Styles.InputContainer>
+            {/* <Styles.InputContainer>
               <Button type="submit" TextButton="Gravar" />
-            </Styles.InputContainer>
+            </Styles.InputContainer> */}
           </form>
         </Styles.FormContainer>
         <Styles.DivPage>
@@ -295,7 +298,7 @@ export default function CharBase() {
         </Styles.DivPage>
       </Styles.ContentContainer>
 
-      <ButtonNext linkto="charclass" display="show" />
+      <ButtonNext linkto="charclass" display="show" handleSave={handleSave} />
     </Styles.Container>
   )
 }

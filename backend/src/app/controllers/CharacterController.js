@@ -38,11 +38,6 @@ class CharacterController {
           attributes: ['id', 'path', 'url'],
         },
         {
-          model: Divinity,
-          as: 'divinity',
-          attributes: ['name'],
-        },
-        {
           model: Alignment,
           as: 'alignment',
           attributes: ['name'],
@@ -166,15 +161,15 @@ class CharacterController {
         c?.armors
           ?.filter(t => t.type === 1)
           .map(c => ({
-            name: c.name.toUpperCase() || '',
-            type: c.type || 0,
             bonus: c.bonus || 0,
-            dexterity: c.dexterity || 0,
-            displacement_s: c.displacement_s || 0,
-            displacement_m: c.displacement_m || 0,
             defense: c.CharacterArmor?.defense || 0,
+            // name: c.name.toUpperCase() || '',
+            // type: c.type || 0,
+            // dexterity: c.dexterity || 0,
+            // displacement_s: c.displacement_s || 0,
+            // displacement_m: c.displacement_m || 0,
           }))
-          .reduce((acc, val) => {
+          ?.reduce((acc, val) => {
             return acc + (val.bonus + val.defense)
           }, 0) || 0,
 
@@ -182,15 +177,15 @@ class CharacterController {
         c?.armors
           ?.filter(t => t.type === 2)
           .map(c => ({
-            name: c.name.toUpperCase() || '',
-            type: c.type || 0,
             bonus: c.bonus || 0,
-            dexterity: c.dexterity || 0,
-            displacement_s: c.displacement_s || 0,
-            displacement_m: c.displacement_m || 0,
             defense: c.CharacterArmor?.defense || 0,
+            // name: c.name.toUpperCase() || '',
+            // type: c.type || 0,
+            // dexterity: c.dexterity || 0,
+            // displacement_s: c.displacement_s || 0,
+            // displacement_m: c.displacement_m || 0,
           }))
-          .reduce((acc, val) => {
+          ?.reduce((acc, val) => {
             return acc + (val.bonus + val.defense)
           }, 0) || 0,
 
@@ -198,15 +193,15 @@ class CharacterController {
         c?.armors
           ?.filter(t => t.type === 3)
           .map(c => ({
-            name: c.name.toUpperCase() || '',
-            type: c.type || 0,
             bonus: c.bonus || 0,
-            dexterity: c.dexterity || 0,
-            displacement_s: c.displacement_s || 0,
-            displacement_m: c.displacement_m || 0,
             defense: c.CharacterArmor?.defense || 0,
+            // name: c.name.toUpperCase() || '',
+            // type: c.type || 0,
+            // dexterity: c.dexterity || 0,
+            // displacement_s: c.displacement_s || 0,
+            // displacement_m: c.displacement_m || 0,
           }))
-          .reduce((acc, val) => {
+          ?.reduce((acc, val) => {
             return acc + (val.bonus + val.defense)
           }, 0) || 0,
 
@@ -214,15 +209,15 @@ class CharacterController {
         c?.armors
           ?.filter(t => t.type === 4)
           .map(c => ({
-            name: c.name.toUpperCase() || '',
-            type: c.type || 0,
             bonus: c.bonus || 0,
-            dexterity: c.dexterity || 0,
-            displacement_s: c.displacement_s || 0,
-            displacement_m: c.displacement_m || 0,
             defense: c.CharacterArmor?.defense || 0,
+            // name: c.name.toUpperCase() || '',
+            // type: c.type || 0,
+            // dexterity: c.dexterity || 0,
+            // displacement_s: c.displacement_s || 0,
+            // displacement_m: c.displacement_m || 0,
           }))
-          .reduce((acc, val) => {
+          ?.reduce((acc, val) => {
             return acc + (val.bonus + val.defense)
           }, 0) || 0,
 
@@ -230,15 +225,15 @@ class CharacterController {
         c?.armors
           ?.filter(t => t.type === 5)
           .map(c => ({
-            name: c.name.toUpperCase() || '',
-            type: c.type || 0,
             bonus: c.bonus || 0,
-            dexterity: c.dexterity || 0,
-            displacement_s: c.displacement_s || 0,
-            displacement_m: c.displacement_m || 0,
             defense: c.CharacterArmor?.defense || 0,
+            // name: c.name.toUpperCase() || '',
+            // type: c.type || 0,
+            // dexterity: c.dexterity || 0,
+            // displacement_s: c.displacement_s || 0,
+            // displacement_m: c.displacement_m || 0,
           }))
-          .reduce((acc, val) => {
+          ?.reduce((acc, val) => {
             return acc + (val.bonus + val.defense)
           }, 0) || 0,
 

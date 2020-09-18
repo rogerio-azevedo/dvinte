@@ -236,10 +236,6 @@ export default function Combat() {
           </Styles.IconContainer>
         )}
 
-        {/*
-        {!loadChar && (
-          <CombatTools charStatus={charStatus} charInit={charInit} />
-        )} */}
         {menu === 'chat' ? (
           <Chat />
         ) : menu === 'init' ? (
@@ -250,8 +246,11 @@ export default function Combat() {
           />
         ) : menu === 'saves' ? (
           <Styles.SavesConteiner>
-            <Savins fortitude={fortitude} reflex={reflex} will={will} />
-            <Dices />
+            <Styles.ButtonsContainer>
+              <Savins fortitude={fortitude} reflex={reflex} will={will} />
+              <Dices />
+            </Styles.ButtonsContainer>
+            <h2>Painel Logs</h2>
             <LogBoard />
           </Styles.SavesConteiner>
         ) : menu === 'damage' ? (
@@ -261,6 +260,7 @@ export default function Combat() {
         ) : menu === 'attack' ? (
           <Styles.AttackContainer>
             <Armory character={character} weapons={weapons} />
+            <h2>Painel Logs</h2>
             <LogBoard />
           </Styles.AttackContainer>
         ) : (

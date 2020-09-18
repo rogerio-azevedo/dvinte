@@ -117,25 +117,22 @@ export default function CharPreview() {
             <Styles.BaseContainer>
               <Styles.LineContaniner>
                 <div>
-                  <Styles.InputLarge readOnly defaultValue={character?.name} />
+                  <Styles.InputLarge readOnly value={character?.name} />
                   <label htmlFor="CharName">Nome do Personagem</label>
                 </div>
                 <div>
-                  <Styles.InputShort readOnly defaultValue={character?.level} />
+                  <Styles.InputShort readOnly value={character?.level} />
                   <label htmlFor="CharAge">Level</label>
                 </div>
 
                 <div>
-                  <Styles.InputLarge
-                    readOnly
-                    defaultValue={race?.toUpperCase()}
-                  />
+                  <Styles.InputLarge readOnly value={race?.toUpperCase()} />
                   <label htmlFor="CharRace">Raça</label>
                 </div>
                 <div>
                   <Styles.InputLarge
                     readOnly
-                    defaultValue={alignment?.toUpperCase()}
+                    value={alignment?.toUpperCase()}
                   />
                   <label htmlFor="CharAlignment">Tendência</label>
                 </div>
@@ -143,55 +140,46 @@ export default function CharPreview() {
 
               <Styles.LineContaniner>
                 <div>
-                  <Styles.InputShort readOnly defaultValue={character?.age} />
+                  <Styles.InputShort readOnly value={character?.age} />
                   <label htmlFor="CharAge">Idade</label>
                 </div>
 
                 <div>
                   <Styles.InputMed
                     readOnly
-                    defaultValue={getGender(character?.gender)}
+                    value={getGender(character?.gender)}
                   />
                   <label htmlFor="CharGender">Sexo</label>
                 </div>
                 <div>
-                  <Styles.InputMed
-                    readOnly
-                    defaultValue={getSize(character?.size)}
-                  />
+                  <Styles.InputMed readOnly value={getSize(character?.size)} />
                   <label htmlFor="CharSize">Tamanho</label>
                 </div>
                 <div>
-                  <Styles.InputLarge
-                    readOnly
-                    defaultValue={divinity?.toUpperCase()}
-                  />
+                  <Styles.InputLarge readOnly value={divinity?.toUpperCase()} />
                   <label htmlFor="CharDivinity">Divindade</label>
                 </div>
               </Styles.LineContaniner>
 
               <Styles.LineContaniner>
                 <div>
-                  <Styles.InputShort defaultValue={character?.height} />
+                  <Styles.InputShort value={character?.height} />
                   <label htmlFor="CharHeight">Altura</label>
                 </div>
                 <div>
-                  <Styles.InputShort
-                    readOnly
-                    defaultValue={character?.weight}
-                  />
+                  <Styles.InputShort readOnly value={character?.weight} />
                   <label htmlFor="CharWeight">Peso</label>
                 </div>
                 <div>
-                  <Styles.InputMed readOnly defaultValue={character?.eye} />
+                  <Styles.InputMed readOnly value={character?.eye} />
                   <label htmlFor="CharEye">Olhos</label>
                 </div>
                 <div>
-                  <Styles.InputMed readOnly defaultValue={character?.hair} />
+                  <Styles.InputMed readOnly value={character?.hair} />
                   <label htmlFor="CharHair">Cabelos</label>
                 </div>
                 <div>
-                  <Styles.InputMed readOnly defaultValue={character?.skin} />
+                  <Styles.InputMed readOnly value={character?.skin} />
                   <label htmlFor="CharSkin">Pele</label>
                 </div>
               </Styles.LineContaniner>
@@ -200,7 +188,7 @@ export default function CharPreview() {
           <Styles.AttrsContainer>
             <Styles.AttributesContainer>
               <Styles.GroupContainer>
-                <Styles.AttrsLabel readOnly defaultValue="FOR" />
+                <Styles.AttrsLabel readOnly value="FOR" />
                 <Styles.ValueContainer>
                   <Styles.AttrsValue
                     readOnly
@@ -210,7 +198,7 @@ export default function CharPreview() {
               </Styles.GroupContainer>
 
               <Styles.GroupContainer>
-                <Styles.AttrsLabel readOnly defaultValue="DES" />
+                <Styles.AttrsLabel readOnly value="DES" />
                 <Styles.ValueContainer>
                   <Styles.AttrsValue
                     readOnly
@@ -220,7 +208,7 @@ export default function CharPreview() {
               </Styles.GroupContainer>
 
               <Styles.GroupContainer>
-                <Styles.AttrsLabel readOnly defaultValue="CON" />
+                <Styles.AttrsLabel readOnly value="CON" />
                 <Styles.ValueContainer>
                   <Styles.AttrsValue
                     readOnly
@@ -230,7 +218,7 @@ export default function CharPreview() {
               </Styles.GroupContainer>
 
               <Styles.GroupContainer>
-                <Styles.AttrsLabel readOnly defaultValue="INT" />
+                <Styles.AttrsLabel readOnly value="INT" />
                 <Styles.ValueContainer>
                   <Styles.AttrsValue
                     readOnly
@@ -240,7 +228,7 @@ export default function CharPreview() {
               </Styles.GroupContainer>
 
               <Styles.GroupContainer>
-                <Styles.AttrsLabel readOnly defaultValue="SAB" />
+                <Styles.AttrsLabel readOnly value="SAB" />
                 <Styles.ValueContainer>
                   <Styles.AttrsValue
                     readOnly
@@ -250,7 +238,7 @@ export default function CharPreview() {
               </Styles.GroupContainer>
 
               <Styles.GroupContainer>
-                <Styles.AttrsLabel readOnly defaultValue="CAR" />
+                <Styles.AttrsLabel readOnly value="CAR" />
                 <Styles.ValueContainer>
                   <Styles.AttrsValue
                     readOnly
@@ -263,16 +251,14 @@ export default function CharPreview() {
               <ul>
                 {character?.classe?.map(item => (
                   <li key={Math.random()}>
-                    <Styles.ClassInput readOnly defaultValue={item.className} />
-                    <Styles.ClassValueInput
-                      readOnly
-                      defaultValue={item.level}
-                    />
+                    <Styles.ClassInput readOnly value={item.className} />
+                    <Styles.ClassValueInput readOnly value={item.level} />
                   </li>
                 ))}
               </ul>
             </Styles.ClassContainer>
           </Styles.AttrsContainer>
+          <Styles.Button onClick={handleSave}>Gravar</Styles.Button>
         </Styles.FormContainer>
 
         <Styles.DivPage>

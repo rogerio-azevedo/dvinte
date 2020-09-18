@@ -30,7 +30,7 @@ class DamageController {
 
     const combatStart = await Logs.aggregate([
       {
-        $match: { type: 8 },
+        $match: { type: { $in: [8, 10] } },
       },
       {
         $project: {

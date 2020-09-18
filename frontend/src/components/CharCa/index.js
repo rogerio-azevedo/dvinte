@@ -9,39 +9,43 @@ import {
 } from './styles'
 
 export default function CharCa({ armors, dextMod }) {
-  const shield = armors
-    .filter(t => t.type === 2)
-    .reduce((acc, val) => {
-      return acc + (val.bonus + val.defense)
-    }, 0)
+  const armor =
+    armors
+      ?.filter(t => t.type === 1)
+      ?.reduce((acc, val) => {
+        return acc + (val.bonus + val.defense)
+      }, 0) || 0
 
-  const armor = armors
-    .filter(t => t.type === 1)
-    .reduce((acc, val) => {
-      return acc + (val.bonus + val.defense)
-    }, 0)
+  const shield =
+    armors
+      ?.filter(t => t.type === 2)
+      ?.reduce((acc, val) => {
+        return acc + (val.bonus + val.defense)
+      }, 0) || 0
 
-  const natural = armors
-    .filter(t => t.type === 3)
-    .reduce((acc, val) => {
-      return acc + (val.bonus + val.defense)
-    }, 0)
+  const natural =
+    armors
+      ?.filter(t => t.type === 3)
+      ?.reduce((acc, val) => {
+        return acc + (val.bonus + val.defense)
+      }, 0) || 0
 
-  const deflex = armors
-    .filter(t => t.type === 4)
-    .reduce((acc, val) => {
-      return acc + (val.bonus + val.defense)
-    }, 0)
+  const deflex =
+    armors
+      ?.filter(t => t.type === 4)
+      ?.reduce((acc, val) => {
+        return acc + (val.bonus + val.defense)
+      }, 0) || 0
 
-  const outros = armors
-    .filter(t => t.type === 5)
-    .reduce((acc, val) => {
-      return acc + (val.bonus + val.defense)
-    }, 0)
+  const outros =
+    armors
+      ?.filter(t => t.type === 5)
+      ?.reduce((acc, val) => {
+        return acc + (val.bonus + val.defense)
+      }, 0) || 0
 
-  const maxDext = armors.reduce(
-    (min, p) => (p?.dexterity < min ? p?.dexterity : min),
-    armors[0]?.dexterity
+  const maxDext = Math.min(
+    ...armors?.filter(t => t.dexterity > 0).map(item => item.dexterity)
   )
 
   function calcDext(value) {

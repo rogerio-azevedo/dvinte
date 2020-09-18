@@ -15,7 +15,7 @@ export default function CharWeapon({ weapons, size }) {
             </div>
             <div>
               <label htmlFor="inputResist">Qtde</label>
-              <input
+              <InputShort
                 readOnly
                 defaultValue={
                   size === 'MÉDIO' ? item.multiplier_m : item.multiplier_s
@@ -24,7 +24,7 @@ export default function CharWeapon({ weapons, size }) {
             </div>
             <div>
               <label htmlFor="inputResist">Dado</label>
-              <input
+              <InputShort
                 readOnly
                 defaultValue={`d${
                   size === 'MÉDIO' ? item.dice_m : item.dice_s

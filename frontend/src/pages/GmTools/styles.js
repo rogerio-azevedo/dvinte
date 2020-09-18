@@ -68,10 +68,34 @@ export const Button = styled.button`
 
 export const TableContainer = styled.div`
   width: 100%;
-  padding: 30px;
+  padding: 20px;
   border-radius: 4px;
   max-height: 500px;
   overflow: auto;
+
+  input {
+    width: 60px;
+    height: 30px;
+    text-align: center;
+  }
+
+  button {
+    height: 30px;
+    width: 60px;
+    background: #8e0e00;
+    font-weight: bold;
+    color: #fff;
+    border: 0;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: background 0.3s;
+    display: ${props => (props.loading ? 'none' : 'block')};
+    margin: 0 10px;
+
+    &:hover {
+      background: ${darken(0.09, '#8e0e00')};
+    }
+  }
 `
 
 export const Portrait = styled.div`
@@ -83,5 +107,50 @@ export const Portrait = styled.div`
     height: 35px;
     object-fit: cover;
     border-radius: 50%;
+  }
+`
+
+export const MonsterContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-top: 30px;
+`
+
+export const BlockContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+`
+
+export const InputMonster = styled.input`
+  height: 35px;
+  width: 80px;
+  border-radius: 4px;
+  text-align: center;
+  padding: 5px;
+`
+
+export const InputMonsterLarge = styled.input`
+  height: 35px;
+  width: 200px;
+  border-radius: 4px;
+  padding: 5px;
+`
+
+export const ButtonMonster = styled.button`
+  height: 35px;
+  width: 80px;
+  background: #8e0e00;
+  font-weight: bold;
+  color: #fff;
+  border: 0;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: background 0.3s;
+  display: ${props => (props.loading ? 'none' : 'block')};
+  margin-top: 16px;
+
+  &:hover {
+    background: ${darken(0.09, '#8e0e00')};
   }
 `

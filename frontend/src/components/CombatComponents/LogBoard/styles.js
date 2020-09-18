@@ -2,32 +2,30 @@ import styled from 'styled-components'
 import { darken } from 'polished'
 
 export const Container = styled.div`
-  display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  display: flex;
+  flex: 1;
+  overflow: auto;
 
   h2 {
     margin-top: 20px;
+    position: sticky;
+    top: 0;
   }
 `
 
 export const ChatContainer = styled.div`
   width: 100%;
+  flex: 1;
+
   flex-direction: row;
   font-family: Arial, sans-serif;
   align-self: left;
-
-  -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-  -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
 `
 
 export const ChatHistory = styled.div`
   padding: 30px 30px 20px;
   border-bottom: 2px solid white;
-  overflow-y: scroll;
-  height: 300px;
 `
 
 export const MessageData = styled.div`

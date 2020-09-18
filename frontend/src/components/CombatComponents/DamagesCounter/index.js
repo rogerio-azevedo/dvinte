@@ -39,7 +39,7 @@ export default function DamagesCounter() {
       user: profile.name,
       message: 'Combate Iniciado!!!',
       result: 0,
-      type: 8,
+      type: 9,
     })
   }
 

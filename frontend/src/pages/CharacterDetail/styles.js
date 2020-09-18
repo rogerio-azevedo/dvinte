@@ -518,6 +518,7 @@ export const EquipmentContainer = styled.fieldset`
   align-items: center;
   justify-content: center;
   padding: 20px;
+  margin-bottom: 40px;
 
   legend {
     display: flex;

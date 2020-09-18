@@ -1,21 +1,31 @@
-import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useState, useEffect, useRef } from 'react'
+// import { useSelector } from 'react-redux'
 
 import { Link } from 'react-router-dom'
 import { Table } from 'antd'
 import api from '~/services/api'
 
-import SelectCharacter from '~/components/SelectCharacter'
+// import SelectCharacter from '~/components/SelectCharacter'
 import * as Styles from './styles'
 
 export default function GmTools() {
-  const profile = useSelector(state => state.user.profile)
+  // const profile = useSelector(state => state.user.profile)
+  const inputRef = useRef()
 
-  const [character, setCharacter] = useState()
-  const [health, setHealth] = useState()
-
+  // const [character, setCharacter] = useState()
+  const [health, setHealth] = useState(0)
   const [list, setList] = useState([])
   const [loading, setLoading] = useState(false)
+
+  const [name, setName] = useState('')
+  const [attackName, setAttackName] = useState('')
+  const [init, setInit] = useState('')
+  const [attack, setAttack] = useState('')
+  const [hit, setHit] = useState('')
+  const [crit, setCrit] = useState('')
+  const [dice, setDice] = useState('')
+  const [multi, setMulti] = useState('')
+  const [damage, setDamage] = useState('')
 
   async function loadChar() {
     setLoading(true)
@@ -29,51 +39,53 @@ export default function GmTools() {
 
   useEffect(() => {
     loadChar()
-  }, []) // eslint-disable-line
+  }, [health]) // eslint-disable-line
 
-  async function handleFury() {
-    await api.put(`attributetemps/${character}`, {
-      str: 4,
-      con: 4,
-    })
-  }
+  // async function handleFury() {
+  //   await api.put(`attributetemps/${character}`, {
+  //     str: 4,
+  //     con: 4,
+  //   })
+  // }
 
-  async function handleNormal() {
-    await api.put(`attributetemps/${character}`, {
-      str: -4,
-      con: -4,
-    })
-  }
+  // async function handleNormal() {
+  //   await api.put(`attributetemps/${character}`, {
+  //     str: -4,
+  //     con: -4,
+  //   })
+  // }
 
-  async function handleFatigue() {
-    await api.put(`attributetemps/${character}`, {
-      str: -4,
-      con: -4,
-    })
-  }
+  // async function handleFatigue() {
+  //   await api.put(`attributetemps/${character}`, {
+  //     str: -4,
+  //     con: -4,
+  //   })
+  // }
 
-  function handleHealth() {
-    api.put(
+  async function handleHealth(char) {
+    await api.put(
       '/healthnow',
       { newHealth: health },
       {
         params: {
-          id: character,
+          id: char,
         },
       }
     )
+
+    setHealth('')
   }
 
-  function handleInitGame() {
-    api.post('combats', {
-      id: 0,
-      user_id: profile.id,
-      user: profile.name,
-      message: 'Sessão Iniciada',
-      result: 0,
-      type: 0,
-    })
-  }
+  // function handleInitGame() {
+  //   api.post('combats', {
+  //     id: 0,
+  //     user_id: profile.id,
+  //     user: profile.name,
+  //     message: 'Sessão Iniciada',
+  //     result: 0,
+  //     type: 0,
+  //   })
+  // }
 
   const columns = [
     {
@@ -101,36 +113,6 @@ export default function GmTools() {
       key: 'level',
     },
     {
-      title: 'FOR',
-      dataIndex: 'armor',
-      render: (text, item) => `${item.str}`,
-    },
-    {
-      title: 'CON',
-      dataIndex: 'armor',
-      render: (text, item) => `${item.con}`,
-    },
-    {
-      title: 'DES',
-      dataIndex: 'armor',
-      render: (text, item) => `${item.dex}`,
-    },
-    {
-      title: 'INT',
-      dataIndex: 'armor',
-      render: (text, item) => `${item.int}`,
-    },
-    {
-      title: 'SAB',
-      dataIndex: 'armor',
-      render: (text, item) => `${item.wis}`,
-    },
-    {
-      title: 'CAR',
-      dataIndex: 'armor',
-      render: (text, item) => `${item.cha}`,
-    },
-    {
       title: 'CA',
       dataIndex: 'armor',
       render: (text, item) =>
@@ -155,21 +137,6 @@ export default function GmTools() {
       render: (text, item) => `${item.baseAttack + item.dexMod}`,
     },
     {
-      title: 'Fortitude',
-      dataIndex: 'range',
-      render: (text, item) => `${item.fortitude + item.conMod}`,
-    },
-    {
-      title: 'Reflexos',
-      dataIndex: 'range',
-      render: (text, item) => `${item.reflex + item.dexMod}`,
-    },
-    {
-      title: 'Vontade',
-      dataIndex: 'range',
-      render: (text, item) => `${item.will + item.wisMod}`,
-    },
-    {
       title: 'Vida',
       dataIndex: 'health',
       key: 'health',
@@ -185,11 +152,127 @@ export default function GmTools() {
       key: 'user',
     },
     {
+      title: 'Dano/Cura',
+      dataIndex: 'pv',
+      render: (text, item) => (
+        <input
+          ref={inputRef}
+          onFocus={e => setHealth('')}
+          value={health}
+          onChange={e => setHealth(e.target.value)}
+        />
+      ),
+    },
+    {
+      title: 'Salvar',
+      dataIndex: 'Salvar',
+      render: (text, item) => (
+        <button onClick={() => handleHealth(item.id)}>Salvar</button>
+      ),
+    },
+    {
       title: 'Ação',
       dataIndex: 'ver',
       render: (text, item) => <Link to={`/characterview/${item.id}`}>Ver</Link>,
     },
   ]
+
+  async function handleInitiative() {
+    const dext = Number(init)
+
+    const dice = Math.floor(Math.random() * 20) + 1
+
+    const initTotal = dext + dice
+
+    const rolled = `Rolou iniciativa d20: ${dice} + ${dext} de destreza, com resultado: ${initTotal}`
+
+    api.post('combats', {
+      id: 0,
+      user_id: 0,
+      user: name,
+      message: rolled,
+      result: initTotal,
+      type: 8,
+    })
+
+    api.post('initiatives', {
+      user_id: 0,
+      user: name,
+      initiative: initTotal,
+    })
+  }
+
+  async function handleAttack() {
+    const monsterName = name
+    const extraHit = Number(hit) || 0
+    const critFrom = Number(crit) || 20
+    const dice = Math.floor(Math.random() * 20) + 1
+
+    let isCrit = ''
+
+    if (dice >= critFrom) {
+      isCrit = 'HIT'
+    } else if (dice === 1) {
+      isCrit = 'FAIL'
+    } else {
+      isCrit = 'NORMAL'
+    }
+
+    const base = Number(attack)
+    const attackTotal = Number(base) + Number(dice) + Number(extraHit)
+
+    let rolled = ''
+
+    if (isCrit === 'HIT') {
+      rolled = `ACERTO CRÍTICO d20: ${dice} + ${base} de base + ${extraHit} de bônus da arma ${attackName}, com resultado: ${attackTotal}`
+    } else if (isCrit === 'FAIL') {
+      rolled = `ERRO CRÍTICO d20: ${dice} + ${base} de base + ${extraHit} de bônus da arma ${attackName}, com resultado: ${attackTotal}`
+    } else {
+      rolled = `Rolou ataque d20: ${dice} + ${base} de base + ${extraHit} de bônus da arma ${name}, com resultado: ${attackTotal}`
+    }
+
+    api.post('combats', {
+      id: 0,
+      user_id: 0,
+      user: monsterName,
+      message: rolled,
+      result: attack,
+      type: 3,
+      isCrit: isCrit,
+    })
+  }
+
+  async function handleDamage() {
+    const monsterName = name
+    const mod = Number(damage)
+
+    const monsterDice = Number(dice)
+    const monsterMulti = Number(multi)
+    const extraDamage = Number(damage) || 0
+
+    let result = 0
+    const random = () => {
+      return Math.floor(Math.random() * Number(dice)) + 1
+    }
+
+    // eslint-disable-next-line
+    for (let i = 0; i < multi; i++) {
+      result += random()
+    }
+
+    const totalDamage = Number(result) + Number(extraDamage)
+
+    const rolled = `Rolou dano ${monsterMulti} x d${monsterDice}: ${result} + ${mod} + ${extraDamage} de bônus da arma, com a arma ${attackName}. Com resultado: ${totalDamage}`
+
+    api.post('combats', {
+      id: 0,
+      user_id: 0,
+      user: monsterName,
+      message: rolled,
+      result: totalDamage,
+      type: 4,
+    })
+  }
 
   return (
     <Styles.Container loading={loading ? 1 : 0}>
@@ -199,7 +282,101 @@ export default function GmTools() {
         <Table rowKey="id" dataSource={list} columns={columns} />
       </Styles.TableContainer>
 
-      <Styles.CharacterContainer>
+      <Styles.MonsterContainer>
+        <Styles.BlockContainer>
+          <label>Nome</label>
+          <Styles.InputMonsterLarge
+            value={name}
+            onChange={e => setName(e.target.value)}
+          />
+        </Styles.BlockContainer>
+
+        <Styles.BlockContainer>
+          <label>Nome Ataque</label>
+          <Styles.InputMonsterLarge
+            value={attackName}
+            onChange={e => setAttackName(e.target.value)}
+          />
+        </Styles.BlockContainer>
+        <Styles.BlockContainer>
+          <label>Ataque</label>
+          <Styles.InputMonster
+            value={attack}
+            onChange={e => setAttack(e.target.value)}
+          />
+        </Styles.BlockContainer>
+
+        <Styles.BlockContainer>
+          <label>Acerto</label>
+          <Styles.InputMonster
+            value={hit}
+            onChange={e => setHit(e.target.value)}
+          />
+        </Styles.BlockContainer>
+
+        <Styles.BlockContainer>
+          <label>Critico</label>
+          <Styles.InputMonster
+            value={crit}
+            onChange={e => setCrit(e.target.value)}
+          />
+        </Styles.BlockContainer>
+
+        <Styles.BlockContainer>
+          <Styles.ButtonMonster onClick={handleAttack}>
+            Atacar
+          </Styles.ButtonMonster>
+        </Styles.BlockContainer>
+      </Styles.MonsterContainer>
+
+      <Styles.MonsterContainer>
+        <Styles.BlockContainer>
+          <label>Multip</label>
+          <Styles.InputMonster
+            value={multi}
+            onChange={e => setMulti(e.target.value)}
+          />
+        </Styles.BlockContainer>
+        <Styles.BlockContainer>
+          <label>Dado</label>
+          <Styles.InputMonster
+            value={dice}
+            onChange={e => setDice(e.target.value)}
+          />
+        </Styles.BlockContainer>
+
+        <Styles.BlockContainer>
+          <label>Dano</label>
+          <Styles.InputMonster
+            value={damage}
+            onChange={e => setDamage(e.target.value)}
+          />
+        </Styles.BlockContainer>
+
+        <Styles.BlockContainer>
+          <Styles.ButtonMonster onClick={handleDamage}>
+            Dano
+          </Styles.ButtonMonster>
+        </Styles.BlockContainer>
+      </Styles.MonsterContainer>
+
+      <Styles.MonsterContainer>
+        <Styles.BlockContainer>
+          <label>Iniciativa</label>
+          <Styles.InputMonster
+            value={init}
+            onChange={e => setInit(e.target.value)}
+          />
+        </Styles.BlockContainer>
+
+        <Styles.BlockContainer>
+          <Styles.ButtonMonster onClick={handleInitiative}>
+            Iniciativa
+          </Styles.ButtonMonster>
+        </Styles.BlockContainer>
+      </Styles.MonsterContainer>
+
+      {/* <Styles.CharacterContainer>
         <SelectCharacter changeCharacter={e => setCharacter(e?.value)} />
       </Styles.CharacterContainer>
       <Styles.HealthContainer>
@@ -214,11 +391,7 @@ export default function GmTools() {
         <Styles.Button onClick={handleNormal}>Desliga Furia</Styles.Button>
         <Styles.Button onClick={handleFatigue}>Liga Fadiga</Styles.Button>
         <Styles.Button onClick={handleFatigue}>Desliga Fadiga</Styles.Button>
-      </Styles.FuryContainer>
-      <div>
-        <Styles.Button onClick={handleInitGame}>Iniciar Sessão</Styles.Button>
-        {/* <Styles.Button onClick={handleNormal}>Desliga Furia</Styles.Button> */}
-      </div>
+      </Styles.FuryContainer> */}
     </Styles.Container>
   )
 }

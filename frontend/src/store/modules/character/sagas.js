@@ -14,6 +14,7 @@ import {
   charAttrsSuccess,
   charAttrsFailure,
   charPreviewFailure,
+  charReset,
 } from './actions'
 
 export function* portraitCharacter({ payload }) {
@@ -62,9 +63,10 @@ export function* attrsCharacter({ payload }) {
 
 export function* createCharacter({ payload }) {
   try {
-    toast.success('Personagem criado com sucesso!')
-
     yield call(api.post, 'characters', payload)
+    toast.success('Personagem criado com sucesso!')
+    yield put(charReset())
+    history.push('/characters')
   } catch (err) {
     toast.console.error('Houve um erro ao criar o Personagem')
     yield put(charPreviewFailure())
@@ -81,5 +83,4 @@ export default all([
   takeLatest('@character/CHAR_CLASS_REQUEST', classCharacter),
   takeLatest('@character/CHAR_ATTRS_REQUEST', attrsCharacter),
   takeLatest('@character/CHAR_PREVIEW_REQUEST', createCharacter),
-  takeLatest('@character/CHAR_RESET', resetCharacter),
 ])

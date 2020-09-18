@@ -6,6 +6,11 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  height: 180px;
+
+  -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
 
   h2 {
     margin-top: 20px;

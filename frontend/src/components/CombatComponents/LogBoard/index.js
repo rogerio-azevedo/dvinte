@@ -59,7 +59,6 @@ export default function LogBoard() {
 
   return (
     <Styles.Container>
-      <h2>Painel de Logs</h2>
       <Styles.ChatContainer>
         <Styles.ChatHistory>
           <ul>

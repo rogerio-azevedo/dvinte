@@ -25,6 +25,8 @@ export const Container = styled.div`
           height: 30px;
           margin-top: 3px;
           border: 0;
+          border-radius: 4px;
+
           -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
           -moz-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
           box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
@@ -43,8 +45,9 @@ export const InputLarge = styled.input`
   height: 30px;
   text-align: center;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 14px !important;
   margin: 5px;
+  border-radius: 4px;
 
   border: 0;
   -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
@@ -58,8 +61,9 @@ export const InputMed = styled.input`
   height: 30px;
   text-align: center;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 15px;
   margin: 5px;
+  border-radius: 4px;
 
   border: 0;
   -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
@@ -73,8 +77,9 @@ export const InputShort = styled.input`
   height: 30px;
   text-align: center;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 15px;
   margin: 5px;
+  border-radius: 4px;
 
   border: 0;
   -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);

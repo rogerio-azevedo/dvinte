@@ -14,7 +14,7 @@ export const CombatContainer = styled.div`
   flex-direction: column;
   width: 80%;
   height: 100%;
-  overflow: auto;
+  overflow: hidden;
   border: 0;
 
   -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
@@ -34,13 +34,6 @@ export const TalkContainer = styled.div`
   min-width: 350px;
   flex-direction: column;
   height: 100%;
-  /* overflow: auto; */
-
-  border: 1px solid;
-
-  -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-  -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
 `
 
 export const IconContainer = styled.div`
@@ -67,12 +60,38 @@ export const IconContainer = styled.div`
 
 export const SavesConteiner = styled.div`
   display: flex;
+  flex: 1;
   flex-direction: column;
   border: 0;
+  overflow: auto;
+
+  align-items: center;
+  justify-content: center;
+
+  h2 {
+    margin-top: 10px;
+  }
+`
+
+export const ButtonsContainer = styled.div`
+  height: 280px;
+
+  -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
 `
 
 export const AttackContainer = styled.div`
   display: flex;
+  flex: 1;
   flex-direction: column;
   border: 0;
+  overflow: auto;
+
+  align-items: center;
+  justify-content: center;
+
+  h2 {
+    margin-top: 10px;
+  }
 `
