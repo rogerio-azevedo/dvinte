@@ -1,9 +1,9 @@
-import CharToken from '../models/CharToken'
+import CharacterToken from '../models/CharacterToken'
 import { updateToken } from '../../websocket'
 
-class CharTokenController {
+class CharacterTokenController {
   async index(req, res) {
-    const list = await CharToken.findAll({
+    const list = await CharacterToken.findAll({
       attributes: [
         'id',
         'character_id',
@@ -36,13 +36,13 @@ class CharTokenController {
   }
 
   async store(req, res) {
-    const chartoken = await CharToken.create(req.body)
+    const chartoken = await CharacterToken.create(req.body)
 
     return res.json(chartoken)
   }
 
   async update(req, res) {
-    const char = await CharToken.findByPk(req.body.id)
+    const char = await CharacterToken.findByPk(req.body.id)
 
     const { x } = req.body
     const { y } = req.body
@@ -75,7 +75,7 @@ class CharTokenController {
       })
     }
 
-    const list = await CharToken.findAll({
+    const list = await CharacterToken.findAll({
       attributes: [
         'id',
         'character_id',
@@ -110,4 +110,4 @@ class CharTokenController {
   }
 }
 
-export default new CharTokenController()
+export default new CharacterTokenController()

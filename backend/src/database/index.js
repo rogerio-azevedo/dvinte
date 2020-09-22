@@ -11,7 +11,7 @@ import CharacterWeapon from '../app/models/CharacterWeapon'
 import CharacterEquipment from '../app/models/CharacterEquipment'
 import Portrait from '../app/models/Portrait'
 import Token from '../app/models/Token'
-import CharToken from '../app/models/CharToken'
+import CharacterToken from '../app/models/CharacterToken'
 import Race from '../app/models/Race'
 import User from '../app/models/User'
 import Campaign from '../app/models/Campaign'
@@ -36,7 +36,7 @@ const models = [
   CharacterWeapon,
   Portrait,
   Token,
-  CharToken,
+  CharacterToken,
   Campaign,
   Race,
   User,

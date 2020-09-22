@@ -12,7 +12,6 @@ import MyProfileController from './app/controllers/MyProfileController'
 
 import PortraitController from './app/controllers/PortraitController'
 import TokenController from './app/controllers/TokenController'
-import CharTokenController from './app/controllers/CharTokenController'
 import RaceController from './app/controllers/RaceController'
 
 import SessionController from './app/controllers/SessionController'
@@ -34,11 +33,13 @@ import HealthController from './app/controllers/HealthController'
 
 import NotesController from './app/controllers/NotesController'
 import DamageController from './app/controllers/DamageController'
+
+import CharacterTokenController from './app/controllers/CharacterTokenController'
 import CharacterWeaponController from './app/controllers/CharacterWeaponController'
 import CharacterArmorController from './app/controllers/CharacterArmorController'
+import CharacterEquipmentController from './app/controllers/CharacterEquipmentController'
 
 import AttributeTempController from './app/controllers/AttributeTempController'
-import CharacterEquipmentController from './app/controllers/CharacterEquipmentController'
 import GameMapController from './app/controllers/GameMapController'
 
 const routes = new Router()
@@ -91,9 +92,9 @@ routes.get('/portraits/:id', PortraitController.show)
 routes.post('/tokens', upload.single('file'), TokenController.store)
 routes.get('/tokens', TokenController.index)
 
-routes.get('/chartokens', CharTokenController.index)
-routes.post('/chartokens', CharTokenController.store)
-routes.put('/chartokens', CharTokenController.update)
+routes.get('/chartokens', CharacterTokenController.index)
+routes.post('/chartokens', CharacterTokenController.store)
+routes.put('/chartokens', CharacterTokenController.update)
 
 routes.post('/attributes', AttributeController.store)
 routes.get('/attributes', AttributeController.index)

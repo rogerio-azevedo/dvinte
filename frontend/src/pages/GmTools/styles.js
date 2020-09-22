@@ -139,7 +139,7 @@ export const InputMonsterLarge = styled.input`
 
 export const ButtonMonster = styled.button`
   height: 35px;
-  width: 80px;
+  width: 90px;
   background: #8e0e00;
   font-weight: bold;
   color: #fff;

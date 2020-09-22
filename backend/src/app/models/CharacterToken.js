@@ -1,6 +1,6 @@
 import { Sequelize, Model } from 'sequelize'
 
-class CharToken extends Model {
+class CharacterToken extends Model {
   static init(sequelize) {
     super.init(
       {
@@ -26,4 +26,4 @@ class CharToken extends Model {
   }
 }
 
-export default CharToken
+export default CharacterToken

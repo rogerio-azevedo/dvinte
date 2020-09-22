@@ -14,7 +14,7 @@ export const CombatContainer = styled.div`
   flex-direction: column;
   width: 80%;
   height: 100%;
-  overflow: hidden;
+  overflow: auto;
   border: 0;
 
   -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);

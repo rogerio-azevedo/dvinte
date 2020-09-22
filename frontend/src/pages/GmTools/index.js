@@ -21,8 +21,8 @@ export default function GmTools() {
   const [attackName, setAttackName] = useState('')
   const [init, setInit] = useState('')
   const [attack, setAttack] = useState('')
-  const [hit, setHit] = useState('')
   const [crit, setCrit] = useState('')
+  const [critMulti, setCritMulti] = useState('')
   const [dice, setDice] = useState('')
   const [multi, setMulti] = useState('')
   const [damage, setDamage] = useState('')
@@ -204,7 +204,6 @@ export default function GmTools() {
 
   async function handleAttack() {
     const monsterName = name
-    const extraHit = Number(hit) || 0
     const critFrom = Number(crit) || 20
     const dice = Math.floor(Math.random() * 20) + 1
 
@@ -219,16 +218,16 @@ export default function GmTools() {
     }
 
     const base = Number(attack)
-    const attackTotal = Number(base) + Number(dice) + Number(extraHit)
+    const attackTotal = Number(base) + Number(dice)
 
     let rolled = ''
 
     if (isCrit === 'HIT') {
-      rolled = `ACERTO CRÍTICO d20: ${dice} + ${base} de base + ${extraHit} de bônus da arma ${attackName}, com resultado: ${attackTotal}`
+      rolled = `ACERTO CRÍTICO: ATACOU com ${attackName}: d20: ${dice} + ${base} de base de ataque, com resultado: ${attackTotal}`
     } else if (isCrit === 'FAIL') {
-      rolled = `ERRO CRÍTICO d20: ${dice} + ${base} de base + ${extraHit} de bônus da arma ${attackName}, com resultado: ${attackTotal}`
+      rolled = `ERRO CRÍTICO: ATACOU com ${attackName}: d20: ${dice} + ${base} de base de ataque, com resultado: ${attackTotal}`
     } else {
-      rolled = `Rolou ataque d20: ${dice} + ${base} de base + ${extraHit} de bônus da arma ${name}, com resultado: ${attackTotal}`
+      rolled = `ATACOU com ${attackName}: d20: ${dice} + ${base} de base de ataque, com resultado: ${attackTotal}`
     }
 
     api.post('combats', {
@@ -244,8 +243,6 @@ export default function GmTools() {
 
   async function handleDamage() {
     const monsterName = name
-    const mod = Number(damage)
-
     const monsterDice = Number(dice)
     const monsterMulti = Number(multi)
     const extraDamage = Number(damage) || 0
@@ -256,13 +253,13 @@ export default function GmTools() {
     }
 
     // eslint-disable-next-line
-    for (let i = 0; i < multi; i++) {
+    for (let i = 0; i < monsterMulti; i++) {
       result += random()
     }
 
     const totalDamage = Number(result) + Number(extraDamage)
 
-    const rolled = `Rolou dano ${monsterMulti} x d${monsterDice}: ${result} + ${mod} + ${extraDamage} de bônus da arma, com a arma ${attackName}. Com resultado: ${totalDamage}`
+    const rolled = `CAUSOU DANO com ${attackName}: ${monsterMulti} x d${monsterDice}: ${result} + ${extraDamage} de bônus, com resultado: ${totalDamage}.`
 
     api.post('combats', {
       id: 0,
@@ -271,6 +268,42 @@ export default function GmTools() {
       message: rolled,
       result: totalDamage,
       type: 4,
+    })
+  }
+
+  async function handleCritDamage() {
+    const monsterName = name
+    const monsterDice = Number(dice) || 0
+    const monsterMulti = Number(multi) || 0
+    const monsterCrit = Number(critMulti) || 0
+    const extraDamage = Number(damage) || 0
+
+    let result = 0
+    const random = () => {
+      return Math.floor(Math.random() * Number(monsterDice)) + 1
+    }
+
+    // eslint-disable-next-line
+    for (let i = 0; i < monsterMulti; i++) {
+      result += random()
+    }
+
+    const diceCrit = Number(result) * Number(monsterCrit)
+    const damageCrit = Number(extraDamage) * Number(monsterCrit)
+
+    const totalDamage =
+      Number(result) * monsterCrit + Number(extraDamage) * monsterCrit
+
+    const rolled = `CAUSOU DANO CRÍTICO com ${attackName}: ${monsterMulti} x d${dice}: ${result} x ${monsterCrit} CRIT: ${diceCrit} + bônus de dano ${extraDamage} x ${monsterCrit}: ${damageCrit}, com resultado: ${totalDamage}.`
+
+    api.post('combats', {
+      id: 0,
+      user_id: 0,
+      user: monsterName,
+      message: rolled,
+      result: totalDamage,
+      type: 4,
+      isCrit: 'HIT',
     })
   }
 
@@ -307,18 +340,18 @@ export default function GmTools() {
         </Styles.BlockContainer>
 
         <Styles.BlockContainer>
-          <label>Acerto</label>
-          <Styles.InputMonster
-            value={hit}
-            onChange={e => setHit(e.target.value)}
-          />
-        </Styles.BlockContainer>
-
-        <Styles.BlockContainer>
           <label>Critico</label>
           <Styles.InputMonster
             value={crit}
             onChange={e => setCrit(e.target.value)}
+          />
+        </Styles.BlockContainer>
+
+        <Styles.BlockContainer>
+          <label>Critico Multi</label>
+          <Styles.InputMonster
+            value={critMulti}
+            onChange={e => setCritMulti(e.target.value)}
           />
         </Styles.BlockContainer>
 
@@ -356,6 +389,12 @@ export default function GmTools() {
         <Styles.BlockContainer>
           <Styles.ButtonMonster onClick={handleDamage}>
             Dano
+          </Styles.ButtonMonster>
+        </Styles.BlockContainer>
+
+        <Styles.BlockContainer>
+          <Styles.ButtonMonster onClick={handleCritDamage}>
+            Dano Crítico
           </Styles.ButtonMonster>
         </Styles.BlockContainer>
       </Styles.MonsterContainer>

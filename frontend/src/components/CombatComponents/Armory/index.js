@@ -54,11 +54,11 @@ export default function Armory({ character, weapons, loadChar }) {
       let rolled = ''
 
       if (isCrit === 'HIT') {
-        rolled = `ACERTO CRÍTICO d20: ${dice} + ${base} de base + ${extraHit} de bônus da arma ${name}, com resultado: ${attack}`
+        rolled = `ACERTO CRÍTICO com ${name} => d20: ${dice} + ${base} de base + ${extraHit} de bônus, com resultado: ${attack}`
       } else if (isCrit === 'FAIL') {
-        rolled = `ERRO CRÍTICO d20: ${dice} + ${base} de base + ${extraHit} de bônus da arma ${name}, com resultado: ${attack}`
+        rolled = `ERRO CRÍTICO com ${name} => d20: ${dice} + ${base} de base + ${extraHit} de bônus, com resultado: ${attack}`
       } else {
-        rolled = `Rolou ataque d20: ${dice} + ${base} de base + ${extraHit} de bônus da arma ${name}, com resultado: ${attack}`
+        rolled = `ATACOU com ${name} => d20: ${dice} + ${base} de base + ${extraHit} de bônus, com resultado: ${attack}`
       }
 
       api.post('combats', {
@@ -120,7 +120,7 @@ export default function Armory({ character, weapons, loadChar }) {
       const totalDamage =
         Number(result) + Number(extraDamage) + Number(exMod) + Number(element)
 
-      const rolled = `Rolou dano ${multi} x d${dice}: ${result} + ${exMod} ${modType} + ${extraDamage} de bônus da arma, + ${element} de bônus elemento  com a arma ${name}. Com resultado: ${totalDamage}`
+      const rolled = `CAUSOU DANO com ${name} => ${multi} x d${dice}: ${result} + ${exMod} ${modType} + ${extraDamage} de bônus da arma + ${element} bônus de elemento. Com resultado: ${totalDamage}`
 
       api.post('combats', {
         id: from,
@@ -148,24 +148,21 @@ export default function Armory({ character, weapons, loadChar }) {
         ? character.DexModTemp
         : character.DexMod
 
-      modType = 'de mod de Destreza'
+      modType = 'bônus de Destreza'
     } else {
       mod = (await character?.StrModTemp)
         ? character.StrModTemp
         : character.StrMod
 
-      modType = 'de mod de Força'
+      modType = 'bônus de Força'
     }
 
-    const exMod = Math.floor(wep?.str_bonus * mod) * critMult
-    const extraDamage = wep?.damage * critMult || 0
+    const exMod = Math.floor(wep?.str_bonus * mod)
+    const extraDamage = wep?.damage || 0
     const name = wep?.name
 
     const dice = size === 'MÉDIO' ? wep?.dice_m : wep?.dice_s
-    const multi =
-      size === 'MÉDIO'
-        ? wep?.multiplier_m * critMult
-        : wep?.multiplier_s * critMult
+    const multi = size === 'MÉDIO' ? wep?.multiplier_m : wep?.multiplier_s
 
     const element =
       wep?.element > 0 ? Math.floor(Math.random() * wep?.element) + 1 : 0
@@ -180,10 +177,15 @@ export default function Armory({ character, weapons, loadChar }) {
       result += random()
     }
 
-    const totalDamage =
-      Number(result) + Number(extraDamage) + Number(exMod) + Number(element)
+    const multCrit = multi * critMult
+    const diceCrit = result * critMult
+    const modCrit = exMod * critMult
+    const extCrit = extraDamage * critMult
 
-    const rolled = `DANO CRÍTICO ${multi} x d${dice}: ${result} + ${exMod} ${modType} + ${extraDamage} de bônus da arma, + ${element} de bônus elemento  com a arma ${name}. Com resultado: ${totalDamage}`
+    const totalDamage =
+      Number(diceCrit) + Number(modCrit) + Number(extCrit) + Number(element)
+
+    const rolled = `CAUSOU DANO CRÍTICO com ${name} => ${multi} x d${dice}: ${result} x ${multCrit} CRIT: ${diceCrit} + ${modCrit} ${modType} + ${extCrit} de bônus da arma, + ${element} de bônus elemento. Com resultado: ${totalDamage}`
 
     if (!weapon) {
       toast.error('Escolha por favor uma arma antes de realizar o dano.')
@@ -195,6 +197,7 @@ export default function Armory({ character, weapons, loadChar }) {
         message: rolled,
         result: totalDamage,
         type: 4,
+        isCrit: 'HIT',
       })
     }
   }

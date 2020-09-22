@@ -42,7 +42,7 @@ class Character extends Model {
       as: 'portrait',
     })
 
-    this.hasOne(models.CharToken, {
+    this.hasOne(models.CharacterToken, {
       foreignKey: 'character_id',
       as: 'chartoken',
     })

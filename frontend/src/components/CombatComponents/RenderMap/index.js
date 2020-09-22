@@ -133,9 +133,9 @@ export default function RenderMap({ tokens }) {
         y={stagePos.y}
         // width={mapData?.width || 1000}
         // height={mapData?.height || 1000}
-        width={window.innerWidth}
-        height={window.innerHeight}
-        draggable
+        width={mapData?.width}
+        height={mapData?.height}
+        //draggable
         onDragEnd={e => {
           setStagePos(e.currentTarget.position())
         }}
@@ -190,14 +190,16 @@ export default function RenderMap({ tokens }) {
             y={0}
             // width={mapData?.width}
             // height={mapData?.height}
-            width={window.innerWidth}
-            height={window.innerHeight}
+            width={mapData?.width}
+            height={mapData?.height}
             fill="#333"
             opacity={mapData?.fog ? 1 : 0}
           />
 
           {lines.map(line => (
             <Line
+              x={stagePos.x}
+              y={stagePos.y}
               key={line.id}
               strokeWidth={line.size}
               stroke={'black'}
