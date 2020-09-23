@@ -30,6 +30,8 @@ import MapTool from '~/components/CombatComponents/MapTool'
 
 export default function Combat() {
   const { profile } = useSelector(state => state.user)
+  const showMenu = useSelector(state => state.menu.chatMenu)
+
   const [menu, setMenu] = useState('attack')
 
   const [loadChar, setLoadChar] = useState()
@@ -160,16 +162,17 @@ export default function Combat() {
 
   return (
     <Styles.Container>
-      <Styles.CombatContainer>
+      <Styles.CombatContainer show={showMenu ? 1 : 0}>
         <Styles.MapContainer>
           <RenderMap tokens={tokens} />
         </Styles.MapContainer>
       </Styles.CombatContainer>
 
-      <Styles.TalkContainer>
+      <Styles.TalkContainer show={showMenu ? 1 : 0}>
         {!loadChar && (
           <Styles.IconContainer>
             <ReactTooltip />
+
             <div data-tip="Atacar">
               <GiSwordBrandish
                 size={25}

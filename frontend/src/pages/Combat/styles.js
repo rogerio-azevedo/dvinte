@@ -12,7 +12,8 @@ export const Container = styled.div`
 export const CombatContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: ${props => (props.show ? '80%' : '100%')};
+
   height: 100%;
   overflow: auto;
   border: 0;
@@ -24,12 +25,13 @@ export const CombatContainer = styled.div`
 
 export const MapContainer = styled.div`
   display: flex;
+  width: 80%;
   flex-direction: column;
   border: 0;
 `
 
 export const TalkContainer = styled.div`
-  display: flex;
+  display: ${props => (props.show ? 'flex' : 'none')};
   width: 20%;
   min-width: 350px;
   flex-direction: column;
@@ -48,8 +50,8 @@ export const IconContainer = styled.div`
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
 
   div {
-    margin-right: 10px;
-    margin-left: 10px;
+    margin-right: 5px;
+    margin-left: 5px;
   }
 
   /* &:nth-child(3) {

@@ -18,6 +18,7 @@ import {
 } from './actions'
 
 export function* portraitCharacter({ payload }) {
+  console.log(payload)
   try {
     // toast.success('Retrato selecionado!')
 

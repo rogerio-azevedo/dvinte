@@ -120,8 +120,7 @@ export default function RenderMap({ tokens }) {
   }, [lines])
 
   const defaultMap = 'https://i.imgur.com/cUyn2zF.jpg'
-  //https://i.redd.it/viyjhos0nfk51.png - Jardel
-  //https://i.imgur.com/mxoppD5.jpeg - Inicio Aventura
+
   const [map] = useImage(mapData?.battle || defaultMap)
 
   const [portrait] = useImage(mapData?.portrait || '')
@@ -131,8 +130,8 @@ export default function RenderMap({ tokens }) {
       <Stage
         x={stagePos.x}
         y={stagePos.y}
-        // width={mapData?.width || 1000}
-        // height={mapData?.height || 1000}
+        // width={window.innerWidth}
+        // height={window.innerHeight}
         width={mapData?.width}
         height={mapData?.height}
         //draggable
@@ -157,11 +156,7 @@ export default function RenderMap({ tokens }) {
           />
         </Layer>
 
-        <Layer
-          opacity={mapData?.grid ? 1 : 0}
-          width={window.innerWidth}
-          height={window.innerHeight}
-        >
+        <Layer opacity={mapData?.grid ? 1 : 0}>
           {linesA}
           {linesB}
         </Layer>

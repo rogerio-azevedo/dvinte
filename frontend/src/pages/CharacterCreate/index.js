@@ -20,8 +20,8 @@ export default function CharacterBase() {
   const [portraits, setPortraits] = useState([])
   const [picked, setPicked] = useState(selected)
 
-  async function handlePick(item) {
-    await setPicked(item?.id)
+  function handlePick(item) {
+    setPicked(item?.id)
     dispatch(charPortraitRequest({ portrait: item.id }))
   }
 
