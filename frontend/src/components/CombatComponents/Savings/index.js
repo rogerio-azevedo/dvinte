@@ -104,7 +104,7 @@ export default function Savings({ fortitude, reflex, will, strength }) {
           <Styles.ActionContainer>
             <div>
               <button type="button" onClick={handlestrength}>
-                Força
+                Base
               </button>
             </div>
           </Styles.ActionContainer>
