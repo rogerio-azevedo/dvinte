@@ -41,6 +41,8 @@ export default function Combat() {
   const [fortitude, setFortitude] = useState()
   const [reflex, setReflex] = useState()
   const [will, setWill] = useState()
+  const [strength, setStrength] = useState()
+
   const [maxDex, setMaxDex] = useState()
   const [weapons, setWeapons] = useState()
   const [charStatus, setCharStatus] = useState()
@@ -123,6 +125,7 @@ export default function Combat() {
       setFortitude(char.Fortitude + ConMod)
       setReflex(char.Reflex + DexMod)
       setWill(char.Will + WisMod)
+      setStrength(char.BaseAttack + StrMod)
 
       setCharStatus({
         fortitude: char.Fortitude + ConMod,
@@ -250,7 +253,12 @@ export default function Combat() {
         ) : menu === 'saves' ? (
           <Styles.SavesConteiner>
             <Styles.ButtonsContainer>
-              <Savins fortitude={fortitude} reflex={reflex} will={will} />
+              <Savins
+                fortitude={fortitude}
+                reflex={reflex}
+                will={will}
+                strength={strength}
+              />
               <Dices />
             </Styles.ButtonsContainer>
             <h2>Painel Logs</h2>

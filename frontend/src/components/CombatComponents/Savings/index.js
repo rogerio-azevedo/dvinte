@@ -4,7 +4,7 @@ import api from '~/services/api'
 
 import * as Styles from './styles'
 
-export default function Savings({ fortitude, reflex, will }) {
+export default function Savings({ fortitude, reflex, will, strength }) {
   const { profile } = useSelector(state => state.user)
   const from = profile.id
 
@@ -62,17 +62,17 @@ export default function Savings({ fortitude, reflex, will }) {
   async function handlestrength() {
     const dice = Math.floor(Math.random() * 20) + 1
 
-    const willTest = will + dice
+    const strTest = strength + dice
 
-    const rolled = `Rolou teste de Vontade d20: ${dice} + ${will} de vontade, com resultado: ${willTest}`
+    const rolled = `Rolou teste de Base contra Base d20: ${dice} + ${strength} de Base + Mod de Força, com resultado: ${strTest}`
 
     api.post('combats', {
       id: from,
       user_id: profile.id,
       user: profile.name,
       message: rolled,
-      result: willTest,
-      type: 7,
+      result: strTest,
+      type: 10,
     })
   }
 
@@ -103,7 +103,7 @@ export default function Savings({ fortitude, reflex, will }) {
           </Styles.ActionContainer>
           <Styles.ActionContainer>
             <div>
-              <button type="button" onClick={handleWill}>
+              <button type="button" onClick={handlestrength}>
                 Força
               </button>
             </div>
