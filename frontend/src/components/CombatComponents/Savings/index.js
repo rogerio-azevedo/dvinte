@@ -59,6 +59,23 @@ export default function Savings({ fortitude, reflex, will }) {
     })
   }
 
+  async function handlestrength() {
+    const dice = Math.floor(Math.random() * 20) + 1
+
+    const willTest = will + dice
+
+    const rolled = `Rolou teste de Vontade d20: ${dice} + ${will} de vontade, com resultado: ${willTest}`
+
+    api.post('combats', {
+      id: from,
+      user_id: profile.id,
+      user: profile.name,
+      message: rolled,
+      result: willTest,
+      type: 7,
+    })
+  }
+
   return (
     <Styles.Container>
       <Styles.HeaderContainer>
@@ -81,6 +98,13 @@ export default function Savings({ fortitude, reflex, will }) {
             <div>
               <button type="button" onClick={handleWill}>
                 Vontade
+              </button>
+            </div>
+          </Styles.ActionContainer>
+          <Styles.ActionContainer>
+            <div>
+              <button type="button" onClick={handleWill}>
+                Força
               </button>
             </div>
           </Styles.ActionContainer>

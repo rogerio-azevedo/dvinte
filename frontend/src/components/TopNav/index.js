@@ -185,7 +185,7 @@ export default function TopNav() {
             GM
           </Link> */}
           <Link onClick={handleRemoveClick} to="/map">
-            MAP
+            MUNDO
           </Link>
         </ul>
       </Container>

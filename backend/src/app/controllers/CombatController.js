@@ -21,8 +21,8 @@ const { format, subDays, addDays } = require('date-fns')
 const { utcToZonedTime } = require('date-fns-tz')
 
 const DateBR = utcToZonedTime(new Date(), 'America/Sao_Paulo')
-const date1 = subDays(DateBR, 0)
-const date2 = addDays(DateBR, 0)
+const date1 = subDays(DateBR, 1)
+const date2 = addDays(DateBR, 1)
 
 class CombatController {
   async index(req, res) {

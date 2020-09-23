@@ -63,10 +63,10 @@ export const IconContainer = styled.div`
 export const SavesConteiner = styled.div`
   display: flex;
   flex: 1;
+  width: 100%;
   flex-direction: column;
   border: 0;
   overflow: auto;
-
   align-items: center;
   justify-content: center;
 
@@ -77,6 +77,7 @@ export const SavesConteiner = styled.div`
 
 export const ButtonsContainer = styled.div`
   height: 280px;
+  width: 100%;
 
   -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
   -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
