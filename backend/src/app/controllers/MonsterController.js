@@ -1,4 +1,4 @@
-import Monster from '../Models/Monster'
+import Monster from '../models/Monster'
 import MonsterAttack from '../models/MonsterAttack'
 import MonsterAttributes from '../models/MonsterAttributes'
 
