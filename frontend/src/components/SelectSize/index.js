@@ -13,7 +13,7 @@ export default function SelectSize({ changeSize, defaultValue }) {
         { value: 2, label: 'DIMINUTO' },
         { value: 3, label: 'MIÚDO' },
         { value: 4, label: 'PEQUENO' },
-        { value: 5, label: 'MEDIO' },
+        { value: 5, label: 'MÉDIO' },
         { value: 6, label: 'GRANDE' },
         { value: 7, label: 'ENORME' },
         { value: 8, label: 'IMENSO' },
