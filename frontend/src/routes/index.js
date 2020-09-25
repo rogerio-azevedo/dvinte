@@ -21,7 +21,10 @@ import Character from '~/pages/Character'
 import CharacterDetail from '~/pages/CharacterDetail'
 import CharacterCreate from '~/pages/CharacterCreate'
 
-//import Chat from '~/pages/Chat'
+import Monster from '~/pages/Monster'
+import MonsterDetail from '~/pages/MonsterDetail'
+import MonsterCreate from '~/pages/MonsterCreate'
+
 import Campaign from '~/pages/Campaign'
 
 import Notes from '~/pages/Notes'
@@ -59,6 +62,10 @@ export default function Routes() {
       <Route path="/characters" component={Character} isPrivate />
       <Route path="/characterview/:id" component={CharacterDetail} isPrivate />
       <Route path="/charactercreate" component={CharacterCreate} isPrivate />
+
+      <Route path="/monsters" component={Monster} isPrivate />
+      <Route path="/monsterview/:id" component={MonsterDetail} isPrivate />
+      <Route path="/monstercreate" component={MonsterCreate} isPrivate />
 
       <Route path="/campaigns" component={Campaign} isPrivate />
 

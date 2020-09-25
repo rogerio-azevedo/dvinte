@@ -149,8 +149,8 @@ export default function RenderMap({ tokens }) {
           <Image
             image={map}
             opacity={1}
-            //width={window.innerWidth}
-            //height={window.innerHeight}
+            // width={window.innerWidth}
+            // height={window.innerHeight}
             width={mapData?.width}
             height={mapData?.height}
           />

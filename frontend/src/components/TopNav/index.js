@@ -1,67 +1,42 @@
 import React, { useEffect, useState } from 'react'
-// import { useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 // import api from '~/services/api'
 
-import logoKiper from '~/assets/logo_black.svg'
-import logoPorter from '~/assets/logo_red.svg'
+import logoBlack from '~/assets/logo_black.svg'
+//import logoRed from '~/assets/logo_red.svg'
 
 import { Navigation, Container, Dropmenu, Logo } from './styles'
 
 export default function TopNav() {
   // const [link, setLink] = useState('')
-  // const profile = useSelector(state => state.user.profile)
-  const perfil = true
+  const profile = useSelector(state => state.user.profile)
+  const gm = profile?.is_gm
   const container = React.createRef()
-
-  // useEffect(() => {
-  //   async function load() {
-  //     // const response = await api.get('myprofile', {
-  //     //   params: {
-  //     //     user: profile.id,
-  //     //   },
-  //     // })
-  //     // setLink(`/characterview/${response.data}`)
-  //   }
-  //   load()
-  // }, [profile])
-
-  // const [dig, setDig] = useState(false)
-  // const [rel, setRel] = useState(false)
   const [cad, setCad] = useState(false)
   const [cha, setCha] = useState(false)
-
-  // function handleDiagClick() {
-  //   setDig(!dig)
-  //   setRel(false)
-  //   setCad(false)
-  //   setAte(false)
-  // }
+  const [mon, setMon] = useState(false)
 
   function handleChaClick() {
     setCha(!cha)
-    // setDig(false)
     setCad(false)
-    // setAte(false)
+    setMon(false)
   }
 
   function handleCadClick() {
     setCad(!cad)
     setCha(false)
-    // setRel(false)
-    // setAte(false)
+    setMon(false)
   }
 
-  // function handleAteClick() {
-  //   setAte(!ate)
-  //   setDig(false)
-  //   setRel(false)
-  //   setCad(false)
-  // }
+  function handleMonClick() {
+    setMon(!mon)
+    setCad(false)
+    setCha(false)
+  }
 
   function handleRemoveClick() {
-    // setDig(false)
-    // setRel(false)
+    setMon(false)
     setCad(false)
     setCha(false)
   }
@@ -82,9 +57,9 @@ export default function TopNav() {
 
   return (
     <Navigation>
-      <Logo perfil={perfil} src={perfil ? logoKiper : logoPorter} alt="Kiper" />
+      <Logo alt="Dvinte" src={logoBlack} />
 
-      <Container ref={container} perfil={perfil}>
+      <Container ref={container}>
         <ul>
           <Link onClick={handleRemoveClick} to="/dashboard">
             DASHBOARD
@@ -93,7 +68,7 @@ export default function TopNav() {
           <li>
             {/* eslint-disable-next-line */}
             <strong onClick={handleCadClick}>CADASTROS</strong>
-            <Dropmenu rel={cad ? 1 : 0} perfil={perfil}>
+            <Dropmenu rel={cad ? 1 : 0}>
               <ul>
                 <li>
                   <Link onClick={handleRemoveClick} to="/alignments">
@@ -152,7 +127,7 @@ export default function TopNav() {
           <li>
             {/* eslint-disable-next-line */}
             <strong onClick={handleChaClick}>PERSONAGENS</strong>
-            <Dropmenu rel={cha ? 1 : 0} perfil={perfil}>
+            <Dropmenu rel={cha ? 1 : 0}>
               <ul>
                 <li>
                   <Link onClick={handleRemoveClick} to="/charactercreate">
@@ -172,6 +147,31 @@ export default function TopNav() {
               </ul>
             </Dropmenu>
           </li>
+          {gm && (
+            <li>
+              {/* eslint-disable-next-line */}
+              <strong onClick={handleMonClick}>MONSTROS</strong>
+              <Dropmenu rel={mon ? 1 : 0}>
+                <ul>
+                  <li>
+                    <Link onClick={handleRemoveClick} to="/monstercreate">
+                      Novo Monstro
+                    </Link>
+                  </li>
+                  <li>
+                    <Link onClick={handleRemoveClick} to="/monsters">
+                      Listar Monstros
+                    </Link>
+                  </li>
+                  {/* <li>
+                  <Link onClick={handleRemoveClick} to="/characterview">
+                    Ver Ficha
+                  </Link>
+                </li> */}
+                </ul>
+              </Dropmenu>
+            </li>
+          )}
 
           <Link onClick={handleRemoveClick} to="/combat">
             COMBATE

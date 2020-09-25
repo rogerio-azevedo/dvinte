@@ -41,6 +41,7 @@ import CharacterEquipmentController from './app/controllers/CharacterEquipmentCo
 
 import AttributeTempController from './app/controllers/AttributeTempController'
 import GameMapController from './app/controllers/GameMapController'
+import MonsterController from './app/controllers/MonsterController'
 
 const routes = new Router()
 const upload = multer(multerConfig)
@@ -84,6 +85,10 @@ routes.post('/characters', CharacterController.store)
 routes.get('/characters', CharacterController.index)
 routes.get('/characters/:id', CharacterController.show)
 routes.get('/characters/:character_id/classes', ClassController.index)
+
+routes.post('/monsters', MonsterController.store)
+routes.get('/monsters', MonsterController.index)
+routes.get('/monsters/:id', MonsterController.show)
 
 routes.post('/portraits', upload.single('file'), PortraitController.store)
 routes.get('/portraits', PortraitController.index)

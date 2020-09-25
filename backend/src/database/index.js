@@ -25,6 +25,9 @@ import BaseResist from '../app/models/BaseResist'
 import GameMap from '../app/models/GameMap'
 
 import databaseConfig from '../config/database'
+import Monster from '../app/Models/Monster'
+import MonsterAttack from '../app/models/MonsterAttack'
+import MonsterAttributes from '../app/models/MonsterAttributes'
 
 const models = [
   Alignment,
@@ -49,6 +52,9 @@ const models = [
   BaseAttack,
   BaseResist,
   GameMap,
+  Monster,
+  MonsterAttack,
+  MonsterAttributes,
 ]
 
 class Database {

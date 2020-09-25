@@ -9,9 +9,15 @@ export default function SelectSize({ changeSize, defaultValue }) {
   useEffect(() => {
     async function load() {
       const sizes = [
-        { value: 1, label: 'PEQUENO' },
-        { value: 2, label: 'MEDIO' },
-        { value: 3, label: 'GRANDE' },
+        { value: 1, label: 'MINÚSCULO' },
+        { value: 2, label: 'DIMINUTO' },
+        { value: 3, label: 'MIÚDO' },
+        { value: 4, label: 'PEQUENO' },
+        { value: 5, label: 'MEDIO' },
+        { value: 6, label: 'GRANDE' },
+        { value: 7, label: 'ENORME' },
+        { value: 8, label: 'IMENSO' },
+        { value: 9, label: 'COLOSSAL' },
       ]
 
       setSize(sizes)
@@ -31,7 +37,7 @@ export default function SelectSize({ changeSize, defaultValue }) {
   }
 
   return (
-    <div style={{ width: '250px', marginRight: '15px' }}>
+    <div style={{ width: '250px' }}>
       <Select
         value={size.filter(option => option.value === defaultValue)}
         styles={customStyles}

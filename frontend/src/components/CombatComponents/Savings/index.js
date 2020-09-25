@@ -109,14 +109,6 @@ export default function Savings({ fortitude, reflex, will, strength }) {
             </div>
           </Styles.ActionContainer>
         </Styles.SavesContainer>
-        {/*
-        <Styles.DicesContainer>
-          <Dices />
-        </Styles.DicesContainer> */}
-        {/*
-        <Styles.BoardContainer>
-          <LogBoard />
-        </Styles.BoardContainer> */}
       </Styles.MainContainer>
     </Styles.Container>
   )
