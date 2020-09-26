@@ -23,7 +23,8 @@ class Monster extends Model {
         skills: Sequelize.STRING,
         feats: Sequelize.STRING,
         challenge: Sequelize.INTEGER,
-        description: Sequelize.STRING,
+        notes: Sequelize.STRING,
+        monster_url: Sequelize.STRING,
         is_ativo: Sequelize.BOOLEAN,
       },
       {
@@ -42,6 +43,11 @@ class Monster extends Model {
     this.hasMany(models.MonsterAttack, {
       foreignKey: 'monster_id',
       as: 'monster_attack',
+    })
+
+    this.belongsTo(models.Alignment, {
+      foreignKey: 'alignment_id',
+      as: 'alignment',
     })
   }
 }

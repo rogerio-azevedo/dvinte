@@ -1,17 +1,51 @@
+import Alignment from '../models/Alignment'
 import Monster from '../models/Monster'
-import MonsterAttack from '../models/MonsterAttack'
 import MonsterAttributes from '../models/MonsterAttributes'
+import MonsterAttack from '../models/MonsterAttack'
 
 class MonsterController {
   async index(req, res) {
-    const list = await Monster.findAll()
+    const list = await Monster.findAll({
+      include: [
+        {
+          model: Alignment,
+          as: 'alignment',
+          attributes: ['name'],
+        },
+        {
+          model: MonsterAttributes,
+          as: 'monster_attribute',
+        },
+        {
+          model: MonsterAttack,
+          as: 'monster_attack',
+        },
+      ],
+    })
 
     return res.json(list)
   }
 
   async show(req, res) {
-    const monster = await Monster.findByPk(req.params.id)
+    const monster = await Monster.findByPk(req.params.id, {
+      include: [
+        {
+          model: Alignment,
+          as: 'alignment',
+          attributes: ['name'],
+        },
+        {
+          model: MonsterAttributes,
+          as: 'monster_attribute',
+        },
+        {
+          model: MonsterAttack,
+          as: 'monster_attack',
+        },
+      ],
+    })
 
+    console.log(monster)
     return res.json(monster)
   }
 
@@ -35,10 +69,12 @@ class MonsterController {
       will: Number(data?.will),
       skills: data?.skills,
       feats: data?.feats,
-      description: data?.description,
+      notes: data?.notes,
+      monster_url: data?.monster_url,
       type: data?.type,
       sub_type: data?.subType,
       size: data?.size,
+      alignment_id: data?.alignment,
       is_ativo: data?.is_ativo,
     }
 
@@ -48,8 +84,8 @@ class MonsterController {
       monster_id: addMonster.id,
       strength: data?.strength,
       dexterity: data?.dexterity,
-      contitution: data?.contitution,
-      inteligence: data?.inteligence,
+      constitution: data?.constitution,
+      intelligence: data?.intelligence,
       wisdom: data?.wisdom,
       charisma: data?.charisma,
     }
@@ -70,7 +106,7 @@ class MonsterController {
 
     await MonsterAttack.bulkCreate(newAttacks)
 
-    return res.json({ OK: 'OK' })
+    return res.json(addMonster)
   }
 }
 

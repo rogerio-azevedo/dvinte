@@ -15,11 +15,11 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      contitution: {
+      constitution: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      inteligence: {
+      intelligence: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },

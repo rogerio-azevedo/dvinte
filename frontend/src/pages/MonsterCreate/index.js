@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import * as Styles from './styles'
+import { FaTimes } from 'react-icons/fa'
 
 import Button from '~/components/Button'
 import SelectSize from '~/components/SelectSize'
 import SelectMonsterType from '~/components/SelectMonsterType'
 import SelectMonsterSubType from '~/components/SelectMonsterSubType'
+import SelectAlignment from '~/components/SelectAlignment'
 
 import api from '~/services/api'
 
@@ -14,6 +16,7 @@ export default function MonsterCreate() {
   const [size, setSize] = useState()
   const [type, setType] = useState()
   const [subType, setSubType] = useState()
+  const [alignment, setAlignment] = useState()
 
   const [attacks, setAttacks] = useState([])
   const [name, setName] = useState('')
@@ -35,6 +38,7 @@ export default function MonsterCreate() {
     register({ name: 'type' })
     register({ name: 'subType' })
     register({ name: 'size' })
+    register({ name: 'alignment' })
     register({ name: 'is_ativo' })
   }, [register])
 
@@ -65,6 +69,11 @@ export default function MonsterCreate() {
     setSubType(data)
   }
 
+  function handleAlignment(data) {
+    setValue('alignment', data)
+    setAlignment(data)
+  }
+
   function handleAddAttack() {
     const attack = {
       name,
@@ -77,6 +86,12 @@ export default function MonsterCreate() {
       damage,
     }
     setAttacks([...attacks, attack])
+  }
+
+  function handleRemove(item) {
+    const newAttacks = attacks.filter(c => c.name !== item.name)
+
+    setAttacks(newAttacks)
   }
 
   return (
@@ -209,7 +224,7 @@ export default function MonsterCreate() {
                 <label htmlFor="attack_special">Ataque Especial</label>
                 <Styles.InputExtraLarge
                   name="attack_special"
-                  ref={register({ required: true })}
+                  ref={register()}
                   placeholder="Ataque"
                 />
                 {errors.hair && errors.hair.type === 'required' && (
@@ -220,7 +235,7 @@ export default function MonsterCreate() {
                 <label htmlFor="special_qualities">Habilidade Especial</label>
                 <Styles.InputExtraLarge
                   name="special_qualities"
-                  ref={register({ required: true })}
+                  ref={register()}
                   placeholder="Habilidade Especial"
                 />
                 {errors.special_qualities &&
@@ -287,14 +302,14 @@ export default function MonsterCreate() {
                 )}
               </div>
               <div>
-                <label htmlFor="description">Descrição</label>
-                <Styles.InputExtraLarge
-                  name="description"
-                  ref={register({ required: true })}
-                  placeholder="Descrição"
+                <label htmlFor="name">Monster_URL</label>
+                <Styles.InputLarge
+                  name="monster_url"
+                  ref={register()}
+                  placeholder="Monster URL"
                 />
-                {errors.description &&
-                  errors.description.type === 'required' && (
+                {errors.monster_url &&
+                  errors.monster_url.type === 'required' && (
                     <span>Essa informação é obrigatória</span>
                   )}
               </div>
@@ -331,24 +346,24 @@ export default function MonsterCreate() {
               <div>
                 <label htmlFor="contitution">Constituição</label>
                 <Styles.InputMed
-                  name="contitution"
+                  name="constitution"
                   ref={register({ required: true })}
                   placeholder="Constituição"
                 />
-                {errors.contitution &&
-                  errors.contitution.type === 'required' && (
+                {errors.constitution &&
+                  errors.constitution.type === 'required' && (
                     <span>Essa informação é obrigatória</span>
                   )}
               </div>
               <div>
-                <label htmlFor="inteligence">Inteligência</label>
+                <label htmlFor="intelligence">Inteligência</label>
                 <Styles.InputMed
-                  name="inteligence"
+                  name="intelligence"
                   ref={register({ required: true })}
                   placeholder="Inteligência"
                 />
-                {errors.inteligence &&
-                  errors.inteligence.type === 'required' && (
+                {errors.intelligence &&
+                  errors.intelligence.type === 'required' && (
                     <span>Essa informação é obrigatória</span>
                   )}
               </div>
@@ -373,6 +388,29 @@ export default function MonsterCreate() {
                 {errors.charisma && errors.charisma.type === 'required' && (
                   <span>Essa informação é obrigatória</span>
                 )}
+              </div>
+            </Styles.InputContainer>
+
+            <Styles.InputContainer>
+              <div>
+                <label htmlFor="character">Alinhamento</label>
+                <SelectAlignment
+                  name="alignment"
+                  defaultValue={alignment}
+                  changeAlignment={e => handleAlignment(e?.value)}
+                />
+              </div>
+              <div>
+                <label htmlFor="description">Notas</label>
+                <Styles.InputExtraLarge
+                  name="notes"
+                  ref={register()}
+                  placeholder="Notas"
+                />
+                {errors.description &&
+                  errors.description.type === 'required' && (
+                    <span>Essa informação é obrigatória</span>
+                  )}
               </div>
             </Styles.InputContainer>
 
@@ -477,6 +515,11 @@ export default function MonsterCreate() {
                       defaultValue={item.crit_from}
                     />
                     <Styles.InputShortThin readOnly defaultValue={item.range} />
+                    <FaTimes
+                      onClick={() => handleRemove(item)}
+                      size={20}
+                      color="#8e0e00"
+                    />
                   </li>
                 ))}
               </ul>

@@ -42,6 +42,7 @@ import CharacterEquipmentController from './app/controllers/CharacterEquipmentCo
 import AttributeTempController from './app/controllers/AttributeTempController'
 import GameMapController from './app/controllers/GameMapController'
 import MonsterController from './app/controllers/MonsterController'
+import MonsterHealthController from './app/controllers/MonsterHealthController'
 
 const routes = new Router()
 const upload = multer(multerConfig)
@@ -127,6 +128,7 @@ routes.post('/armors', ArmorController.store)
 routes.get('/armors', ArmorController.index)
 
 routes.put('/healthnow', HealthController.update)
+routes.put('/monsterhealthnow', MonsterHealthController.update)
 
 routes.get('/maps', GameMapController.index)
 routes.get('/maps/:id', GameMapController.show)

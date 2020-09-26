@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import ReactTooltip from 'react-tooltip'
+import { Link } from 'react-router-dom'
 
 import api from '~/services/api'
 
@@ -13,6 +14,7 @@ import {
   GiSwordsEmblem,
   GiBloodySword,
   GiTreasureMap,
+  GiBrain,
 } from 'react-icons/gi'
 
 import * as Styles from './styles'
@@ -230,13 +232,20 @@ export default function Combat() {
               />
             </div>
             {profile.is_gm && (
-              <div data-tip="Configurações">
+              <div data-tip="Mapas">
                 <GiTreasureMap
                   size={28}
                   color="#8e0e00"
                   cursor="pointer"
                   onClick={() => handleMenu('config')}
                 />
+              </div>
+            )}
+            {profile.is_gm && (
+              <div data-tip="GM Tools">
+                <Link to="/gmtools">
+                  <GiBrain size={28} color="#8e0e00" cursor="pointer" />
+                </Link>
               </div>
             )}
           </Styles.IconContainer>

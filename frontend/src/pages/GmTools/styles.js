@@ -74,14 +74,14 @@ export const TableContainer = styled.div`
   overflow: auto;
 
   input {
-    width: 60px;
+    width: 40px;
     height: 30px;
     text-align: center;
   }
 
   button {
     height: 30px;
-    width: 60px;
+    width: 45px;
     background: #8e0e00;
     font-weight: bold;
     color: #fff;
@@ -124,7 +124,7 @@ export const BlockContainer = styled.div`
 
 export const InputMonster = styled.input`
   height: 35px;
-  width: 80px;
+  width: 60px;
   border-radius: 4px;
   text-align: center;
   padding: 5px;

@@ -17,7 +17,7 @@ module.exports = {
       },
       sub_type: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
       },
       ca: {
         type: Sequelize.INTEGER,
@@ -49,11 +49,11 @@ module.exports = {
       },
       attack_special: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       special_qualities: {
         type: Sequelize.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       grab: {
         type: Sequelize.INTEGER,
@@ -83,7 +83,18 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      description: {
+      alignment_id: {
+        type: Sequelize.INTEGER,
+        references: { model: 'alignments', key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'SET NULL',
+        allowNull: false,
+      },
+      notes: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      monster_url: {
         type: Sequelize.STRING,
         allowNull: true,
       },
