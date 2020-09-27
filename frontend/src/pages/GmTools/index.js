@@ -153,7 +153,7 @@ export default function GmTools() {
       result += random()
     }
 
-    const totalDamage = Number(result) * monsterMulti + Number(extraDamage)
+    const totalDamage = Number(result) + Number(extraDamage)
 
     const rolled = `CAUSOU DANO com ${attackName}: ${monsterMulti} x d${monsterDice}: ${result} + ${extraDamage} de bônus, com resultado: ${totalDamage}.`
 
