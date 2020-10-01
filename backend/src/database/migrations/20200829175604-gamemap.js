@@ -38,6 +38,10 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         allowNull: false,
       },
+      gm_layer: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+      },
       owner: {
         type: Sequelize.INTEGER,
         allowNull: false,

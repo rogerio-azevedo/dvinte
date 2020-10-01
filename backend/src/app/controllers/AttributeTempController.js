@@ -36,8 +36,8 @@ class AttributeTempController {
         character_id: attrs.character_id,
         strength: attrs.strength + req.body.str,
         dexterity: attrs.dexterity,
-        contitution: attrs.contitution + req.body.con,
-        inteligence: attrs.inteligence,
+        constitution: attrs.constitution + req.body.con,
+        intelligence: attrs.intelligence,
         wisdom: attrs.wisdom,
         charisma: attrs.charisma,
       }

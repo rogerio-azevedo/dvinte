@@ -38,8 +38,8 @@ class CharacterWeaponController {
         character_id: req.body?.character,
         strength: tempAttrs.strength + equip.str_temp,
         dexterity: tempAttrs.dexterity + equip.dex_temp,
-        contitution: tempAttrs.contitution + equip.con_temp,
-        inteligence: tempAttrs.inteligence + equip.int_temp,
+        constitution: tempAttrs.constitution + equip.con_temp,
+        intelligence: tempAttrs.intelligence + equip.int_temp,
         wisdom: tempAttrs.wisdom + equip.wis_temp,
         charisma: tempAttrs.charisma + equip.cha_temp,
       }
@@ -52,8 +52,8 @@ class CharacterWeaponController {
         character_id: req.body?.character,
         strength: attrs.strength + equip.str_temp,
         dexterity: attrs.dexterity + equip.dex_temp,
-        contitution: attrs.contitution + equip.con_temp,
-        inteligence: attrs.inteligence + equip.int_temp,
+        constitution: attrs.constitution + equip.con_temp,
+        intelligence: attrs.intelligence + equip.int_temp,
         wisdom: attrs.wisdom + equip.wis_temp,
         charisma: attrs.charisma + equip.cha_temp,
       }
@@ -98,8 +98,8 @@ class CharacterWeaponController {
         character_id: charId,
         strength: tempAttrs.strength - equip.str_temp,
         dexterity: tempAttrs.dexterity - equip.dex_temp,
-        contitution: tempAttrs.contitution - equip.con_temp,
-        inteligence: tempAttrs.inteligence - equip.int_temp,
+        constitution: tempAttrs.constitution - equip.con_temp,
+        intelligence: tempAttrs.intelligence - equip.int_temp,
         wisdom: tempAttrs.wisdom - equip.wis_temp,
         charisma: tempAttrs.charisma - equip.cha_temp,
       }

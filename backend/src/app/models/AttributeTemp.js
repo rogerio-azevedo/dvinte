@@ -6,8 +6,8 @@ class AttributeTemp extends Model {
       {
         strength: Sequelize.INTEGER,
         dexterity: Sequelize.INTEGER,
-        contitution: Sequelize.INTEGER,
-        inteligence: Sequelize.INTEGER,
+        constitution: Sequelize.INTEGER,
+        intelligence: Sequelize.INTEGER,
         wisdom: Sequelize.INTEGER,
         charisma: Sequelize.INTEGER,
       },

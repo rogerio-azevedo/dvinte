@@ -31,6 +31,7 @@ class GameMapController {
         height: req.body?.height,
         grid: req.body.grid || true,
         fog: req.body?.fog || false,
+        gm_layer: req.body?.gm_layer || false,
         owner: Number(req.body?.owner) || 1,
       }
       const gameMap = await GameMap.create(newMap)
@@ -45,6 +46,7 @@ class GameMapController {
         height: Number(req.body?.height),
         grid: req.body.grid,
         fog: req.body?.fog,
+        gm_layer: req.body?.gm_layer,
       }
 
       try {

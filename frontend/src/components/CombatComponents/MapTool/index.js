@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 import { Switch } from 'antd'
 
 import api from '~/services/api'
+import { socket } from '~/services/socket'
+
+import {
+  fogLevelRequest,
+  eraserSizeRequest,
+  fogReset,
+} from '~/store/modules/menu/actions'
 
 import * as Styles from './styles'
 
@@ -15,11 +22,14 @@ export default function MapTool() {
   const [height, setHeight] = useState('')
   const [grid, setGrid] = useState(true)
   const [fog, setFog] = useState(false)
+  const [gm_layer, setGm_layer] = useState(false)
   const [portrait, setPortrait] = useState('')
   const [orientation, setOrientation] = useState(true)
 
   const [fogOpacity, setFogOpacity] = useState(60)
   const [size, setSize] = useState(60)
+
+  const dispatch = useDispatch()
 
   async function handleSave() {
     const mapData = {
@@ -32,6 +42,7 @@ export default function MapTool() {
       height,
       grid,
       fog,
+      gm_layer,
       owner: profile.id,
     }
 
@@ -50,6 +61,7 @@ export default function MapTool() {
         setHeight(data.height)
         setGrid(data.grid)
         setFog(data.fog)
+        setGm_layer(data.gm_layer)
       }
     })
   }, [])
@@ -70,12 +82,35 @@ export default function MapTool() {
     }
   }
 
+  function handleGmLayer(checked) {
+    if (checked === true) {
+      setGm_layer(checked)
+    } else {
+      setGm_layer(false)
+    }
+  }
+
   function handleOrientation(checked) {
     if (checked === true) {
       setOrientation(checked)
     } else {
       setOrientation(false)
     }
+  }
+
+  function handleFogLevel(level) {
+    setFogOpacity(level)
+    dispatch(fogLevelRequest(fogOpacity))
+  }
+
+  function handleEraserSize(size) {
+    setSize(size)
+    dispatch(eraserSizeRequest(size))
+  }
+
+  function handleResetFog() {
+    dispatch(fogReset())
+    socket.emit('line.message', [])
   }
 
   return (
@@ -138,6 +173,17 @@ export default function MapTool() {
               <Switch checked={fog} defaultChecked={fog} onChange={handleFog} />
             </div>
           </div>
+
+          <div>
+            <label htmlFor="gm_layer">GM Layer</label>
+            <div style={{ marginTop: '18px' }}>
+              <Switch
+                checked={gm_layer}
+                defaultChecked={gm_layer}
+                onChange={handleGmLayer}
+              />
+            </div>
+          </div>
         </Styles.InputContainer>
 
         <Styles.InputContainer>
@@ -168,12 +214,12 @@ export default function MapTool() {
             <input
               value={size}
               onChange={e => {
-                setSize(parseInt(e.target.value))
+                handleEraserSize(parseInt(e.target.value))
               }}
               type="range"
-              step="3"
-              min="3"
-              max="200"
+              step={10}
+              min={10}
+              max={400}
             />
           </div>
 
@@ -182,12 +228,12 @@ export default function MapTool() {
             <input
               value={fogOpacity}
               onChange={e => {
-                setFogOpacity(parseInt(e.target.value))
+                handleFogLevel(e.target.value)
               }}
               type="range"
-              step="10"
-              min="1"
-              max="100"
+              step={10}
+              min={10}
+              max={100}
             />
           </div>
         </Styles.InputContainer>
@@ -195,6 +241,9 @@ export default function MapTool() {
         <Styles.ButtonsContainer>
           <Styles.Button type="button" onClick={handleSave}>
             Cadastrar
+          </Styles.Button>
+          <Styles.Button type="button" onClick={handleResetFog}>
+            Limpar Fog
           </Styles.Button>
         </Styles.ButtonsContainer>
       </form>

@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Stage, Layer, Line, Image, Rect } from 'react-konva'
 import useImage from 'use-image'
+
+import { fogPersistRequest } from '~/store/modules/menu/actions'
 
 import { connect, socket } from '~/services/socket'
 
@@ -10,14 +13,19 @@ import { Container } from './styles'
 
 import api from '~/services/api'
 
-export default function RenderMap({ tokens }) {
+export default function RenderMap({ tokens, allowDrag }) {
+  const profile = useSelector(state => state.user.profile)
+  const { fogLevel, eraserSize } = useSelector(state => state.menu)
+  const { fogPersist } = useSelector(state => state.menu)
+
   const [stagePos, setStagePos] = useState({ x: 0, y: 0 })
-  const [lines, setLines] = useState([])
+  const [lines, setLines] = useState(fogPersist)
   const [isDrawing, setIsDrawing] = useState(false)
-  const [isDraggable, setIsDraggable] = useState(false)
   const [selectedId, selectShape] = useState(null)
   const [mapData, setMapData] = useState({})
 
+  const dispatch = useDispatch()
+  const { is_gm } = profile
   const grid = 68
   const gridWidth =
     mapData?.width > mapData?.height ? mapData?.width : mapData?.height
@@ -68,20 +76,17 @@ export default function RenderMap({ tokens }) {
   }, []) // eslint-disable-line
 
   function handleMouseDown(e) {
-    if (e.evt.button === 2) {
+    if (e.evt.button === 2 && !allowDrag) {
       setIsDrawing(true)
-      setIsDraggable(false)
 
       const pointer = e.target.getStage().getPointerPosition()
 
-      const newLines = lines.concat({
+      const newLines = lines?.concat({
         id: Date.now(),
         tool: 'eraser',
         points: [pointer.x, pointer.y],
       })
       setLines(newLines)
-    } else if (e.evt.button === 0) {
-      setIsDraggable(true)
     }
   }
 
@@ -94,6 +99,7 @@ export default function RenderMap({ tokens }) {
     if (isDrawing) {
       setIsDrawing(false)
       socket.emit('line.message', lines)
+      dispatch(fogPersistRequest(lines))
     }
   }
 
@@ -102,13 +108,17 @@ export default function RenderMap({ tokens }) {
       return
     }
 
-    const pointer = e.target.getStage().getPointerPosition()
-    const newLines = lines.slice()
-    const lastLine = {
-      ...newLines[newLines.length - 1],
+    if (!is_gm) {
+      return
     }
-    lastLine.size = 50
-    lastLine.points = lastLine.points.concat([pointer.x, pointer.y])
+
+    const pointer = e.target.getStage().getPointerPosition()
+    const newLines = lines?.slice()
+    const lastLine = {
+      ...newLines[newLines?.length - 1],
+    }
+    lastLine.size = eraserSize
+    lastLine.points = lastLine?.points.concat([pointer.x, pointer.y])
     newLines[newLines.length - 1] = lastLine
     setLines(newLines)
   }
@@ -161,24 +171,6 @@ export default function RenderMap({ tokens }) {
           {linesB}
         </Layer>
 
-        {/* <Label x={150} y={50}>
-          <Tag
-            fill="black"
-            pointerDirection="down"
-            pointerWidth={10}
-            pointerHeight={10}
-            lineJoin="round"
-            shadowColor="black"
-          />
-          <Text
-            text="Tooltip pointing down"
-            fontFamily="Calibri"
-            fontSize={18}
-            padding={5}
-            fill="white"
-          />
-        </Label> */}
-
         <Layer>
           <Rect
             x={0}
@@ -187,26 +179,30 @@ export default function RenderMap({ tokens }) {
             // height={mapData?.height}
             width={mapData?.width}
             height={mapData?.height}
-            fill="#333"
-            opacity={mapData?.fog ? 1 : 0}
+            fill={is_gm ? '#ff0000 ' : '#333'}
+            opacity={
+              mapData?.fog && is_gm
+                ? fogLevel / 100
+                : mapData?.fog && !is_gm
+                ? 1
+                : 0
+            }
           />
 
-          {lines.map(line => (
+          {lines?.map(line => (
             <Line
               x={stagePos.x}
               y={stagePos.y}
-              key={line.id}
-              strokeWidth={line.size}
+              key={line?.id}
+              strokeWidth={line?.size}
               stroke={'black'}
-              points={line.points}
+              points={line?.points}
               globalCompositeOperation={
-                line.tool === 'eraser' ? 'destination-out' : 'source-over'
+                line?.tool === 'eraser' ? 'destination-out' : 'source-over'
               }
             />
           ))}
-        </Layer>
 
-        <Layer>
           <Image
             image={portrait}
             opacity={1}
@@ -215,16 +211,17 @@ export default function RenderMap({ tokens }) {
           />
         </Layer>
 
-        <Layer>
-          {tokens &&
-            tokens.map(item => (
+        <Layer opacity={is_gm ? 1 : mapData?.gm_layer && !is_gm ? 1 : 0}>
+          {tokens
+            ?.filter(m => m.is_monster === true)
+            .map(item => (
               <CharToken
                 tokens={tokens}
                 key={item.id}
                 id={item.id}
                 x={item.x}
                 y={item.y}
-                isSelected={item.id === selectedId}
+                isSelected={!allowDrag && item.id === selectedId}
                 onSelect={() => {
                   selectShape(item.id)
                 }}
@@ -234,7 +231,32 @@ export default function RenderMap({ tokens }) {
                 //offsetX={item.width / 2}
                 //offsetY={item.height / 2}
                 rotation={item.rotation}
-                draggable={isDraggable}
+                draggable={!allowDrag}
+              />
+            ))}
+        </Layer>
+
+        <Layer>
+          {tokens
+            ?.filter(m => m.is_monster === false)
+            .map(item => (
+              <CharToken
+                tokens={tokens}
+                key={item.id}
+                id={item.id}
+                x={item.x}
+                y={item.y}
+                isSelected={!allowDrag && item.id === selectedId}
+                onSelect={() => {
+                  selectShape(item.id)
+                }}
+                image={item.image}
+                width={item.width}
+                height={item.height}
+                //offsetX={item.width / 2}
+                //offsetY={item.height / 2}
+                rotation={item.rotation}
+                draggable={!allowDrag}
               />
             ))}
         </Layer>

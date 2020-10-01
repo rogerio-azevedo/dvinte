@@ -12,6 +12,7 @@ class CharacterTokenController {
         'width',
         'height',
         'rotation',
+        'is_monster',
       ],
       include: [
         {
@@ -29,6 +30,7 @@ class CharacterTokenController {
       width: t.width,
       height: t.height,
       rotation: t.rotation,
+      is_monster: t.is_monster,
       image: t && t.tokens.url,
     }))
 
@@ -84,6 +86,7 @@ class CharacterTokenController {
         'width',
         'height',
         'rotation',
+        'is_monster',
       ],
       include: [
         {
@@ -101,6 +104,7 @@ class CharacterTokenController {
       width: t.width,
       height: t.height,
       rotation: t.rotation,
+      is_monster: t.is_monster,
       image: t && t.tokens.url,
     }))
 

@@ -27,13 +27,14 @@ export const ButtonsContainer = styled.div`
 
 export const Button = styled.button`
   color: #6f0000;
-  width: 150px;
+  width: 90px;
   height: 40px;
   text-align: center;
   font-weight: 600;
   font-size: 14px;
   border-radius: 4px;
   border: 0;
+  margin: 10px;
 
   &:hover {
     background: ${darken(0.1, '#200122')};

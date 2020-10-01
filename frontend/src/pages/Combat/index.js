@@ -7,7 +7,13 @@ import { Link } from 'react-router-dom'
 import api from '~/services/api'
 
 import { connect, socket } from '~/services/socket'
-import { FaComments, FaUserClock, FaDiceD20 } from 'react-icons/fa/'
+import {
+  FaComments,
+  FaUserClock,
+  FaDiceD20,
+  FaExpandArrowsAlt,
+  FaRunning,
+} from 'react-icons/fa/'
 
 import {
   GiSwordBrandish,
@@ -30,6 +36,8 @@ import LogBoard from '~/components/CombatComponents/LogBoard'
 import Dices from '~/components/CombatComponents/Dices'
 import MapTool from '~/components/CombatComponents/MapTool'
 
+import ScrollContainer from 'react-indiana-drag-scroll'
+
 export default function Combat() {
   const { profile } = useSelector(state => state.user)
   const showMenu = useSelector(state => state.menu.chatMenu)
@@ -48,6 +56,7 @@ export default function Combat() {
   const [maxDex, setMaxDex] = useState()
   const [weapons, setWeapons] = useState()
   const [charStatus, setCharStatus] = useState()
+  const [allowDrag, setAllowDrag] = useState(false)
 
   async function calcDext(dexMod) {
     let dextBonus = 0
@@ -165,18 +174,48 @@ export default function Combat() {
     setMenu(tipo)
   }
 
+  function handleDragable() {
+    setAllowDrag(!allowDrag)
+  }
+
   return (
     <Styles.Container>
       <Styles.CombatContainer show={showMenu ? 1 : 0}>
-        <Styles.MapContainer>
-          <RenderMap tokens={tokens} />
-        </Styles.MapContainer>
+        <ScrollContainer
+          className="container"
+          vertical={allowDrag}
+          horizontal={allowDrag}
+        >
+          <Styles.MapContainer>
+            <RenderMap tokens={tokens} allowDrag={allowDrag} />
+          </Styles.MapContainer>
+        </ScrollContainer>
       </Styles.CombatContainer>
 
       <Styles.TalkContainer show={showMenu ? 1 : 0}>
         {!loadChar && (
           <Styles.IconContainer>
             <ReactTooltip />
+
+            {allowDrag ? (
+              <div data-tip="Movimentar Mapa">
+                <FaExpandArrowsAlt
+                  size={25}
+                  color="#8e0e00"
+                  cursor="pointer"
+                  onClick={handleDragable}
+                />
+              </div>
+            ) : (
+              <div data-tip="Movimentar Token">
+                <FaRunning
+                  size={25}
+                  color="#8e0e00"
+                  cursor="pointer"
+                  onClick={handleDragable}
+                />
+              </div>
+            )}
 
             <div data-tip="Atacar">
               <GiSwordBrandish

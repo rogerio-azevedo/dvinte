@@ -344,7 +344,7 @@ export default function MonsterCreate() {
               </div>
 
               <div>
-                <label htmlFor="contitution">Constituição</label>
+                <label htmlFor="constitution">Constituição</label>
                 <Styles.InputMed
                   name="constitution"
                   ref={register({ required: true })}

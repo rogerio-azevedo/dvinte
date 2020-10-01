@@ -167,7 +167,7 @@ export default function Equipment() {
                 />
               </div>
               <div>
-                <label htmlFor="character">Contituição</label>
+                <label htmlFor="character">Constituição</label>
                 <Styles.InputShort
                   name="con_temp"
                   ref={register({ required: true })}

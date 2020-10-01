@@ -74,10 +74,6 @@ export function* createCharacter({ payload }) {
   }
 }
 
-export function resetCharacter() {
-  history.push('/characters')
-}
-
 export default all([
   takeLatest('@character/CHAR_PORTRAIT_REQUEST', portraitCharacter),
   takeLatest('@character/CHAR_BASE_REQUEST', baseCharacter),

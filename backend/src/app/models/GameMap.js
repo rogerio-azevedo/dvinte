@@ -10,6 +10,7 @@ class GameMap extends Model {
         height: Sequelize.INTEGER,
         grid: Sequelize.BOOLEAN,
         fog: Sequelize.BOOLEAN,
+        gm_layer: Sequelize.BOOLEAN,
         owner: Sequelize.INTEGER,
       },
       {

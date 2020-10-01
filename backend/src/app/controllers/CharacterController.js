@@ -126,12 +126,12 @@ class CharacterController {
         : c?.attribute?.dexterity || 0,
 
       con: c?.attribute_temp
-        ? c?.attribute_temp?.contitution
-        : c?.attribute?.contitution || 0,
+        ? c?.attribute_temp?.constitution
+        : c?.attribute?.constitution || 0,
 
       int: c?.attribute_temp
-        ? c?.attribute_temp?.inteligence
-        : c?.attribute?.inteligence || 0,
+        ? c?.attribute_temp?.intelligence
+        : c?.attribute?.intelligence || 0,
 
       wis: c?.attribute_temp
         ? c?.attribute_temp?.wisdom
@@ -150,8 +150,8 @@ class CharacterController {
         : getModifier(c?.attribute?.strength),
 
       conMod: c?.attribute_temp
-        ? getModifier(c?.attribute_temp?.contitution)
-        : getModifier(c?.attribute?.contitution),
+        ? getModifier(c?.attribute_temp?.constitution)
+        : getModifier(c?.attribute?.constitution),
 
       wisMod: c?.attribute_temp
         ? getModifier(c?.attribute_temp?.wisdom)
@@ -418,29 +418,29 @@ class CharacterController {
 
       Str: char?.attribute?.strength || 0,
       Dex: char?.attribute?.dexterity || 0,
-      Con: char?.attribute?.contitution || 0,
-      Int: char?.attribute?.inteligence || 0,
+      Con: char?.attribute?.constitution || 0,
+      Int: char?.attribute?.intelligence || 0,
       Wis: char?.attribute?.wisdom || 0,
       Cha: char?.attribute?.charisma || 0,
 
       StrMod: getModifier(char?.attribute?.strength) || 0,
       DexMod: getModifier(char?.attribute?.dexterity) || 0,
-      ConMod: getModifier(char?.attribute?.contitution) || 0,
-      IntMod: getModifier(char?.attribute?.inteligence) || 0,
+      ConMod: getModifier(char?.attribute?.constitution) || 0,
+      IntMod: getModifier(char?.attribute?.intelligence) || 0,
       WisMod: getModifier(char?.attribute?.wisdom) || 0,
       ChaMod: getModifier(char?.attribute?.charisma) || 0,
 
       StrTemp: char?.attribute_temp?.strength || 0,
       DexTemp: char?.attribute_temp?.dexterity || 0,
-      ConTemp: char?.attribute_temp?.contitution || 0,
-      IntTemp: char?.attribute_temp?.inteligence || 0,
+      ConTemp: char?.attribute_temp?.constitution || 0,
+      IntTemp: char?.attribute_temp?.intelligence || 0,
       WisTemp: char?.attribute_temp?.wisdom || 0,
       ChaTemp: char?.attribute_temp?.charisma || 0,
 
       StrModTemp: getModifier(char?.attribute_temp?.strength) || 0,
       DexModTemp: getModifier(char?.attribute_temp?.dexterity) || 0,
-      ConModTemp: getModifier(char?.attribute_temp?.contitution) || 0,
-      IntModTemp: getModifier(char?.attribute_temp?.inteligence) || 0,
+      ConModTemp: getModifier(char?.attribute_temp?.constitution) || 0,
+      IntModTemp: getModifier(char?.attribute_temp?.intelligence) || 0,
       WisModTemp: getModifier(char?.attribute_temp?.wisdom) || 0,
       ChaModTemp: getModifier(char?.attribute_temp?.charisma) || 0,
 
@@ -573,8 +573,8 @@ class CharacterController {
       character_id: person.id,
       strength: req.body.attributes.str,
       dexterity: req.body.attributes.dex,
-      contitution: req.body.attributes.con,
-      inteligence: req.body.attributes.int,
+      constitution: req.body.attributes.con,
+      intelligence: req.body.attributes.int,
       wisdom: req.body.attributes.wis,
       charisma: req.body.attributes.cha,
     }

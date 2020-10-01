@@ -34,7 +34,7 @@ export default function CharEquipment({ equipments, char }) {
               <InputShort readOnly defaultValue={item.dex_temp} />
             </div>
             <div>
-              <label htmlFor="inputEquip">Contituição</label>
+              <label htmlFor="inputEquip">Constituição</label>
               <InputShort readOnly defaultValue={item.con_temp} />
             </div>
             <div>
