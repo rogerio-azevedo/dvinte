@@ -55,26 +55,26 @@ class CharacterTokenController {
 
     if (x && y && rotation && width && height) {
       await char.update({
-        x: Math.round(x),
-        y: Math.round(y),
-        width: Math.round(width),
-        height: Math.round(height),
-        rotation: Math.round(rotation),
+        x: x.toFixed(2),
+        y: y.toFixed(2),
+        width: width.toFixed(2),
+        height: height.toFixed(2),
+        rotation: rotation.toFixed(2),
       })
     } else if (x && y && rotation) {
       await char.update({
-        x: Math.round(x),
-        y: Math.round(y),
-        rotation: Math.round(rotation),
+        x: x.toFixed(2),
+        y: y.toFixed(2),
+        rotation: rotation.toFixed(2),
       })
     } else if (x && y) {
       await char.update({
-        x: Math.round(x),
-        y: Math.round(y),
+        x: x.toFixed(2),
+        y: y.toFixed(2),
       })
     } else if (rotation) {
       await char.update({
-        rotation: Math.round(rotation),
+        rotation: rotation.toFixed(2),
       })
     } else {
       await char.update({

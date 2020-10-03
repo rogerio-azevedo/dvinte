@@ -23,6 +23,7 @@ export default function RenderMap({ tokens, allowDrag }) {
   const [isDrawing, setIsDrawing] = useState(false)
   const [selectedId, selectShape] = useState(null)
   const [mapData, setMapData] = useState({})
+  const [myToken, setMyToken] = useState({})
 
   const dispatch = useDispatch()
   const { is_gm } = profile
@@ -73,6 +74,14 @@ export default function RenderMap({ tokens, allowDrag }) {
   useEffect(() => {
     getMap()
     connect()
+
+    async function getcharToken() {
+      const response = await api.get(`combats/${profile.id}`)
+
+      setMyToken(response.data.Cod)
+    }
+
+    getcharToken()
   }, []) // eslint-disable-line
 
   function handleMouseDown(e) {
@@ -247,7 +256,11 @@ export default function RenderMap({ tokens, allowDrag }) {
                 id={item.id}
                 x={item.x}
                 y={item.y}
-                isSelected={!allowDrag && item.id === selectedId}
+                isSelected={
+                  myToken === item.character_id && !allowDrag
+                    ? item.id === selectedId
+                    : is_gm && !allowDrag && item.id === selectedId
+                }
                 onSelect={() => {
                   selectShape(item.id)
                 }}
@@ -257,7 +270,13 @@ export default function RenderMap({ tokens, allowDrag }) {
                 //offsetX={item.width / 2}
                 //offsetY={item.height / 2}
                 rotation={item.rotation}
-                draggable={!allowDrag}
+                draggable={
+                  myToken === item.character_id && !allowDrag
+                    ? true
+                    : is_gm && !allowDrag
+                    ? true
+                    : false
+                }
                 opacity={
                   item.enabled ? 1 : item.enabled === false && is_gm ? 0.6 : 0
                 }
