@@ -109,11 +109,14 @@ export default function TopNav() {
                     Retratos
                   </Link>
                 </li>
-                <li>
-                  <Link onClick={handleRemoveClick} to="/tokens">
-                    Tokens
-                  </Link>
-                </li>
+                {gm && (
+                  <li>
+                    <Link onClick={handleRemoveClick} to="/tokens">
+                      Tokens
+                    </Link>
+                  </li>
+                )}
+
                 <li>
                   <Link onClick={handleRemoveClick} to="/campaigns">
                     Campanhas
