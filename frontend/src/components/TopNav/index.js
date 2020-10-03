@@ -44,8 +44,7 @@ export default function TopNav() {
   // eslint-disable-next-line
   function handleClickOutside(event) {
     if (container.current && !container.current.contains(event.target)) {
-      // setDig(false)
-      // setRel(false)
+      setMon(false)
       setCad(false)
       setCha(false)
     }
@@ -139,6 +138,14 @@ export default function TopNav() {
                     Listar Personagens
                   </Link>
                 </li>
+                {gm && (
+                  <li>
+                    <Link onClick={handleRemoveClick} to="/charactertoken">
+                      Habilita Tokens
+                    </Link>
+                  </li>
+                )}
+
                 {/* <li>
                   <Link onClick={handleRemoveClick} to="/characterview">
                     Ver Ficha

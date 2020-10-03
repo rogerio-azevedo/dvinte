@@ -17,6 +17,7 @@ export default function CharToken({
   onSelect,
   isSelected,
   draggable,
+  opacity,
 }) {
   const shapeRef = useRef()
   const trRef = useRef()
@@ -98,6 +99,7 @@ export default function CharToken({
         outerRadius={40}
         onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
+        opacity={opacity}
       />
       {isSelected && <Transformer ref={trRef} />}
     </>
@@ -115,4 +117,5 @@ CharToken.propTypes = {
   onSelect: PropTypes.func.isRequired,
   isSelected: PropTypes.bool.isRequired,
   draggable: PropTypes.bool.isRequired,
+  opacity: PropTypes.number.isRequired,
 }

@@ -24,7 +24,6 @@ export const TableContainer = styled.div`
   width: 1000px;
   padding: 20px;
   border-radius: 4px;
-  height: 100%;
   overflow: auto;
   /*
   -webkit-box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.5);
@@ -38,31 +37,53 @@ export const TableContainer = styled.div`
   }
 
   button {
-    height: 30px;
-    width: 80px;
-    background: #8e0e00;
-    font-weight: bold;
-    color: #fff;
-    border: 0;
-    border-radius: 4px;
-    font-size: 14px;
-    transition: background 0.3s;
-    display: ${props => (props.loading ? 'none' : 'block')};
-    margin: 0 10px;
+  }
+`
 
-    &:hover {
-      background: ${darken(0.09, '#8e0e00')};
-    }
+export const ButtonAdd = styled.button`
+  height: 30px;
+  width: 80px;
+  background: #006400;
+  font-weight: bold;
+  color: #fff;
+  border: 0;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: background 0.3s;
+  display: ${props => (props.loading ? 'none' : 'block')};
+  margin: 0 10px;
+
+  &:hover {
+    background: ${darken(0.15, '#006400')};
+  }
+`
+
+export const ButtonRemove = styled.button`
+  height: 30px;
+  width: 80px;
+  background: #8e0e00;
+  font-weight: bold;
+  color: #fff;
+  border: 0;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: background 0.3s;
+  display: ${props => (props.loading ? 'none' : 'block')};
+  margin: 0 10px;
+
+  &:hover {
+    background: ${darken(0.15, '#8e0e00')};
   }
 `
 
 export const Portrait = styled.div`
-  height: 58px;
-  width: 58px;
+  height: 60px;
+  width: 60px;
 
   img {
     width: 100%;
-    height: 58px;
+    height: 60px;
     object-fit: cover;
+    border-radius: 50%;
   }
 `

@@ -20,6 +20,7 @@ import Armor from '~/pages/Armor'
 import Character from '~/pages/Character'
 import CharacterDetail from '~/pages/CharacterDetail'
 import CharacterCreate from '~/pages/CharacterCreate'
+import CharacterToken from '~/pages/CharacterToken'
 
 import Monster from '~/pages/Monster'
 import MonsterDetail from '~/pages/MonsterDetail'
@@ -62,6 +63,7 @@ export default function Routes() {
       <Route path="/characters" component={Character} isPrivate />
       <Route path="/characterview/:id" component={CharacterDetail} isPrivate />
       <Route path="/charactercreate" component={CharacterCreate} isPrivate />
+      <Route path="/charactertoken" component={CharacterToken} isPrivate />
 
       <Route path="/monsters" component={Monster} isPrivate />
       <Route path="/monsterview/:id" component={MonsterDetail} isPrivate />

@@ -9,7 +9,7 @@ class CharacterToken extends Model {
         width: Sequelize.FLOAT,
         height: Sequelize.FLOAT,
         rotation: Sequelize.FLOAT,
-        is_monster: Sequelize.BOOLEAN,
+        enabled: Sequelize.BOOLEAN,
       },
       {
         sequelize,

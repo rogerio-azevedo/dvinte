@@ -12,7 +12,7 @@ class CharacterTokenController {
         'width',
         'height',
         'rotation',
-        'is_monster',
+        'enabled',
       ],
       include: [
         {
@@ -30,7 +30,7 @@ class CharacterTokenController {
       width: t.width,
       height: t.height,
       rotation: t.rotation,
-      is_monster: t.is_monster,
+      enabled: t.enabled,
       image: t && t.tokens.url,
     }))
 
@@ -51,29 +51,34 @@ class CharacterTokenController {
     const { width } = req.body
     const { height } = req.body
     const { rotation } = req.body
+    const { enabled } = req.body
 
     if (x && y && rotation && width && height) {
       await char.update({
-        x,
-        y,
-        width,
-        height,
-        rotation: Math.floor(rotation),
+        x: Math.round(x),
+        y: Math.round(y),
+        width: Math.round(width),
+        height: Math.round(height),
+        rotation: Math.round(rotation),
       })
     } else if (x && y && rotation) {
       await char.update({
-        x,
-        y,
-        rotation: rotation + 45,
+        x: Math.round(x),
+        y: Math.round(y),
+        rotation: Math.round(rotation),
       })
     } else if (x && y) {
       await char.update({
-        x,
-        y,
+        x: Math.round(x),
+        y: Math.round(y),
+      })
+    } else if (rotation) {
+      await char.update({
+        rotation: Math.round(rotation),
       })
     } else {
       await char.update({
-        rotation: rotation + 45,
+        enabled: enabled,
       })
     }
 
@@ -86,7 +91,7 @@ class CharacterTokenController {
         'width',
         'height',
         'rotation',
-        'is_monster',
+        'enabled',
       ],
       include: [
         {
@@ -104,13 +109,23 @@ class CharacterTokenController {
       width: t.width,
       height: t.height,
       rotation: t.rotation,
-      is_monster: t.is_monster,
+      enabled: t.enabled,
       image: t && t.tokens.url,
     }))
 
     updateToken(tokens)
 
     return res.json(tokens)
+  }
+
+  async destroy(req, res) {
+    await CharacterToken.destroy({
+      where: {
+        id: req.params.id,
+      },
+    })
+
+    return res.status(201).send()
   }
 }
 

@@ -211,9 +211,9 @@ export default function RenderMap({ tokens, allowDrag }) {
           />
         </Layer>
 
-        <Layer opacity={is_gm ? 1 : mapData?.gm_layer && !is_gm ? 1 : 0}>
+        {/* <Layer opacity={is_gm ? 1 : mapData?.gm_layer && !is_gm ? 1 : 0}>
           {tokens
-            ?.filter(m => m.is_monster === true)
+            ?.filter(m => m.enabled === true)
             .map(item => (
               <CharToken
                 tokens={tokens}
@@ -228,17 +228,18 @@ export default function RenderMap({ tokens, allowDrag }) {
                 image={item.image}
                 width={item.width}
                 height={item.height}
+                opacity={0.5}
                 //offsetX={item.width / 2}
                 //offsetY={item.height / 2}
                 rotation={item.rotation}
                 draggable={!allowDrag}
               />
             ))}
-        </Layer>
+        </Layer> */}
 
         <Layer>
           {tokens
-            ?.filter(m => m.is_monster === false)
+            // ?.filter(m => m.enabled === false)
             .map(item => (
               <CharToken
                 tokens={tokens}
@@ -257,6 +258,9 @@ export default function RenderMap({ tokens, allowDrag }) {
                 //offsetY={item.height / 2}
                 rotation={item.rotation}
                 draggable={!allowDrag}
+                opacity={
+                  item.enabled ? 1 : item.enabled === false && is_gm ? 0.6 : 0
+                }
               />
             ))}
         </Layer>

@@ -101,6 +101,7 @@ routes.get('/tokens', TokenController.index)
 routes.get('/chartokens', CharacterTokenController.index)
 routes.post('/chartokens', CharacterTokenController.store)
 routes.put('/chartokens', CharacterTokenController.update)
+routes.delete('/chartokens/:id', CharacterTokenController.destroy)
 
 routes.post('/attributes', AttributeController.store)
 routes.get('/attributes', AttributeController.index)
