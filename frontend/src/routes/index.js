@@ -39,6 +39,8 @@ import CharAttributes from '~/pages/CharacterCreate/CharAttributes'
 import CharPreview from '~/pages/CharacterCreate/CharPreview'
 import Equipment from '~/pages/Equipment'
 
+import Dices from '~/components/Dices'
+
 export default function Routes() {
   return (
     <Switch>
@@ -48,6 +50,8 @@ export default function Routes() {
       <Route path="/profile" component={Profile} isPrivate />
 
       <Route path="/dashboard" component={Dashboard} isPrivate />
+
+      <Route path="/dices" component={Dices} isPrivate />
 
       <Route path="/alignments" component={Alignment} isPrivate />
       <Route path="/classes" component={Classe} isPrivate />
