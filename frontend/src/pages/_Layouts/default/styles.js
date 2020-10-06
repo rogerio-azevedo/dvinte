@@ -10,6 +10,7 @@ export const PageContainer = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
-  overflow: ${props => (props.overFlow ? 'auto' : 'none')};
+  /* overflow: ${props => (props.overFlow ? 'auto' : 'none')}; */
+  overflow: auto;
   /* height: Calc(100% - 51px); */
 `
