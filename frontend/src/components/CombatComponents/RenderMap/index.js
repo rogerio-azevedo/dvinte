@@ -135,11 +135,8 @@ export default function RenderMap({ tokens, allowDrag }) {
   useEffect(() => {
     socket.on('line.message', data => {
       setLines(data)
+      dispatch(fogPersistRequest(lines))
     })
-  }, [lines])
-
-  useMemo(() => {
-    dispatch(fogPersistRequest(lines))
   }, [lines])
 
   // const defaultMap = 'https://i.imgur.com/cUyn2zF.jpg'
