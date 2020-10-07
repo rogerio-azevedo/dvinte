@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Stage, Layer, Line, Image, Rect } from 'react-konva'
 import useImage from 'use-image'
+import Dices from '~/components/Dices'
 
 import { fogPersistRequest } from '~/store/modules/menu/actions'
 
@@ -108,7 +109,6 @@ export default function RenderMap({ tokens, allowDrag }) {
     if (isDrawing) {
       setIsDrawing(false)
       socket.emit('line.message', lines)
-      dispatch(fogPersistRequest(lines))
     }
   }
 
@@ -138,89 +138,97 @@ export default function RenderMap({ tokens, allowDrag }) {
     })
   }, [lines])
 
-  const defaultMap = 'https://i.imgur.com/cUyn2zF.jpg'
+  useMemo(() => {
+    dispatch(fogPersistRequest(lines))
+  }, [lines])
+
+  // const defaultMap = 'https://i.imgur.com/cUyn2zF.jpg'
+  const defaultMap = ''
 
   const [map] = useImage(mapData?.battle || defaultMap)
 
   const [portrait] = useImage(mapData?.portrait || '')
 
   return (
-    <Container>
-      <Stage
-        x={stagePos.x}
-        y={stagePos.y}
-        // width={window.innerWidth}
-        // height={window.innerHeight}
-        width={mapData?.width}
-        height={mapData?.height}
-        //draggable
-        onDragEnd={e => {
-          setStagePos(e.currentTarget.position())
-        }}
-        onMouseDown={handleMouseDown}
-        onMouseUp={handleMouseUp}
-        onMouseMove={handleMouseMove}
-        onContextMenu={e => {
-          e.evt.preventDefault()
-        }}
-      >
-        <Layer>
-          <Image
-            image={map}
-            opacity={1}
-            // width={window.innerWidth}
-            // height={window.innerHeight}
-            width={mapData?.width}
-            height={mapData?.height}
-          />
-        </Layer>
+    <>
+      {/* <Dices /> */}
+      <Container>
+        <Stage
+          id="canvas"
+          x={stagePos.x}
+          y={stagePos.y}
+          // width={window.innerWidth}
+          // height={window.innerHeight}
+          width={mapData?.width}
+          height={mapData?.height}
+          //draggable
+          onDragEnd={e => {
+            setStagePos(e.currentTarget.position())
+          }}
+          onMouseDown={handleMouseDown}
+          onMouseUp={handleMouseUp}
+          onMouseMove={handleMouseMove}
+          onContextMenu={e => {
+            e.evt.preventDefault()
+          }}
+        >
+          <Layer width={mapData?.width} height={mapData?.height}>
+            <Image
+              image={map}
+              opacity={1}
+              // width={window.innerWidth}
+              // height={window.innerHeight}
+              width={mapData?.width}
+              height={mapData?.height}
+            />
+          </Layer>
 
-        <Layer opacity={mapData?.grid ? 1 : 0}>
-          {linesA}
-          {linesB}
-        </Layer>
+          <Layer opacity={mapData?.grid ? 1 : 0}>
+            {linesA}
+            {linesB}
+          </Layer>
 
-        <Layer>
-          <Rect
-            x={0}
-            y={0}
-            // width={mapData?.width}
-            // height={mapData?.height}
-            width={mapData?.width}
-            height={mapData?.height}
-            fill={is_gm ? '#ff0000 ' : '#333'}
-            opacity={
-              mapData?.fog && is_gm
-                ? fogLevel / 100
-                : mapData?.fog && !is_gm
-                ? 1
-                : 0
-            }
-          />
-
-          {lines?.map(line => (
-            <Line
-              x={stagePos.x}
-              y={stagePos.y}
-              key={line?.id}
-              strokeWidth={line?.size}
-              stroke={'black'}
-              points={line?.points}
-              globalCompositeOperation={
-                line?.tool === 'eraser' ? 'destination-out' : 'source-over'
+          <Layer>
+            <Rect
+              x={0}
+              y={0}
+              // width={mapData?.width}
+              // height={mapData?.height}
+              width={mapData?.width}
+              height={mapData?.height}
+              fill={is_gm ? '#ff0000 ' : '#333'}
+              opacity={
+                mapData?.fog && is_gm
+                  ? fogLevel / 100
+                  : mapData?.fog && !is_gm
+                  ? 1
+                  : 0
               }
             />
-          ))}
 
-          <Image
-            image={portrait}
-            opacity={1}
-            width={mapData?.orientation ? 450 : 800}
-            height={mapData?.orientation ? 600 : 450}
-          />
-        </Layer>
+            {lines?.map(line => (
+              <Line
+                x={stagePos.x}
+                y={stagePos.y}
+                key={line?.id}
+                strokeWidth={line?.size}
+                stroke={'black'}
+                points={line?.points}
+                globalCompositeOperation={
+                  line?.tool === 'eraser' ? 'destination-out' : 'source-over'
+                }
+              />
+            ))}
 
-        {/* <Layer opacity={is_gm ? 1 : mapData?.gm_layer && !is_gm ? 1 : 0}>
+            <Image
+              image={portrait}
+              opacity={1}
+              width={mapData?.orientation ? 450 : 800}
+              height={mapData?.orientation ? 600 : 450}
+            />
+          </Layer>
+
+          {/* <Layer opacity={is_gm ? 1 : mapData?.gm_layer && !is_gm ? 1 : 0}>
           {tokens
             ?.filter(m => m.enabled === true)
             .map(item => (
@@ -246,45 +254,46 @@ export default function RenderMap({ tokens, allowDrag }) {
             ))}
         </Layer> */}
 
-        <Layer>
-          {tokens
-            // ?.filter(m => m.enabled === false)
-            .map(item => (
-              <CharToken
-                tokens={tokens}
-                key={item.id}
-                id={item.id}
-                x={item.x}
-                y={item.y}
-                isSelected={
-                  myToken === item.character_id && !allowDrag
-                    ? item.id === selectedId
-                    : is_gm && !allowDrag && item.id === selectedId
-                }
-                onSelect={() => {
-                  selectShape(item.id)
-                }}
-                image={item.image}
-                width={item.width}
-                height={item.height}
-                //offsetX={item.width / 2}
-                //offsetY={item.height / 2}
-                rotation={item.rotation}
-                draggable={
-                  myToken === item.character_id && !allowDrag
-                    ? true
-                    : is_gm && !allowDrag
-                    ? true
-                    : false
-                }
-                opacity={
-                  item.enabled ? 1 : item.enabled === false && is_gm ? 0.6 : 0
-                }
-              />
-            ))}
-        </Layer>
-      </Stage>
-    </Container>
+          <Layer>
+            {tokens
+              // ?.filter(m => m.enabled === false)
+              .map(item => (
+                <CharToken
+                  tokens={tokens}
+                  key={item.id}
+                  id={item.id}
+                  x={item.x}
+                  y={item.y}
+                  isSelected={
+                    myToken === item.character_id && !allowDrag
+                      ? item.id === selectedId
+                      : is_gm && !allowDrag && item.id === selectedId
+                  }
+                  onSelect={() => {
+                    selectShape(item.id)
+                  }}
+                  image={item.image}
+                  width={item.width}
+                  height={item.height}
+                  //offsetX={item.width / 2}
+                  //offsetY={item.height / 2}
+                  rotation={item.rotation}
+                  draggable={
+                    myToken === item.character_id && !allowDrag
+                      ? true
+                      : is_gm && !allowDrag
+                      ? true
+                      : false
+                  }
+                  opacity={
+                    item.enabled ? 1 : item.enabled === false && is_gm ? 0.6 : 0
+                  }
+                />
+              ))}
+          </Layer>
+        </Stage>
+      </Container>
+    </>
   )
 }
 
