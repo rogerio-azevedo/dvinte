@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Stage, Layer, Line, Image, Rect } from 'react-konva'
 import useImage from 'use-image'
-import Dices from '~/components/Dices'
+// import Dices from '~/components/Dices'
 
 import { fogPersistRequest } from '~/store/modules/menu/actions'
 
@@ -135,9 +135,12 @@ export default function RenderMap({ tokens, allowDrag }) {
   useEffect(() => {
     socket.on('line.message', data => {
       setLines(data)
-      dispatch(fogPersistRequest(lines))
     })
   }, [lines])
+
+  useMemo(() => {
+    dispatch(fogPersistRequest(lines))
+  }, [lines, dispatch])
 
   // const defaultMap = 'https://i.imgur.com/cUyn2zF.jpg'
   const defaultMap = ''
