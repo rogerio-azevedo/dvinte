@@ -48,6 +48,7 @@ export const Button = styled.button`
   -moz-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
   box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
 `
+
 export const InputContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -83,7 +84,7 @@ export const WeaponExtLarge = styled.textarea`
 `
 
 export const WeaponLarge = styled.input`
-  width: 250px;
+  width: 350px;
   border: 1px solid;
   border-radius: 4px;
   height: 38px;

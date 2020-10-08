@@ -10,7 +10,10 @@ export default function SelectWeapon({ changeWeapon, weapons }) {
     async function load() {
       const data = weapons?.map(m => ({
         value: m.id,
-        label: m.name.toUpperCase(),
+        label:
+          m.nickname !== null && m.nickname !== undefined && m.nickname !== ''
+            ? m.nickname.toUpperCase()
+            : m.name.toUpperCase(),
       }))
 
       setWeapon(data)

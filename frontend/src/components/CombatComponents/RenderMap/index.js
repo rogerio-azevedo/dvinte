@@ -172,7 +172,7 @@ export default function RenderMap({ tokens, allowDrag }) {
             e.evt.preventDefault()
           }}
         >
-          <Layer width={mapData?.width} height={mapData?.height}>
+          <Layer>
             <Image
               image={map}
               opacity={1}

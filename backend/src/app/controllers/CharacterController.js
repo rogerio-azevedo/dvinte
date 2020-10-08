@@ -76,7 +76,7 @@ class CharacterController {
             'displacement_s',
             'displacement_m',
           ],
-          through: { attributes: ['defense', 'description'] },
+          through: { attributes: ['defense', 'description', 'price'] },
         },
       ],
       order: [['name', 'ASC']],
@@ -323,7 +323,7 @@ class CharacterController {
             'book',
             'version',
           ],
-          through: { attributes: ['defense', 'description'] },
+          through: { attributes: ['defense', 'description', 'price'] },
         },
         {
           association: 'weapons',
@@ -353,6 +353,8 @@ class CharacterController {
               'crit_mod',
               'crit_from_mod',
               'dex_damage',
+              'price',
+              'nickname',
               'description',
             ],
           },
@@ -492,6 +494,7 @@ class CharacterController {
           book: c.book || '',
           version: c.version || '',
           defense: c.CharacterArmor?.defense || 0,
+          price: c.CharacterArmor?.price || 0,
           description: c.CharacterArmor?.description || '',
         })) || [],
 
@@ -519,6 +522,8 @@ class CharacterController {
           crit_mod: c.CharacterWeapon?.crit_mod || 0,
           crit_from_mod: c.CharacterWeapon?.crit_from_mod || 0,
           dex_damage: c.CharacterWeapon?.dex_damage || false,
+          price: c.CharacterArmor?.price || 0,
+          nickname: c.CharacterWeapon?.nickname || '',
           description: c.CharacterWeapon?.description || '',
         })) || [],
 

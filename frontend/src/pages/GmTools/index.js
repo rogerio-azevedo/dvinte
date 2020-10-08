@@ -4,7 +4,6 @@ import React, { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import Select from 'react-select'
 
-import { Table } from 'antd'
 import api from '~/services/api'
 
 // import SelectCharacter from '~/components/SelectCharacter'
@@ -240,6 +239,11 @@ export default function GmTools() {
 
   const columns = [
     {
+      title: 'Cod',
+      dataIndex: 'id',
+      key: 'id',
+    },
+    {
       title: 'Portrait',
       dataIndex: 'portrait',
       render: portrait => (
@@ -247,11 +251,6 @@ export default function GmTools() {
           <img alt={portrait} src={portrait} />
         </Styles.Portrait>
       ),
-    },
-    {
-      title: 'Cod',
-      dataIndex: 'id',
-      key: 'id',
     },
     {
       title: 'Nome',
@@ -293,7 +292,7 @@ export default function GmTools() {
       key: 'health',
     },
     {
-      title: 'Vida Atual',
+      title: 'Saúde',
       dataIndex: 'health_now',
       key: 'health_now',
     },
@@ -329,16 +328,41 @@ export default function GmTools() {
   ]
 
   const customStyles = {
-    input: styles => {
-      return {
-        ...styles,
-        height: '30px',
-        minHeight: '30px',
-      }
-    },
+    control: (provided, state) => ({
+      ...provided,
+      background: '#fff',
+      borderColor: '#9e9e9e',
+      minHeight: '32px',
+      height: '32px',
+      minWidth: '100px',
+      boxShadow: state.isFocused ? null : null,
+    }),
+
+    valueContainer: (provided, state) => ({
+      ...provided,
+      height: '32px',
+      padding: '0 6px',
+    }),
+
+    input: (provided, state) => ({
+      ...provided,
+      margin: '0px',
+    }),
+    indicatorSeparator: state => ({
+      display: 'none',
+    }),
+    indicatorsContainer: (provided, state) => ({
+      ...provided,
+      height: '32px',
+    }),
   }
 
   const monsterColumns = [
+    {
+      title: 'Cod',
+      dataIndex: 'id',
+      key: 'id',
+    },
     {
       title: 'Portrait',
       dataIndex: 'monster_url',
@@ -347,11 +371,6 @@ export default function GmTools() {
           <img alt={monster_url} src={monster_url} />
         </Styles.Portrait>
       ),
-    },
-    {
-      title: 'Cod',
-      dataIndex: 'id',
-      key: 'id',
     },
     {
       title: 'Nome',
@@ -368,23 +387,18 @@ export default function GmTools() {
       dataIndex: 'ca',
       key: 'ca',
     },
-    // {
-    //   title: 'Tamanho',
-    //   dataIndex: 'size',
-    //   render: (text, item) => `${item.size}`,
-    // },
-    // {
-    //   title: 'Range',
-    //   dataIndex: 'range',
-    //   render: (text, item) => `${item.baseAttack + item.dexMod}`,
-    // },
+    {
+      title: 'Dex',
+      dataIndex: 'initiative',
+      key: 'initiative',
+    },
     {
       title: 'Vida',
       dataIndex: 'health',
       key: 'health',
     },
     {
-      title: 'Vida Atual',
+      title: 'Saúde',
       dataIndex: 'health_now',
       key: 'health_now',
     },
@@ -397,14 +411,14 @@ export default function GmTools() {
       ),
     },
     {
-      title: 'Init',
-      dataIndex: 'Init',
+      title: 'Arma',
+      dataIndex: 'Arma',
       render: (text, item) => (
-        <div style={{ width: '200px' }}>
+        <div>
           <Select
             styles={customStyles}
             maxMenuHeight={220}
-            placeholder="ESCOLHA A ARMA"
+            placeholder="ESCOLHA O ATAQUE"
             onChange={e => setSelAttack(e?.value)}
             options={monsters.find(m => m.id === item.id)?.attacks}
             isClearable
@@ -431,7 +445,7 @@ export default function GmTools() {
       title: 'Crit',
       dataIndex: 'Crit',
       render: (text, item) => (
-        <button onClick={() => handleCritDamage(item.id)}>C</button>
+        <button onClick={() => handleCritDamage(item.id)}>Crit</button>
       ),
     },
     {
@@ -462,15 +476,20 @@ export default function GmTools() {
 
   return (
     <Styles.Container loading={loading ? 1 : 0}>
-      <h3>GM Tools</h3>
+      <h2>GM Tools</h2>
+      <Styles.Tables>
+        <Styles.TableContainer>
+          <Styles.MyTable rowKey="id" dataSource={list} columns={columns} />
+        </Styles.TableContainer>
 
-      <Styles.TableContainer>
-        <Table rowKey="id" dataSource={list} columns={columns} />
-      </Styles.TableContainer>
-
-      <Styles.TableContainer>
-        <Table rowKey="id" dataSource={monsters} columns={monsterColumns} />
-      </Styles.TableContainer>
+        <Styles.TableContainer>
+          <Styles.MyTable
+            rowKey="id"
+            dataSource={monsters}
+            columns={monsterColumns}
+          />
+        </Styles.TableContainer>
+      </Styles.Tables>
     </Styles.Container>
   )
 }

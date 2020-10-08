@@ -10,18 +10,55 @@ export const Container = styled.div`
     li {
       display: flex;
       flex-direction: row;
+      align-items: center;
+      justify-items: center;
+
+      &:first-child {
+        div {
+          display: flex;
+          flex-direction: column;
+
+          label {
+            text-align: center;
+            font-size: 15px;
+            display: block;
+            font-weight: bold;
+          }
+        }
+      }
 
       div {
         display: flex;
         flex-direction: column;
 
-        > label {
-          margin-left: 10px !important;
+        label {
+          display: none;
+        }
+
+        span {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          justify-items: center;
+          width: 55px;
+          height: 30px;
+          border: 0;
+          border-radius: 4px;
+
+          -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+          -moz-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+          box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
         }
       }
     }
   }
 `
+
+export const LabelDel = styled.label`
+  margin-top: -4px;
+  margin-bottom: 4px;
+`
+
 export const InputLarge = styled.input`
   color: #6f0000;
   width: 220px !important;
@@ -56,7 +93,7 @@ export const InputMed = styled.input`
 
 export const InputShort = styled.input`
   color: #6f0000;
-  width: 60px !important;
+  width: 75px !important;
   height: 30px;
   text-align: center;
   font-weight: 600;

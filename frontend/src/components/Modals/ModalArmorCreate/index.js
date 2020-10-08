@@ -109,6 +109,15 @@ export default function ModalArmorCreate({ armor }) {
               <label htmlFor="CA Extra">CA Extra</label>
               <Styles.WeaponMed
                 name="defense"
+                defaultValue={0}
+                ref={register({ required: true })}
+              />
+            </div>
+            <div>
+              <label htmlFor="price">Preço</label>
+              <Styles.WeaponMed
+                name="price"
+                defaultValue={0}
                 ref={register({ required: true })}
               />
             </div>

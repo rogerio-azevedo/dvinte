@@ -280,13 +280,17 @@ export default function CharacterDetail() {
       <Styles.ArmoryContainer>
         <Styles.ArmorContainer>
           <legend>Armaduras e Escudos</legend>
-          {!loading && <CharArmor armors={armors} size={char?.Size} />}
+          {!loading && (
+            <CharArmor armors={armors} size={char?.Size} char={char?.Cod} />
+          )}
         </Styles.ArmorContainer>
       </Styles.ArmoryContainer>
       <Styles.ArmoryContainer>
         <Styles.WeaponContainer>
           <legend>Armas</legend>
-          {!loading && <CharWeapon weapons={weapons} size={char?.Size} />}
+          {!loading && (
+            <CharWeapon weapons={weapons} size={char?.Size} char={char?.Cod} />
+          )}
         </Styles.WeaponContainer>
       </Styles.ArmoryContainer>
       <Styles.ArmoryContainer>

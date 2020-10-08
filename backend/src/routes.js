@@ -138,7 +138,11 @@ routes.post('/maps', GameMapController.store)
 routes.get('/damages', DamageController.index)
 
 routes.post('/characterweapons', CharacterWeaponController.store)
+routes.delete('/characterweapons/:id', CharacterWeaponController.destroy)
+
 routes.post('/characterarmors', CharacterArmorController.store)
+routes.delete('/characterarmors/:id', CharacterArmorController.destroy)
+
 routes.post('/characterequipments', CharacterEquipmentController.store)
 routes.delete('/characterequipments/:id', CharacterEquipmentController.destroy)
 

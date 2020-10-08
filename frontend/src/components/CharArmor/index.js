@@ -1,42 +1,51 @@
 import React from 'react'
 import PropTypes, { object } from 'prop-types'
+import { FaTimes } from 'react-icons/fa'
+import api from '~/services/api'
 
-import { Container, InputLarge, InputMed, InputShort } from './styles'
+import { Container, InputLarge, InputMed, InputShort, LabelDel } from './styles'
 
-export default function CharArmor({ armors, size }) {
+export default function CharArmor({ armors, size, char }) {
+  async function handleRemove(item) {
+    await api.delete(`characterarmors/${item.id}`, {
+      params: {
+        char: char,
+      },
+    })
+  }
+
   return (
     <Container>
       <ul>
         {armors.map(item => (
           <li key={Math.random()}>
             <div>
-              <label htmlFor="inputResist">Nome</label>
+              <label htmlFor="name">Nome</label>
               <InputLarge readOnly defaultValue={item.name} />
             </div>
             <div>
-              <label htmlFor="inputResist">Tipo</label>
+              <label htmlFor="type">Tipo</label>
               <InputShort readOnly defaultValue={item.type} />
             </div>
-
             <div>
-              <label htmlFor="inputResist">Bônus</label>
+              <label htmlFor="bonus">Bônus</label>
               <InputShort readOnly defaultValue={item.bonus} />
             </div>
             <div>
-              <label htmlFor="inputResist">Encant</label>
+              <label htmlFor="defense">Encant</label>
               <InputShort readOnly defaultValue={item.defense} />
             </div>
             <div>
-              <label htmlFor="inputResist">Dest Max</label>
+              <label htmlFor="dexterity">Dest Max</label>
               <InputShort readOnly defaultValue={item.dexterity} />
             </div>
             <div>
-              <label htmlFor="inputResist">Penalidade</label>
+              <label htmlFor="penalty">Penalidade</label>
               <InputShort readOnly defaultValue={item.penalty} />
             </div>
             <div>
-              <label htmlFor="inputResist">Deslocamento</label>
-              <InputShort
+              <label htmlFor="displacement">Deslocamento</label>
+              <InputMed
                 readOnly
                 defaultValue={
                   size === 'MÉDIO' ? item.displacement_m : item.displacement_s
@@ -44,12 +53,23 @@ export default function CharArmor({ armors, size }) {
               />
             </div>
             <div>
-              <label htmlFor="inputResist">Peso</label>
+              <label htmlFor="weight">Peso</label>
               <InputShort readOnly defaultValue={`${item.weight} kg`} />
             </div>
             <div>
-              <label htmlFor="inputResist">Preço</label>
+              <label htmlFor="price">Preço</label>
               <InputMed readOnly defaultValue={`${item.price} PO`} />
+            </div>
+            <div>
+              <LabelDel htmlFor="inputResist">Excluir</LabelDel>
+              <span>
+                <FaTimes
+                  size={20}
+                  color="#8e0e00"
+                  cursor="pointer"
+                  onClick={() => handleRemove(item)}
+                />
+              </span>
             </div>
           </li>
         ))}
@@ -61,4 +81,5 @@ export default function CharArmor({ armors, size }) {
 CharArmor.propTypes = {
   armors: PropTypes.arrayOf(object).isRequired,
   size: PropTypes.string.isRequired,
+  char: PropTypes.number.isRequired,
 }

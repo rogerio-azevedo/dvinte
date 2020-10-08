@@ -7,6 +7,7 @@ class CharacterArmor extends Model {
         character_id: Sequelize.INTEGER,
         armor_id: Sequelize.INTEGER,
         defense: Sequelize.INTEGER,
+        price: Sequelize.INTEGER,
         description: Sequelize.STRING,
       },
       {

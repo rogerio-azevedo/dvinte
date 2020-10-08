@@ -10,20 +10,38 @@ export const Container = styled.div`
     li {
       display: flex;
       flex-direction: row;
+      align-items: center;
+      justify-items: center;
+
+      &:first-child {
+        div {
+          display: flex;
+          flex-direction: column;
+
+          label {
+            text-align: center;
+            font-size: 15px;
+            display: block;
+            font-weight: bold;
+          }
+        }
+      }
 
       div {
         display: flex;
         flex-direction: column;
-        align-items: center;
+
+        label {
+          display: none;
+        }
 
         span {
           display: flex;
           justify-content: center;
           align-items: center;
           justify-items: center;
-          width: 50px;
+          width: 55px;
           height: 30px;
-          margin-top: 3px;
           border: 0;
           border-radius: 4px;
 
@@ -31,17 +49,19 @@ export const Container = styled.div`
           -moz-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
           box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
         }
-
-        > label {
-          margin-left: 10px !important;
-        }
       }
     }
   }
 `
+
+export const LabelDel = styled.label`
+  margin-top: -4px;
+  margin-bottom: 4px;
+`
+
 export const InputLarge = styled.input`
   color: #6f0000;
-  width: 280px !important;
+  width: 300px !important;
   height: 30px;
   text-align: center;
   font-weight: 600;
@@ -57,7 +77,7 @@ export const InputLarge = styled.input`
 
 export const InputMed = styled.input`
   color: #6f0000;
-  width: 100px !important;
+  width: 120px !important;
   height: 30px;
   text-align: center;
   font-weight: 600;
@@ -73,7 +93,7 @@ export const InputMed = styled.input`
 
 export const InputShort = styled.input`
   color: #6f0000;
-  width: 75px !important;
+  width: 80px;
   height: 30px;
   text-align: center;
   font-weight: 600;

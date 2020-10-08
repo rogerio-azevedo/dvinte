@@ -38,7 +38,7 @@ export default function SelectCharacter({ changeCharacter }) {
   }
 
   return (
-    <div style={{ width: '250px', marginRight: '15px' }}>
+    <div style={{ width: '250px' }}>
       <Select
         styles={customStyles}
         maxMenuHeight={250}

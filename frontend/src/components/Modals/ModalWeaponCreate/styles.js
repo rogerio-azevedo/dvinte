@@ -83,7 +83,7 @@ export const WeaponExtLarge = styled.textarea`
 `
 
 export const WeaponLarge = styled.input`
-  width: 250px;
+  width: 350px;
   border: 1px solid;
   border-radius: 4px;
   height: 38px;

@@ -115,13 +115,38 @@ export default function ModalWeaponCreate({ weapon }) {
 
           <Styles.InputContainer>
             <div>
+              <label htmlFor="price">Preço</label>
+              <Styles.WeaponMed
+                name="price"
+                defaultValue={0}
+                ref={register({ required: true })}
+              />
+            </div>
+            <div>
+              <label htmlFor="nickname">Apelido</label>
+              <Styles.WeaponLarge
+                name="nickname"
+                ref={register({ required: true })}
+              />
+            </div>
+          </Styles.InputContainer>
+
+          <Styles.InputContainer>
+            <div>
               <label htmlFor="weapon">Acerto Extra</label>
-              <Styles.WeaponMed name="hit" ref={register({ required: true })} />
+              <Styles.WeaponMed
+                name="hit"
+                type="number"
+                maxLength={1}
+                defaultValue={0}
+                ref={register({ required: true, maxLength: 1 })}
+              />
             </div>
             <div>
               <label htmlFor="weapon">Dano Extra</label>
               <Styles.WeaponMed
                 name="damage"
+                defaultValue={0}
                 ref={register({ required: true })}
               />
             </div>
@@ -130,6 +155,7 @@ export default function ModalWeaponCreate({ weapon }) {
               <label htmlFor="weapon">Elemento (dado)</label>
               <Styles.WeaponMed
                 name="element"
+                defaultValue={0}
                 ref={register({ required: true })}
               />
             </div>
@@ -150,6 +176,7 @@ export default function ModalWeaponCreate({ weapon }) {
               <label htmlFor="weapon">Crítico Mínimo</label>
               <Styles.WeaponMed
                 name="crit_from_mod"
+                defaultValue={0}
                 ref={register({ required: true })}
               />
             </div>
@@ -157,6 +184,7 @@ export default function ModalWeaponCreate({ weapon }) {
               <label htmlFor="weapon">Crit Multiplicador</label>
               <Styles.WeaponMed
                 name="crit_mod"
+                defaultValue={0}
                 ref={register({ required: true })}
               />
             </div>

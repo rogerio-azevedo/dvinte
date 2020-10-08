@@ -38,7 +38,7 @@ import MapTool from '~/components/CombatComponents/MapTool'
 
 import ScrollContainer from 'react-indiana-drag-scroll'
 
-import Dados from '~/components/Dices'
+// import Dados from '~/components/Dices'
 
 export default function Combat() {
   const { profile } = useSelector(state => state.user)
@@ -129,6 +129,7 @@ export default function Combat() {
       setMaxDex(maxDext)
 
       const charWeapons = char?.Weapon
+
       setWeapons(charWeapons)
 
       const bonusDext = await calcDext(DexMod)
@@ -180,12 +181,14 @@ export default function Combat() {
     setAllowDrag(!allowDrag)
   }
 
-  const roll = false
+  // const roll = false
 
-  if (roll) { return (<Dados />) }
+  // if (roll) {
+  //   return <Dados />
+  // }
 
   return (
-    <Styles.Container>
+    <Styles.Container overFlow={'auto'}>
       <Styles.CombatContainer show={showMenu ? 1 : 0}>
         <ScrollContainer
           className="container"
@@ -213,15 +216,15 @@ export default function Combat() {
                 />
               </div>
             ) : (
-                <div data-tip="Movimentar Token">
-                  <FaRunning
-                    size={25}
-                    color="#8e0e00"
-                    cursor="pointer"
-                    onClick={handleDragable}
-                  />
-                </div>
-              )}
+              <div data-tip="Movimentar Token">
+                <FaRunning
+                  size={25}
+                  color="#8e0e00"
+                  cursor="pointer"
+                  onClick={handleDragable}
+                />
+              </div>
+            )}
 
             <div data-tip="Atacar">
               <GiSwordBrandish
@@ -329,8 +332,8 @@ export default function Combat() {
             <LogBoard />
           </Styles.AttackContainer>
         ) : (
-                      <MapTool />
-                    )}
+          <MapTool />
+        )}
       </Styles.TalkContainer>
     </Styles.Container>
   )

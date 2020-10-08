@@ -1,9 +1,18 @@
 import React from 'react'
 import PropTypes, { object } from 'prop-types'
+import { FaTimes } from 'react-icons/fa'
+import api from '~/services/api'
 
-import { Container, InputLarge, InputMed, InputShort } from './styles'
+import { Container, InputLarge, InputMed, InputShort, LabelDel } from './styles'
 
-export default function CharWeapon({ weapons, size }) {
+export default function CharWeapon({ weapons, size, char }) {
+  async function handleRemove(item) {
+    await api.delete(`characterweapons/${item.id}`, {
+      params: {
+        char: char,
+      },
+    })
+  }
   return (
     <Container>
       <ul>
@@ -11,7 +20,16 @@ export default function CharWeapon({ weapons, size }) {
           <li key={Math.random()}>
             <div>
               <label htmlFor="inputResist">Nome</label>
-              <InputLarge readOnly defaultValue={item.name} />
+              <InputLarge
+                readOnly
+                defaultValue={
+                  item.nickname !== '' &&
+                  item.nickname !== undefined &&
+                  item.nickname !== null
+                    ? item.nickname
+                    : item.name
+                }
+              />
             </div>
             <div>
               <label htmlFor="inputResist">Qtde</label>
@@ -53,16 +71,23 @@ export default function CharWeapon({ weapons, size }) {
               <InputMed readOnly defaultValue={item.type} />
             </div>
             <div>
-              <label htmlFor="inputResist">Material</label>
-              <InputMed readOnly defaultValue={item.material} />
-            </div>
-            <div>
               <label htmlFor="inputResist">Peso</label>
               <InputShort readOnly defaultValue={`${item.weight} kg`} />
             </div>
             <div>
               <label htmlFor="inputResist">Preço</label>
               <InputMed readOnly defaultValue={`${item.price} PO`} />
+            </div>
+            <div>
+              <LabelDel htmlFor="inputResist">Excluir</LabelDel>
+              <span>
+                <FaTimes
+                  size={20}
+                  color="#8e0e00"
+                  cursor="pointer"
+                  onClick={() => handleRemove(item)}
+                />
+              </span>
             </div>
           </li>
         ))}
@@ -74,4 +99,5 @@ export default function CharWeapon({ weapons, size }) {
 CharWeapon.propTypes = {
   weapons: PropTypes.arrayOf(object).isRequired,
   size: PropTypes.string.isRequired,
+  char: PropTypes.number.isRequired,
 }

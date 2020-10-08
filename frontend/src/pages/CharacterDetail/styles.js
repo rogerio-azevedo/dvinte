@@ -403,7 +403,12 @@ export const ArmoryContainer = styled.div`
   justify-content: center;
   align-items: center;
   justify-items: center;
+
+  &:last-child {
+    margin-bottom: 60px;
+  }
 `
+
 export const ArmorContainer = styled.fieldset`
   margin-top: 20px;
   border: 1px solid #6f0000;
@@ -438,6 +443,7 @@ export const ArmorContainer = styled.fieldset`
   -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
 `
+
 export const WeaponContainer = styled.fieldset`
   margin-top: 20px;
   border: 1px solid #6f0000;
@@ -445,9 +451,10 @@ export const WeaponContainer = styled.fieldset`
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  padding: 20px;
+  align-items: center;
+  justify-items: center;
+  padding: 2px;
 
   legend {
     display: flex;
@@ -456,8 +463,8 @@ export const WeaponContainer = styled.fieldset`
     align-items: center;
     font-size: 18px;
     font-weight: 600;
-    margin-left: 5px;
-    width: 130px;
+    margin-left: 20px;
+    width: 250px;
     color: #6f0000;
     background: #fff;
     -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
@@ -470,42 +477,6 @@ export const WeaponContainer = styled.fieldset`
   -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
   -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-
-  div {
-    ul {
-      overflow-y: auto;
-
-      li {
-        display: flex;
-        flex-direction: row;
-
-        div {
-          display: flex;
-          flex-direction: column;
-
-          > label {
-            margin-left: 10px !important;
-          }
-
-          input {
-            color: #6f0000;
-            width: 65px;
-            height: 30px;
-            text-align: center;
-            font-weight: 600;
-            font-size: 16px;
-            margin: 5px;
-            margin-right: 10px;
-
-            border: 0;
-            -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
-            -moz-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
-            box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
-          }
-        }
-      }
-    }
-  }
 `
 
 export const EquipmentContainer = styled.fieldset`
@@ -515,10 +486,10 @@ export const EquipmentContainer = styled.fieldset`
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  padding: 20px;
-  margin-bottom: 40px;
+  align-items: center;
+  justify-items: center;
+  padding: 2px;
 
   legend {
     display: flex;
@@ -527,8 +498,8 @@ export const EquipmentContainer = styled.fieldset`
     align-items: center;
     font-size: 18px;
     font-weight: 600;
-    margin-left: 5px;
-    width: 180px;
+    margin-left: 20px;
+    width: 250px;
     color: #6f0000;
     background: #fff;
     -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
@@ -541,40 +512,4 @@ export const EquipmentContainer = styled.fieldset`
   -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
   -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-
-  div {
-    ul {
-      overflow-y: auto;
-
-      li {
-        display: flex;
-        flex-direction: row;
-
-        div {
-          display: flex;
-          flex-direction: column;
-
-          > label {
-            margin-left: 10px !important;
-          }
-
-          input {
-            color: #6f0000;
-            width: 65px;
-            height: 30px;
-            text-align: center;
-            font-weight: 600;
-            font-size: 16px;
-            margin: 5px;
-            margin-right: 10px;
-
-            border: 0;
-            -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
-            -moz-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
-            box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
-          }
-        }
-      }
-    }
-  }
 `

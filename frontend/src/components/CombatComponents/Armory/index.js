@@ -19,7 +19,14 @@ export default function Armory({ character, weapons, loadChar }) {
       const extraHit = wep?.hit || 0
       const critFrom =
         wep?.crit_from_mod > 0 ? wep?.crit_from_mod : wep?.crit_from
-      const name = wep?.name
+
+      const name =
+        wep?.nickname !== '' &&
+        wep?.nickname !== undefined &&
+        wep?.nickname !== null
+          ? wep?.nickname
+          : wep?.name
+
       const dice = Math.floor(Math.random() * 20) + 1
 
       let isCrit = ''
@@ -101,7 +108,14 @@ export default function Armory({ character, weapons, loadChar }) {
 
       const dice = size === 'MÉDIO' ? wep?.dice_m : wep?.dice_s
       const multi = size === 'MÉDIO' ? wep?.multiplier_m : wep?.multiplier_s
-      const name = wep?.name
+
+      const name =
+        wep?.nickname !== '' &&
+        wep?.nickname !== undefined &&
+        wep?.nickname !== null
+          ? wep?.nickname
+          : wep?.name
+
       const extraDamage = wep?.damage || 0
 
       const element =
@@ -159,7 +173,13 @@ export default function Armory({ character, weapons, loadChar }) {
 
     const exMod = Math.floor(wep?.str_bonus * mod)
     const extraDamage = wep?.damage || 0
-    const name = wep?.name
+
+    const name =
+      wep?.nickname !== '' &&
+      wep?.nickname !== undefined &&
+      wep?.nickname !== null
+        ? wep?.nickname
+        : wep?.name
 
     const dice = size === 'MÉDIO' ? wep?.dice_m : wep?.dice_s
     const multi = size === 'MÉDIO' ? wep?.multiplier_m : wep?.multiplier_s

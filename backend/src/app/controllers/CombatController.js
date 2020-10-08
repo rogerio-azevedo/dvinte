@@ -106,7 +106,7 @@ class CombatController {
             'book',
             'version',
           ],
-          through: { attributes: ['defense', 'description'] },
+          through: { attributes: ['defense', 'price', 'description'] },
         },
         {
           association: 'weapons',
@@ -136,6 +136,8 @@ class CombatController {
               'crit_mod',
               'crit_from_mod',
               'dex_damage',
+              'price',
+              'nickname',
               'description',
             ],
           },
@@ -275,6 +277,7 @@ class CombatController {
           book: c.book || '',
           version: c.version || '',
           defense: c.CharacterArmor?.defense || 0,
+          price: c.CharacterArmor?.price || 0,
           description: c.CharacterArmor?.description || '',
         })) || [],
 
@@ -302,6 +305,8 @@ class CombatController {
           crit_mod: c.CharacterWeapon?.crit_mod || 0,
           crit_from_mod: c.CharacterWeapon?.crit_from_mod || 0,
           dex_damage: c.CharacterWeapon?.dex_damage || false,
+          price: c.CharacterWeapon?.price || 0,
+          nickname: c.CharacterWeapon?.nickname || '',
           description: c.CharacterWeapon?.description || '',
         })) || [],
 
