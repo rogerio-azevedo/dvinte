@@ -76,6 +76,7 @@ export default function Combat() {
   async function GetTokens() {
     try {
       const response = await api.get('/chartokens')
+      console.log(response.data)
 
       setTokens(response.data)
     } catch (e) {
