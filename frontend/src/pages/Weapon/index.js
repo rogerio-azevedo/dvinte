@@ -336,7 +336,7 @@ export default function Weapon() {
               rowKey="id"
               dataSource={list}
               columns={columns}
-              pagination={{ pageSize: 25 }}
+              pagination={{ pageSize: 20 }}
             />
           </Styles.TableContainer>
         </Styles.FormContainer>
