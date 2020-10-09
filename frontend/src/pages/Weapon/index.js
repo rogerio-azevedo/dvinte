@@ -332,7 +332,12 @@ export default function Weapon() {
             </Styles.InputContainer>
           </form>
           <Styles.TableContainer>
-            <Styles.MyTable rowKey="id" dataSource={list} columns={columns} />
+            <Styles.MyTable
+              rowKey="id"
+              dataSource={list}
+              columns={columns}
+              pagination={{ pageSize: 25 }}
+            />
           </Styles.TableContainer>
         </Styles.FormContainer>
       </Styles.ContentContainer>

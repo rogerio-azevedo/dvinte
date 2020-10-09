@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { Select } from 'antd'
-import { Table } from 'antd'
 
 import Button from '~/components/Button'
 import { FaPlusCircle } from 'react-icons/fa'
@@ -256,7 +255,12 @@ export default function Equipment() {
             </Styles.InputContainer>
           </form>
           <Styles.TableContainer>
-            <Table rowKey="id" dataSource={list} columns={columns} />
+            <Styles.MyTable
+              rowKey="id"
+              dataSource={list}
+              columns={columns}
+              pagination={{ pageSize: 25 }}
+            />
           </Styles.TableContainer>
         </Styles.FormContainer>
       </Styles.ContentContainer>

@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { Select } from 'antd'
+import { Table } from 'antd'
 
 export const Container = styled.div`
   display: flex;
@@ -169,6 +170,28 @@ export const SelectFormated = styled(Select)`
   -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
   -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+`
+
+export const MyTable = styled(Table)`
+  thead {
+    tr {
+      th {
+        text-align: center;
+        height: 5px;
+        padding: 4px;
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      td {
+        height: 5px;
+        padding: 3px;
+        text-align: center;
+      }
+    }
+  }
 `
 
 export const TableContainer = styled.div`

@@ -91,7 +91,12 @@ export default function Token() {
       <TokenInput style={{ marginTop: '15px' }} />
 
       <TableContainer>
-        <MyTable rowKey="id" dataSource={list} columns={columns} />
+        <MyTable
+          rowKey="id"
+          dataSource={list}
+          columns={columns}
+          pagination={{ pageSize: 50 }}
+        />
       </TableContainer>
     </Container>
   )

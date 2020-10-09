@@ -27,6 +27,11 @@ export default function CharacterList() {
 
   const columns = [
     {
+      title: 'Cod',
+      dataIndex: 'id',
+      key: 'id',
+    },
+    {
       title: 'Portrait',
       dataIndex: 'portrait',
       render: portrait => (
@@ -34,11 +39,6 @@ export default function CharacterList() {
           <img alt={portrait} src={portrait} />
         </Portrait>
       ),
-    },
-    {
-      title: 'Cod',
-      dataIndex: 'id',
-      key: 'id',
     },
     {
       title: 'Nome',

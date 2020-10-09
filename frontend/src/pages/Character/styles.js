@@ -43,6 +43,8 @@ export const TableContainer = styled.div`
 export const Portrait = styled.div`
   height: 80px;
   width: 80px;
+  display: block;
+  margin: auto;
 
   img {
     width: 100%;
