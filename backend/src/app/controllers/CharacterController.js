@@ -82,15 +82,16 @@ class CharacterController {
       order: [['name', 'ASC']],
     })
 
-    const levels = list
-      .map(({ classes }) => classes)
-      .map(a => a.map(({ CharacterClass }) => CharacterClass))
-      .map(l => l.map(({ level }) => level))
-      .reduce((result, current) => {
-        result.push(...current)
-        return result
-      })
-      .filter((v, i, a) => a.indexOf(v) === i)
+    const levels =
+      list
+        .map(({ classes }) => classes)
+        .map(a => a.map(({ CharacterClass }) => CharacterClass))
+        .map(l => l.map(({ level }) => level))
+        .reduce((result, current) => {
+          result.push(...current)
+          return result
+        })
+        .filter((v, i, a) => a.indexOf(v) === i) || []
 
     const baseAtack = await BaseAttack.findAll({
       where: { level: levels },

@@ -46,7 +46,6 @@ export default function Combat() {
 
   const [menu, setMenu] = useState('attack')
 
-  const [loadChar, setLoadChar] = useState()
   const [charInit, setCharInit] = useState()
   const [character, setCharacter] = useState()
   const [tokens, setTokens] = useState()
@@ -85,7 +84,6 @@ export default function Combat() {
   }
 
   async function getCharacter() {
-    setLoadChar(true)
     try {
       const response = await api.get(`combats/${profile.id}`)
       const char = response.data
@@ -152,8 +150,6 @@ export default function Combat() {
         health: char.Health,
         healthNow: char.HealthNow,
       })
-
-      setLoadChar(false)
     } catch (e) {
       toast.error('Houve um problema ao carregar os dados dos personagens!')
     }
@@ -202,7 +198,7 @@ export default function Combat() {
       </Styles.CombatContainer>
 
       <Styles.TalkContainer show={showMenu ? 1 : 0}>
-        {!loadChar && (
+        {
           <Styles.IconContainer>
             <ReactTooltip />
 
@@ -297,7 +293,7 @@ export default function Combat() {
               </div>
             )}
           </Styles.IconContainer>
-        )}
+        }
 
         {menu === 'chat' ? (
           <Chat />
