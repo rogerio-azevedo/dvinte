@@ -1,10 +1,33 @@
 import styled from 'styled-components'
+import { Table } from 'antd'
 
 export const Container = styled.div`
   display: flex;
   padding: 20px;
   align-items: center;
   justify-content: center;
+`
+
+export const MyTable = styled(Table)`
+  thead {
+    tr {
+      th {
+        text-align: center;
+        height: 5px;
+        padding: 5px;
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      td {
+        height: 5px;
+        padding: 5px;
+        text-align: center;
+      }
+    }
+  }
 `
 
 export const TableContainer = styled.div`

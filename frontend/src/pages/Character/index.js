@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
 // import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { Table } from 'antd'
 import api from '~/services/api'
 
-import { Container, TableContainer, Portrait } from './styles'
+import { Container, TableContainer, Portrait, MyTable } from './styles'
 
 export default function CharacterList() {
   // const profile = useSelector(state => state.user.profile)
@@ -91,7 +90,7 @@ export default function CharacterList() {
   return (
     <Container loading={loading ? 0 : 1}>
       <TableContainer>
-        <Table rowKey="id" dataSource={list} columns={columns} />
+        <MyTable rowKey="id" dataSource={list} columns={columns} />
       </TableContainer>
     </Container>
   )

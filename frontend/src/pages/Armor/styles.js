@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { Table } from 'antd'
 
 export const Container = styled.div`
   display: flex;
@@ -151,27 +152,26 @@ export const InputShort = styled.input`
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
 `
 
-export const SelectMed = styled.select`
-  width: 180px;
-  border: 1px solid;
-  border-radius: 4px;
-  height: 40px;
-  padding: 0 15px;
-  color: rgba(111, 0, 0, 1);
-  font-weight: 500;
-  font-size: 15px;
-  margin-top: 4px;
-
-  &::placeholder {
-    color: rgba(111, 0, 0, 0.5);
+export const MyTable = styled(Table)`
+  thead {
+    tr {
+      th {
+        text-align: center;
+        height: 5px;
+        padding: 4px;
+      }
+    }
   }
 
-  border-top: 0;
-  border-left: 0;
-  border-right: 0;
-  -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-  -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
-  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+  tbody {
+    tr {
+      td {
+        height: 5px;
+        padding: 3px;
+        text-align: center;
+      }
+    }
+  }
 `
 
 export const TableContainer = styled.div`

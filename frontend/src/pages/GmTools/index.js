@@ -13,23 +13,12 @@ export default function GmTools() {
   // const profile = useSelector(state => state.user.profile)
   const inputRef = useRef()
 
-  // const [character, setCharacter] = useState()
   const [health, setHealth] = useState(0)
   const [monsterHealth, setMonsterHealth] = useState(0)
   const [list, setList] = useState([])
   const [monsters, setMonsters] = useState([])
   const [selAttack, setSelAttack] = useState([])
   const [loading, setLoading] = useState(false)
-
-  // const [name, setName] = useState('')
-  // // const [attackName, setAttackName] = useState('')
-  // const [init, setInit] = useState('')
-  // const [attack, setAttack] = useState('')
-  // const [crit, setCrit] = useState('')
-  // const [critMulti, setCritMulti] = useState('')
-  // const [dice, setDice] = useState('')
-  // const [multi, setMulti] = useState('')
-  // const [damage, setDamage] = useState('')
 
   async function loadChar() {
     setLoading(true)
