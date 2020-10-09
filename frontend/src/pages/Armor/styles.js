@@ -178,7 +178,8 @@ export const TableContainer = styled.div`
   width: 100%;
   padding: 30px;
   border-radius: 4px;
-  height: 100%;
+  max-height: 700px;
+  overflow: auto;
 `
 
 export const Portrait = styled.div`

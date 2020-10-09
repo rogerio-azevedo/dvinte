@@ -284,7 +284,7 @@ export default function Armor() {
               rowKey="id"
               dataSource={list}
               columns={columns}
-              pagination={{ pageSize: 20 }}
+              pagination={{ pageSize: 15 }}
             />
           </Styles.TableContainer>
         </Styles.FormContainer>
