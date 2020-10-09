@@ -101,7 +101,7 @@ class CharacterTokenController {
       ],
     })
 
-    const tokens = list.map(t => ({
+    const tokens = list?.map(t => ({
       id: t.id,
       character_id: t.character_id,
       x: t.x,
@@ -110,7 +110,7 @@ class CharacterTokenController {
       height: t.height,
       rotation: t.rotation,
       enabled: t.enabled,
-      image: t && t.tokens.url,
+      image: t?.tokens?.url || '',
     }))
 
     updateToken(tokens)

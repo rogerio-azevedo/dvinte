@@ -8,7 +8,6 @@ class TokenController {
   async index(req, res) {
     const list = await Token.findAll()
 
-    console.log(list)
     return res.json(list)
   }
 
