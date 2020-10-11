@@ -58,7 +58,7 @@ class MonsterController {
         })) || [],
     }))
 
-    return res.json(monsters)
+    return res.json(data)
   }
 
   async show(req, res) {
