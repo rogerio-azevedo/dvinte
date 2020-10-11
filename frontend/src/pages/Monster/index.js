@@ -35,9 +35,9 @@ export default function Monster() {
       ),
     },
     {
-      title: 'Cod',
-      dataIndex: 'id',
-      key: 'id',
+      title: 'Code',
+      dataIndex: 'code',
+      key: 'code',
     },
     {
       title: 'Nome',
@@ -45,44 +45,39 @@ export default function Monster() {
       key: 'name',
     },
     {
-      title: 'Level',
-      dataIndex: 'level',
-      key: 'level',
+      title: 'Desafio',
+      dataIndex: 'challenge',
+      key: 'challenge',
     },
     {
-      title: 'Raça',
-      dataIndex: 'race',
-      key: 'race',
+      title: 'Defesa',
+      dataIndex: 'ca',
+      key: 'ca',
     },
     {
-      title: 'Tendência',
+      title: 'Tipo',
+      dataIndex: 'type',
+      key: 'type',
+    },
+    {
+      title: 'Sub Tipo',
+      dataIndex: 'sub_type',
+      render: (text, item) => item.sub_type || 'NENHUM',
+    },
+    {
+      title: 'Tamanho',
+      dataIndex: 'size',
+      key: 'size',
+    },
+    {
+      title: 'Alinhamento',
       dataIndex: 'alignment',
       key: 'alignment',
     },
     {
-      title: 'Vida',
-      dataIndex: 'health',
-      key: 'health',
-    },
-    {
-      title: 'XP',
-      dataIndex: 'exp',
-      key: 'exp',
-    },
-    {
-      title: 'Pele',
-      dataIndex: 'skin',
-      key: 'skin',
-    },
-    {
-      title: 'Jogador',
-      dataIndex: 'user',
-      key: 'user',
-    },
-    {
       title: 'Ação',
       dataIndex: 'ver',
-      render: (text, item) => <Link to={`/monsterview/${item.id}`}>Ver</Link>,
+      render: (text, item) => <Link to={`/monsterview/${item.code}`}>Ver</Link>,
     },
   ]
 

@@ -37,7 +37,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         references: { model: 'tokens', key: 'id' },
         onUpdate: 'CASCADE',
-        onDelete: 'SET NULL',
+        onDelete: 'CASCADE',
         allowNull: true,
       },
       created_at: {

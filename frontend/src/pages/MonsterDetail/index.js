@@ -8,7 +8,6 @@ export default function MonsterDetail() {
   const { id } = useParams()
   const [loading, setLoading] = useState(true)
   const [monster, setMonster] = useState()
-  const [attributes, setAttributes] = useState()
 
   useEffect(() => {
     async function loadChar() {
@@ -16,8 +15,6 @@ export default function MonsterDetail() {
       const { data } = response
       console.log(data)
       setMonster(data)
-      setAttributes(data?.monster_attribute)
-      //      setWeapons(response.data.Weapon)
       setLoading(false)
     }
 
@@ -37,172 +34,202 @@ export default function MonsterDetail() {
             <Styles.LineContaniner>
               <div>
                 <Styles.InputLarge readOnly defaultValue={monster?.name} />
-                <label htmlFor="CharName">Nome do Monstro</label>
+                <label htmlFor="name">Nome do Monstro</label>
               </div>
 
               <div>
-                <Styles.InputLarge readOnly defaultValue={monster?.Race} />
-                <label htmlFor="CharRace">Raça</label>
+                <Styles.InputLarge readOnly defaultValue={monster?.type} />
+                <label htmlFor="type">Tipo</label>
               </div>
               <div>
-                <Styles.InputLarge readOnly defaultValue={monster?.Alig} />
-                <label htmlFor="CharAlignment">Tendência</label>
+                <Styles.InputLarge readOnly defaultValue={monster?.sub_type} />
+                <label htmlFor="subtype">Sub Tipo</label>
               </div>
             </Styles.LineContaniner>
 
             <Styles.LineContaniner>
               <div>
-                <Styles.InputShort readOnly defaultValue={monster?.Age} />
-                <label htmlFor="CharAge">Idade</label>
-              </div>
-
-              <div>
-                <Styles.InputMed readOnly defaultValue={monster?.Gender} />
-                <label htmlFor="CharGender">Sexo</label>
+                <Styles.InputShort readOnly defaultValue={monster?.challenge} />
+                <label htmlFor="challenge">Desafio</label>
               </div>
               <div>
-                <Styles.InputMed readOnly defaultValue={monster?.Size} />
-                <label htmlFor="CharSize">Tamanho</label>
+                <Styles.InputShort readOnly defaultValue={monster?.grab} />
+                <label htmlFor="grab">Agarrar</label>
               </div>
               <div>
-                <Styles.InputLarge readOnly defaultValue={monster?.Divin} />
-                <label htmlFor="CharDivinity">Divindade</label>
+                <Styles.InputShort
+                  readOnly
+                  defaultValue={monster?.initiative}
+                />
+                <label htmlFor="initiative">Iniciativa</label>
+              </div>
+              <div>
+                <Styles.InputMed readOnly defaultValue={monster?.size} />
+                <label htmlFor="size">Tamanho</label>
+              </div>
+              <div>
+                <Styles.InputLarge readOnly defaultValue={monster?.alignment} />
+                <label htmlFor="alignment">Alinhamento</label>
               </div>
             </Styles.LineContaniner>
 
             <Styles.LineContaniner>
               <div>
-                <Styles.InputShort defaultValue={monster?.Height} />
-                <label htmlFor="CharHeight">Altura</label>
+                <Styles.InputShort defaultValue={monster?.health} />
+                <label htmlFor="health">Vida</label>
               </div>
               <div>
-                <Styles.InputShort readOnly defaultValue={monster?.Weight} />
-                <label htmlFor="CharWeight">Peso</label>
+                <Styles.InputShort
+                  readOnly
+                  defaultValue={monster?.health_now}
+                />
+                <label htmlFor="health_now">Saúde</label>
               </div>
               <div>
-                <Styles.InputMed readOnly defaultValue={monster?.Eye} />
-                <label htmlFor="CharEye">Olhos</label>
+                <Styles.InputShort
+                  readOnly
+                  defaultValue={monster?.displacement}
+                />
+                <label htmlFor="displacement">Deslocamento</label>
+              </div>
+
+              <div>
+                <Styles.InputShort readOnly defaultValue={monster?.ca} />
+                <label htmlFor="ca">CA</label>
               </div>
               <div>
-                <Styles.InputMed readOnly defaultValue={monster?.Hair} />
-                <label htmlFor="CharHair">Cabelos</label>
+                <Styles.InputLarge readOnly defaultValue={monster?.defense} />
+                <label htmlFor="defense">Defesa</label>
+              </div>
+            </Styles.LineContaniner>
+            <Styles.LineContaniner>
+              <div>
+                <Styles.InputShort defaultValue={monster?.str} />
+                <label htmlFor="str">Força</label>
               </div>
               <div>
-                <Styles.InputMed readOnly defaultValue={monster?.Skin} />
-                <label htmlFor="CharSkin">Pele</label>
+                <Styles.InputShort readOnly defaultValue={monster?.dex} />
+                <label htmlFor="dex">Destreza</label>
+              </div>
+              <div>
+                <Styles.InputShort readOnly defaultValue={monster?.con} />
+                <label htmlFor="con">Contituição</label>
+              </div>
+
+              <div>
+                <Styles.InputShort readOnly defaultValue={monster?.int} />
+                <label htmlFor="int">Inteligência</label>
+              </div>
+              <div>
+                <Styles.InputShort readOnly defaultValue={monster?.wis} />
+                <label htmlFor="wis">Sabedoria</label>
+              </div>
+              <div>
+                <Styles.InputShort readOnly defaultValue={monster?.cha} />
+                <label htmlFor="cha">Carisma</label>
               </div>
             </Styles.LineContaniner>
           </Styles.BaseContainer>
         </div>
       </Styles.HeaderContainer>
-
       <Styles.StatsContainer>
-        <Styles.AttributesContainer>
-          <legend>Atributos</legend>
-          <div>
-            <Styles.AttrLabel1 readOnly defaultValue="FOR" />
-            <div>
-              <label htmlFor="inputResist">valor</label>
-              <input readOnly defaultValue={attributes?.strength} />
-            </div>
-          </div>
-
-          <div>
-            <Styles.AttrLabel readOnly defaultValue="DES" />
-            <div>
-              <input readOnly defaultValue={attributes?.dexterity} />
-            </div>
-          </div>
-
-          <div>
-            <Styles.AttrLabel readOnly defaultValue="CON" />
-            <div>
-              <input readOnly defaultValue={attributes?.constitution} />
-            </div>
-          </div>
-
-          <div>
-            <Styles.AttrLabel readOnly defaultValue="INT" />
-            <div>
-              <input readOnly defaultValue={attributes?.intelligence} />
-            </div>
-          </div>
-
-          <div>
-            <Styles.AttrLabel readOnly defaultValue="SAB" />
-            <div>
-              <input readOnly defaultValue={attributes?.wisdom} />
-            </div>
-          </div>
-
-          <div>
-            <Styles.AttrLabel readOnly defaultValue="CAR" />
-            <div>
-              <input readOnly defaultValue={attributes?.charisma} />
-            </div>
-          </div>
-        </Styles.AttributesContainer>
-
         <Styles.HealthClassContainer>
-          <legend>Classes e Level</legend>
+          <legend>Testes</legend>
           <Styles.HealthContainer>
             <div>
               <div>
-                <Styles.InputMini readOnly defaultValue={monster?.Level} />
-                <label htmlFor="CharLevel">Level</label>
+                <Styles.InputMini readOnly defaultValue={monster?.fort} />
+                <label htmlFor="fort">Fortitude</label>
               </div>
               <div>
-                <Styles.InputMini readOnly defaultValue={monster?.Exp} />
-                <label htmlFor="charExp">Experiência</label>
-              </div>
-            </div>
-            <div>
-              <div>
-                <Styles.InputMini readOnly defaultValue={monster?.Health} />
-                <label htmlFor="charHealth">PV</label>
+                <Styles.InputMini readOnly defaultValue={monster?.reflex} />
+                <label htmlFor="reflex">Reflexos</label>
               </div>
               <div>
-                <Styles.InputMini readOnly defaultValue={monster?.HealthNow} />
-                <label htmlFor="charHealth">PV Atual</label>
-              </div>
-            </div>
-            <div>
-              <div>
-                <Styles.InputMini readOnly defaultValue={monster?.initiative} />
-                <label htmlFor="charExp">Iniciativa</label>
-              </div>
-              <div>
-                <Styles.InputMini readOnly defaultValue={monster?.initiative} />
-                <label htmlFor="charExp">Iniciativa</label>
+                <Styles.InputMini readOnly defaultValue={monster?.will} />
+                <label htmlFor="will">Vontade</label>
               </div>
             </div>
           </Styles.HealthContainer>
-
-          <Styles.ClassContainer>
-            {/* {!loading && <CharClass classes={classes} />} */}
-          </Styles.ClassContainer>
         </Styles.HealthClassContainer>
-
+        <Styles.AttributesContainer>
+          <legend>Ataque Especial</legend>
+          <p>{monster?.attack_special}</p>
+        </Styles.AttributesContainer>
         <Styles.ResistContainer>
-          <legend>Testes de Resistência</legend>
-          {/* {!loading && <CharResist resist={resist} />} */}
-          <Styles.DefenseContainer>
-            {/* {!loading && <CharCa armors={armors} dextMod={dexMod} />} */}
-          </Styles.DefenseContainer>
+          <legend>Perícias</legend>
+          <p>{monster?.special_qualities}</p>
         </Styles.ResistContainer>
       </Styles.StatsContainer>
-      <Styles.ArmoryContainer></Styles.ArmoryContainer>
+      <Styles.StatsContainer>
+        <Styles.AttributesContainer>
+          <legend>Perícias</legend>
+          <p>{monster?.skills}</p>
+        </Styles.AttributesContainer>
+        <Styles.AttributesContainer>
+          <legend>Talentos</legend>
+          <p>{monster?.feats}</p>
+        </Styles.AttributesContainer>
+        <Styles.NotesContainer>
+          <legend>Notas</legend>
+          <p>{monster?.notes}</p>
+        </Styles.NotesContainer>
+      </Styles.StatsContainer>
+
       <Styles.ArmoryContainer>
         <Styles.WeaponContainer>
           <legend>Armas</legend>
-          {monster?.monster_attack.map(attack => (
-            <ul key={Math.random() + attack.name}>
-              <li>{attack.name}</li>
+          <div>
+            <ul>
+              {monster?.attacks.map(item => (
+                <li key={Math.random()}>
+                  <div>
+                    <label htmlFor="inputResist">Nome</label>
+                    <Styles.InputLarge readOnly defaultValue={item.name} />
+                  </div>
+                  <div>
+                    <label htmlFor="inputResist">Qtde</label>
+                    <Styles.InputShort
+                      readOnly
+                      defaultValue={item.multiplier}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="inputResist">Dado</label>
+                    <Styles.InputShort
+                      readOnly
+                      defaultValue={`d${item.dice}`}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="inputResist">Crítico</label>
+                    <Styles.InputMed
+                      readOnly
+                      defaultValue={`${item.crit_from}-20 / ${item.critical}x`}
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="inputResist">Alcance</label>
+                    <Styles.InputShort readOnly defaultValue={item.range} />
+                  </div>
+                  <div>
+                    <label htmlFor="inputResist">Acerto</label>
+                    <Styles.InputShort readOnly defaultValue={item.hit} />
+                  </div>
+                  <div>
+                    <label htmlFor="inputResist">Dano</label>
+                    <Styles.InputShort
+                      readOnly
+                      defaultValue={`${item.damage}`}
+                    />
+                  </div>
+                </li>
+              ))}
             </ul>
-          ))}
+          </div>
         </Styles.WeaponContainer>
       </Styles.ArmoryContainer>
-      <Styles.ArmoryContainer></Styles.ArmoryContainer>
     </Styles.Container>
   )
 }

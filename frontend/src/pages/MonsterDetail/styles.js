@@ -166,7 +166,7 @@ export const AttributesContainer = styled.fieldset`
     font-size: 18px;
     font-weight: 600;
     margin-left: 20px;
-    width: 100px;
+    width: 180px;
     color: #6f0000;
     background: #fff;
     -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
@@ -179,6 +179,70 @@ export const AttributesContainer = styled.fieldset`
   display: flex;
   flex-direction: column;
   width: 320px;
+  align-items: center;
+  padding: 10px;
+
+  -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+
+  > div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 4px;
+
+    > div {
+      display: flex;
+      flex-direction: column;
+      margin-right: 5px;
+      margin-top: 1px;
+      align-items: center;
+      justify-content: center;
+      margin: 2px;
+    }
+
+    input {
+      color: #6f0000;
+      width: 50px;
+      height: 40px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 20px;
+      margin: 2px;
+      border-radius: 4px;
+
+      border: 0;
+      -webkit-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+      -moz-box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+      box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
+    }
+  }
+`
+
+export const NotesContainer = styled.fieldset`
+  margin-top: 20px;
+  border: 1px solid #6f0000;
+  border-radius: 4px;
+
+  legend {
+    font-size: 18px;
+    font-weight: 600;
+    margin-left: 20px;
+    width: 180px;
+    color: #6f0000;
+    background: #fff;
+    -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+    padding: 5px;
+    border-radius: 4px;
+  }
+
+  display: flex;
+  flex-direction: column;
+  width: 560px;
   align-items: center;
   padding: 10px;
 
@@ -289,7 +353,7 @@ export const HealthContainer = styled.div`
 
   > div {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     justify-items: center;
@@ -305,6 +369,8 @@ export const HealthContainer = styled.div`
       align-items: center;
       justify-items: center;
       margin-bottom: 10px;
+      margin-right: 5px;
+      margin-left: 5px;
     }
   }
 
@@ -323,6 +389,7 @@ export const HealthContainer = styled.div`
     box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.6);
   }
 `
+
 export const ClassContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -403,7 +470,12 @@ export const ArmoryContainer = styled.div`
   justify-content: center;
   align-items: center;
   justify-items: center;
+
+  &:last-child {
+    margin-bottom: 60px;
+  }
 `
+
 export const ArmorContainer = styled.fieldset`
   margin-top: 20px;
   border: 1px solid #6f0000;
@@ -438,13 +510,14 @@ export const ArmorContainer = styled.fieldset`
   -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
 `
+
 export const WeaponContainer = styled.fieldset`
   margin-top: 20px;
   border: 1px solid #6f0000;
   border-radius: 4px;
   width: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   padding: 20px;
@@ -472,6 +545,11 @@ export const WeaponContainer = styled.fieldset`
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
 
   div {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+
     ul {
       overflow-y: auto;
 

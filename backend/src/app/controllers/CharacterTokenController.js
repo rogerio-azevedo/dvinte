@@ -110,7 +110,7 @@ class CharacterTokenController {
       height: t.height,
       rotation: t.rotation,
       enabled: t.enabled,
-      image: t?.tokens?.url || '',
+      image: t?.tokens?.url,
     }))
 
     updateToken(tokens)
