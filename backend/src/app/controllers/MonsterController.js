@@ -44,6 +44,18 @@ class MonsterController {
       size: getSize(monster?.size),
       alignment: monster?.alignment?.name,
       is_ativo: monster?.is_ativo,
+      monster_attack:
+        monster?.monster_attack?.map(c => ({
+          id: c.id || 0,
+          name: c.name.toUpperCase() || '',
+          dice: c.dice || 0,
+          multiplier: c.multiplier || 0,
+          critical: c.critical || 0,
+          crit_from: c.crit_from || 0,
+          range: c.range || 0,
+          hit: c.hit || 0,
+          damage: c.damage || 0,
+        })) || [],
     }))
 
     return res.json(monsters)

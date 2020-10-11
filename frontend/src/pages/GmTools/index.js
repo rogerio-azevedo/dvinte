@@ -407,7 +407,7 @@ export default function GmTools() {
           <Select
             styles={customStyles}
             maxMenuHeight={220}
-            placeholder="ESCOLHA O ATAQUE"
+            placeholder="ESCOLHA"
             onChange={e => setSelAttack(e?.value)}
             options={monsters.find(m => m.id === item.id)?.attacks}
             isClearable
