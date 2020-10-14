@@ -1,17 +1,20 @@
 import styled from 'styled-components'
 
 export const ChatContainer = styled.div`
+  display: flex;
   width: auto;
-  flex-direction: row;
+  flex-direction: column;
   font-family: Arial, sans-serif;
   align-self: left;
+  height: 100%;
+  overflow: auto;
 `
 
 export const ChatHistory = styled.div`
   padding: 30px 30px 20px;
   border-bottom: 2px solid white;
-  overflow-y: scroll;
-  height: 700px;
+  overflow: auto;
+  height: 100%;
 `
 
 export const MessageData = styled.div`
@@ -37,8 +40,9 @@ export const Message = styled.div`
   font-size: 14px;
   border-radius: 6px;
   margin-bottom: 30px;
-  width: 90%;
+  width: 100%;
   position: relative;
+
   color: ${props =>
     props.crit === 'HIT'
       ? '#0000FF'
@@ -88,14 +92,15 @@ export const ListMessage = styled.li`
 export const FormMessage = styled.form`
   background: #8e0e00;
   padding: 8px;
-  border-radius: 4px;
+  display: flex;
+  flex-direction: flex-end;
 `
 
 export const InputMessage = styled.input`
   border: 1px solid #dcdcdc;
   border-radius: 5px;
   color: #333;
-  font-size: 1.2rem;
+  font-size: 16px;
   padding: 10px 10px;
   width: 100%;
 

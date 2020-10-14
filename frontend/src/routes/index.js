@@ -40,6 +40,7 @@ import CharPreview from '~/pages/CharacterCreate/CharPreview'
 import Equipment from '~/pages/Equipment'
 
 import Dices from '~/components/Dices'
+import Play from '~/pages/Play'
 
 export default function Routes() {
   return (
@@ -79,6 +80,7 @@ export default function Routes() {
       <Route path="/gmtools" component={GmTools} isPrivate />
       <Route path="/map" component={WorldMap} isPrivate />
       <Route path="/combat" component={Combat} isPrivate />
+      <Route path="/play" component={Play} isPrivate />
 
       <Route path="/charbase" component={CharBase} isPrivate />
       <Route path="/charclass" component={CharClass} isPrivate />

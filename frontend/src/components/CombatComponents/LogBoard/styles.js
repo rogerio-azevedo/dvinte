@@ -4,7 +4,7 @@ import { darken } from 'polished'
 export const Container = styled.div`
   flex-direction: column;
   display: flex;
-  flex: 1;
+  width: 100%;
   overflow: auto;
 
   h2 {
@@ -17,7 +17,6 @@ export const Container = styled.div`
 export const ChatContainer = styled.div`
   width: 100%;
   flex: 1;
-
   flex-direction: row;
   font-family: Arial, sans-serif;
   align-self: left;
@@ -51,7 +50,7 @@ export const Message = styled.div`
   font-size: 14px;
   border-radius: 6px;
   margin-bottom: 30px;
-  width: 90%;
+  width: 100%;
   position: relative;
   color: ${props =>
     props.crit === 'HIT'

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import ReactTooltip from 'react-tooltip'
@@ -7,6 +7,9 @@ import { Link } from 'react-router-dom'
 import api from '~/services/api'
 
 import { connect, socket } from '~/services/socket'
+
+import * as Styles from './styles'
+
 import {
   FaComments,
   FaUserClock,
@@ -23,9 +26,6 @@ import {
   GiBrain,
 } from 'react-icons/gi'
 
-import * as Styles from './styles'
-
-import RenderMap from '~/components/CombatComponents/RenderMap'
 import Chat from '~/components/CombatComponents/Chat'
 import Savins from '~/components/CombatComponents/Savings'
 import Armory from '~/components/CombatComponents/Armory'
@@ -33,17 +33,14 @@ import Initiatives from '~/components/CombatComponents/Initiatives'
 import DamagesCounter from '~/components/CombatComponents/DamagesCounter'
 import CharStatus from '~/components/CombatComponents/CharStatus'
 import LogBoard from '~/components/CombatComponents/LogBoard'
-import Dices from '~/components/CombatComponents/Dices'
+//import Dices from '~/components/CombatComponents/Dices'
 import MapTool from '~/components/CombatComponents/MapTool'
+import Dices from '~/components/Dices'
 
-import ScrollContainer from 'react-indiana-drag-scroll'
-
-// import Dados from '~/components/Dices'
-
-export default function Combat() {
+export default function Play() {
   const { profile } = useSelector(state => state.user)
   const showMenu = useSelector(state => state.menu.chatMenu)
-
+  const [allowDrag, setAllowDrag] = useState(false)
   const [menu, setMenu] = useState('attack')
 
   const [charInit, setCharInit] = useState()
@@ -57,7 +54,6 @@ export default function Combat() {
   const [maxDex, setMaxDex] = useState()
   const [weapons, setWeapons] = useState()
   const [charStatus, setCharStatus] = useState()
-  const [allowDrag, setAllowDrag] = useState(false)
 
   async function calcDext(dexMod) {
     let dextBonus = 0
@@ -157,8 +153,8 @@ export default function Combat() {
 
   useEffect(() => {
     connect()
-    getCharacter()
-    GetTokens()
+    //getCharacter()
+    //GetTokens()
   }, []) // eslint-disable-line
 
   useEffect(() => {
@@ -177,23 +173,13 @@ export default function Combat() {
     setAllowDrag(!allowDrag)
   }
 
-  // const roll = false
-
-  // if (roll) {
-  //   return <Dados />
-  // }
-
   return (
-    <Styles.Container overFlow={'auto'}>
-      <Styles.CombatContainer show={showMenu ? 1 : 0}>
-        <ScrollContainer vertical={allowDrag} horizontal={allowDrag}>
-          <Styles.MapContainer>
-            <RenderMap tokens={tokens} allowDrag={allowDrag} />
-          </Styles.MapContainer>
-        </ScrollContainer>
-      </Styles.CombatContainer>
+    <Styles.Container>
+      <Styles.MapContainer show={showMenu ? 1 : 0}>
+        <Dices id="canvas" />
+      </Styles.MapContainer>
 
-      <Styles.TalkContainer show={showMenu ? 1 : 0}>
+      <Styles.ToolsContainer show={showMenu ? 1 : 0}>
         <Styles.IconContainer>
           <ReactTooltip />
 
@@ -270,6 +256,7 @@ export default function Combat() {
               onClick={() => handleMenu('status')}
             />
           </div>
+
           {profile.is_gm && (
             <div data-tip="Mapas">
               <GiTreasureMap
@@ -324,7 +311,7 @@ export default function Combat() {
         ) : (
           <MapTool />
         )}
-      </Styles.TalkContainer>
+      </Styles.ToolsContainer>
     </Styles.Container>
   )
 }
