@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { toast } from 'react-toastify'
+//import { toast } from 'react-toastify'
 import ReactTooltip from 'react-tooltip'
 import { Link } from 'react-router-dom'
 
-import api from '~/services/api'
+//import api from '~/services/api'
 
-import { connect, socket } from '~/services/socket'
+import { connect } from '~/services/socket'
 
 import * as Styles from './styles'
 
@@ -45,113 +45,113 @@ export default function Play() {
   const [allowDrag, setAllowDrag] = useState(false)
   const [menu, setMenu] = useState('saves')
 
-  const [charInit, setCharInit] = useState()
-  const [character, setCharacter] = useState()
-  const [tokens, setTokens] = useState()
-  const [fortitude, setFortitude] = useState()
-  const [reflex, setReflex] = useState()
-  const [will, setWill] = useState()
-  const [strength, setStrength] = useState()
+  //const [charInit, setCharInit] = useState()
+  //const [character, setCharacter] = useState()
+  //const [tokens, setTokens] = useState()
+  //const [fortitude, setFortitude] = useState()
+  //const [reflex, setReflex] = useState()
+  //const [will, setWill] = useState()
+  //const [strength, setStrength] = useState()
 
-  const [maxDex, setMaxDex] = useState()
-  const [weapons, setWeapons] = useState()
-  const [charStatus, setCharStatus] = useState()
+  //const [maxDex, setMaxDex] = useState()
+  //const [weapons, setWeapons] = useState()
+  //const [charStatus, setCharStatus] = useState()
 
-  async function calcDext(dexMod) {
-    let dextBonus = 0
+  // async function calcDext(dexMod) {
+  //   let dextBonus = 0
 
-    if (dexMod <= maxDex) {
-      dextBonus = dexMod
-    } else if (!maxDex || maxDex === 0) {
-      dextBonus = dexMod
-    } else {
-      dextBonus = maxDex
-    }
+  //   if (dexMod <= maxDex) {
+  //     dextBonus = dexMod
+  //   } else if (!maxDex || maxDex === 0) {
+  //     dextBonus = dexMod
+  //   } else {
+  //     dextBonus = maxDex
+  //   }
 
-    return dextBonus
-  }
+  //   return dextBonus
+  // }
 
-  async function GetTokens() {
-    try {
-      const response = await api.get('/chartokens')
+  // async function GetTokens() {
+  //   try {
+  //     const response = await api.get('/chartokens')
 
-      setTokens(response.data)
-    } catch (e) {
-      toast.error('Houve um problema ao carregar as Tokens dos Personagens!')
-    }
-  }
+  //     setTokens(response.data)
+  //   } catch (e) {
+  //     toast.error('Houve um problema ao carregar as Tokens dos Personagens!')
+  //   }
+  // }
 
-  async function getCharacter() {
-    try {
-      const response = await api.get(`combats/${profile.id}`)
-      const char = response.data
-      setCharacter(char)
+  // async function getCharacter() {
+  //   try {
+  //     const response = await api.get(`combats/${profile.id}`)
+  //     const char = response.data
+  //     setCharacter(char)
 
-      const StrMod = char.StrModTemp ? char.StrModTemp : char.StrMod
-      const ConMod = char.ConModTemp ? char.ConModTemp : char.ConMod
-      const DexMod = char.DexModTemp ? char.DexModTemp : char.DexMod
-      const WisMod = char.WisModTemp ? char.WisModTemp : char.WisMod
+  //     const StrMod = char.StrModTemp ? char.StrModTemp : char.StrMod
+  //     const ConMod = char.ConModTemp ? char.ConModTemp : char.ConMod
+  //     const DexMod = char.DexModTemp ? char.DexModTemp : char.DexMod
+  //     const WisMod = char.WisModTemp ? char.WisModTemp : char.WisMod
 
-      const shield = char?.Armor.filter(t => t.type === 2).reduce(
-        (acc, val) => {
-          return acc + (val.bonus + val.defense)
-        },
-        0
-      )
+  //     const shield = char?.Armor.filter(t => t.type === 2).reduce(
+  //       (acc, val) => {
+  //         return acc + (val.bonus + val.defense)
+  //       },
+  //       0
+  //     )
 
-      const armor = char?.Armor.filter(t => t.type === 1).reduce((acc, val) => {
-        return acc + (val.bonus + val.defense)
-      }, 0)
+  //     const armor = char?.Armor.filter(t => t.type === 1).reduce((acc, val) => {
+  //       return acc + (val.bonus + val.defense)
+  //     }, 0)
 
-      const natural = char?.Armor.filter(t => t.type === 3).reduce(
-        (acc, val) => {
-          return acc + (val.bonus + val.defense)
-        },
-        0
-      )
+  //     const natural = char?.Armor.filter(t => t.type === 3).reduce(
+  //       (acc, val) => {
+  //         return acc + (val.bonus + val.defense)
+  //       },
+  //       0
+  //     )
 
-      const outros = char?.Armor.filter(t => t.type === 5).reduce(
-        (acc, val) => {
-          return acc + (val.bonus + val.defense)
-        },
-        0
-      )
+  //     const outros = char?.Armor.filter(t => t.type === 5).reduce(
+  //       (acc, val) => {
+  //         return acc + (val.bonus + val.defense)
+  //       },
+  //       0
+  //     )
 
-      const maxDext = char?.Armor.reduce(
-        (min, p) => (p?.dexterity < min ? p?.dexterity : min),
-        char?.Armor[0]?.dexterity
-      )
+  //     const maxDext = char?.Armor.reduce(
+  //       (min, p) => (p?.dexterity < min ? p?.dexterity : min),
+  //       char?.Armor[0]?.dexterity
+  //     )
 
-      setMaxDex(maxDext)
+  //     setMaxDex(maxDext)
 
-      const charWeapons = char?.Weapon
+  //     const charWeapons = char?.Weapon
 
-      setWeapons(charWeapons)
+  //     setWeapons(charWeapons)
 
-      const bonusDext = await calcDext(DexMod)
-      const ca = 10 + shield + armor + bonusDext + natural + outros
+  //     const bonusDext = await calcDext(DexMod)
+  //     const ca = 10 + shield + armor + bonusDext + natural + outros
 
-      setCharInit(DexMod)
-      setFortitude(char.Fortitude + ConMod)
-      setReflex(char.Reflex + DexMod)
-      setWill(char.Will + WisMod)
-      setStrength(char.BaseAttack + StrMod)
+  //     setCharInit(DexMod)
+  //     setFortitude(char.Fortitude + ConMod)
+  //     setReflex(char.Reflex + DexMod)
+  //     setWill(char.Will + WisMod)
+  //     setStrength(char.BaseAttack + StrMod)
 
-      setCharStatus({
-        fortitude: char.Fortitude + ConMod,
-        reflex: char.Reflex + DexMod,
-        will: char.Will + WisMod,
-        charInit: DexMod,
-        melee: char.BaseAttack + StrMod,
-        ranged: char.BaseAttack + DexMod,
-        totalCa: ca,
-        health: char.Health,
-        healthNow: char.HealthNow,
-      })
-    } catch (e) {
-      toast.error('Houve um problema ao carregar os dados dos personagens!')
-    }
-  }
+  //     setCharStatus({
+  //       fortitude: char.Fortitude + ConMod,
+  //       reflex: char.Reflex + DexMod,
+  //       will: char.Will + WisMod,
+  //       charInit: DexMod,
+  //       melee: char.BaseAttack + StrMod,
+  //       ranged: char.BaseAttack + DexMod,
+  //       totalCa: ca,
+  //       health: char.Health,
+  //       healthNow: char.HealthNow,
+  //     })
+  //   } catch (e) {
+  //     toast.error('Houve um problema ao carregar os dados dos personagens!')
+  //   }
+  // }
 
   useEffect(() => {
     connect()
@@ -159,13 +159,13 @@ export default function Play() {
     //GetTokens()
   }, []) // eslint-disable-line
 
-  useEffect(() => {
-    const handleTokens = Tokens => setTokens(Tokens)
+  // useEffect(() => {
+  //   const handleTokens = Tokens => setTokens(Tokens)
 
-    socket.on('token.message', handleTokens)
+  //   socket.on('token.message', handleTokens)
 
-    return () => socket.off('token.message', handleTokens)
-  }, [tokens])
+  //   return () => socket.off('token.message', handleTokens)
+  // }, [tokens])
 
   function handleMenu(tipo) {
     setMenu(tipo)
@@ -284,20 +284,11 @@ export default function Play() {
         {menu === 'chat' ? (
           <Chat />
         ) : menu === 'init' ? (
-          <Initiatives
-            profile={profile}
-            from={profile.id}
-            charInit={charInit}
-          />
+          <Initiatives profile={profile} from={profile.id} charInit={1} />
         ) : menu === 'saves' ? (
           <Styles.SavesConteiner>
             <Styles.ButtonsContainer>
-              <Savins
-                fortitude={fortitude}
-                reflex={reflex}
-                will={will}
-                strength={strength}
-              />
+              <Savins fortitude={1} reflex={1} will={1} strength={1} />
               <Dices3 />
             </Styles.ButtonsContainer>
             <h2>Painel Logs</h2>
@@ -306,10 +297,10 @@ export default function Play() {
         ) : menu === 'damage' ? (
           <DamagesCounter />
         ) : menu === 'status' ? (
-          <CharStatus charStatus={charStatus} />
+          <CharStatus charStatus={1} />
         ) : menu === 'attack' ? (
           <Styles.AttackContainer>
-            <Armory character={character} weapons={weapons} />
+            <Armory character={1} weapons={1} />
             <h2>Painel Logs</h2>
             <LogBoard />
           </Styles.AttackContainer>

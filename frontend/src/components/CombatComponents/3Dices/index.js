@@ -1,12 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+//import { useSelector } from 'react-redux'
 
-import api from '~/services/api'
+//import api from '~/services/api'
 
 import * as Styles from './styles'
 
 export default function Dices() {
-  const profile = useSelector(state => state.user.profile)
+  //const profile = useSelector(state => state.user.profile)
   const [multiplier, setMultiplier] = useState(1)
   const [input, setInput] = useState('d20')
 
