@@ -11,14 +11,25 @@ export const Container = styled.div`
 `
 
 export const MapContainer = styled.div`
+  position: relative;
+
   width: ${props => (props.show ? '80%' : '100%')};
-  flex: 1;
-  width: 100%;
   height: 100%;
+  overflow: auto;
 
   -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
   -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
   box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+`
+
+export const DiceRollerContainer = styled.div`
+  position: absolute;
+  width: ${props => (props.show ? '80%' : '100%')} !important;
+  height: 100% !important;
+  z-index: 1;
+
+  top: 0px;
+  left: 0px;
 `
 
 export const ToolsContainer = styled.div`

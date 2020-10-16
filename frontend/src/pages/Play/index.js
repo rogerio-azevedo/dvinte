@@ -33,15 +33,17 @@ import Initiatives from '~/components/CombatComponents/Initiatives'
 import DamagesCounter from '~/components/CombatComponents/DamagesCounter'
 import CharStatus from '~/components/CombatComponents/CharStatus'
 import LogBoard from '~/components/CombatComponents/LogBoard'
-//import Dices from '~/components/CombatComponents/Dices'
+import Dices3 from '~/components/CombatComponents/3Dices'
 import MapTool from '~/components/CombatComponents/MapTool'
-import Dices from '~/components/Dices'
+
+import EnginerJs from '~/components/Dices/components/enginerjs'
+import RenderMap from '~/components/CombatComponents/RenderMap'
 
 export default function Play() {
   const { profile } = useSelector(state => state.user)
   const showMenu = useSelector(state => state.menu.chatMenu)
   const [allowDrag, setAllowDrag] = useState(false)
-  const [menu, setMenu] = useState('attack')
+  const [menu, setMenu] = useState('saves')
 
   const [charInit, setCharInit] = useState()
   const [character, setCharacter] = useState()
@@ -175,8 +177,11 @@ export default function Play() {
 
   return (
     <Styles.Container>
+      <EnginerJs />
+
       <Styles.MapContainer show={showMenu ? 1 : 0}>
-        <Dices id="canvas" />
+        <Styles.DiceRollerContainer id="canvas" />
+        <RenderMap allowDrag={allowDrag} />
       </Styles.MapContainer>
 
       <Styles.ToolsContainer show={showMenu ? 1 : 0}>
@@ -293,7 +298,7 @@ export default function Play() {
                 will={will}
                 strength={strength}
               />
-              <Dices />
+              <Dices3 />
             </Styles.ButtonsContainer>
             <h2>Painel Logs</h2>
             <LogBoard />
