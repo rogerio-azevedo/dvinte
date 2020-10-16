@@ -284,11 +284,11 @@ export default function Play() {
         {menu === 'chat' ? (
           <Chat />
         ) : menu === 'init' ? (
-          <Initiatives profile={profile} from={profile.id} charInit={1} />
+          <Initiatives />
         ) : menu === 'saves' ? (
           <Styles.SavesConteiner>
             <Styles.ButtonsContainer>
-              <Savins fortitude={1} reflex={1} will={1} strength={1} />
+              <Savins />
               <Dices3 />
             </Styles.ButtonsContainer>
             <h2>Painel Logs</h2>
@@ -297,10 +297,10 @@ export default function Play() {
         ) : menu === 'damage' ? (
           <DamagesCounter />
         ) : menu === 'status' ? (
-          <CharStatus charStatus={1} />
+          <CharStatus />
         ) : menu === 'attack' ? (
           <Styles.AttackContainer>
-            <Armory character={1} weapons={1} />
+            <Armory />
             <h2>Painel Logs</h2>
             <LogBoard />
           </Styles.AttackContainer>
