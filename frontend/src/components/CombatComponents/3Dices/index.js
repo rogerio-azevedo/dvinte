@@ -16,10 +16,7 @@ export default function Dices() {
 
   const spanRef = useRef(null)
 
-  useEffect(() => {
-    const element = document.getElementById('label').nodeValue
-    console.log(element)
-  }, [spanRef])
+  useEffect(() => {}, [])
 
   // function handleCalculateTotal(sides) {
   //   let calc = 0
