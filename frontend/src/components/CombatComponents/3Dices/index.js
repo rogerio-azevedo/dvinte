@@ -9,14 +9,28 @@ export default function Dices() {
   //const profile = useSelector(state => state.user.profile)
   const [multiplier, setMultiplier] = useState(1)
   const [input, setInput] = useState('d20')
+  const [diceResult, setDiceResult] = useState()
+  const spanRef = useRef(null)
 
   function handleDice(type) {
     setInput(type)
   }
 
-  const spanRef = useRef(null)
+  function handleTest(type) {
+    setTimeout(() => {
+      console.log(spanRef.current.value)
+    }, 2500)
+  }
 
-  useEffect(() => {}, [])
+  // const bot = (document.getElementById('throw')?.onChange = function () {
+  //   document.getElementById('info_div')?.value = document.getElementById(
+  //     'label'
+  //   )?.innerHTML
+  // })
+
+  useEffect(() => {
+    console.log(diceResult)
+  }, [diceResult])
 
   // function handleCalculateTotal(sides) {
   //   let calc = 0
@@ -46,9 +60,12 @@ export default function Dices() {
       <h2>Rolagem de Dados</h2>
 
       <Styles.PanelContainer>
-        <div id="info_div">
-          <span id="label" ref={spanRef} />
-        </div>
+        <Styles.InputMulti
+          ref={spanRef}
+          //style={{ display: 'none' }}
+          id="dices"
+          onChange={e => console.log(e)}
+        />
 
         <Styles.InputMulti
           type="number"
@@ -57,7 +74,9 @@ export default function Dices() {
           placeholder="1"
           onChange={e => setMultiplier(e.target.value)}
         />
-        <Styles.DiceButton id="throw">Rolar</Styles.DiceButton>
+        <Styles.DiceButton id="throw" onClick={handleTest}>
+          Rolar
+        </Styles.DiceButton>
       </Styles.PanelContainer>
 
       <div id="selector_div" style={{ display: 'none' }}>
