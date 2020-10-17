@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef } from 'react'
 //import { useSelector } from 'react-redux'
 
 //import api from '~/services/api'
@@ -9,7 +9,6 @@ export default function Dices() {
   //const profile = useSelector(state => state.user.profile)
   const [multiplier, setMultiplier] = useState(1)
   const [input, setInput] = useState('d20')
-  const [diceResult, setDiceResult] = useState()
   const spanRef = useRef(null)
 
   function handleDice(type) {
@@ -21,16 +20,6 @@ export default function Dices() {
       console.log(spanRef.current.value)
     }, 2500)
   }
-
-  // const bot = (document.getElementById('throw')?.onChange = function () {
-  //   document.getElementById('info_div')?.value = document.getElementById(
-  //     'label'
-  //   )?.innerHTML
-  // })
-
-  useEffect(() => {
-    console.log(diceResult)
-  }, [diceResult])
 
   // function handleCalculateTotal(sides) {
   //   let calc = 0
@@ -64,7 +53,6 @@ export default function Dices() {
           ref={spanRef}
           //style={{ display: 'none' }}
           id="dices"
-          onChange={e => console.log(e)}
         />
 
         <Styles.InputMulti
