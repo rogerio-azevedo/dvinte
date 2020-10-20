@@ -9,7 +9,7 @@ export default function Dices() {
   //const profile = useSelector(state => state.user.profile)
   const [multiplier, setMultiplier] = useState(1)
   const [input, setInput] = useState('d20')
-  const spanRef = useRef(null)
+  const inputRef = useRef(null)
 
   function handleDice(type) {
     setInput(type)
@@ -17,8 +17,8 @@ export default function Dices() {
 
   function handleTest(type) {
     setTimeout(() => {
-      console.log(spanRef.current.value)
-    }, 2500)
+      console.log(inputRef.current)
+    }, 3500)
   }
 
   // function handleCalculateTotal(sides) {
@@ -50,7 +50,7 @@ export default function Dices() {
 
       <Styles.PanelContainer>
         <Styles.InputMulti
-          ref={spanRef}
+          ref={inputRef}
           //style={{ display: 'none' }}
           id="dices"
         />

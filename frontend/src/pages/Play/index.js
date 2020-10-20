@@ -179,7 +179,7 @@ export default function Play() {
     <Styles.Container>
       <EnginerJs />
 
-      <Styles.MapContainer show={showMenu ? 1 : 0}>
+      <Styles.MapContainer show={showMenu ? 1 : 0} id="slide">
         <Styles.DiceRollerContainer id="canvas" />
         <RenderMap allowDrag={allowDrag} />
       </Styles.MapContainer>

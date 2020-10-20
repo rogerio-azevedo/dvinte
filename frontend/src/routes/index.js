@@ -41,6 +41,7 @@ import Equipment from '~/pages/Equipment'
 
 import Dices from '~/components/Dices'
 import Play from '~/pages/Play'
+import Tree from '~/pages/Tree'
 
 export default function Routes() {
   return (
@@ -86,6 +87,8 @@ export default function Routes() {
       <Route path="/charclass" component={CharClass} isPrivate />
       <Route path="/charattributes" component={CharAttributes} isPrivate />
       <Route path="/charpreview" component={CharPreview} isPrivate />
+
+      <Route path="/tree" component={Tree} isPrivate />
     </Switch>
   )
 }

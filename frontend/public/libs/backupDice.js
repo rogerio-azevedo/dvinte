@@ -1,133 +1,23 @@
 'use strict'
 ;(function (dice) {
   var random_storage = []
-  //this.use_true_random = true
-  var use_adapvite_timestep = true
-  var frame_rate = 1 / 60
-
-  var scale = 50
-
-  var label_color = '#fff'
-  var dice_color = '#200122'
-
-  var ambient_light_color = 0xf0f5fb
-  var spot_light_color = 0xefdfd5
-
-  var use_shadows = true
-
-  var material_dice_options = {
-    specular: 0x172022,
-    color: 0xf0f0f0,
-    shininess: 40,
-    flatShading: true,
-  }
-
-  var dice_inertia = { d4: 5, d6: 13, d8: 10, d10: 9, d12: 8, d20: 6 }
-
-  var dice_mass = {
-    d4: 300,
-    d6: 300,
-    d8: 340,
-    d10: 350,
-    d12: 350,
-    d20: 400,
-  }
-
-  var d4_labels = [
-    [[], [0, 0, 0], [2, 4, 3], [1, 3, 4], [2, 1, 4], [1, 2, 3]],
-    [[], [0, 0, 0], [2, 3, 4], [3, 1, 4], [2, 4, 1], [3, 2, 1]],
-    [[], [0, 0, 0], [4, 3, 2], [3, 4, 1], [4, 2, 1], [3, 1, 2]],
-    [[], [0, 0, 0], [4, 2, 3], [1, 4, 3], [4, 1, 2], [1, 3, 2]],
-  ]
-
-  var standart_d20_dice_face_labels = [
-    ' ',
-    '0',
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
-    '10',
-    '11',
-    '12',
-    '13',
-    '14',
-    '15',
-    '16',
-    '17',
-    '18',
-    '19',
-    '20',
-  ]
-
-  var dice_face_range = {
-    d4: [1, 4],
-    d6: [1, 6],
-    d8: [1, 8],
-    d10: [0, 9],
-    d12: [1, 12],
-    d20: [1, 20],
-  }
-
-  var known_types = ['d4', 'd6', 'd8', 'd10', 'd12', 'd20']
-
-  const copy = obj => {
-    if (!obj) return obj
-    return copyto(obj, new obj.constructor())
-  }
-
-  const copyto = (obj, res) => {
-    if (obj == null || typeof obj !== 'object') return obj
-    if (obj instanceof Array) {
-      for (var i = obj.length - 1; i >= 0; --i) res[i] = copy(obj[i])
-    } else {
-      for (var i in obj) {
-        if (obj.hasOwnProperty(i)) res[i] = copy(obj[i])
-      }
-    }
-    return res
-  }
-
-  const get_mouse_coords = ev => {
-    var touches = ev.changedTouches
-    if (touches) return { x: touches[0].clientX, y: touches[0].clientY }
-    return { x: ev.clientX, y: ev.clientY }
-  }
-
-  const bind = (sel, eventname, func, bubble) => {
-    if (!sel) return
-    if (eventname.constructor === Array) {
-      for (var i in eventname)
-        sel.addEventListener(eventname[i], func, bubble ? bubble : false)
-    } else sel.addEventListener(eventname, func, bubble ? bubble : false)
-  }
-
-  const unbind = (sel, eventname, func, bubble) => {
-    if (eventname.constructor === Array) {
-      for (var i in eventname)
-        sel.removeEventListener(eventname[i], func, bubble ? bubble : false)
-    } else sel.removeEventListener(eventname, func, bubble ? bubble : false)
-  }
+  this.use_true_random = true
+  this.frame_rate = 1 / 60
 
   function prepare_rnd(callback) {
-    // if (!random_storage.length && false) {
-    //   try {
-    //     rpc({ method: 'random', n: 512 }, function (random_responce) {
-    //       if (!random_responce.error)
-    //         random_storage = random_responce.result.random.data
-    //       else use_true_random = false
-    //       callback()
-    //     })
-    //     return
-    //   } catch (e) {
-    //     use_true_random = false
-    //   }
-    // }
+    if (!random_storage.length && $t.dice.use_true_random) {
+      try {
+        $t.rpc({ method: 'random', n: 512 }, function (random_responce) {
+          if (!random_responce.error)
+            random_storage = random_responce.result.random.data
+          else $t.dice.use_true_random = false
+          callback()
+        })
+        return
+      } catch (e) {
+        $t.dice.use_true_random = false
+      }
+    }
     callback()
   }
 
@@ -277,6 +167,44 @@
     return geom
   }
 
+  this.standart_d20_dice_face_labels = [
+    ' ',
+    '0',
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    '10',
+    '11',
+    '12',
+    '13',
+    '14',
+    '15',
+    '16',
+    '17',
+    '18',
+    '19',
+    '20',
+  ]
+  this.standart_d100_dice_face_labels = [
+    ' ',
+    '00',
+    '10',
+    '20',
+    '30',
+    '40',
+    '50',
+    '60',
+    '70',
+    '80',
+    '90',
+  ]
+
   function calc_texture_size(approx) {
     return Math.pow(2, Math.floor(Math.log(approx) / Math.log(2)))
   }
@@ -306,13 +234,24 @@
     for (var i = 0; i < face_labels.length; ++i)
       materials.push(
         new THREE.MeshPhongMaterial(
-          copyto(material_dice_options, {
-            map: create_text_texture(face_labels[i], label_color, dice_color),
+          $t.copyto(this.material_options, {
+            map: create_text_texture(
+              face_labels[i],
+              this.label_color,
+              this.dice_color
+            ),
           })
         )
       )
     return materials
   }
+
+  var d4_labels = [
+    [[], [0, 0, 0], [2, 4, 3], [1, 3, 4], [2, 1, 4], [1, 2, 3]],
+    [[], [0, 0, 0], [2, 3, 4], [3, 1, 4], [2, 4, 1], [3, 2, 1]],
+    [[], [0, 0, 0], [4, 3, 2], [3, 4, 1], [4, 2, 1], [3, 1, 2]],
+    [[], [0, 0, 0], [4, 2, 3], [1, 4, 3], [4, 1, 2], [1, 3, 2]],
+  ]
 
   this.create_d4_materials = function (size, margin, labels) {
     function create_d4_text(text, color, back_color) {
@@ -344,8 +283,8 @@
     for (var i = 0; i < labels.length; ++i)
       materials.push(
         new THREE.MeshPhongMaterial(
-          copyto(material_dice_options, {
-            map: create_d4_text(labels[i], label_color, dice_color),
+          $t.copyto(this.material_options, {
+            map: create_d4_text(labels[i], this.label_color, this.dice_color),
           })
         )
       )
@@ -530,13 +469,60 @@
     return create_geom(vertices, faces, radius, -0.2, -Math.PI / 4 / 2, 0.955)
   }
 
+  this.material_options = {
+    specular: 0x172022,
+    color: 0xf0f0f0,
+    shininess: 40,
+    flatShading: true,
+  }
+
+  this.label_color = '#fff'
+  this.dice_color = '#200122'
+  this.ambient_light_color = 0xf0f5fb
+  this.spot_light_color = 0xefdfd5
+
+  this.selector_back_colors = {
+    color: 0x404040,
+    shininess: 0,
+    emissive: 0x858787,
+  }
+
+  this.desk_color = 0xdfdfdf
+  this.use_shadows = true
+
+  this.known_types = ['d4', 'd6', 'd8', 'd10', 'd12', 'd20', 'd100']
+
+  this.dice_face_range = {
+    d4: [1, 4],
+    d6: [1, 6],
+    d8: [1, 8],
+    d10: [0, 9],
+    d12: [1, 12],
+    d20: [1, 20],
+    d100: [0, 9],
+  }
+
+  this.dice_mass = {
+    d4: 300,
+    d6: 300,
+    d8: 340,
+    d10: 350,
+    d12: 350,
+    d20: 400,
+    d100: 350,
+  }
+
+  this.dice_inertia = { d4: 5, d6: 13, d8: 10, d10: 9, d12: 8, d20: 6, d100: 9 }
+
+  this.scale = 50
+
   this.create_d4 = function () {
     if (!this.d4_geometry)
-      this.d4_geometry = this.create_d4_geometry(scale * 1.2)
+      this.d4_geometry = this.create_d4_geometry(this.scale * 1.2)
     if (!this.d4_material)
       this.d4_material = this.create_d4_materials(
-        scale / 2,
-        scale * 2,
+        this.scale / 2,
+        this.scale * 2,
         d4_labels[0]
       )
 
@@ -545,22 +531,23 @@
 
   this.create_d6 = function () {
     if (!this.d6_geometry)
-      this.d6_geometry = this.create_d6_geometry(scale * 0.9)
+      this.d6_geometry = this.create_d6_geometry(this.scale * 0.9)
     if (!this.dice_material)
       this.dice_material = this.create_dice_materials(
-        standart_d20_dice_face_labels,
-        scale / 2,
+        this.standart_d20_dice_face_labels,
+        this.scale / 2,
         1.0
       )
     return new THREE.Mesh(this.d6_geometry, this.dice_material)
   }
 
   this.create_d8 = function () {
-    if (!this.d8_geometry) this.d8_geometry = this.create_d8_geometry(scale)
+    if (!this.d8_geometry)
+      this.d8_geometry = this.create_d8_geometry(this.scale)
     if (!this.dice_material)
       this.dice_material = this.create_dice_materials(
-        standart_d20_dice_face_labels,
-        scale / 2,
+        this.standart_d20_dice_face_labels,
+        this.scale / 2,
         1.2
       )
     return new THREE.Mesh(this.d8_geometry, this.dice_material)
@@ -568,11 +555,11 @@
 
   this.create_d10 = function () {
     if (!this.d10_geometry)
-      this.d10_geometry = this.create_d10_geometry(scale * 0.9)
+      this.d10_geometry = this.create_d10_geometry(this.scale * 0.9)
     if (!this.dice_material)
       this.dice_material = this.create_dice_materials(
-        standart_d20_dice_face_labels,
-        scale / 2,
+        this.standart_d20_dice_face_labels,
+        this.scale / 2,
         1.0
       )
     return new THREE.Mesh(this.d10_geometry, this.dice_material)
@@ -580,11 +567,11 @@
 
   this.create_d12 = function () {
     if (!this.d12_geometry)
-      this.d12_geometry = this.create_d12_geometry(scale * 0.9)
+      this.d12_geometry = this.create_d12_geometry(this.scale * 0.9)
     if (!this.dice_material)
       this.dice_material = this.create_dice_materials(
-        standart_d20_dice_face_labels,
-        scale / 2,
+        this.standart_d20_dice_face_labels,
+        this.scale / 2,
         1.0
       )
 
@@ -592,16 +579,29 @@
   }
 
   this.create_d20 = function () {
-    if (!this.d20_geometry) this.d20_geometry = this.create_d20_geometry(scale)
+    if (!this.d20_geometry)
+      this.d20_geometry = this.create_d20_geometry(this.scale)
     if (!this.dice_material)
       this.dice_material = this.create_dice_materials(
-        standart_d20_dice_face_labels,
-        scale / 2,
+        this.standart_d20_dice_face_labels,
+        this.scale / 2,
         1.0
       )
 
     return new THREE.Mesh(this.d20_geometry, this.dice_material)
   }
+
+  // this.create_d100 = function () {
+  //   if (!this.d10_geometry)
+  //     this.d10_geometry = this.create_d10_geometry(this.scale * 0.9)
+  //   if (!this.d100_material)
+  //     this.d100_material = this.create_dice_materials(
+  //       this.standart_d100_dice_face_labels,
+  //       this.scale / 2,
+  //       1.5
+  //     )
+  //   return new THREE.Mesh(this.d10_geometry, this.d100_material)
+  // }
 
   this.parse_notation = function (notation) {
     var no = notation.split('@')
@@ -618,7 +618,7 @@
       var count = parseInt(res[1])
       if (res[1] == '') count = 1
       var type = 'd' + res[3]
-      if (known_types.indexOf(type) == -1) {
+      if (this.known_types.indexOf(type) == -1) {
         ret.error = true
         continue
       }
@@ -651,15 +651,19 @@
     return notation
   }
 
-  const that = this
+  var that = this
 
   this.dice_box = function (container, dimentions) {
+    this.use_adapvite_timestep = true
+    this.animate_selector = true
+
     this.dices = []
     this.scene = new THREE.Scene()
     this.world = new CANNON.World()
 
-    this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }) // AQUI
-
+    this.renderer = window.WebGLRenderingContext
+      ? new THREE.WebGLRenderer({ antialias: true, alpha: true }) // AQUI
+      : new THREE.CanvasRenderer({ antialias: true })
     container.appendChild(this.renderer.domElement)
     this.renderer.shadowMap.enabled = true
     this.renderer.shadowMap.type = THREE.PCFShadowMap
@@ -671,13 +675,12 @@
     this.world.broadphase = new CANNON.NaiveBroadphase()
     this.world.solver.iterations = 16
 
-    var ambientLight = new THREE.AmbientLight(ambient_light_color)
+    var ambientLight = new THREE.AmbientLight(that.ambient_light_color)
     this.scene.add(ambientLight)
 
     this.dice_body_material = new CANNON.Material()
     var desk_body_material = new CANNON.Material()
     var barrier_body_material = new CANNON.Material()
-
     this.world.addContactMaterial(
       new CANNON.ContactMaterial(
         desk_body_material,
@@ -706,7 +709,6 @@
     this.world.add(
       new CANNON.RigidBody(0, new CANNON.Plane(), desk_body_material)
     )
-
     var barrier
     barrier = new CANNON.RigidBody(0, new CANNON.Plane(), barrier_body_material)
     barrier.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), Math.PI / 2)
@@ -745,7 +747,7 @@
       this.h = this.ch
     }
     this.aspect = Math.min(this.cw / this.w, this.ch / this.h)
-    scale = Math.sqrt(this.w * this.w + this.h * this.h) / 13
+    that.scale = Math.sqrt(this.w * this.w + this.h * this.h) / 13
 
     this.renderer.setSize(this.cw * 2, this.ch * 2)
 
@@ -759,12 +761,9 @@
     )
     this.camera.position.z = this.wh
 
-    console.log(this.wh)
-
-    var mw = 500
-
+    var mw = Math.max(this.w, this.h)
     if (this.light) this.scene.remove(this.light)
-    this.light = new THREE.SpotLight(spot_light_color, 2.0)
+    this.light = new THREE.SpotLight(that.spot_light_color, 2.0)
     this.light.position.set(-mw / 2, mw / 2, mw * 2)
     this.light.target.position.set(0, 0, 0)
     this.light.distance = mw * 5
@@ -781,7 +780,8 @@
     if (this.desk) this.scene.remove(this.desk)
     this.desk = new THREE.Mesh()
     new THREE.PlaneGeometry(this.w * 2, this.h * 2, 1, 1)
-    this.desk.receiveShadow = use_shadows
+    //new THREE.MeshPhongMaterial({ color: that.desk_color })
+    this.desk.receiveShadow = that.use_shadows
     this.scene.add(this.desk)
 
     this.renderer.render(this.scene, this.camera)
@@ -816,7 +816,7 @@
       else pos.x *= projector
       var velvec = make_random_vector(vector)
       var velocity = { x: velvec.x * boost, y: velvec.y * boost, z: -10 }
-      var inertia = dice_inertia[notation.set[i]]
+      var inertia = that.dice_inertia[notation.set[i]]
       var angle = {
         x: -(rnd() * vec.y * 5 + inertia * vec.y),
         y: rnd() * vec.x * 5 + inertia * vec.x,
@@ -845,7 +845,7 @@
     dice.castShadow = true
     dice.dice_type = type
     dice.body = new CANNON.RigidBody(
-      dice_mass[type],
+      that.dice_mass[type],
       dice.geometry.cannon_shape,
       this.dice_body_material
     )
@@ -866,7 +866,7 @@
   this.dice_box.prototype.check_if_throw_finished = function () {
     var res = true
     var e = 6
-    if (this.iteration < 10 / frame_rate) {
+    if (this.iteration < 10 / that.frame_rate) {
       for (var i = 0; i < this.dices.length; ++i) {
         var dice = this.dices[i]
         if (dice.dice_stopped === true) continue
@@ -929,7 +929,7 @@
   this.dice_box.prototype.emulate_throw = function () {
     while (!this.check_if_throw_finished()) {
       ++this.iteration
-      this.world.step(frame_rate)
+      this.world.step(that.frame_rate)
     }
     return get_dice_values(this.dices)
   }
@@ -937,16 +937,16 @@
   this.dice_box.prototype.__animate = function (threadid) {
     var time = new Date().getTime()
     var time_diff = (time - this.last_time) / 1000
-    if (time_diff > 3) time_diff = frame_rate
+    if (time_diff > 3) time_diff = that.frame_rate
     ++this.iteration
-    if (use_adapvite_timestep) {
-      while (time_diff > frame_rate * 1.1) {
-        this.world.step(frame_rate)
-        time_diff -= frame_rate
+    if (this.use_adapvite_timestep) {
+      while (time_diff > that.frame_rate * 1.1) {
+        this.world.step(that.frame_rate)
+        time_diff -= that.frame_rate
       }
       this.world.step(time_diff)
     } else {
-      this.world.step(frame_rate)
+      this.world.step(that.frame_rate)
     }
     for (var i in this.scene.children) {
       var interact = this.scene.children[i]
@@ -963,17 +963,17 @@
     }
     if (this.running == threadid) {
       ;(function (t, tid, uat) {
-        if (!uat && time_diff < frame_rate) {
+        if (!uat && time_diff < that.frame_rate) {
           setTimeout(function () {
             requestAnimationFrame(function () {
               t.__animate(tid)
             })
-          }, (frame_rate - time_diff) * 1000)
+          }, (that.frame_rate - time_diff) * 1000)
         } else
           requestAnimationFrame(function () {
             t.__animate(tid)
           })
-      })(this, threadid, use_adapvite_timestep)
+      })(this, threadid, this.use_adapvite_timestep)
     }
   }
 
@@ -1007,7 +1007,7 @@
   }
 
   function shift_dice_faces(dice, value, res) {
-    var r = dice_face_range[dice.dice_type]
+    var r = that.dice_face_range[dice.dice_type]
     if (dice.dice_type == 'd10' && value == 10) value = 0
     if (!(value >= r[0] && value <= r[1])) return
     var num = value - res
@@ -1023,7 +1023,11 @@
     if (dice.dice_type == 'd4' && num != 0) {
       if (num < 0) num += 4
       dice.material = [
-        this.create_d4_materials(scale / 2, scale * 2, d4_labels[num]),
+        that.create_d4_materials(
+          that.scale / 2,
+          that.scale * 2,
+          d4_labels[num]
+        ),
       ]
     }
     dice.geometry = geom
@@ -1032,7 +1036,7 @@
   this.dice_box.prototype.roll = function (vectors, values, callback) {
     this.prepare_dices_for_roll(vectors)
     if (values != undefined && values.length) {
-      use_adapvite_timestep = false
+      this.use_adapvite_timestep = false
       var res = this.emulate_throw()
       this.prepare_dices_for_roll(vectors)
       for (var i in res) shift_dice_faces(this.dices[i], values[i], res[i])
@@ -1043,8 +1047,32 @@
     this.__animate(this.running)
   }
 
+  this.dice_box.prototype.__selector_animate = function (threadid) {
+    var time = new Date().getTime()
+    var time_diff = (time - this.last_time) / 1000
+    if (time_diff > 3) time_diff = that.frame_rate
+    var angle_change =
+      (0.3 * time_diff * Math.PI * Math.min(24000 + threadid - time, 6000)) /
+      6000
+    if (angle_change < 0) this.running = false
+    for (var i in this.dices) {
+      this.dices[i].rotation.y += angle_change
+      this.dices[i].rotation.x += angle_change / 4
+      this.dices[i].rotation.z += angle_change / 10
+    }
+    this.last_time = time
+    this.renderer.render(this.scene, this.camera)
+    if (this.running == threadid) {
+      ;(function (t, tid) {
+        requestAnimationFrame(function () {
+          t.__selector_animate(tid)
+        })
+      })(this, threadid)
+    }
+  }
+
   this.dice_box.prototype.search_dice_by_mouse = function (ev) {
-    var m = get_mouse_coords(ev)
+    var m = $t.get_mouse_coords(ev)
     var intersects = new THREE.Raycaster(
       this.camera.position,
       new THREE.Vector3(
@@ -1058,6 +1086,34 @@
     if (intersects.length) return intersects[0].object.userData
   }
 
+  // this.dice_box.prototype.draw_selector = function () {
+  //   this.clear()
+  //   var step = this.w / 4.5
+  //   this.pane = new THREE.Mesh(
+  //     new THREE.PlaneGeometry(this.w * 6, this.h * 6, 1, 1),
+  //     new THREE.MeshPhongMaterial(that.selector_back_colors)
+  //   )
+  //   this.pane.receiveShadow = true
+  //   this.pane.position.set(0, 0, 1)
+  //   this.scene.add(this.pane)
+
+  //   var mouse_captured = false
+
+  //   for (var i = 0, pos = -3; i < that.known_types.length; ++i, ++pos) {
+  //     var dice = $t.dice['create_' + that.known_types[i]]()
+  //     dice.position.set(pos * step, 0, step * 0.5)
+  //     dice.castShadow = true
+  //     dice.userData = that.known_types[i]
+  //     this.dices.push(dice)
+  //     this.scene.add(dice)
+  //   }
+
+  //   this.running = new Date().getTime()
+  //   this.last_time = 0
+  //   if (this.animate_selector) this.__selector_animate(this.running)
+  //   else this.renderer.render(this.scene, this.camera)
+  // }
+
   function throw_dices(
     box,
     vector,
@@ -1067,7 +1123,7 @@
     before_roll,
     after_roll
   ) {
-    var uat = use_adapvite_timestep
+    var uat = $t.dice.use_adapvite_timestep
     function roll(request_results) {
       if (after_roll) {
         box.clear()
@@ -1076,11 +1132,11 @@
         ) {
           if (after_roll) after_roll.call(box, notation, result)
           box.rolling = false
-          use_adapvite_timestep = uat
+          $t.dice.use_adapvite_timestep = uat
 
-          // console.log('dado', result)
-          // console.log('notation', notation.set[0])
-          // console.log('dices', result.length)
+          console.log('dado', result)
+          console.log('notation', notation.set[0])
+          console.log('dices', result.length)
         })
       }
     }
@@ -1101,17 +1157,16 @@
     after_roll
   ) {
     var box = this
-    bind(container, ['mousedown', 'touchstart'], function (ev) {
+    $t.bind(container, ['mousedown', 'touchstart'], function (ev) {
       //ev.preventDefault()
       box.mouse_time = new Date().getTime()
-      box.mouse_start = get_mouse_coords(ev)
+      box.mouse_start = $t.get_mouse_coords(ev)
     })
-
-    bind(container, ['mouseup', 'touchend'], function (ev) {
+    $t.bind(container, ['mouseup', 'touchend'], function (ev) {
       if (box.rolling) return
       if (box.mouse_start == undefined) return
       ev.stopPropagation()
-      var m = get_mouse_coords(ev)
+      var m = $t.get_mouse_coords(ev)
       var vector = { x: m.x - box.mouse_start.x, y: -(m.y - box.mouse_start.y) }
       box.mouse_start = undefined
       var dist = Math.sqrt(vector.x * vector.x + vector.y * vector.y)
@@ -1140,7 +1195,7 @@
     after_roll
   ) {
     var box = this
-    bind(button, ['mouseup', 'touchend'], function (ev) {
+    $t.bind(button, ['mouseup', 'touchend'], function (ev) {
       ev.stopPropagation()
       box.start_throw(notation_getter, before_roll, after_roll)
     })
