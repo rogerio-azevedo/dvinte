@@ -91,7 +91,6 @@ class DiceManagerClass {
       }
 
       if (allStable) {
-        console.log('all stable')
         DiceManager.world.removeEventListener('postStep', check)
 
         for (let i = 0; i < diceValues.length; i++) {
@@ -716,10 +715,10 @@ export class DiceD10 extends DiceObject {
       '3',
       '4',
       '5',
-      '6',
+      '.6',
       '7',
       '8',
-      '9',
+      '.9',
       '10',
       '11',
       '12',
@@ -796,10 +795,10 @@ export class DiceD12 extends DiceObject {
       '3',
       '4',
       '5',
-      '6',
+      '.6',
       '7',
       '8',
-      '9',
+      '.9',
       '10',
       '11',
       '12',
@@ -875,10 +874,10 @@ export class DiceD20 extends DiceObject {
       '3',
       '4',
       '5',
-      '6',
+      '.6',
       '7',
       '8',
-      '9',
+      '.9',
       '10',
       '11',
       '12',

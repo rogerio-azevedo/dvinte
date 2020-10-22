@@ -1,15 +1,13 @@
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useRef, useEffect } from 'react'
 import * as THREE from 'three'
 import * as CANNON from 'cannon'
+import Stats from '../../../node_modules/three/examples/js/libs/stats.min.js'
 
 import { Container } from './styles'
 
 import { DiceManager, DiceD20 } from './dice'
 
-import Stats from '../../../node_modules/three/examples/js/libs/stats.min.js'
-
 const Tree = () => {
-  const [isAnimating, setAnimating] = useState(true)
   const mount = useRef(null)
   const controls = useRef(null)
 
@@ -24,9 +22,9 @@ const Tree = () => {
   let world = []
   let stats = []
   let barrier = []
+  const sides = 20
 
   const dice_color = '#200122'
-
   const ambient_light_color = 0xf0f5fb
   const spot_light_color = 0xefdfd5
 
@@ -34,61 +32,46 @@ const Tree = () => {
     scene = new THREE.Scene()
     world = new CANNON.World()
 
-    camera = new THREE.PerspectiveCamera(90, width / height, 0.1, 2000)
     renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
     renderer.shadowMap.enabled = true
     renderer.shadowMap.type = THREE.PCFShadowMap
     renderer.setSize(width, height)
     renderer.setClearColor(0xffffff, 0)
 
-    camera.position.z = 20
+    camera = new THREE.PerspectiveCamera(18, width / height, 1, 10000)
+    camera.position.set(10, 80, 40)
+    camera.lookAt(new THREE.Vector3(10, 40, 40))
+    camera.position.z = 1
+    camera.position.x = -1
 
-    const ambientLight = new THREE.AmbientLight(ambient_light_color)
-    scene.add(ambientLight)
-
-    let ambient = new THREE.AmbientLight('#ffffff', 0.3)
+    let ambient = new THREE.AmbientLight(ambient_light_color, 0.8)
     scene.add(ambient)
 
-    let directionalLight = new THREE.DirectionalLight('#ffffff', 0.5)
+    let directionalLight = new THREE.DirectionalLight(spot_light_color, 1.2)
     directionalLight.position.x = -1000
     directionalLight.position.y = 1000
     directionalLight.position.z = 1000
     scene.add(directionalLight)
 
-    let mw = 500
-
-    let light = new THREE.SpotLight(spot_light_color, 2.0)
-    light.position.set(-mw / 2, mw / 2, mw * 2)
+    let light = new THREE.SpotLight(spot_light_color, 1.2)
+    light.position.y = 100
     light.target.position.set(0, 0, 0)
-    light.distance = mw * 5
     light.castShadow = true
-    light.shadow.camera.near = mw / 10
-    light.shadow.camera.far = mw * 5
-    light.shadow.camera.fov = 50
-    light.shadow.bias = 0.001
+    light.shadow.camera.near = 50
+    light.shadow.camera.far = 110
     light.shadow.mapSize.width = 1024
     light.shadow.mapSize.height = 1024
     scene.add(light)
 
-    // let light = new THREE.SpotLight(0xefdfd5, 1.3)
-    // light.position.y = 100
-    // light.target.position.set(0, 0, 0)
-    // light.castShadow = true
-    // light.shadow.camera.near = 50
-    // light.shadow.camera.far = 110
-    // light.shadow.mapSize.width = 1024
-    // light.shadow.mapSize.height = 1024
-    // scene.add(light)
-
     stats = new Stats()
 
     // FLOOR
-    var floorMaterial = new THREE.MeshPhongMaterial({
-      color: '#00aa00',
-      side: THREE.DoubleSide,
+    let floorMaterial = new THREE.MeshPhongMaterial({
+      // color: '#00aa00',
+      // side: THREE.DoubleSide,
     })
-    var floorGeometry = new THREE.PlaneGeometry(30, 30, 10, 10)
-    var floor = new THREE.Mesh(floorGeometry, floorMaterial)
+    let floorGeometry = new THREE.PlaneGeometry(48, 25, 30)
+    let floor = new THREE.Mesh(floorGeometry, floorMaterial)
     floor.receiveShadow = true
     floor.rotation.x = Math.PI / 2
     scene.add(floor)
@@ -120,23 +103,6 @@ const Tree = () => {
     world.add(floorBody)
 
     //Walls
-    barrier = new CANNON.Body({
-      mass: 0,
-      shape: new CANNON.Plane(),
-      material: DiceManager.barrierBodyMaterial,
-    })
-    barrier.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), Math.PI / 2)
-    barrier.position.set(0, 500 * 0.93, 0)
-    world.add(barrier)
-
-    barrier = new CANNON.Body({
-      mass: 0,
-      shape: new CANNON.Plane(),
-      material: DiceManager.barrierBodyMaterial,
-    })
-    barrier.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2)
-    barrier.position.set(0, -500 * 0.93, 0)
-    world.add(barrier)
 
     barrier = new CANNON.Body({
       mass: 0,
@@ -144,11 +110,30 @@ const Tree = () => {
       material: DiceManager.barrierBodyMaterial,
     })
     barrier.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 1, 0), -Math.PI / 2)
-    barrier.position.set(0, -500 * 0.93, 0)
+    barrier.position.set(500 * 0.93, 0, 0)
     world.add(barrier)
 
-    const colors = [dice_color, dice_color, '#00ff00', '#0000ff', '#ff00ff']
-    for (let i = 0; i < 2; i++) {
+    // barrier = new CANNON.Body({
+    //   mass: 0,
+    //   shape: new CANNON.Plane(),
+    //   material: DiceManager.barrierBodyMaterial,
+    // })
+    // barrier.quaternion.setFromAxisAngle(new CANNON.Vec3(1, 0, 0), -Math.PI / 2)
+    // barrier.position.set(0, -height * 0.93, 0)
+    // world.add(barrier)
+
+    //PAREDE DIREITA
+    barrier = new CANNON.Body({
+      mass: 0,
+      shape: new CANNON.Plane(),
+      material: DiceManager.barrierBodyMaterial,
+    })
+    barrier.quaternion.setFromAxisAngle(new CANNON.Vec3(0, 1, 0), -Math.PI / 2)
+    barrier.position.set(1, width, 0)
+    world.add(barrier)
+
+    const colors = [dice_color]
+    for (let i = 0; i < 1; i++) {
       var die = new DiceD20({ size: 1.5, backColor: colors[i] })
       scene.add(die.getObject())
       dice.push(die)
@@ -177,14 +162,14 @@ const Tree = () => {
     function updatePhysics() {
       world.step(1.0 / 60.0)
 
-      for (var i in dice) {
+      for (let i in dice) {
         dice[i].updateMeshFromBody()
       }
     }
 
     function update() {
-      //controls.update()
       stats.update()
+      controls.current.stop()
     }
 
     const start = () => {
@@ -218,9 +203,23 @@ const Tree = () => {
   function randomDiceThrow() {
     var diceValues = []
 
-    for (var i = 0; i < dice.length; i++) {
-      let yRand = Math.random() * 20
-      dice[i].getObject().position.x = -15 - (i % 3) * 1.5
+    let calc = 0
+    let multiplier = 1
+
+    const random = () => {
+      return Math.floor(Math.random() * sides) + 1
+    }
+
+    // eslint-disable-next-line
+    for (let i = 0; i < multiplier; i++) {
+      calc += random()
+    }
+
+    let diceResult = calc
+
+    for (let i = 0; i < dice.length; i++) {
+      let yRand = Math.floor(Math.random() * 20)
+      dice[i].getObject().position.x = -35 - (i % 3) * 1.5
       dice[i].getObject().position.y = 2 + Math.floor(i / 3) * 1.5
       dice[i].getObject().position.z = -15 + (i % 3) * 1.5
       dice[i].getObject().quaternion.x =
@@ -238,30 +237,41 @@ const Tree = () => {
           30 * Math.random() - 10
         )
 
-      diceValues.push({ dice: dice[i], value: i + 1 })
+      diceValues.push({ dice: dice[i], value: i + diceResult })
     }
 
     DiceManager.prepareValues(diceValues)
   }
 
   useEffect(() => {
-    dice_box()
-    randomDiceThrow()
-  }, [randomDiceThrow])
+    //setTableWidth(mount)
+    //setTableHeight(mount)
 
-  useEffect(() => {
-    if (isAnimating) {
-      controls.current.start()
-    } else {
-      controls.current.stop() // eslint-disable-line
-    }
-  }, [isAnimating])
+    dice_box()
+    console.log(frameId)
+    //randomDiceThrow()
+  }, []) // eslint-disable-line
+
+  // useEffect(() => {
+  //   if (isAnimating) {
+  //     controls.current.start()
+  //     console.log(isAnimating)
+  //   } else {
+  //     controls.current.stop() // eslint-disable-line
+  //   }
+  // }, [isAnimating])
+
+  const handleThrow = () => {
+    console.log('Before Throw', new Date())
+    randomDiceThrow()
+  }
 
   return (
-    <Container
-      ref={mount}
-      onClick={() => setAnimating(!isAnimating)}
-    ></Container>
+    <Container ref={mount}>
+      <button type="button" onClick={handleThrow}>
+        Rolar
+      </button>
+    </Container>
   )
 }
 

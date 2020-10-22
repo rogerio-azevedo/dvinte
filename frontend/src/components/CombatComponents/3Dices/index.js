@@ -53,6 +53,7 @@ export default function Dices() {
           ref={inputRef}
           //style={{ display: 'none' }}
           id="dices"
+          onChange={e => console.log(e)}
         />
 
         <Styles.InputMulti
