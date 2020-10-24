@@ -1,15 +1,17 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 import api from '~/services/api'
 
 import SelectWeapon from '~/components/SelectWeapon'
+import { diceDataRequest } from '~/store/modules/dices/actions'
 
 import * as Styles from './styles'
 
 export default function Armory({ character, weapons, loadChar }) {
   const { profile } = useSelector(state => state.user)
   const from = profile.id
+  const dispatch = useDispatch()
 
   const [weapon, setWeapon] = useState()
 
@@ -28,6 +30,16 @@ export default function Armory({ character, weapons, loadChar }) {
           : wep?.name
 
       const dice = Math.floor(Math.random() * 20) + 1
+
+      dispatch(
+        diceDataRequest({
+          diceType: `d${20}`,
+          diceSides: 20,
+          diceMult: 1,
+          diceResult: [dice],
+          diceShow: true,
+        })
+      )
 
       let isCrit = ''
 
@@ -121,15 +133,28 @@ export default function Armory({ character, weapons, loadChar }) {
       const element =
         wep?.element > 0 ? Math.floor(Math.random() * wep?.element) + 1 : 0
 
-      let result = 0
+      const dices = []
+
       const random = () => {
         return Math.floor(Math.random() * Number(dice)) + 1
       }
 
       // eslint-disable-next-line
       for (let i = 0; i < multi; i++) {
-        result += random()
+        dices.push(random())
       }
+
+      let result = dices.reduce((a, b) => a + b, 0)
+
+      dispatch(
+        diceDataRequest({
+          diceType: `d${dice}`,
+          diceSides: dice,
+          diceMult: multi,
+          diceResult: dices,
+          diceShow: true,
+        })
+      )
 
       const totalDamage =
         Number(result) + Number(extraDamage) + Number(exMod) + Number(element)
@@ -197,6 +222,18 @@ export default function Armory({ character, weapons, loadChar }) {
       result += random()
     }
 
+    const test = Math.floor(Math.random() * Number(dice)) + 1
+
+    dispatch(
+      diceDataRequest({
+        diceType: `d${dice}`,
+        diceSides: dice,
+        diceMult: multi,
+        diceResult: test,
+        diceShow: true,
+      })
+    )
+
     const multCrit = multi * critMult
     const diceCrit = result * critMult
     const modCrit = exMod * critMult
@@ -224,32 +261,34 @@ export default function Armory({ character, weapons, loadChar }) {
 
   return (
     <Styles.Container>
-      <h2>Arsenal</h2>
-      <Styles.WeaponContainer>
-        {!loadChar && (
-          <SelectWeapon
-            weapons={weapons}
-            changeWeapon={e => setWeapon(e?.value)}
-          />
-        )}
-      </Styles.WeaponContainer>
-      <Styles.AttackContainer>
-        <div>
-          <button type="button" onClick={handleAttack}>
-            Atacar
-          </button>
-        </div>
-        <div>
-          <button type="button" onClick={handleDamage}>
-            Dano
-          </button>
-        </div>
-        <div>
-          <button type="button" onClick={handleCritDamage}>
-            Dano Crítico
-          </button>
-        </div>
-      </Styles.AttackContainer>
+      <Styles.ArmoryContainer>
+        <h2>Arsenal</h2>
+        <Styles.WeaponContainer>
+          {!loadChar && (
+            <SelectWeapon
+              weapons={weapons}
+              changeWeapon={e => setWeapon(e?.value)}
+            />
+          )}
+        </Styles.WeaponContainer>
+        <Styles.AttackContainer>
+          <div>
+            <button type="button" onClick={handleAttack}>
+              Atacar
+            </button>
+          </div>
+          <div>
+            <button type="button" onClick={handleDamage}>
+              Dano
+            </button>
+          </div>
+          <div>
+            <button type="button" onClick={handleCritDamage}>
+              Dano Crítico
+            </button>
+          </div>
+        </Styles.AttackContainer>
+      </Styles.ArmoryContainer>
     </Styles.Container>
   )
 }

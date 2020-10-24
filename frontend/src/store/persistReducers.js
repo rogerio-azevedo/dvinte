@@ -6,7 +6,7 @@ export default reducers => {
     {
       key: 'dvinte',
       storage,
-      whitelist: ['auth', 'user', 'character', 'menu'],
+      whitelist: ['auth', 'user', 'character', 'menu', 'dices'],
     },
     reducers
   )

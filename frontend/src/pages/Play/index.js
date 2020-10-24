@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
-//import { toast } from 'react-toastify'
+import { useSelector, useDispatch } from 'react-redux'
+import { toast } from 'react-toastify'
 import ReactTooltip from 'react-tooltip'
 import { Link } from 'react-router-dom'
 
-//import api from '~/services/api'
+import api from '~/services/api'
 
-import { connect } from '~/services/socket'
+import { connect, socket } from '~/services/socket'
 
 import * as Styles from './styles'
 
@@ -33,139 +33,159 @@ import Initiatives from '~/components/CombatComponents/Initiatives'
 import DamagesCounter from '~/components/CombatComponents/DamagesCounter'
 import CharStatus from '~/components/CombatComponents/CharStatus'
 import LogBoard from '~/components/CombatComponents/LogBoard'
-import Dices3 from '~/components/CombatComponents/3Dices'
 import MapTool from '~/components/CombatComponents/MapTool'
 
-import EnginerJs from '~/components/Dices/components/enginerjs'
 import RenderMap from '~/components/CombatComponents/RenderMap'
+
+import MyDices from '~/components/CombatComponents/MyDices'
+import { diceDataRequest } from '~/store/modules/dices/actions'
 
 export default function Play() {
   const { profile } = useSelector(state => state.user)
   const showMenu = useSelector(state => state.menu.chatMenu)
+  const { diceShow } = useSelector(state => state.dices)
   const [allowDrag, setAllowDrag] = useState(false)
-  const [menu, setMenu] = useState('saves')
+  const [menu, setMenu] = useState('attack')
 
-  //const [charInit, setCharInit] = useState()
-  //const [character, setCharacter] = useState()
-  //const [tokens, setTokens] = useState()
-  //const [fortitude, setFortitude] = useState()
-  //const [reflex, setReflex] = useState()
-  //const [will, setWill] = useState()
-  //const [strength, setStrength] = useState()
+  const [charInit, setCharInit] = useState()
+  const [character, setCharacter] = useState()
+  const [tokens, setTokens] = useState()
+  const [fortitude, setFortitude] = useState()
+  const [reflex, setReflex] = useState()
+  const [will, setWill] = useState()
+  const [strength, setStrength] = useState()
 
-  //const [maxDex, setMaxDex] = useState()
-  //const [weapons, setWeapons] = useState()
-  //const [charStatus, setCharStatus] = useState()
+  const [maxDex, setMaxDex] = useState()
+  const [weapons, setWeapons] = useState()
+  const [charStatus, setCharStatus] = useState()
+  const dispatch = useDispatch()
 
-  // async function calcDext(dexMod) {
-  //   let dextBonus = 0
+  const clickListener = event => {
+    if (event.target.tagName === 'CANVAS') {
+      dispatch(
+        diceDataRequest({
+          diceShow: false,
+        })
+      )
+    }
+  }
 
-  //   if (dexMod <= maxDex) {
-  //     dextBonus = dexMod
-  //   } else if (!maxDex || maxDex === 0) {
-  //     dextBonus = dexMod
-  //   } else {
-  //     dextBonus = maxDex
-  //   }
+  useEffect(() => {
+    document.addEventListener('click', clickListener)
+    return () => {
+      document.removeEventListener('click', clickListener)
+    }
+  }, []) // eslint-disable-line
 
-  //   return dextBonus
-  // }
+  async function calcDext(dexMod) {
+    let dextBonus = 0
 
-  // async function GetTokens() {
-  //   try {
-  //     const response = await api.get('/chartokens')
+    if (dexMod <= maxDex) {
+      dextBonus = dexMod
+    } else if (!maxDex || maxDex === 0) {
+      dextBonus = dexMod
+    } else {
+      dextBonus = maxDex
+    }
 
-  //     setTokens(response.data)
-  //   } catch (e) {
-  //     toast.error('Houve um problema ao carregar as Tokens dos Personagens!')
-  //   }
-  // }
+    return dextBonus
+  }
 
-  // async function getCharacter() {
-  //   try {
-  //     const response = await api.get(`combats/${profile.id}`)
-  //     const char = response.data
-  //     setCharacter(char)
+  async function GetTokens() {
+    try {
+      const response = await api.get('/chartokens')
 
-  //     const StrMod = char.StrModTemp ? char.StrModTemp : char.StrMod
-  //     const ConMod = char.ConModTemp ? char.ConModTemp : char.ConMod
-  //     const DexMod = char.DexModTemp ? char.DexModTemp : char.DexMod
-  //     const WisMod = char.WisModTemp ? char.WisModTemp : char.WisMod
+      setTokens(response.data)
+    } catch (e) {
+      toast.error('Houve um problema ao carregar as Tokens dos Personagens!')
+    }
+  }
 
-  //     const shield = char?.Armor.filter(t => t.type === 2).reduce(
-  //       (acc, val) => {
-  //         return acc + (val.bonus + val.defense)
-  //       },
-  //       0
-  //     )
+  async function getCharacter() {
+    try {
+      const response = await api.get(`combats/${profile.id}`)
+      const char = response.data
+      setCharacter(char)
 
-  //     const armor = char?.Armor.filter(t => t.type === 1).reduce((acc, val) => {
-  //       return acc + (val.bonus + val.defense)
-  //     }, 0)
+      const StrMod = char.StrModTemp ? char.StrModTemp : char.StrMod
+      const ConMod = char.ConModTemp ? char.ConModTemp : char.ConMod
+      const DexMod = char.DexModTemp ? char.DexModTemp : char.DexMod
+      const WisMod = char.WisModTemp ? char.WisModTemp : char.WisMod
 
-  //     const natural = char?.Armor.filter(t => t.type === 3).reduce(
-  //       (acc, val) => {
-  //         return acc + (val.bonus + val.defense)
-  //       },
-  //       0
-  //     )
+      const shield = char?.Armor.filter(t => t.type === 2).reduce(
+        (acc, val) => {
+          return acc + (val.bonus + val.defense)
+        },
+        0
+      )
 
-  //     const outros = char?.Armor.filter(t => t.type === 5).reduce(
-  //       (acc, val) => {
-  //         return acc + (val.bonus + val.defense)
-  //       },
-  //       0
-  //     )
+      const armor = char?.Armor.filter(t => t.type === 1).reduce((acc, val) => {
+        return acc + (val.bonus + val.defense)
+      }, 0)
 
-  //     const maxDext = char?.Armor.reduce(
-  //       (min, p) => (p?.dexterity < min ? p?.dexterity : min),
-  //       char?.Armor[0]?.dexterity
-  //     )
+      const natural = char?.Armor.filter(t => t.type === 3).reduce(
+        (acc, val) => {
+          return acc + (val.bonus + val.defense)
+        },
+        0
+      )
 
-  //     setMaxDex(maxDext)
+      const outros = char?.Armor.filter(t => t.type === 5).reduce(
+        (acc, val) => {
+          return acc + (val.bonus + val.defense)
+        },
+        0
+      )
 
-  //     const charWeapons = char?.Weapon
+      const maxDext = char?.Armor.reduce(
+        (min, p) => (p?.dexterity < min ? p?.dexterity : min),
+        char?.Armor[0]?.dexterity
+      )
 
-  //     setWeapons(charWeapons)
+      setMaxDex(maxDext)
 
-  //     const bonusDext = await calcDext(DexMod)
-  //     const ca = 10 + shield + armor + bonusDext + natural + outros
+      const charWeapons = char?.Weapon
 
-  //     setCharInit(DexMod)
-  //     setFortitude(char.Fortitude + ConMod)
-  //     setReflex(char.Reflex + DexMod)
-  //     setWill(char.Will + WisMod)
-  //     setStrength(char.BaseAttack + StrMod)
+      setWeapons(charWeapons)
 
-  //     setCharStatus({
-  //       fortitude: char.Fortitude + ConMod,
-  //       reflex: char.Reflex + DexMod,
-  //       will: char.Will + WisMod,
-  //       charInit: DexMod,
-  //       melee: char.BaseAttack + StrMod,
-  //       ranged: char.BaseAttack + DexMod,
-  //       totalCa: ca,
-  //       health: char.Health,
-  //       healthNow: char.HealthNow,
-  //     })
-  //   } catch (e) {
-  //     toast.error('Houve um problema ao carregar os dados dos personagens!')
-  //   }
-  // }
+      const bonusDext = await calcDext(DexMod)
+      const ca = 10 + shield + armor + bonusDext + natural + outros
+
+      setCharInit(DexMod)
+      setFortitude(char.Fortitude + ConMod)
+      setReflex(char.Reflex + DexMod)
+      setWill(char.Will + WisMod)
+      setStrength(char.BaseAttack + StrMod)
+
+      setCharStatus({
+        fortitude: char.Fortitude + ConMod,
+        reflex: char.Reflex + DexMod,
+        will: char.Will + WisMod,
+        charInit: DexMod,
+        melee: char.BaseAttack + StrMod,
+        ranged: char.BaseAttack + DexMod,
+        totalCa: ca,
+        health: char.Health,
+        healthNow: char.HealthNow,
+      })
+    } catch (e) {
+      toast.error('Houve um problema ao carregar os dados dos personagens!')
+    }
+  }
 
   useEffect(() => {
     connect()
-    //getCharacter()
-    //GetTokens()
+    getCharacter()
+    GetTokens()
   }, []) // eslint-disable-line
 
-  // useEffect(() => {
-  //   const handleTokens = Tokens => setTokens(Tokens)
+  useEffect(() => {
+    const handleTokens = Tokens => setTokens(Tokens)
 
-  //   socket.on('token.message', handleTokens)
+    socket.on('token.message', handleTokens)
 
-  //   return () => socket.off('token.message', handleTokens)
-  // }, [tokens])
+    return () => socket.off('token.message', handleTokens)
+  }, [tokens])
 
   function handleMenu(tipo) {
     setMenu(tipo)
@@ -177,11 +197,9 @@ export default function Play() {
 
   return (
     <Styles.Container>
-      <EnginerJs />
-
       <Styles.MapContainer show={showMenu ? 1 : 0} id="slide">
-        <Styles.DiceRollerContainer id="canvas" />
-        <RenderMap allowDrag={allowDrag} />
+        {diceShow && <MyDices />}
+        <RenderMap tokens={tokens} allowDrag={allowDrag} />
       </Styles.MapContainer>
 
       <Styles.ToolsContainer show={showMenu ? 1 : 0}>
@@ -284,26 +302,34 @@ export default function Play() {
         {menu === 'chat' ? (
           <Chat />
         ) : menu === 'init' ? (
-          <Initiatives />
+          <Initiatives
+            profile={profile}
+            from={profile.id}
+            charInit={charInit}
+          />
+        ) : menu === 'attack' ? (
+          <Styles.AttackContainer>
+            <Armory character={character} weapons={weapons} />
+            <h2>Painel Logs</h2>
+            <LogBoard />
+          </Styles.AttackContainer>
+        ) : menu === 'damage' ? (
+          <DamagesCounter />
+        ) : menu === 'status' ? (
+          <CharStatus charStatus={charStatus} />
         ) : menu === 'saves' ? (
           <Styles.SavesConteiner>
             <Styles.ButtonsContainer>
-              <Savins />
-              <Dices3 />
+              <Savins
+                fortitude={fortitude}
+                reflex={reflex}
+                will={will}
+                strength={strength}
+              />
             </Styles.ButtonsContainer>
             <h2>Painel Logs</h2>
             <LogBoard />
           </Styles.SavesConteiner>
-        ) : menu === 'damage' ? (
-          <DamagesCounter />
-        ) : menu === 'status' ? (
-          <CharStatus />
-        ) : menu === 'attack' ? (
-          <Styles.AttackContainer>
-            <Armory />
-            <h2>Painel Logs</h2>
-            <LogBoard />
-          </Styles.AttackContainer>
         ) : (
           <MapTool />
         )}

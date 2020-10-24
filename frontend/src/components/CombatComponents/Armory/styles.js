@@ -3,6 +3,35 @@ import { darken } from 'polished'
 
 export const Container = styled.div`
   display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  width: 100%;
+  height: 100%;
+`
+
+export const MapContainer = styled.div`
+  position: absolute;
+  //width: ${props => (props.show ? '80%' : '100%')} !important;
+  height: 100% !important;
+  z-index: 2;
+
+  top: 0px;
+  left: 0px;
+  position: relative;
+
+  width: ${props => (props.show ? '80%' : '100%')};
+  height: 100%;
+  overflow: auto;
+
+  -webkit-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.6);
+`
+
+export const ArmoryContainer = styled.div`
+  display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;

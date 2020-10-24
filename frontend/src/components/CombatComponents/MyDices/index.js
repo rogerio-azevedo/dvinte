@@ -1,15 +1,30 @@
 import React, { useRef, useEffect } from 'react'
+import { useSelector } from 'react-redux'
+
 import * as THREE from 'three'
 import * as CANNON from 'cannon'
-import Stats from '../../../node_modules/three/examples/js/libs/stats.min.js'
+import Stats from '../../../../node_modules/three/examples/js/libs/stats.min.js'
 
 import { Container } from './styles'
 
-import { DiceManager, DiceD20 } from './dice'
+import {
+  DiceManager,
+  DiceD4,
+  DiceD6,
+  DiceD8,
+  DiceD10,
+  DiceD12,
+  DiceD20,
+} from './dice'
 
-const Tree = () => {
+export default function MyDices() {
+  const { diceType, diceSides, diceMult, diceResult } = useSelector(
+    state => state.dices
+  )
+
   const mount = useRef(null)
   const controls = useRef(null)
+  let diceT = {}
 
   let width = window.innerWidth
   let height = window.innerHeight
@@ -22,7 +37,6 @@ const Tree = () => {
   let world = []
   let stats = []
   let barrier = []
-  const sides = 20
 
   const dice_color = '#200122'
   const ambient_light_color = 0xf0f5fb
@@ -53,7 +67,7 @@ const Tree = () => {
     directionalLight.position.z = 1000
     scene.add(directionalLight)
 
-    let light = new THREE.SpotLight(spot_light_color, 1.2)
+    let light = new THREE.SpotLight(spot_light_color, 0.4)
     light.position.y = 100
     light.target.position.set(0, 0, 0)
     light.castShadow = true
@@ -132,9 +146,29 @@ const Tree = () => {
     barrier.position.set(1, width, 0)
     world.add(barrier)
 
-    const colors = [dice_color]
-    for (let i = 0; i < 1; i++) {
-      var die = new DiceD20({ size: 1.5, backColor: colors[i] })
+    for (let i = 0; i < diceMult; i++) {
+      // eslint-disable-next-line
+      switch (diceType) {
+        case 'd4':
+          diceT = new DiceD4({ size: 1.4, backColor: dice_color })
+          break
+        case 'd6':
+          diceT = new DiceD6({ size: 1.4, backColor: dice_color })
+          break
+        case 'd8':
+          diceT = new DiceD8({ size: 1.4, backColor: dice_color })
+          break
+        case 'd10':
+          diceT = new DiceD10({ size: 1.4, backColor: dice_color })
+          break
+        case 'd12':
+          diceT = new DiceD12({ size: 1.4, backColor: dice_color })
+          break
+        case 'd20':
+          diceT = new DiceD20({ size: 1.4, backColor: dice_color })
+          break
+      }
+      let die = diceT
       scene.add(die.getObject())
       dice.push(die)
     }
@@ -194,31 +228,17 @@ const Tree = () => {
       window.removeEventListener('resize', handleResize)
       mount.current.removeChild(renderer.domElement)
 
-      scene.remove(this.cube)
+      scene.remove(dice)
       this.geometry.dispose()
       this.material.dispose()
     }
   }
 
   function randomDiceThrow() {
-    var diceValues = []
-
-    let calc = 0
-    let multiplier = 1
-
-    const random = () => {
-      return Math.floor(Math.random() * sides) + 1
-    }
-
-    // eslint-disable-next-line
-    for (let i = 0; i < multiplier; i++) {
-      calc += random()
-    }
-
-    let diceResult = calc
+    let diceValues = []
 
     for (let i = 0; i < dice.length; i++) {
-      let yRand = Math.floor(Math.random() * 20)
+      let yRand = Math.floor(Math.random() * diceSides) + 1
       dice[i].getObject().position.x = -35 - (i % 3) * 1.5
       dice[i].getObject().position.y = 2 + Math.floor(i / 3) * 1.5
       dice[i].getObject().position.z = -15 + (i % 3) * 1.5
@@ -237,42 +257,26 @@ const Tree = () => {
           30 * Math.random() - 10
         )
 
-      diceValues.push({ dice: dice[i], value: i + diceResult })
+      diceValues.push({ dice: dice[i], value: diceResult[i] })
     }
 
     DiceManager.prepareValues(diceValues)
   }
 
   useEffect(() => {
-    //setTableWidth(mount)
-    //setTableHeight(mount)
-
     dice_box()
-    console.log(frameId)
-    //randomDiceThrow()
+    randomDiceThrow()
   }, []) // eslint-disable-line
 
-  // useEffect(() => {
-  //   if (isAnimating) {
-  //     controls.current.start()
-  //     console.log(isAnimating)
-  //   } else {
-  //     controls.current.stop() // eslint-disable-line
-  //   }
-  // }, [isAnimating])
-
-  const handleThrow = () => {
-    console.log('Before Throw', new Date())
-    randomDiceThrow()
-  }
+  // const handleThrow = () => {
+  //   randomDiceThrow()
+  // }
 
   return (
     <Container ref={mount}>
-      <button type="button" onClick={handleThrow}>
+      {/* <button type="button" onClick={handleThrow}>
         Rolar
-      </button>
+      </button> */}
     </Container>
   )
 }
-
-export default Tree
