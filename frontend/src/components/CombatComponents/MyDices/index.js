@@ -1,11 +1,9 @@
 import React, { useRef, useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 import * as THREE from 'three'
 import * as CANNON from 'cannon'
 import Stats from '../../../../node_modules/three/examples/js/libs/stats.min.js'
-
-import { diceDataRequest } from '~/store/modules/dices/actions'
 
 import { Container } from './styles'
 
@@ -27,7 +25,6 @@ export default function MyDices() {
   const [roll, setRoll] = useState(diceRoll)
   const mount = useRef(null)
   const controls = useRef(null)
-  const dispatch = useDispatch()
 
   let diceT = {}
 
