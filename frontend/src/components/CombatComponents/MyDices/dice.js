@@ -263,12 +263,12 @@ class DiceObject {
       corner_faces = new Array(vectors.length)
     for (let i = 0; i < vectors.length; ++i) corner_faces[i] = []
     for (let i = 0; i < faces.length; ++i) {
-      let ii = faces[i],
+      var ii = faces[i],
         fl = ii.length - 1
       let center_point = new THREE.Vector3()
       let face = new Array(fl)
       for (let j = 0; j < fl; ++j) {
-        let vv = vectors[ii[j]].clone()
+        var vv = vectors[ii[j]].clone()
         center_point.add(vv)
         corner_faces[ii[j]].push((face[j] = chamfer_vectors.push(vv) - 1))
       }
@@ -284,7 +284,7 @@ class DiceObject {
     }
     for (let i = 0; i < faces.length - 1; ++i) {
       for (let j = i + 1; j < faces.length; ++j) {
-        let pairs = [],
+        var pairs = [],
           lastm = -1
         for (let m = 0; m < faces[i].length - 1; ++m) {
           let n = faces[j].indexOf(faces[i][m])
@@ -310,7 +310,7 @@ class DiceObject {
         count = cf.length - 1
       while (count) {
         for (let m = faces.length; m < chamfer_faces.length; ++m) {
-          let index = chamfer_faces[m].indexOf(face[face.length - 1])
+          var index = chamfer_faces[m].indexOf(face[face.length - 1])
           if (index >= 0 && index < 4) {
             if (--index === -1) index = 3
             let next_vertex = chamfer_faces[m][index]

@@ -1,9 +1,11 @@
-import React, { useRef, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useRef, useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 
 import * as THREE from 'three'
 import * as CANNON from 'cannon'
 import Stats from '../../../../node_modules/three/examples/js/libs/stats.min.js'
+
+import { diceDataRequest } from '~/store/modules/dices/actions'
 
 import { Container } from './styles'
 
@@ -18,12 +20,15 @@ import {
 } from './dice'
 
 export default function MyDices() {
-  const { diceType, diceSides, diceMult, diceResult } = useSelector(
+  const { diceType, diceSides, diceMult, diceResult, diceRoll } = useSelector(
     state => state.dices
   )
 
+  const [roll, setRoll] = useState(diceRoll)
   const mount = useRef(null)
   const controls = useRef(null)
+  const dispatch = useDispatch()
+
   let diceT = {}
 
   let width = window.innerWidth
@@ -264,9 +269,16 @@ export default function MyDices() {
   }
 
   useEffect(() => {
+    setRoll(false)
+
     dice_box()
-    randomDiceThrow()
   }, []) // eslint-disable-line
+
+  useEffect(() => {
+    if (!DiceManager.throwRunning) {
+      randomDiceThrow()
+    }
+  }, [roll]) // eslint-disable-line
 
   // const handleThrow = () => {
   //   randomDiceThrow()

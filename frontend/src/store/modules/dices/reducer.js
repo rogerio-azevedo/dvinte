@@ -4,6 +4,7 @@ const INITIAL_STATE = {
   diceMult: null,
   diceResult: null,
   diceShow: false,
+  diceRoll: false,
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -16,6 +17,7 @@ export default (state = INITIAL_STATE, action) => {
         diceMult: action.payload.diceMult,
         diceResult: action.payload.diceResult,
         diceShow: action.payload.diceShow,
+        diceRoll: action.payload.diceRoll,
       }
 
     default:

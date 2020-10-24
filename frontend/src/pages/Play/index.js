@@ -174,6 +174,13 @@ export default function Play() {
   }
 
   useEffect(() => {
+    dispatch(
+      diceDataRequest({
+        diceShow: false,
+        diceRoll: false,
+      })
+    )
+
     connect()
     getCharacter()
     GetTokens()
@@ -197,7 +204,7 @@ export default function Play() {
 
   return (
     <Styles.Container>
-      <Styles.MapContainer show={showMenu ? 1 : 0} id="slide">
+      <Styles.MapContainer show={showMenu ? 1 : 0}>
         {diceShow && <MyDices />}
         <RenderMap tokens={tokens} allowDrag={allowDrag} />
       </Styles.MapContainer>

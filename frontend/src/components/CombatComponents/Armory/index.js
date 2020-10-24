@@ -16,6 +16,13 @@ export default function Armory({ character, weapons, loadChar }) {
   const [weapon, setWeapon] = useState()
 
   async function handleAttack() {
+    dispatch(
+      diceDataRequest({
+        diceShow: false,
+        diceRoll: false,
+      })
+    )
+
     if (weapon) {
       const wep = await character?.Weapon?.find(w => w.id === weapon)
       const extraHit = wep?.hit || 0
@@ -38,6 +45,7 @@ export default function Armory({ character, weapons, loadChar }) {
           diceMult: 1,
           diceResult: [dice],
           diceShow: true,
+          diceRoll: true,
         })
       )
 
@@ -80,21 +88,29 @@ export default function Armory({ character, weapons, loadChar }) {
         rolled = `ATACOU com ${name} => d20: ${dice} + ${base} de base + ${extraHit} de bônus, com resultado: ${attack}`
       }
 
-      api.post('combats', {
-        id: from,
-        user_id: profile.id,
-        user: profile.name,
-        message: rolled,
-        result: attack,
-        type: 3,
-        isCrit: isCrit,
-      })
+      setTimeout(() => {
+        api.post('combats', {
+          id: from,
+          user_id: profile.id,
+          user: profile.name,
+          message: rolled,
+          result: attack,
+          type: 3,
+          isCrit: isCrit,
+        })
+      }, 2000)
     } else {
       toast.error('Escolha por favor uma arma antes de realizar o ataque.')
     }
   }
 
   async function handleDamage() {
+    dispatch(
+      diceDataRequest({
+        diceShow: false,
+        diceRoll: false,
+      })
+    )
     if (weapon) {
       const wep = await character?.Weapon?.find(w => w.id === weapon)
       const size = await character?.Size
@@ -153,6 +169,7 @@ export default function Armory({ character, weapons, loadChar }) {
           diceMult: multi,
           diceResult: dices,
           diceShow: true,
+          diceRoll: true,
         })
       )
 
@@ -161,20 +178,28 @@ export default function Armory({ character, weapons, loadChar }) {
 
       const rolled = `CAUSOU DANO com ${name} => ${multi} x d${dice}: ${result} + ${exMod} ${modType} + ${extraDamage} de bônus da arma + ${element} bônus de elemento. Com resultado: ${totalDamage}`
 
-      api.post('combats', {
-        id: from,
-        user_id: profile.id,
-        user: profile.name,
-        message: rolled,
-        result: totalDamage,
-        type: 4,
-      })
+      setTimeout(() => {
+        api.post('combats', {
+          id: from,
+          user_id: profile.id,
+          user: profile.name,
+          message: rolled,
+          result: totalDamage,
+          type: 4,
+        })
+      }, 2000)
     } else {
       toast.error('Escolha por favor uma arma antes de realizar o dano.')
     }
   }
 
   async function handleCritDamage() {
+    dispatch(
+      diceDataRequest({
+        diceShow: false,
+        diceRoll: false,
+      })
+    )
     const wep = await character?.Weapon?.find(w => w.id === weapon)
     const size = await character?.Size
     const critMult = wep?.crit_mod > 0 ? wep?.crit_mod : wep?.critical
@@ -212,25 +237,27 @@ export default function Armory({ character, weapons, loadChar }) {
     const element =
       wep?.element > 0 ? Math.floor(Math.random() * wep?.element) + 1 : 0
 
-    let result = 0
+    const dices = []
+
     const random = () => {
       return Math.floor(Math.random() * Number(dice)) + 1
     }
 
     // eslint-disable-next-line
     for (let i = 0; i < multi; i++) {
-      result += random()
+      dices.push(random())
     }
 
-    const test = Math.floor(Math.random() * Number(dice)) + 1
+    let result = dices.reduce((a, b) => a + b, 0)
 
     dispatch(
       diceDataRequest({
         diceType: `d${dice}`,
         diceSides: dice,
         diceMult: multi,
-        diceResult: test,
+        diceResult: dices,
         diceShow: true,
+        diceRoll: true,
       })
     )
 
@@ -247,15 +274,17 @@ export default function Armory({ character, weapons, loadChar }) {
     if (!weapon) {
       toast.error('Escolha por favor uma arma antes de realizar o dano.')
     } else {
-      api.post('combats', {
-        id: from,
-        user_id: profile.id,
-        user: profile.name,
-        message: rolled,
-        result: totalDamage,
-        type: 4,
-        isCrit: 'HIT',
-      })
+      setTimeout(() => {
+        api.post('combats', {
+          id: from,
+          user_id: profile.id,
+          user: profile.name,
+          message: rolled,
+          result: totalDamage,
+          type: 4,
+          isCrit: 'HIT',
+        })
+      }, 2000)
     }
   }
 
