@@ -28,8 +28,8 @@ export default function MyDices() {
 
   let diceT = {}
 
-  let width = window.innerWidth
-  let height = window.innerHeight
+  let width = window.innerWidth * 0.8
+  let height = window.innerHeight * 0.8
   let frameId
 
   let dice = []
