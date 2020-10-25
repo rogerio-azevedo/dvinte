@@ -1,17 +1,15 @@
 import React, { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import api from '~/services/api'
 
 import SelectWeapon from '~/components/SelectWeapon'
-import { diceDataRequest } from '~/store/modules/dices/actions'
 
 import * as Styles from './styles'
 
 export default function Armory({ character, weapons, loadChar }) {
   const { profile } = useSelector(state => state.user)
   const from = profile.id
-  const dispatch = useDispatch()
 
   const [weapon, setWeapon] = useState()
 
