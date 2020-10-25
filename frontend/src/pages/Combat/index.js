@@ -38,8 +38,6 @@ import MapTool from '~/components/CombatComponents/MapTool'
 
 import ScrollContainer from 'react-indiana-drag-scroll'
 
-// import Dados from '~/components/Dices'
-
 export default function Combat() {
   const { profile } = useSelector(state => state.user)
   const showMenu = useSelector(state => state.menu.chatMenu)
@@ -177,14 +175,8 @@ export default function Combat() {
     setAllowDrag(!allowDrag)
   }
 
-  // const roll = false
-
-  // if (roll) {
-  //   return <Dados />
-  // }
-
   return (
-    <Styles.Container overFlow={'auto'}>
+    <Styles.Container>
       <Styles.CombatContainer show={showMenu ? 1 : 0}>
         <ScrollContainer vertical={allowDrag} horizontal={allowDrag}>
           <Styles.MapContainer>

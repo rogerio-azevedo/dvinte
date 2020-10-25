@@ -28,7 +28,7 @@ import {
 
 import Chat from '~/components/CombatComponents/Chat'
 import Savins from '~/components/CombatComponents/Savings'
-import Armory from '~/components/CombatComponents/Armory'
+import ArmoryDelay from '~/components/CombatComponents/ArmoryDelay'
 import Initiatives from '~/components/CombatComponents/Initiatives'
 import DamagesCounter from '~/components/CombatComponents/DamagesCounter'
 import CharStatus from '~/components/CombatComponents/CharStatus'
@@ -36,6 +36,7 @@ import LogBoard from '~/components/CombatComponents/LogBoard'
 import MapTool from '~/components/CombatComponents/MapTool'
 
 import RenderMap from '~/components/CombatComponents/RenderMap'
+import ScrollContainer from 'react-indiana-drag-scroll'
 
 import MyDices from '~/components/CombatComponents/MyDices'
 import { diceDataRequest } from '~/store/modules/dices/actions'
@@ -205,8 +206,10 @@ export default function Play() {
   return (
     <Styles.Container>
       <Styles.MapContainer show={showMenu ? 1 : 0}>
-        {diceShow && <MyDices />}
-        <RenderMap tokens={tokens} allowDrag={allowDrag} />
+        <ScrollContainer vertical={allowDrag} horizontal={allowDrag}>
+          {diceShow && <MyDices />}
+          <RenderMap tokens={tokens} allowDrag={allowDrag} />
+        </ScrollContainer>
       </Styles.MapContainer>
 
       <Styles.ToolsContainer show={showMenu ? 1 : 0}>
@@ -316,7 +319,7 @@ export default function Play() {
           />
         ) : menu === 'attack' ? (
           <Styles.AttackContainer>
-            <Armory character={character} weapons={weapons} />
+            <ArmoryDelay character={character} weapons={weapons} />
             <h2>Painel Logs</h2>
             <LogBoard />
           </Styles.AttackContainer>
