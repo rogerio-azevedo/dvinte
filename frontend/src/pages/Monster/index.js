@@ -35,9 +35,9 @@ export default function Monster() {
       ),
     },
     {
-      title: 'Code',
-      dataIndex: 'code',
-      key: 'code',
+      title: 'Cod',
+      dataIndex: 'id',
+      key: 'id',
     },
     {
       title: 'Nome',
