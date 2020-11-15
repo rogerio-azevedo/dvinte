@@ -77,7 +77,7 @@ export default function Monster() {
     {
       title: 'Ação',
       dataIndex: 'ver',
-      render: (text, item) => <Link to={`/monsterview/${item.code}`}>Ver</Link>,
+      render: (text, item) => <Link to={`/monsterview/${item.id}`}>Ver</Link>,
     },
   ]
 

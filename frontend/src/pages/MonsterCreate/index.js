@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 
 import * as Styles from './styles'
 import { FaTimes } from 'react-icons/fa'
@@ -52,6 +53,8 @@ export default function MonsterCreate() {
       await api.post('monsters', newMonster)
     }
     saveData()
+
+    toast.success('Monstro criado com sucesso!')
   }
 
   function handleSize(data) {
