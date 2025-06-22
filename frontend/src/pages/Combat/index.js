@@ -46,7 +46,7 @@ export default function Combat() {
 
   const [charInit, setCharInit] = useState()
   const [character, setCharacter] = useState()
-  const [tokens, setTokens] = useState()
+  const [tokens, setTokens] = useState([])
   const [fortitude, setFortitude] = useState()
   const [reflex, setReflex] = useState()
   const [will, setWill] = useState()
@@ -75,7 +75,9 @@ export default function Combat() {
     try {
       const response = await api.get('/chartokens')
 
-      setTokens(response.data)
+      // Garantir que sempre seja um array
+      const tokensData = Array.isArray(response.data) ? response.data : []
+      setTokens(tokensData)
     } catch (e) {
       toast.error('Houve um problema ao carregar as Tokens dos Personagens!')
     }
@@ -160,12 +162,16 @@ export default function Combat() {
   }, []) // eslint-disable-line
 
   useEffect(() => {
-    const handleTokens = Tokens => setTokens(Tokens)
+    const handleTokens = Tokens => {
+      // Garantir que sempre seja um array
+      const tokensArray = Array.isArray(Tokens) ? Tokens : []
+      setTokens(tokensArray)
+    }
 
     socket.on('token.message', handleTokens)
 
     return () => socket.off('token.message', handleTokens)
-  }, [tokens])
+  }, []) // Removida dependência [tokens] para evitar loop infinito
 
   function handleMenu(tipo) {
     setMenu(tipo)

@@ -281,7 +281,7 @@ export default function RenderMap({ tokens = [], allowDrag }) {
         </Layer> */}
 
         <Layer>
-          {tokens
+          {(Array.isArray(tokens) ? tokens : [])
             // ?.filter(m => m.enabled === false)
             .map(item => (
               <CharToken

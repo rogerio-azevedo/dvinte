@@ -116,14 +116,22 @@ export default async function charTokenRoutes(fastify: FastifyInstance) {
   // Update character token position (without ID in URL - for drag and drop)
   fastify.put('/chartokens', async (request, reply) => {
     try {
-      const { id, x, y, rotation } = request.body as {
+      const { id, x, y, width, height, rotation } = request.body as {
         id: number
         x?: number
         y?: number
+        width?: number
+        height?: number
         rotation?: number
       }
 
-      fastify.log.info(`Updating token ${id} position:`, { x, y, rotation })
+      fastify.log.info(`Updating token ${id}:`, {
+        x,
+        y,
+        width,
+        height,
+        rotation,
+      })
 
       const tokenIndex = mockCharTokens.findIndex(t => t.id === id)
 
@@ -131,13 +139,25 @@ export default async function charTokenRoutes(fastify: FastifyInstance) {
         return reply.code(404).send({ error: 'Character token not found' })
       }
 
-      if (x !== undefined) mockCharTokens[tokenIndex].x = x
-      if (y !== undefined) mockCharTokens[tokenIndex].y = y
-      if (rotation !== undefined) mockCharTokens[tokenIndex].rotation = rotation
+      // Update token properties
+      if (x !== undefined)
+        mockCharTokens[tokenIndex].x = parseFloat(x.toFixed(2))
+      if (y !== undefined)
+        mockCharTokens[tokenIndex].y = parseFloat(y.toFixed(2))
+      if (width !== undefined)
+        mockCharTokens[tokenIndex].width = parseFloat(width.toFixed(2))
+      if (height !== undefined)
+        mockCharTokens[tokenIndex].height = parseFloat(height.toFixed(2))
+      if (rotation !== undefined)
+        mockCharTokens[tokenIndex].rotation = parseFloat(rotation.toFixed(2))
 
       mockCharTokens[tokenIndex].updated_at = new Date().toISOString()
 
-      fastify.log.info(`Token ${id} updated successfully`)
+      // Emit Socket.IO event to sync with all connected users
+      // @ts-ignore - fastify.io is added by the plugin
+      fastify.io.emit('token.message', mockCharTokens)
+
+      fastify.log.info(`Token ${id} updated and broadcasted via Socket.IO`)
       return reply.send(mockCharTokens[tokenIndex])
     } catch (error) {
       fastify.log.error(error)
@@ -149,9 +169,11 @@ export default async function charTokenRoutes(fastify: FastifyInstance) {
   fastify.put('/chartokens/:id', async (request, reply) => {
     try {
       const { id } = request.params as { id: string }
-      const { x, y, rotation } = request.body as {
+      const { x, y, width, height, rotation } = request.body as {
         x?: number
         y?: number
+        width?: number
+        height?: number
         rotation?: number
       }
 
@@ -161,11 +183,23 @@ export default async function charTokenRoutes(fastify: FastifyInstance) {
         return reply.code(404).send({ error: 'Character token not found' })
       }
 
-      if (x !== undefined) mockCharTokens[tokenIndex].x = x
-      if (y !== undefined) mockCharTokens[tokenIndex].y = y
-      if (rotation !== undefined) mockCharTokens[tokenIndex].rotation = rotation
+      // Update token properties
+      if (x !== undefined)
+        mockCharTokens[tokenIndex].x = parseFloat(x.toFixed(2))
+      if (y !== undefined)
+        mockCharTokens[tokenIndex].y = parseFloat(y.toFixed(2))
+      if (width !== undefined)
+        mockCharTokens[tokenIndex].width = parseFloat(width.toFixed(2))
+      if (height !== undefined)
+        mockCharTokens[tokenIndex].height = parseFloat(height.toFixed(2))
+      if (rotation !== undefined)
+        mockCharTokens[tokenIndex].rotation = parseFloat(rotation.toFixed(2))
 
       mockCharTokens[tokenIndex].updated_at = new Date().toISOString()
+
+      // Emit Socket.IO event to sync with all connected users
+      // @ts-ignore - fastify.io is added by the plugin
+      fastify.io.emit('token.message', mockCharTokens)
 
       return reply.send(mockCharTokens[tokenIndex])
     } catch (error) {

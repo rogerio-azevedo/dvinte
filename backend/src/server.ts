@@ -4,10 +4,8 @@ import cors from '@fastify/cors'
 import jwt from '@fastify/jwt'
 import multipart from '@fastify/multipart'
 import staticFiles from '@fastify/static'
-import websocket from '@fastify/websocket'
 import fastifyIO from 'fastify-socket.io'
 import { initWebsocketUtils } from './utils/websocket.js'
-import path from 'path'
 import { fileURLToPath } from 'url'
 import { dirname, join } from 'path'
 
@@ -75,15 +73,13 @@ async function registerPlugins() {
       decorateReply: false,
     })
 
-    // WebSocket
-    await fastify.register(websocket)
-
-    // Socket.IO plugin
+    // Socket.IO plugin (removido websocket plugin para evitar conflitos)
     await fastify.register(fastifyIO, {
       cors: {
         origin: true,
         credentials: true,
       },
+      transports: ['polling', 'websocket'],
     })
   } catch (error) {
     fastify.log.error('❌ Error registering plugins:', error)

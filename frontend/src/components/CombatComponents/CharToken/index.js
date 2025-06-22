@@ -48,11 +48,14 @@ export default function CharToken({
       y: Math.round(e.target.y() / grid) * grid,
     })
 
-    api.put('chartokens', {
+    const tokenData = {
       id: Number(e.target.id()) || e.target.id(),
       x: e.target.x(),
       y: e.target.y(),
-    })
+    }
+
+    // Salva no banco (o backend já emite via Socket.IO)
+    await api.put('chartokens', tokenData)
   }
 
   useEffect(() => {
@@ -62,15 +65,18 @@ export default function CharToken({
     }
   }, [isSelected])
 
-  function handleTransform(e) {
-    api.put('chartokens', {
+  async function handleTransform(e) {
+    const tokenData = {
       id: Number(e.target.id()) || e.target.id(),
       x: e.target.x(),
       y: e.target.y(),
       width: e.target.width() * e.target.scaleX(),
       height: e.target.height() * e.target.scaleY(),
       rotation: e.target.rotation(),
-    })
+    }
+
+    // Salva no banco (o backend já emite via Socket.IO)
+    await api.put('chartokens', tokenData)
   }
 
   const [tokenImg] = useImage(image)

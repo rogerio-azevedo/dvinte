@@ -18,6 +18,9 @@ const SOCKET_URL = getSocketURL()
 const socket = io(SOCKET_URL, {
   autoConnect: false,
   transports: ['polling', 'websocket'],
+  upgrade: true,
+  timeout: 20000,
+  forceNew: false,
 })
 
 function connect() {
