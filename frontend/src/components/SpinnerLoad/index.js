@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 
 import { Container } from './styles'
 
-export default function SpinnerLoad({ loading }) {
+export default function SpinnerLoad({ loading = 0 }) {
   const perfil = useSelector(
     state => state.user.profile.isPorter || state.user.profile.tipo === 1
   )
@@ -28,8 +28,4 @@ export default function SpinnerLoad({ loading }) {
 
 SpinnerLoad.propTypes = {
   loading: PropTypes.number,
-}
-
-SpinnerLoad.defaultProps = {
-  loading: 0,
 }

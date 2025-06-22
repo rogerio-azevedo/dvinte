@@ -178,22 +178,22 @@ async function start() {
     fastify.log.info('📋 Registering API routes...')
 
     fastify.log.info('  - Auth routes...')
-    await fastify.register(authRoutes, { prefix: '/api' })
+    await fastify.register(authRoutes)
 
     fastify.log.info('  - Character routes...')
-    await fastify.register(characterRoutes, { prefix: '/api' })
+    await fastify.register(characterRoutes)
 
     fastify.log.info('  - Game data routes...')
-    await fastify.register(gameDataRoutes, { prefix: '/api' })
+    await fastify.register(gameDataRoutes)
 
     fastify.log.info('  - Combat routes...')
-    await fastify.register(combatRoutes, { prefix: '/api' })
+    await fastify.register(combatRoutes)
 
     fastify.log.info('  - Map routes...')
-    await fastify.register(mapRoutes, { prefix: '/api' })
+    await fastify.register(mapRoutes)
 
     fastify.log.info('  - Character token routes...')
-    await fastify.register(charTokenRoutes, { prefix: '/api' })
+    await fastify.register(charTokenRoutes)
 
     // Socket.IO will handle /socket.io/* routes automatically
 

@@ -3,12 +3,11 @@
 import { io } from 'socket.io-client'
 
 // Socket.IO está integrado no mesmo servidor Fastify
-// Usa a mesma URL base da API, mas sem o /api suffix
+// Usa a mesma URL base da API
 const getSocketURL = () => {
   const apiUrl = process.env.REACT_APP_API_URL
   if (apiUrl) {
-    // Remove /api do final se existir
-    return apiUrl.replace('/api', '')
+    return apiUrl
   }
   // Fallback para desenvolvimento local
   return 'http://localhost:9600'
