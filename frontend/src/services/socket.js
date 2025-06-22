@@ -2,8 +2,19 @@
 
 import { io } from 'socket.io-client'
 
-// Socket.IO está integrado no mesmo servidor Fastify (porta 9600)
-const SOCKET_URL = 'http://localhost:9600'
+// Socket.IO está integrado no mesmo servidor Fastify
+// Usa a mesma URL base da API, mas sem o /api suffix
+const getSocketURL = () => {
+  const apiUrl = process.env.REACT_APP_API_URL
+  if (apiUrl) {
+    // Remove /api do final se existir
+    return apiUrl.replace('/api', '')
+  }
+  // Fallback para desenvolvimento local
+  return 'http://localhost:9600'
+}
+
+const SOCKET_URL = getSocketURL()
 
 const socket = io(SOCKET_URL, {
   autoConnect: false,

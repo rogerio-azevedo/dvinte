@@ -1,5 +1,10 @@
 import { FastifyInstance } from 'fastify'
 
+// Helper function to get the correct base URL
+const getBaseURL = () => {
+  return process.env.APP_URL || 'http://localhost:9600'
+}
+
 // Mock character tokens data
 const mockCharTokens = [
   {
@@ -14,12 +19,12 @@ const mockCharTokens = [
     enabled: true,
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString(),
-    image: 'http://localhost:9600/tokens/4ced03b576f249acb2b9f42b9cbe212c.png',
+    image: `${getBaseURL()}/tokens/4ced03b576f249acb2b9f42b9cbe212c.png`,
     tokens: {
       id: 1,
       name: 'Token Velvet',
       path: '4ced03b576f249acb2b9f42b9cbe212c.png',
-      url: 'http://localhost:9600/tokens/4ced03b576f249acb2b9f42b9cbe212c.png',
+      url: `${getBaseURL()}/tokens/4ced03b576f249acb2b9f42b9cbe212c.png`,
     },
     character: {
       id: 1,
@@ -39,12 +44,12 @@ const mockCharTokens = [
     enabled: true,
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString(),
-    image: 'http://localhost:9600/tokens/78d31685e12ab7d3907114dc4be4a5b8.png',
+    image: `${getBaseURL()}/tokens/78d31685e12ab7d3907114dc4be4a5b8.png`,
     tokens: {
       id: 2,
       name: 'Token Warrior',
       path: '78d31685e12ab7d3907114dc4be4a5b8.png',
-      url: 'http://localhost:9600/tokens/78d31685e12ab7d3907114dc4be4a5b8.png',
+      url: `${getBaseURL()}/tokens/78d31685e12ab7d3907114dc4be4a5b8.png`,
     },
     character: {
       id: 2,
@@ -64,12 +69,12 @@ const mockCharTokens = [
     enabled: true,
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString(),
-    image: 'http://localhost:9600/tokens/ffd61488ed9fd284fe60489e1ec7c058.png',
+    image: `${getBaseURL()}/tokens/ffd61488ed9fd284fe60489e1ec7c058.png`,
     tokens: {
       id: 3,
       name: 'Token Mage',
       path: 'ffd61488ed9fd284fe60489e1ec7c058.png',
-      url: 'http://localhost:9600/tokens/ffd61488ed9fd284fe60489e1ec7c058.png',
+      url: `${getBaseURL()}/tokens/ffd61488ed9fd284fe60489e1ec7c058.png`,
     },
     character: {
       id: 3,

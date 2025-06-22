@@ -10,7 +10,7 @@
   },
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build": "tsc && cp -r src/app/schemas dist/app/",
+    "build": "tsc && node scripts/copy-schemas.js",
     "start": "node dist/server.js",
     "lint": "eslint src/**/*.ts",
     "test": "vitest",
