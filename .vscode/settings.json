@@ -1,0 +1,41 @@
+{
+  "files.exclude": {
+    "**/node_modules": true,
+    "**/build": true,
+    "**/dist": true,
+    "**/.git": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/tmp": true,
+    "**/.next": true,
+    "**/.cache": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/build": true,
+    "**/dist": true,
+    "**/.git": true,
+    "**/yarn.lock": true,
+    "**/package-lock.json": true,
+    "**/tmp": true,
+    "**/.next": true,
+    "**/.cache": true
+  },
+  "files.watcherExclude": {
+    "**/node_modules/**": true,
+    "**/build/**": true,
+    "**/dist/**": true,
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/*/**": true,
+    "**/tmp/**": true,
+    "**/.next/**": true,
+    "**/.cache/**": true
+  },
+  "typescript.preferences.excludePackageJsonAutoImports": "on",
+  "typescript.disableAutomaticTypeAcquisition": true,
+  "files.associations": {
+    "*.js": "javascript",
+    "*.jsx": "javascriptreact"
+  }
+} 
