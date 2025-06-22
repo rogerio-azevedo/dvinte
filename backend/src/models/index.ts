@@ -124,6 +124,29 @@ interface GameMapAttributes {
   updated_at?: Date
 }
 
+interface TokenAttributes {
+  id?: number
+  name: string
+  path: string
+  url?: string
+  created_at?: Date
+  updated_at?: Date
+}
+
+interface CharacterTokenAttributes {
+  id?: number
+  character_id?: number
+  token_id?: number
+  x?: number
+  y?: number
+  width?: number
+  height?: number
+  rotation?: number
+  enabled?: boolean
+  created_at?: Date
+  updated_at?: Date
+}
+
 // Model Classes
 class User extends Model<UserAttributes> implements UserAttributes {
   declare id: number
@@ -260,6 +283,36 @@ class GameMap extends Model<GameMapAttributes> implements GameMapAttributes {
   declare owner: number
   declare readonly created_at: Date
   declare readonly updated_at: Date
+}
+
+class Token extends Model<TokenAttributes> implements TokenAttributes {
+  declare id: number
+  declare name: string
+  declare path: string
+  declare url: string
+  declare readonly created_at: Date
+  declare readonly updated_at: Date
+}
+
+class CharacterToken
+  extends Model<CharacterTokenAttributes>
+  implements CharacterTokenAttributes
+{
+  declare id: number
+  declare character_id: number
+  declare token_id: number
+  declare x: number
+  declare y: number
+  declare width: number
+  declare height: number
+  declare rotation: number
+  declare enabled: boolean
+  declare readonly created_at: Date
+  declare readonly updated_at: Date
+
+  // Associations
+  declare tokens?: Token
+  declare character?: Character
 }
 
 // Initialize models
@@ -583,6 +636,64 @@ GameMap.init(
   }
 )
 
+// Token model
+Token.init(
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    path: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    url: {
+      type: DataTypes.VIRTUAL,
+      get() {
+        return `${process.env.APP_URL || 'http://localhost:9600'}/tokens/${
+          this.path
+        }`
+      },
+    },
+  },
+  {
+    sequelize,
+    modelName: 'Token',
+    tableName: 'tokens',
+    underscored: true,
+  }
+)
+
+// CharacterToken model
+CharacterToken.init(
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    character_id: DataTypes.INTEGER,
+    token_id: DataTypes.INTEGER,
+    x: DataTypes.FLOAT,
+    y: DataTypes.FLOAT,
+    width: DataTypes.FLOAT,
+    height: DataTypes.FLOAT,
+    rotation: DataTypes.FLOAT,
+    enabled: DataTypes.BOOLEAN,
+  },
+  {
+    sequelize,
+    modelName: 'CharacterToken',
+    tableName: 'character_tokens',
+    underscored: true,
+  }
+)
+
 // Define associations
 Character.belongsTo(User, { foreignKey: 'user_id', as: 'user' })
 Character.belongsTo(Race, { foreignKey: 'race_id', as: 'race' })
@@ -596,6 +707,18 @@ Alignment.hasMany(Character, { foreignKey: 'alignment_id', as: 'characters' })
 Divinity.hasMany(Character, { foreignKey: 'divinity_id', as: 'characters' })
 Portrait.hasMany(Character, { foreignKey: 'portrait_id', as: 'characters' })
 
+// Token and CharacterToken associations
+CharacterToken.belongsTo(Token, { foreignKey: 'token_id', as: 'tokens' })
+CharacterToken.belongsTo(Character, {
+  foreignKey: 'character_id',
+  as: 'character',
+})
+Token.hasMany(CharacterToken, { foreignKey: 'token_id', as: 'characterTokens' })
+Character.hasOne(CharacterToken, {
+  foreignKey: 'character_id',
+  as: 'characterToken',
+})
+
 export {
   User,
   Character,
@@ -608,5 +731,7 @@ export {
   Equipment,
   Portrait,
   GameMap,
+  Token,
+  CharacterToken,
   sequelize,
 }

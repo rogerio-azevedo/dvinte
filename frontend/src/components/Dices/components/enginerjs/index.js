@@ -1,37 +1,37 @@
 import { useEffect } from 'react'
 
-export default () => {
-  const scripts = [
-    // {
-    //   src: 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js',
-    //   integrity: 'sha512-yNJzAsg5JyP91u+sLHlUDULMBd3hmEiVkYeeN1cQBKaLZ7EyT6oH2u5THNIRM2Fu6VKcZJv+F/QAp1h/qzy9Ow==',
-    //   crossorigin: 'anonymous',
-    //   async: false
-    // },
-    // {
-    //   type: 'text/javascript',
-    //   src: 'libs/cannon.min.js',
-    //   async: false
-    // },
-    // {
-    //   type: 'text/javascript',
-    //   src: 'libs/teal.js',
-    //   async: false
-    // },
-    // {
-    //   type: 'text/javascript',
-    //   src: 'libs/dice.js',
-    //   async: false
-    // },
-    {
-      type: 'text/javascript',
-      src: 'libs/main.min.js',
-      async: true
-    }
-  ]
-
+const EngineJS = () => {
   useEffect(() => {
-    scripts.map(o => {
+    const scripts = [
+      // {
+      //   src: 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js',
+      //   integrity: 'sha512-yNJzAsg5JyP91u+sLHlUDULMBd3hmEiVkYeeN1cQBKaLZ7EyT6oH2u5THNIRM2Fu6VKcZJv+F/QAp1h/qzy9Ow==',
+      //   crossorigin: 'anonymous',
+      //   async: false
+      // },
+      // {
+      //   type: 'text/javascript',
+      //   src: 'libs/cannon.min.js',
+      //   async: false
+      // },
+      // {
+      //   type: 'text/javascript',
+      //   src: 'libs/teal.js',
+      //   async: false
+      // },
+      // {
+      //   type: 'text/javascript',
+      //   src: 'libs/dice.js',
+      //   async: false
+      // },
+      {
+        type: 'text/javascript',
+        src: 'libs/main.min.js',
+        async: true,
+      },
+    ]
+
+    scripts.forEach(o => {
       const script = document.createElement('script')
       if (o.type) script.type = o.type
       script.src = o.src
@@ -40,13 +40,14 @@ export default () => {
       script.async = o.async
 
       document.body.appendChild(script)
-      return null
     })
 
     return () => {
-
+      // Cleanup se necessário
     }
-  }, [scripts])
+  }, []) // Array vazio pois scripts não mudam
 
   return null
 }
+
+export default EngineJS

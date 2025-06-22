@@ -1,6 +1,6 @@
 import { createStore, compose, applyMiddleware } from 'redux'
 
-export default (reducers, middlewares) => {
+const createAppStore = (reducers, middlewares) => {
   const enhancer =
     process.env.NODE_ENV === 'development'
       ? compose(
@@ -12,3 +12,5 @@ export default (reducers, middlewares) => {
       : applyMiddleware(...middlewares)
   return createStore(reducers, enhancer)
 }
+
+export default createAppStore

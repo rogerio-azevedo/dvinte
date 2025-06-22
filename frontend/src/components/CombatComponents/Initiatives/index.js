@@ -5,7 +5,7 @@ import { connect, socket } from '../../../services/socket'
 
 import * as Styles from './styles'
 
-export default function Initiatives({ from, profile, charInit }) {
+export default function Initiatives({ from = 0, profile = {}, charInit = 0 }) {
   const [initiatives, setInitiatives] = useState([])
 
   async function loadInitiative() {
@@ -40,13 +40,22 @@ export default function Initiatives({ from, profile, charInit }) {
   }
 
   useEffect(() => {
-    const handleNewInit = newInitiative =>
-      setInitiatives([...initiatives, newInitiative])
+    const handleNewInit = newInitiative => {
+      setInitiatives(prevInitiatives => [...prevInitiatives, newInitiative])
+    }
+
+    const handleClearInit = () => {
+      setInitiatives([])
+    }
 
     socket.on('init.message', handleNewInit)
+    socket.on('init.clear', handleClearInit)
 
-    return () => socket.off('init.message', handleNewInit)
-  }, [initiatives])
+    return () => {
+      socket.off('init.message', handleNewInit)
+      socket.off('init.clear', handleClearInit)
+    }
+  }, []) // Removida dependência para evitar loop
 
   async function clearInitiatives() {
     await api.delete('initiatives')
@@ -105,10 +114,4 @@ Initiatives.propTypes = {
 
   charInit: PropTypes.number,
   from: PropTypes.number,
-}
-
-Initiatives.defaultProps = {
-  profile: {},
-  charInit: 0,
-  from: 0,
 }

@@ -5,7 +5,7 @@ const INITIAL_STATE = {
   fogPersist: [],
 }
 
-export default (state = INITIAL_STATE, action) => {
+const menuReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case '@menu/SHOW_MENU_SUCCESS':
       return {
@@ -41,3 +41,5 @@ export default (state = INITIAL_STATE, action) => {
       return state
   }
 }
+
+export default menuReducer

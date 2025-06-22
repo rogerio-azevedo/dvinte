@@ -20,6 +20,7 @@ import gameDataRoutes from './routes/game-data.js'
 import combatRoutes from './routes/combat.js'
 import mapRoutes from './routes/maps.js'
 import charTokenRoutes from './routes/chartokens.js'
+import initiativeRoutes from './routes/initiatives.js'
 
 // Load environment variables
 config()
@@ -190,6 +191,9 @@ async function start() {
 
     fastify.log.info('  - Character token routes...')
     await fastify.register(charTokenRoutes)
+
+    fastify.log.info('  - Initiative routes...')
+    await fastify.register(initiativeRoutes)
 
     // Socket.IO will handle /socket.io/* routes automatically
 

@@ -1,5 +1,5 @@
 import React from 'react'
 
-export default () => (
-  <div id='canvas' />
-)
+const Canvas = () => <div id="canvas" />
+
+export default Canvas

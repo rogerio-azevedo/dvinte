@@ -7,7 +7,7 @@ const INITIAL_STATE = {
   diceRoll: false,
 }
 
-export default (state = INITIAL_STATE, action) => {
+const dicesReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case '@menu/DICE_DATA_SUCCESS':
       return {
@@ -24,3 +24,5 @@ export default (state = INITIAL_STATE, action) => {
       return state
   }
 }
+
+export default dicesReducer
