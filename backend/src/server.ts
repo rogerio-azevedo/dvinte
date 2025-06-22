@@ -46,11 +46,7 @@ async function registerPlugins() {
   try {
     // CORS
     await fastify.register(cors, {
-      origin: [
-        'http://localhost:3000',
-        'https://dvinte-react.vercel.app',
-        /\.vercel\.app$/,
-      ],
+      origin: true, // Aceita qualquer origem
       credentials: true,
     })
 
@@ -85,12 +81,7 @@ async function registerPlugins() {
     // Socket.IO plugin
     await fastify.register(fastifyIO, {
       cors: {
-        origin: [
-          'http://localhost:3000', // Frontend React
-          'http://localhost:9600', // Mesmo servidor
-          'https://dvinte-react.vercel.app',
-          /\.vercel\.app$/,
-        ],
+        origin: true,
         credentials: true,
       },
     })
