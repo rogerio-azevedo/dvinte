@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import api from '~/services/api'
+import api from 'services/api'
 
-import { charPreviewRequest } from '~/store/modules/character/actions'
+import { charPreviewRequest } from 'store/modules/character/actions'
 
-import ButtonPrev from '~/components/ButtonPrev'
-import ButtonNext from '~/components/ButtonNext'
+import ButtonPrev from 'components/ButtonPrev'
+import ButtonNext from 'components/ButtonNext'
 
 import * as Styles from './styles'
 

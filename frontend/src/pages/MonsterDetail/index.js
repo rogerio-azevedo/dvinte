@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import api from '~/services/api'
+import api from 'services/api'
 
 import * as Styles from './styles'
 
@@ -13,7 +13,6 @@ export default function MonsterDetail() {
     async function loadChar() {
       const response = await api.get(`monsters/${id}`)
       const { data } = response
-      console.log(data)
       setMonster(data)
       setLoading(false)
     }

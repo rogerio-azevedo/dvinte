@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react'
 import { Stage, Layer, Image } from 'react-konva'
 import useImage from 'use-image'
 
-import { connect, socket } from '~/services/socket'
+import { connect, socket } from '../../../services/socket'
 
 import { Container } from './styles'
 
-import api from '~/services/api'
+import api from '../../../services/api'
 
 export default function RenderWorldMap() {
   // const [stagePos, setStagePos] = useState({ x: 0, y: 0 })

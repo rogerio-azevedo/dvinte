@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { Link } from 'react-router-dom'
-import TopNav from '~/components/TopNav'
+import TopNav from '../TopNav'
 import { FaAlignJustify } from 'react-icons/fa/'
 
-import { showMenuRequest } from '~/store/modules/menu/actions'
+import { showMenuRequest } from '../../store/modules/menu/actions'
 
 // import Notifications from '~/components/Notifications';
 

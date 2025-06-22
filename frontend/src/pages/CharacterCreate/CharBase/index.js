@@ -3,17 +3,17 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 
-import { charBaseRequest } from '~/store/modules/character/actions'
+import { charBaseRequest } from '../../../store/modules/character/actions'
 
-import SelectAlignment from '~/components/SelectAlignment'
-import SelectDivinity from '~/components/SelectDivinity'
-import SelectRace from '~/components/SelectRace'
-import SelectLevel from '~/components/SelectLevel'
-import SelectGender from '~/components/SelectGender'
-import SelectSize from '~/components/SelectSize'
+import SelectAlignment from '../../../components/SelectAlignment'
+import SelectDivinity from '../../../components/SelectDivinity'
+import SelectRace from '../../../components/SelectRace'
+import SelectLevel from '../../../components/SelectLevel'
+import SelectGender from '../../../components/SelectGender'
+import SelectSize from '../../../components/SelectSize'
 
-import ButtonPrev from '~/components/ButtonPrev'
-import ButtonNext from '~/components/ButtonNext'
+import ButtonPrev from '../../../components/ButtonPrev'
+import ButtonNext from '../../../components/ButtonNext'
 
 import * as Styles from './styles'
 

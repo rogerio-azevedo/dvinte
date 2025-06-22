@@ -4,8 +4,8 @@ import { format, parseISO } from 'date-fns'
 import { utcToZonedTime } from 'date-fns-tz'
 import { toast } from 'react-toastify'
 
-import api from '~/services/api'
-import { connect, socket } from '~/services/socket'
+import api from '../../../services/api'
+import { connect, socket } from '../../../services/socket'
 
 import * as Styles from './styles'
 

@@ -2,15 +2,15 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { FaTimes } from 'react-icons/fa'
-import api from '~/services/api'
+import api from 'services/api'
 
-import { charClassRequest } from '~/store/modules/character/actions'
+import { charClassRequest } from 'store/modules/character/actions'
 
-import SelectLevel from '~/components/SelectLevel'
-import SelectClasse from '~/components/SelectClasse'
+import SelectLevel from 'components/SelectLevel'
+import SelectClasse from 'components/SelectClasse'
 
-import ButtonPrev from '~/components/ButtonPrev'
-import ButtonNext from '~/components/ButtonNext'
+import ButtonPrev from 'components/ButtonPrev'
+import ButtonNext from 'components/ButtonNext'
 
 import * as Styles from './styles'
 

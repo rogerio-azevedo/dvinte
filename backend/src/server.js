@@ -1,8 +1,8 @@
 import http from 'http'
 
-import { setupWebsocket } from './websocket'
+import { setupWebsocket } from './websocket.js'
 
-import app from './app'
+import app from './app.js'
 
 const server = http.Server(app)
 setupWebsocket(server)

@@ -1,5 +1,5 @@
 import React from 'react'
-import RenderWorldMap from '~/components/CombatComponents/RenderWorldMap'
+import RenderWorldMap from 'components/CombatComponents/RenderWorldMap'
 
 import { Container, MapContainer } from './styles'
 

@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
-import api from '~/services/api'
+import api from 'services/api'
 
-import SelectWeapon from '~/components/SelectWeapon'
-import { diceDataRequest } from '~/store/modules/dices/actions'
+import SelectWeapon from 'components/SelectWeapon'
+import { diceDataRequest } from 'store/modules/dices/actions'
 
 import * as Styles from './styles'
 

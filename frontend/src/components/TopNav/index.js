@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-// import api from '~/services/api'
+// import api from '../../../services/api'
 
-import logoBlack from '~/assets/logo_black.svg'
+import logoBlack from '../../assets/logo_black.svg'
 //import logoRed from '~/assets/logo_red.svg'
 
 import { Navigation, Container, Dropmenu, Logo } from './styles'

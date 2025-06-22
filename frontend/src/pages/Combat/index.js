@@ -4,9 +4,9 @@ import { toast } from 'react-toastify'
 import ReactTooltip from 'react-tooltip'
 import { Link } from 'react-router-dom'
 
-import api from '~/services/api'
+import api from 'services/api'
 
-import { connect, socket } from '~/services/socket'
+import { connect, socket } from 'services/socket'
 import {
   FaComments,
   FaUserClock,
@@ -25,16 +25,16 @@ import {
 
 import * as Styles from './styles'
 
-import RenderMap from '~/components/CombatComponents/RenderMap'
-import Chat from '~/components/CombatComponents/Chat'
-import Savins from '~/components/CombatComponents/Savings'
-import Armory from '~/components/CombatComponents/Armory'
-import Initiatives from '~/components/CombatComponents/Initiatives'
-import DamagesCounter from '~/components/CombatComponents/DamagesCounter'
-import CharStatus from '~/components/CombatComponents/CharStatus'
-import LogBoard from '~/components/CombatComponents/LogBoard'
-import Dices from '~/components/CombatComponents/Dices'
-import MapTool from '~/components/CombatComponents/MapTool'
+import RenderMap from 'components/CombatComponents/RenderMap'
+import Chat from 'components/CombatComponents/Chat'
+import Savins from 'components/CombatComponents/Savings'
+import Armory from 'components/CombatComponents/Armory'
+import Initiatives from 'components/CombatComponents/Initiatives'
+import DamagesCounter from 'components/CombatComponents/DamagesCounter'
+import CharStatus from 'components/CombatComponents/CharStatus'
+import LogBoard from 'components/CombatComponents/LogBoard'
+import Dices from 'components/CombatComponents/Dices'
+import MapTool from 'components/CombatComponents/MapTool'
 
 import ScrollContainer from 'react-indiana-drag-scroll'
 

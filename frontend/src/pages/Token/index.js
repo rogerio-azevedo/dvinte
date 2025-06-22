@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
-import api from '~/services/api'
+import api from 'services/api.js'
 
-import TokenInput from '~/components/TokenInput'
+import TokenInput from 'components/TokenInput'
 import { toast } from 'react-toastify'
 
 import { Container, TableContainer, Portrait, MyTable } from './styles'
@@ -69,7 +69,7 @@ export default function Token() {
     {
       title: 'Habilitado',
       dataIndex: 'enabled',
-      render: (text, item) => (
+      render: () => (
         <input
           type="checkbox"
           value={enabled}
@@ -80,8 +80,10 @@ export default function Token() {
     {
       title: 'Adicionar',
       dataIndex: 'Adicionar',
-      render: (text, item) => (
-        <button onClick={() => handleCreateToken(item.id)}>Adicionar</button>
+      render: item => (
+        <button type="button" onClick={() => handleCreateToken(item.id)}>
+          Adicionar
+        </button>
       ),
     },
   ]

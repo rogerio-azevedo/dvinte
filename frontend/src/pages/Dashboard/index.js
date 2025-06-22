@@ -4,10 +4,10 @@ import React, { useState, useEffect } from 'react'
 import { MdWhatshot } from 'react-icons/md'
 import { lighten } from 'polished'
 
-import SpinnerLoad from '~/components/SpinnerLoad'
+import SpinnerLoad from 'components/SpinnerLoad'
 
 import { Container, DashContainer, DashHeader } from './styles'
-// import api from '~/services/api'
+// import api from '../../../services/api'
 
 export default function Dashboard() {
   const [loading, setLoading] = useState()

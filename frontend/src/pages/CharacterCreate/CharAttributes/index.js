@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { FaPlusCircle, FaMinusCircle } from 'react-icons/fa'
 
-import { charAttrsRequest } from '~/store/modules/character/actions'
+import { charAttrsRequest } from 'store/modules/character/actions'
 
-import ButtonPrev from '~/components/ButtonPrev'
-import ButtonNext from '~/components/ButtonNext'
+import ButtonPrev from 'components/ButtonPrev'
+import ButtonNext from 'components/ButtonNext'
 
 import * as Styles from './styles'
 

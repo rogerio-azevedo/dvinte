@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Select from 'react-select'
 import PropTypes from 'prop-types'
 
-export default function SelectWeapon({ changeWeapon, weapons }) {
+export default function SelectWeapon({ changeWeapon, weapons = [] }) {
   const [weapon, setWeapon] = useState([])
   const [loading, setLoading] = useState(true)
 
@@ -50,8 +50,4 @@ export default function SelectWeapon({ changeWeapon, weapons }) {
 SelectWeapon.propTypes = {
   changeWeapon: PropTypes.func.isRequired,
   weapons: PropTypes.arrayOf(PropTypes.object),
-}
-
-SelectWeapon.defaultProps = {
-  weapons: [],
 }

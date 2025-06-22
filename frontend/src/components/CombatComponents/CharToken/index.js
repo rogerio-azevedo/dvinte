@@ -4,7 +4,7 @@ import Konva from 'konva'
 import useImage from 'use-image'
 import PropTypes from 'prop-types'
 
-import api from '~/services/api'
+import api from '../../../services/api'
 
 export default function CharToken({
   image,
@@ -49,7 +49,7 @@ export default function CharToken({
     })
 
     api.put('chartokens', {
-      id: e.target.id(),
+      id: Number(e.target.id()) || e.target.id(),
       x: e.target.x(),
       y: e.target.y(),
     })
@@ -64,7 +64,7 @@ export default function CharToken({
 
   function handleTransform(e) {
     api.put('chartokens', {
-      id: e.target.id(),
+      id: Number(e.target.id()) || e.target.id(),
       x: e.target.x(),
       y: e.target.y(),
       width: e.target.width() * e.target.scaleX(),
@@ -108,7 +108,7 @@ export default function CharToken({
 
 CharToken.propTypes = {
   image: PropTypes.string.isRequired,
-  id: PropTypes.number.isRequired,
+  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   x: PropTypes.number.isRequired,
   y: PropTypes.number.isRequired,
   width: PropTypes.number.isRequired,

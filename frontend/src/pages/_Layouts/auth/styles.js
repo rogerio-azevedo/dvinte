@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import { darken } from 'polished'
-import img from '~/assets/Dragon.jpg'
+import img from '../../../assets/Dragon.jpg'
 
 export const Wrapper = styled.div`
   height: 100%;

@@ -1,48 +1,48 @@
 import { Router } from 'express'
 import multer from 'multer'
-import multerConfig from './config/multer'
+import multerConfig from './config/multer.js'
 
-import authMiddleware from './app/middlewares/auth'
+import authMiddleware from './app/middlewares/auth.js'
 
-import AlignmentController from './app/controllers/AlignmentController'
-import ClassController from './app/controllers/ClassController'
-import DivinityController from './app/controllers/DivinityController'
-import CharacterController from './app/controllers/CharacterController'
-import MyProfileController from './app/controllers/MyProfileController'
+import AlignmentController from './app/controllers/AlignmentController.js'
+import ClassController from './app/controllers/ClassController.js'
+import DivinityController from './app/controllers/DivinityController.js'
+import CharacterController from './app/controllers/CharacterController.js'
+import MyProfileController from './app/controllers/MyProfileController.js'
 
-import PortraitController from './app/controllers/PortraitController'
-import TokenController from './app/controllers/TokenController'
-import RaceController from './app/controllers/RaceController'
+import PortraitController from './app/controllers/PortraitController.js'
+import TokenController from './app/controllers/TokenController.js'
+import RaceController from './app/controllers/RaceController.js'
 
-import SessionController from './app/controllers/SessionController'
-import UserController from './app/controllers/UserController'
+import SessionController from './app/controllers/SessionController.js'
+import UserController from './app/controllers/UserController.js'
 
-import CombatController from './app/controllers/CombatController'
+import CombatController from './app/controllers/CombatController.js'
 
-import CampaignController from './app/controllers/CampaignController'
-import AttributeController from './app/controllers/AttributeController'
-import BaseAttackController from './app/controllers/BaseAttackController'
-import BaseResistController from './app/controllers/BaseResistController'
+import CampaignController from './app/controllers/CampaignController.js'
+import AttributeController from './app/controllers/AttributeController.js'
+import BaseAttackController from './app/controllers/BaseAttackController.js'
+import BaseResistController from './app/controllers/BaseResistController.js'
 
-import WeaponController from './app/controllers/WeaponController'
-import ArmorController from './app/controllers/ArmorController'
-import EquipmentController from './app/controllers/EquipmentController'
+import WeaponController from './app/controllers/WeaponController.js'
+import ArmorController from './app/controllers/ArmorController.js'
+import EquipmentController from './app/controllers/EquipmentController.js'
 
-import InitiativeController from './app/controllers/InitiativeController'
-import HealthController from './app/controllers/HealthController'
+import InitiativeController from './app/controllers/InitiativeController.js'
+import HealthController from './app/controllers/HealthController.js'
 
-import NotesController from './app/controllers/NotesController'
-import DamageController from './app/controllers/DamageController'
+import NotesController from './app/controllers/NotesController.js'
+import DamageController from './app/controllers/DamageController.js'
 
-import CharacterTokenController from './app/controllers/CharacterTokenController'
-import CharacterWeaponController from './app/controllers/CharacterWeaponController'
-import CharacterArmorController from './app/controllers/CharacterArmorController'
-import CharacterEquipmentController from './app/controllers/CharacterEquipmentController'
+import CharacterTokenController from './app/controllers/CharacterTokenController.js'
+import CharacterWeaponController from './app/controllers/CharacterWeaponController.js'
+import CharacterArmorController from './app/controllers/CharacterArmorController.js'
+import CharacterEquipmentController from './app/controllers/CharacterEquipmentController.js'
 
-import AttributeTempController from './app/controllers/AttributeTempController'
-import GameMapController from './app/controllers/GameMapController'
-import MonsterController from './app/controllers/MonsterController'
-import MonsterHealthController from './app/controllers/MonsterHealthController'
+import AttributeTempController from './app/controllers/AttributeTempController.js'
+import GameMapController from './app/controllers/GameMapController.js'
+import MonsterController from './app/controllers/MonsterController.js'
+import MonsterHealthController from './app/controllers/MonsterHealthController.js'
 
 const routes = new Router()
 const upload = multer(multerConfig)
@@ -50,6 +50,11 @@ const upload = multer(multerConfig)
 routes.post('/sessions', SessionController.store)
 routes.post('/users', UserController.store)
 
+// Health check routes (sem autenticação)
+routes.get('/', (req, res) => res.json({ message: 'server UP' }))
+routes.get('/health', (req, res) =>
+  res.json({ message: 'server UP', status: 'healthy' })
+)
 routes.get('/check', (req, res) => res.send('API ONLINE'))
 
 routes.use(authMiddleware)

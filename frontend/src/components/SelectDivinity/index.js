@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Select from 'react-select'
 import PropTypes from 'prop-types'
-import api from '~/services/api'
+import api from 'services/api'
 
 export default function SelectDivinity({ changeDivinity, defaultValue }) {
   const [divinity, setDivinity] = useState([])

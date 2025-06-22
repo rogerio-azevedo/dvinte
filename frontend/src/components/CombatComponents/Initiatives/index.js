@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import api from '~/services/api'
-import { connect, socket } from '~/services/socket'
+import api from '../../../services/api'
+import { connect, socket } from '../../../services/socket'
 
 import * as Styles from './styles'
 

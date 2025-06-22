@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Form, Input } from '@rocketseat/unform'
 import * as Yup from 'yup'
-import { signInRequest } from '~/store/modules/auth/actions'
+import { signInRequest } from 'store/modules/auth/actions'
 
 const schema = Yup.object().shape({
   email: Yup.string()

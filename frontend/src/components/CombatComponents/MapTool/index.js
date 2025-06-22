@@ -3,14 +3,14 @@ import { useSelector, useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 import { Switch } from 'antd'
 
-import api from '~/services/api'
-import { socket } from '~/services/socket'
+import api from 'services/api'
+import { socket } from 'services/socket'
 
 import {
   fogLevelRequest,
   eraserSizeRequest,
   fogReset,
-} from '~/store/modules/menu/actions'
+} from 'store/modules/menu/actions'
 
 import * as Styles from './styles'
 

@@ -4,9 +4,9 @@ import { toast } from 'react-toastify'
 import ReactTooltip from 'react-tooltip'
 import { Link } from 'react-router-dom'
 
-import api from '~/services/api'
+import api from 'services/api.js'
 
-import { connect, socket } from '~/services/socket'
+import { connect, socket } from 'services/socket'
 
 import * as Styles from './styles'
 
@@ -26,20 +26,20 @@ import {
   GiBrain,
 } from 'react-icons/gi'
 
-import Chat from '~/components/CombatComponents/Chat'
-import Savins from '~/components/CombatComponents/Savings'
-import ArmoryDelay from '~/components/CombatComponents/ArmoryDelay'
-import Initiatives from '~/components/CombatComponents/Initiatives'
-import DamagesCounter from '~/components/CombatComponents/DamagesCounter'
-import CharStatus from '~/components/CombatComponents/CharStatus'
-import LogBoard from '~/components/CombatComponents/LogBoard'
-import MapTool from '~/components/CombatComponents/MapTool'
+import Chat from 'components/CombatComponents/Chat'
+import Savins from 'components/CombatComponents/Savings'
+import ArmoryDelay from 'components/CombatComponents/ArmoryDelay'
+import Initiatives from 'components/CombatComponents/Initiatives'
+import DamagesCounter from 'components/CombatComponents/DamagesCounter'
+import CharStatus from 'components/CombatComponents/CharStatus'
+import LogBoard from 'components/CombatComponents/LogBoard'
+import MapTool from 'components/CombatComponents/MapTool'
 
-import RenderMap from '~/components/CombatComponents/RenderMap'
+import RenderMap from 'components/CombatComponents/RenderMap'
 import ScrollContainer from 'react-indiana-drag-scroll'
 
-import MyDices from '~/components/CombatComponents/MyDices'
-import { diceDataRequest } from '~/store/modules/dices/actions'
+import MyDices from 'components/CombatComponents/MyDices'
+import { diceDataRequest } from 'store/modules/dices/actions'
 
 export default function Play() {
   const { profile } = useSelector(state => state.user)

@@ -5,16 +5,16 @@ import { Stage, Layer, Line, Image, Rect } from 'react-konva'
 import useImage from 'use-image'
 // import Dices from '~/components/Dices'
 
-import { fogPersistRequest } from '~/store/modules/menu/actions'
+import { fogPersistRequest } from 'store/modules/menu/actions'
 
-import { connect, socket } from '~/services/socket'
+import { connect, socket } from 'services/socket'
 
-import CharToken from '~/components/CombatComponents/CharToken'
+import CharToken from 'components/CombatComponents/CharToken'
 import { Container } from './styles'
 
-import api from '~/services/api'
+import api from 'services/api'
 
-export default function RenderMap({ tokens, allowDrag }) {
+export default function RenderMap({ tokens = [], allowDrag }) {
   const profile = useSelector(state => state.user.profile)
   const { fogLevel, eraserSize } = useSelector(state => state.menu)
   const { fogPersist } = useSelector(state => state.menu)
@@ -261,7 +261,7 @@ export default function RenderMap({ tokens, allowDrag }) {
               <CharToken
                 tokens={tokens}
                 key={item.id}
-                id={item.id}
+                id={String(item.id)}
                 x={item.x}
                 y={item.y}
                 isSelected={!allowDrag && item.id === selectedId}
@@ -287,7 +287,7 @@ export default function RenderMap({ tokens, allowDrag }) {
               <CharToken
                 tokens={tokens}
                 key={item.id}
-                id={item.id}
+                id={String(item.id)}
                 x={item.x}
                 y={item.y}
                 isSelected={
@@ -324,8 +324,4 @@ export default function RenderMap({ tokens, allowDrag }) {
 
 RenderMap.propTypes = {
   tokens: PropTypes.arrayOf(PropTypes.object),
-}
-
-RenderMap.defaultProps = {
-  tokens: [],
 }

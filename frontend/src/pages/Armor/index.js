@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { Select } from 'antd'
 
-import Button from '~/components/Button'
+import Button from 'components/Button'
 import { FaPlusCircle } from 'react-icons/fa'
-import ModalArmorCreate from '~/components/Modals/ModalArmorCreate'
+import ModalArmorCreate from 'components/Modals/ModalArmorCreate'
 
-import api from '~/services/api'
+import api from 'services/api'
 
 import * as Styles from './styles'
 

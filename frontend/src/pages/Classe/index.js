@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import api from '~/services/api'
+import api from 'services/api'
 
-import Button from '~/components/Button'
+import Button from 'components/Button'
 import { Container, FormContainer, ListItens } from './styles'
 
 export default function Classe() {
