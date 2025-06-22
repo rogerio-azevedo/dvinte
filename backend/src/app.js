@@ -18,12 +18,8 @@ class App {
     const allowedOrigins = [
       'http://localhost:3000',
       'http://localhost:3001',
-      // Adicionar domínios de produção quando disponíveis
+      'https://dvinte-react.vercel.app',
       process.env.FRONTEND_URL,
-      /\.vercel\.app$/,
-      /\.netlify\.app$/,
-      /\.railway\.app$/,
-      /\.onrender\.com$/,
     ].filter(Boolean)
 
     this.server.use(
@@ -32,24 +28,22 @@ class App {
           // Permitir requests sem origin (mobile apps, etc.)
           if (!origin) return callback(null, true)
 
-          // Verificar se a origin está na lista permitida
-          const isAllowed = allowedOrigins.some(allowedOrigin => {
-            if (typeof allowedOrigin === 'string') {
-              return allowedOrigin === origin
-            }
-            if (allowedOrigin instanceof RegExp) {
-              return allowedOrigin.test(origin)
-            }
-            return false
-          })
+          // Verificar se a origin está na lista permitida ou se é um domínio .vercel.app
+          const isAllowed =
+            allowedOrigins.includes(origin) ||
+            (origin && origin.endsWith('.vercel.app')) ||
+            (origin && origin.endsWith('.onrender.com'))
 
           if (isAllowed) {
             callback(null, true)
           } else {
+            console.log('CORS blocked origin:', origin)
             callback(new Error('Not allowed by CORS'))
           }
         },
         credentials: true,
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'Authorization'],
       })
     )
     this.server.use(express.json())
