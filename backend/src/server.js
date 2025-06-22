@@ -9,4 +9,9 @@ setupWebsocket(server)
 
 require('dotenv/config')
 
-server.listen(process.env.SERVER_PORT)
+const port = process.env.PORT || 9600
+
+server.listen(port, () => {
+  console.log(`🚀 Server running on port ${port}`)
+  console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`)
+})
