@@ -20,6 +20,9 @@ export default function RenderMap({ tokens, allowDrag }) {
   const { fogPersist } = useSelector(state => state.menu)
 
   const [stagePos, setStagePos] = useState({ x: 0, y: 0 })
+  const [stageScale, setStageScale] = useState(1)
+  const [stageX, setStageX] = useState(0)
+  const [stageY, setStageY] = useState(0)
   const [lines, setLines] = useState(fogPersist)
   const [isDrawing, setIsDrawing] = useState(false)
   const [selectedId, selectShape] = useState(null)
@@ -60,6 +63,31 @@ export default function RenderMap({ tokens, allowDrag }) {
   async function getMap() {
     const response = await api.get('maps/1')
     setMapData(response?.data)
+  }
+
+  function handleWheel(e) {
+    // Sempre permitir zoom independente do modo
+    e.evt.preventDefault()
+
+    const scaleBy = 1.08
+    const stage = e.target.getStage()
+    const oldScale = stage.scaleX()
+    const mousePointTo = {
+      x: stage.getPointerPosition().x / oldScale - stage.x() / oldScale,
+      y: stage.getPointerPosition().y / oldScale - stage.y() / oldScale,
+    }
+
+    const newScale = e.evt.deltaY > 0 ? oldScale * scaleBy : oldScale / scaleBy
+
+    setStageScale(newScale)
+
+    setStageX(
+      -(mousePointTo.x - stage.getPointerPosition().x / newScale) * newScale
+    )
+
+    setStageY(
+      -(mousePointTo.y - stage.getPointerPosition().y / newScale) * newScale
+    )
   }
 
   useEffect(() => {
@@ -142,25 +170,26 @@ export default function RenderMap({ tokens, allowDrag }) {
     dispatch(fogPersistRequest(lines))
   }, [lines, dispatch])
 
-  // const defaultMap = 'https://i.imgur.com/cUyn2zF.jpg'
-  const defaultMap = ''
-
-  const [map] = useImage(mapData?.battle || defaultMap)
+  const [map] = useImage(mapData?.battle)
 
   const [portrait] = useImage(mapData?.portrait || '')
 
   return (
     <Container>
       <Stage
-        x={stagePos.x}
-        y={stagePos.y}
-        // width={window.innerWidth}
-        // height={window.innerHeight}
-        width={mapData?.width}
-        height={mapData?.height}
-        //draggable
+        x={stageX}
+        y={stageY}
+        scaleX={stageScale}
+        scaleY={stageScale}
+        width={window.innerWidth}
+        height={window.innerHeight}
+        onWheel={handleWheel}
+        draggable={allowDrag}
         onDragEnd={e => {
-          setStagePos(e.currentTarget.position())
+          if (allowDrag) {
+            setStageX(e.currentTarget.x())
+            setStageY(e.currentTarget.y())
+          }
         }}
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
@@ -175,8 +204,8 @@ export default function RenderMap({ tokens, allowDrag }) {
             opacity={1}
             // width={window.innerWidth}
             // height={window.innerHeight}
-            width={mapData?.width}
-            height={mapData?.height}
+            width={(mapData?.width || 1200) * 0.6}
+            height={(mapData?.height || 800) * 0.6}
           />
         </Layer>
 
@@ -191,8 +220,8 @@ export default function RenderMap({ tokens, allowDrag }) {
             y={0}
             // width={mapData?.width}
             // height={mapData?.height}
-            width={mapData?.width}
-            height={mapData?.height}
+            width={mapData?.width || 1200}
+            height={mapData?.height || 800}
             fill={is_gm ? '#ff0000 ' : '#333'}
             opacity={
               mapData?.fog && is_gm

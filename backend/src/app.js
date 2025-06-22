@@ -15,6 +15,12 @@ class App {
 
   middlewares() {
     this.server.use(cors('*'))
+    // this.server.use(
+    //   cors({
+    //     origin: ['http://localhost:3000', 'http://localhost:3001'],
+    //     credentials: true,
+    //   })
+    // )
     this.server.use(express.json())
     this.server.use(
       '/portraits',

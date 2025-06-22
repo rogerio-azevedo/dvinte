@@ -56,7 +56,8 @@ class DamageController {
         $match: {
           type: 4,
           createdAt: {
-            $gte: combatStart[0].createdAt,
+            $gte:
+              combatStart.length > 0 ? combatStart[0].createdAt : new Date(),
             $lte: parseISO(data2),
           },
         },
@@ -66,7 +67,8 @@ class DamageController {
         $match: {
           type: 4,
           createdAt: {
-            $gte: sessionStart[0].createdAt,
+            $gte:
+              sessionStart.length > 0 ? sessionStart[0].createdAt : new Date(),
             $lte: parseISO(data2),
           },
         },
