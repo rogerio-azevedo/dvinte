@@ -48,13 +48,13 @@ async function registerPlugins() {
   try {
     // CORS
     await fastify.register(cors, {
-      origin: true, // Aceita qualquer origem
+      origin: true,
       credentials: true,
     })
 
     // JWT
     await fastify.register(jwt, {
-      secret: process.env.APP_SECRET || 'dvinte-secret-key-2024',
+      secret: process.env.APP_SECRET || '',
     })
 
     // Multipart for file uploads

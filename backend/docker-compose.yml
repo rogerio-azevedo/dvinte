@@ -1,0 +1,27 @@
+services:
+  backend:
+    build: .
+    ports:
+      - '9600:9600'
+    environment:
+      - NODE_ENV=production
+      - PORT=9600
+      # PostgreSQL do Supabase (mesmas variáveis do EB)
+      - DB_DIALECT=${DB_DIALECT:-postgres}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT:-5432}
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+      # URLs da aplicação
+      - APP_URL=${APP_URL}
+      # JWT Secret
+      - APP_SECRET=${APP_SECRET}
+      # MongoDB
+      - MONGO_URL=${MONGO_URL}
+      # Upload directory
+      - UPLOAD_DIR=${UPLOAD_DIR:-tmp/uploads}
+    volumes:
+      - .:/app
+      - /app/node_modules
+    restart: unless-stopped
