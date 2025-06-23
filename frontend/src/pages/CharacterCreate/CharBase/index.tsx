@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
+/* eslint-disable react-hooks/exhaustive-deps */
 
 import { useEffect, useRef, useCallback, useState } from 'react'
 import { useSelector } from 'react-redux'
