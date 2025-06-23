@@ -35,7 +35,7 @@
     "pg-hstore": "^2.3.4",
     "pino-pretty": "^13.0.0",
     "sequelize": "^6.35.1",
-    "sharp": "^0.32.6",
+    "sharp": "^0.34.2",
     "socket.io": "^4.8.1",
     "zod": "^3.25.67"
   },
