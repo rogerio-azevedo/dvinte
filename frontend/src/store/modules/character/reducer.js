@@ -1,3 +1,6 @@
+/* eslint-disable no-console */
+/* eslint-disable no-unused-vars */
+
 import produce from 'immer'
 
 const INITIAL_STATE = {
@@ -16,7 +19,16 @@ export default function character(state = INITIAL_STATE, action) {
       }
 
       case '@character/CHAR_BASE_SUCCESS': {
+        console.log('🔍 Reducer CHAR_BASE_SUCCESS - Payload:', action.payload)
+        console.log(
+          '🔍 Reducer CHAR_BASE_SUCCESS - Base data:',
+          action.payload.base
+        )
         draft.base = action.payload.base
+        console.log(
+          '🔍 Reducer CHAR_BASE_SUCCESS - Estado após atualização:',
+          draft
+        )
         break
       }
 

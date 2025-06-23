@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 // import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Table } from 'antd'
-import api from 'services/api.js'
+import api from '../../services/api'
 
 import { Container, TableContainer, Portrait } from './styles'
 

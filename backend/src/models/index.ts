@@ -593,9 +593,9 @@ Portrait.init(
     url: {
       type: DataTypes.VIRTUAL,
       get() {
-        return `${process.env.APP_URL || 'http://localhost:9600'}/files/${
-          this.path
-        }`
+        return `${
+          process.env.APP_URL || 'http://localhost:9600'
+        }/portrait-files/${this.getDataValue('path')}`
       },
     },
   },
@@ -655,9 +655,9 @@ Token.init(
     url: {
       type: DataTypes.VIRTUAL,
       get() {
-        return `${process.env.APP_URL || 'http://localhost:9600'}/tokens/${
-          this.path
-        }`
+        return `${
+          process.env.APP_URL || 'http://localhost:9600'
+        }/token-files/${this.getDataValue('path')}`
       },
     },
   },

@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import api from 'services/api'
+import api from '../../services/api'
 
-import CharClass from 'components/CharClass'
-import CharArmor from 'components/CharArmor'
-import CharWeapon from 'components/CharWeapon'
-import CharEquipment from 'components/CharEquipment'
-import CharCa from 'components/CharCa'
-import CharResist from 'components/CharResist'
+import CharClass from '../../components/CharClass'
+import CharArmor from '../../components/CharArmor'
+import CharWeapon from '../../components/CharWeapon'
+import CharEquipment from '../../components/CharEquipment'
+import CharCa from '../../components/CharCa'
+import CharResist from '../../components/CharResist'
 
 import * as Styles from './styles'
 

@@ -5,14 +5,14 @@ import { Stage, Layer, Line, Image, Rect } from 'react-konva'
 import useImage from 'use-image'
 // import Dices from '~/components/Dices'
 
-import { fogPersistRequest } from 'store/modules/menu/actions'
+import { fogPersistRequest } from '../../../store/modules/menu/actions'
 
-import { connect, socket } from 'services/socket'
+import { connect, socket } from '../../../services/socket'
 
-import CharToken from 'components/CombatComponents/CharToken'
+import CharToken from '../../../components/CombatComponents/CharToken'
 import { Container } from './styles'
 
-import api from 'services/api'
+import api from '../../../services/api'
 
 export default function RenderMap({ tokens = [], allowDrag }) {
   const profile = useSelector(state => state.user.profile)

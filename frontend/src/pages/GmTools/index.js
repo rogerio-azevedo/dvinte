@@ -6,7 +6,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import Select from 'react-select'
 
-import api from 'services/api.js'
+import api from '../../services/api'
 
 // import SelectCharacter from '~/components/SelectCharacter'
 import * as Styles from './styles'

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import PropTypes, { object } from 'prop-types'
 import { FaTimes } from 'react-icons/fa'
-import api from 'services/api.js'
+import api from '../../services/api'
 
 import { Container, InputLarge, InputMed, InputShort, LabelDel } from './styles'
 

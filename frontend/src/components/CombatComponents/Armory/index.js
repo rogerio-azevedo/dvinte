@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
-import api from 'services/api.js'
+import api from '../../../services/api'
 
-import SelectWeapon from 'components/SelectWeapon'
+import SelectWeapon from '../../../components/SelectWeapon'
 
 import * as Styles from './styles'
 

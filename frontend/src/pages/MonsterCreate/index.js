@@ -5,13 +5,13 @@ import { toast } from 'react-toastify'
 import * as Styles from './styles'
 import { FaTimes } from 'react-icons/fa'
 
-import Button from 'components/Button'
-import SelectSize from 'components/SelectSize'
-import SelectMonsterType from 'components/SelectMonsterType'
-import SelectMonsterSubType from 'components/SelectMonsterSubType'
-import SelectAlignment from 'components/SelectAlignment'
+import Button from '../../components/Button'
+import SelectSize from '../../components/SelectSize'
+import SelectMonsterType from '../../components/SelectMonsterType'
+import SelectMonsterSubType from '../../components/SelectMonsterSubType'
+import SelectAlignment from '../../components/SelectAlignment'
 
-import api from 'services/api.js'
+import api from '../../services/api'
 
 export default function MonsterCreate() {
   const [size, setSize] = useState()

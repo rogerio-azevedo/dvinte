@@ -3,11 +3,11 @@ import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import { format, parseISO } from 'date-fns'
 import { utcToZonedTime } from 'date-fns-tz'
-import api from 'services/api.js'
+import api from '../../services/api'
 
 import * as Styles from './styles'
 
-import { connect, socket } from 'services/socket'
+import { connect, socket } from '../../services/socket'
 
 export default function Notes() {
   const profile = useSelector(state => state.user.profile)

@@ -6,9 +6,9 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import { Switch } from 'antd'
 
-import api from 'services/api'
+import api from '../../../services/api'
 
-import SelectCharacter from 'components/SelectCharacter'
+import SelectCharacter from '../../../components/SelectCharacter'
 
 import * as Styles from './styles'
 

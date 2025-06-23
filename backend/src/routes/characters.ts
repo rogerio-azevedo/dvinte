@@ -54,7 +54,7 @@ export default async function characterRoutes(fastify: FastifyInstance) {
           divinity: charData.divinity?.name || '',
           user: charData.user?.name || '',
           portrait: charData.portrait?.path
-            ? `http://localhost:9600/files/${charData.portrait.path}`
+            ? `http://localhost:9600/portrait-files/${charData.portrait.path}`
             : '',
         }
       })

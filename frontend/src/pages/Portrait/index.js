@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react'
+/* eslint-disable no-console */
 
-import api from 'services/api'
+import { useState, useEffect } from 'react'
 
-import AvatarInput from 'components/PortraitInput'
+import api from '../../services/api'
+
+import AvatarInput from '../../components/PortraitInput'
 
 import { Container, ImageContainer, List, Item } from './styles'
 
@@ -13,10 +15,17 @@ export default function Portrait() {
 
   useEffect(() => {
     async function loadList() {
-      const response = await api.get('portraits')
+      try {
+        console.log('Fazendo requisição para portraits...')
+        const response = await api.get('/portraits')
+        console.log('Resposta recebida:', response.data)
 
-      setList(response.data)
-      setLoading(false)
+        setList(response.data)
+        setLoading(false)
+      } catch (error) {
+        console.error('Erro ao carregar portraits:', error)
+        setLoading(false)
+      }
     }
 
     loadList()

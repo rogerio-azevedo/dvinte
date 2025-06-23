@@ -9,7 +9,7 @@ class Portrait extends Model {
         url: {
           type: Sequelize.VIRTUAL,
           get() {
-            return `${process.env.APP_URL}/portraits/${this.path}`
+            return `${process.env.APP_URL}/portrait-files/${this.path}`
           },
         },
       },

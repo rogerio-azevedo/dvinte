@@ -1,3 +1,6 @@
+/* eslint-disable no-console */
+/* eslint-disable no-unused-vars */
+
 import { takeLatest, put, call, all } from 'redux-saga/effects'
 import { toast } from 'react-toastify'
 import history from '../../../services/history'
@@ -30,10 +33,13 @@ export function* portraitCharacter({ payload }) {
 
 export function* baseCharacter({ payload }) {
   try {
+    console.log('🔍 Saga baseCharacter - Payload recebido:', payload)
     toast.success('Dados básicos criados com sucesso!')
 
     yield put(charBaseSuccess(payload))
+    console.log('🔍 Saga baseCharacter - Success action disparada')
   } catch (err) {
+    console.error('🔍 Saga baseCharacter - Erro:', err)
     toast.console.error('Houve um erro ao criar o Personagem')
     yield put(charBaseFailure())
   }
@@ -66,6 +72,8 @@ export function* createCharacter({ payload }) {
     yield call(api.post, 'characters', payload)
     toast.success('Personagem criado com sucesso!')
     yield put(charReset())
+    // Limpar flag de criação em progresso
+    localStorage.removeItem('character_creation_in_progress')
     history.push('/characters')
   } catch (err) {
     toast.console.error('Houve um erro ao criar o Personagem')

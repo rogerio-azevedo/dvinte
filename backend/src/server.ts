@@ -21,6 +21,9 @@ import combatRoutes from './routes/combat.js'
 import mapRoutes from './routes/maps.js'
 import charTokenRoutes from './routes/chartokens.js'
 import initiativeRoutes from './routes/initiatives.js'
+import tokenRoutes from './routes/tokens.js'
+import portraitRoutes from './routes/portraits.js'
+import monsterRoutes from './routes/monsters.js'
 
 // Load environment variables
 config()
@@ -64,13 +67,13 @@ async function registerPlugins() {
     // Static files - Portraits
     await fastify.register(staticFiles, {
       root: join(__dirname, '..', 'tmp', 'uploads', 'portraits'),
-      prefix: '/files/',
+      prefix: '/portrait-files/',
     })
 
     // Static files - Tokens
     await fastify.register(staticFiles, {
       root: join(__dirname, '..', 'tmp', 'uploads', 'tokens'),
-      prefix: '/tokens/',
+      prefix: '/token-files/',
       decorateReply: false,
     })
 
@@ -169,10 +172,7 @@ async function start() {
     fastify.log.info('🏥 Registering health routes...')
     await registerHealthRoutes()
 
-    fastify.log.info('🔗 Connecting to databases...')
-    await connectDatabases()
-
-    fastify.log.info('📋 Registering API routes...')
+    fastify.log.info('📋 Registering API routes FIRST...')
 
     fastify.log.info('  - Auth routes...')
     await fastify.register(authRoutes)
@@ -194,6 +194,18 @@ async function start() {
 
     fastify.log.info('  - Initiative routes...')
     await fastify.register(initiativeRoutes)
+
+    fastify.log.info('  - Token routes...')
+    await fastify.register(tokenRoutes)
+
+    fastify.log.info('  - Portrait routes...')
+    await fastify.register(portraitRoutes)
+
+    fastify.log.info('  - Monster routes...')
+    await fastify.register(monsterRoutes)
+
+    fastify.log.info('🔗 Connecting to databases...')
+    await connectDatabases()
 
     // Socket.IO will handle /socket.io/* routes automatically
 

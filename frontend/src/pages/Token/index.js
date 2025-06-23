@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react'
+/* eslint-disable no-console */
+
+import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
-import api from 'services/api.js'
+import api from '../../services/api'
 
-import TokenInput from 'components/TokenInput'
+import TokenInput from '../../components/TokenInput'
 import { toast } from 'react-toastify'
 
 import { Container, TableContainer, Portrait, MyTable } from './styles'
@@ -17,32 +19,48 @@ export default function Token() {
 
   useEffect(() => {
     async function loadList() {
-      const response = await api.get('tokens')
+      try {
+        console.log('Fazendo requisição para tokens...')
+        const response = await api.get('/tokens')
+        console.log('Resposta recebida:', response.data)
 
-      setList(response.data)
-      setLoading(false)
+        setList(response.data)
+        setLoading(false)
+      } catch (error) {
+        console.error('Erro ao carregar tokens:', error)
+        setLoading(false)
+      }
     }
 
     loadList()
   }, [])
 
   async function handleCreateToken(tokenId) {
-    const response = await api.get(`combats/${id}`)
-    const { data } = response
+    try {
+      console.log('Criando token com ID:', tokenId)
+      console.log('User ID:', id)
 
-    const newToken = {
-      x: 250,
-      y: 250,
-      width: 90,
-      height: 90,
-      rotation: 90,
-      character_id: data.Cod,
-      token_id: tokenId,
-      enabled: enabled,
+      const response = await api.get(`combats/${id}`)
+      const { data } = response
+
+      const newToken = {
+        x: 250,
+        y: 250,
+        width: 90,
+        height: 90,
+        rotation: 90,
+        character_id: data.Cod,
+        token_id: tokenId,
+        enabled: enabled,
+      }
+
+      console.log('Criando character token:', newToken)
+      await api.post(`chartokens`, newToken)
+      toast.success('Token adicionado com sucesso!')
+    } catch (error) {
+      console.error('Erro ao criar token:', error)
+      toast.error('Erro ao adicionar token!')
     }
-
-    await api.post(`chartokens`, newToken)
-    toast.success('Token adicionado com sucesso!')
   }
 
   const columns = [
@@ -80,8 +98,8 @@ export default function Token() {
     {
       title: 'Adicionar',
       dataIndex: 'Adicionar',
-      render: item => (
-        <button type="button" onClick={() => handleCreateToken(item.id)}>
+      render: (text, record) => (
+        <button type="button" onClick={() => handleCreateToken(record.id)}>
           Adicionar
         </button>
       ),
